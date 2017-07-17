@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Chronox
+{
+    internal class ChronoxTimeComponent
+    {
+        public int Hours { get; set; }
+
+        public int Minutes { get; set; }
+
+        public int Seconds { get; set; }
+
+        public int MilliSecond { get; set; }
+
+        public ChronoxTimeComponent() : this(0, 0, 0) { }
+
+        public ChronoxTimeComponent(int hour, int minute, int second) : this(hour, minute, second, 0) { }
+
+        public ChronoxTimeComponent(int hour, int minute, int second, int milliSecond)
+        {
+            Hours = hour;
+            Minutes = minute;
+            Seconds = second;
+            MilliSecond = milliSecond;
+        }
+
+        public ChronoxTimeComponent AddHour(int hour)
+        {
+            for(var i = 0; i<Math.Abs(hour); i++)
+            {
+                if(Hours == 0)
+                {
+                    Hours = 24;
+                }
+                this.Hours =  hour < 0 ? Hours -1 : Hours + 1;
+
+                if (this.Hours >= 24)
+                {
+                    Hours = 0;
+                }
+            }
+
+            return this;
+        }
+
+        public ChronoxTimeComponent AddMinute(int minute)
+        {
+            this.Minutes += minute;
+
+            if (this.Minutes >= 60)
+            {
+                AddHour(1);
+
+                Minutes = 0;
+            }
+            return this;
+        }
+
+        public ChronoxTimeComponent AddSecond(int second)
+        {
+            this.Seconds += second;
+
+            if (this.Seconds >= 60)
+            {
+                AddMillisecond(1);
+
+                Seconds = 0;
+            }
+
+            return this;
+        }
+
+        public ChronoxTimeComponent AddMillisecond(int milli)
+        {
+            this.MilliSecond += milli;
+
+            if(this.MilliSecond >= 1000)
+            {
+                AddSecond(1);
+
+                MilliSecond = 0;
+            }
+            return this;
+        }
+
+        public override string ToString() => $"{Hours}:{Minutes}:{Seconds}:{MilliSecond}";
+        
+    }
+}
