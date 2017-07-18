@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Chronox.Interfaces
 {
-    internal interface IScanner
+    internal interface IChronoxScanner
     {
-        ScanResult Scan(ChronoxOption option, string expression);
+        ScanResult Scan(ChronoxSettings option, string expression);
     }
 }

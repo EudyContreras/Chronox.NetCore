@@ -41,9 +41,9 @@ namespace Chronox
 
         private string timeZone;
 
-        public ChronoxPreferences(ChronoxOption options)
+        public ChronoxPreferences(ChronoxSettings settings)
         {
-            var dateTime = DateTime.Now;
+            var dateTime = settings.ReferencDate;
 
             year = dateTime.Year;
             month = dateTime.Month;

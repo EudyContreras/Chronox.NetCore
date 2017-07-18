@@ -12,6 +12,9 @@ namespace Chronox
 {
     internal class ChronoxDateBuilder
     {
+
+        private ChronoxSettings settings;
+
         public DateExtraction Wrapper { get; set; }
 
         private ChronoxDateTimeExtraction ParentExtraction { get; set; }
@@ -22,9 +25,14 @@ namespace Chronox
 
         public DateTime DateTime() => Merge(Date(), Time());
 
+        public ChronoxDateBuilder(ChronoxSettings settings)
+        {
+            this.settings = settings;
+        }
+
         internal void ImplyDefault()
         {
-            var dateTime = System.DateTime.Now;
+            var dateTime = settings.ReferencDate;
 
             ImplyValue(DateTimeUnit.Year, dateTime.Year);
             ImplyValue(DateTimeUnit.Month, dateTime.Month);
@@ -34,7 +42,7 @@ namespace Chronox
             ImplyValue(DateTimeUnit.Second, dateTime.Second);
         }
 
-        internal void NormalizeDateValues(DateTime now, DateTime date, ChronoxOption options)
+        internal void NormalizeDateValues(DateTime now, DateTime date, ChronoxSettings settings)
         {
             if (!impliedValues.ContainsKey(DateTimeUnit.Year) && !knownValues.ContainsKey(DateTimeUnit.Year))
             {
@@ -50,13 +58,13 @@ namespace Chronox
             }
         }
 
-        internal void NormalizeTimeValues(DateTime now, DateTime date, ChronoxOption options)
+        internal void NormalizeTimeValues(DateTime now, DateTime date, ChronoxSettings settings)
         {
             if (!impliedValues.ContainsKey(DateTimeUnit.Hour) && !knownValues.ContainsKey(DateTimeUnit.Hour))
             {
                 if(now.Day != date.Day || now.Month != date.Month || now.Year != date.Year)
                 {
-                    impliedValues.Add(DateTimeUnit.Hour, options.Preferences.PreferedHour);
+                    impliedValues.Add(DateTimeUnit.Hour, settings.Preferences.PreferedHour);
                 }
                 else
                 {
@@ -67,7 +75,7 @@ namespace Chronox
             {
                 if (now.Day != date.Day || now.Month != date.Month || now.Year != date.Year)
                 {
-                    impliedValues.Add(DateTimeUnit.Minute, options.Preferences.PreferedMinute);
+                    impliedValues.Add(DateTimeUnit.Minute, settings.Preferences.PreferedMinute);
                 }
                 else
                 {
@@ -78,7 +86,7 @@ namespace Chronox
             {
                 if (now.Day != date.Day || now.Month != date.Month || now.Year != date.Year)
                 {
-                    impliedValues.Add(DateTimeUnit.Second, options.Preferences.PreferedSecond);
+                    impliedValues.Add(DateTimeUnit.Second, settings.Preferences.PreferedSecond);
                 }
                 else
                 {

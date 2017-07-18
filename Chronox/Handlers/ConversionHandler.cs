@@ -11,11 +11,11 @@ namespace Chronox.Helpers.Interpreters
 {
     internal class ConversionHandler
     {
-        public static int DayOfWeek(ChronoxOption options, string dayOfWeek)
+        public static int DayOfWeek(ChronoxSettings settings, string dayOfWeek)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DaysOfWeek);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DaysOfWeek);
 
             if (dictionary.TryGetValue(dayOfWeek, out key))
             {
@@ -25,11 +25,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static int Month(ChronoxOption options, string month)
+        public static int Month(ChronoxSettings settings, string month)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.MonthsOfYear);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.MonthsOfYear);
 
             if (dictionary.TryGetValue(month, out key))
             {
@@ -39,11 +39,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static int Season(ChronoxOption options, string input)
+        public static int Season(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.SeasonOfYear);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.SeasonOfYear);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -53,11 +53,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static int NumericWord(ChronoxOption options, string input)
+        public static int NumericWord(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWord);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWord);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -67,11 +67,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;            
         }
 
-        public static int NumericWordOrdinal(ChronoxOption options, string input)
+        public static int NumericWordOrdinal(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWordOrdinal);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWordOrdinal);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -81,11 +81,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static int NumericWordCardinal(ChronoxOption options, string input)
+        public static int NumericWordCardinal(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWordCardinal);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWordCardinal);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -95,11 +95,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static long NumericMagnitude(ChronoxOption options, string input)
+        public static long NumericMagnitude(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericMagnitudeCardinal);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericMagnitudeCardinal);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -109,11 +109,11 @@ namespace Chronox.Helpers.Interpreters
             return long.MinValue;
         }
 
-        public static int NumericValue(ChronoxOption options, string input)
+        public static int NumericValue(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -123,11 +123,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static int DayOffset(ChronoxOption options, string input)
+        public static int DayOffset(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DayOffset);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DayOffset);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -137,11 +137,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static ChronoxTimeComponent TimeExpression(ChronoxOption options, string input)
+        public static ChronoxTimeComponent TimeExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeExpressions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeExpressions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -151,11 +151,11 @@ namespace Chronox.Helpers.Interpreters
             return null;
         }
 
-        public static TimeRange TimeOfDay(ChronoxOption options, string input)
+        public static TimeRange TimeOfDay(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeOfDay);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeOfDay);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -165,11 +165,11 @@ namespace Chronox.Helpers.Interpreters
             return null;
         }
 
-        public static int DecadeValues(ChronoxOption options, string input)
+        public static int DecadeValues(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DecadeValues);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DecadeValues);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -179,11 +179,11 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static LogicalOperator LogicalOperator(ChronoxOption options, string input)
+        public static LogicalOperator LogicalOperator(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.LogicalOperator);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.LogicalOperator);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -193,11 +193,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.LogicalOperator.Default;
         }
 
-        public static TimeRepeater RepeaterExpression(ChronoxOption options, string input)
+        public static TimeRepeater RepeaterExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.RepeaterExpressions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.RepeaterExpressions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -207,11 +207,11 @@ namespace Chronox.Helpers.Interpreters
             return TimeRepeater.Default;
         }
 
-        public static DateRepeaterIndicator RepeaterIndicator(ChronoxOption options, string input)
+        public static DateRepeaterIndicator RepeaterIndicator(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.RepeaterExpressions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.RepeaterExpressions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -221,11 +221,11 @@ namespace Chronox.Helpers.Interpreters
             return DateRepeaterIndicator.Default;
         }
 
-        public static TimeDurationExpression DurationExpression(ChronoxOption options, string input)
+        public static TimeDurationExpression DurationExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DurationExpressions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DurationExpressions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -235,11 +235,11 @@ namespace Chronox.Helpers.Interpreters
             return TimeDurationExpression.Default;
         }
 
-        public static TimeDurationIndicator DurationIndicator(ChronoxOption options, string input)
+        public static TimeDurationIndicator DurationIndicator(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DurationIndicators);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DurationIndicators);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -249,11 +249,11 @@ namespace Chronox.Helpers.Interpreters
             return TimeDurationIndicator.Default;
         }
 
-        public static CertaintyType ProximityType(ChronoxOption options, string input)
+        public static CertaintyType ProximityType(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.Proximity);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.Proximity);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -263,11 +263,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.CertaintyType.Default;
         }
 
-        public static TimePeriod TimePeriod<T>(ChronoxOption options, string input)
+        public static TimePeriod TimePeriod<T>(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimePeriods);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimePeriods);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -277,11 +277,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.TimePeriod.Default;
         }
 
-        public static DateArithmeticOperation ArithmeticOperation(ChronoxOption options, string input)
+        public static DateArithmeticOperation ArithmeticOperation(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.ArithmeticOperator);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.ArithmeticOperator);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -291,11 +291,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.DateArithmeticOperation.Default;
         }
 
-        public static DateCasualExpression CasualExpression(ChronoxOption options, string input)
+        public static DateCasualExpression CasualExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.CasualExpressions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.CasualExpressions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -305,11 +305,11 @@ namespace Chronox.Helpers.Interpreters
             return DateCasualExpression.Default;
         }
 
-        public static DateTimeUnit DateTimeUnit(ChronoxOption options, string input)
+        public static DateTimeUnit DateTimeUnit(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DateTimeUnits);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DateTimeUnits);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -319,11 +319,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.DateTimeUnit.Default;
         }
 
-        public static DateTimeUnit DateUnit(ChronoxOption options, string input)
+        public static DateTimeUnit DateUnit(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.DateUnits);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DateUnits);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -333,11 +333,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.DateTimeUnit.Default;
         }
 
-        public static DateTimeUnit TimeUnit(ChronoxOption options, string input)
+        public static DateTimeUnit TimeUnit(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeUnits);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeUnits);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -347,11 +347,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.DateTimeUnit.Default;
         }
 
-        public static TimeRelation GrabberExpression(ChronoxOption options, string input)
+        public static TimeRelation GrabberExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.GrabberExpressions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.GrabberExpressions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -361,11 +361,11 @@ namespace Chronox.Helpers.Interpreters
             return TimeRelation.Default;
         }
 
-        public static TimeFraction Fraction(ChronoxOption options, string input)
+        public static TimeFraction Fraction(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeFractions);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeFractions);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -375,11 +375,11 @@ namespace Chronox.Helpers.Interpreters
             return TimeFraction.Default;
         }
 
-        public static TimeConjointer TimeConjointer(ChronoxOption options, string input)
+        public static TimeConjointer TimeConjointer(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeConjointer);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeConjointer);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -389,11 +389,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.TimeConjointer.Default;
         }
 
-        public static TimeMeridiam TimeMeridiam(ChronoxOption options, string input)
+        public static TimeMeridiam TimeMeridiam(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeMeridiam);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeMeridiam);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -403,11 +403,11 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.TimeMeridiam.Default;
         }
 
-        public static DateTimeExpression InterpretedExpression(ChronoxOption options, string input)
+        public static DateTimeExpression InterpretedExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.InterpretedExpression);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.InterpretedExpression);
 
             if (dictionary.TryGetValue(input, out key))
             {
@@ -417,18 +417,18 @@ namespace Chronox.Helpers.Interpreters
             return DateTimeExpression.Default;
         }
 
-        public static TimeRangePointer RangePointer(ChronoxOption options, string input)
+        public static TimeRangePointer RangePointer(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
-            var dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.RangeIndicator);
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.RangeIndicator);
 
             if (dictionary.TryGetValue(input, out key))
             {
                 return TimeRangePointer.Indicator;
             }
 
-            dictionary = options.Language.VocabularyBank.GetDictionary(Definitions.Property.RangeSeparator);
+            dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.RangeSeparator);
 
             if (dictionary.TryGetValue(input, out key))
             {

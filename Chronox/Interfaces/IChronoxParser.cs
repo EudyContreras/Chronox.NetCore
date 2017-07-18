@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Chronox.Interfaces
 {
-    internal interface IParser
+    internal interface IChronoxParser
     {
-        List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxOption options);
+        List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxSettings settings);
     }
 }

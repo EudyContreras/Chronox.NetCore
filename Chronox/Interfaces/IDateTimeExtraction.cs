@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Chronox.Interfaces
 {
-    internal interface IDateTimeExtraction
+    internal interface IDateTimeExtraction : IChronoxExtraction
     {
+
     }
 }

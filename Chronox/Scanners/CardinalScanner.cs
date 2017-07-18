@@ -11,9 +11,9 @@ using Enumerations;
 
 namespace Chronox.Scanners
 {
-    internal class CardinalScanner : IScanner
+    internal class CardinalScanner : IChronoxScanner
     {
-        public ScanResult Scan(ChronoxOption option, string input)
+        public ScanResult Scan(ChronoxSettings option, string input)
         {
             var scanResult = new ScanResult();
 

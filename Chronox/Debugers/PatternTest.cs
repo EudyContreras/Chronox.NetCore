@@ -14,11 +14,11 @@ namespace Tests
     {
         public Dictionary<string, RegexPattern> Patterns = new Dictionary<string, RegexPattern>();
 
-        public ChronoxOption options = ChronoxOption.Standard;
+        public ChronoxSettings settings = ChronoxSettings.Standard;
 
         public PatternTest()
         {
-            this.Patterns = options.Language.PatternLibrary.Patterns;
+            this.Patterns = settings.Language.PatternLibrary.Patterns;
         }
 
         public void TestDayOfWeek()
@@ -36,7 +36,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.DaysOfWeek).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DaysOfWeek).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -62,7 +62,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.MonthsOfYear).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.MonthsOfYear).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -88,7 +88,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWord).Keys.ToArray())
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWord).Keys.ToArray())
             {
                 var matcher = regex.Match(match);
 
@@ -114,7 +114,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue).Keys.ToArray())
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue).Keys.ToArray())
             {
                 var matcher = regex.Match(match);
 
@@ -140,7 +140,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.DateTimeUnits).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DateTimeUnits).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -166,7 +166,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.GrabberExpressions).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.GrabberExpressions).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -192,7 +192,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.DayOffset).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DayOffset).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -218,7 +218,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeOfDay).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeOfDay).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -244,7 +244,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.SeasonOfYear).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.SeasonOfYear).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -270,7 +270,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeExpressions).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.TimeExpressions).Keys)
             {
                 var matcher = regex.Match(match);
 
@@ -296,7 +296,7 @@ namespace Tests
 
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            foreach (var match in options.Language.VocabularyBank.GetDictionary(Definitions.Property.CasualExpressions).Keys)
+            foreach (var match in settings.Language.VocabularyBank.GetDictionary(Definitions.Property.CasualExpressions).Keys)
             {
                 var matcher = regex.Match(match);
 

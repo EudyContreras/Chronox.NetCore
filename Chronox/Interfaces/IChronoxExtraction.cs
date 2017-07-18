@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox.Interfaces
 {
-    internal interface IExtraction
+    internal interface IChronoxExtraction
     {
         ExtractionResultType ResultType { get; }
     }

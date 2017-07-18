@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxDateTimeExtraction : IExtraction, IDurationExtraction, IRepeaterExtraction, ITimeRangeExtraction, IDateTimeExtraction, IComparable<ChronoxDateTimeExtraction>
+    internal class ChronoxDateTimeExtraction : IDateTimeExtraction, IComparable<ChronoxDateTimeExtraction>
     {
 
         public int Index { get; set; }
@@ -20,25 +20,21 @@ namespace Chronox
 
         public DateTime ReferenceDate { get; set; }
 
-        private ChronoxDateBuilder Start { get; set; }
-
-        private ChronoxDateBuilder End { get; set; }
+        private ChronoxDateBuilder DateTime { get; set; }
 
         internal static ChronoxDateTimeExtraction EmptyExtraction { get; set; } = null;
 
         public ExtractionResultType ResultType => ExtractionResultType.DateTime;
 
-        internal DateRangePointer Pointer { get; set; } = DateRangePointer.Start;
-
         private ChronoxDateTimeExtraction() { }
 
-        public ChronoxDateTimeExtraction(DateTime referenceDate, int index, string extraction, string text) : this()
+        public ChronoxDateTimeExtraction(ChronoxSettings settings, DateTime referenceDate, int index, string extraction, string text) : this()
         {
             this.Index = index;
             this.Original = text;
             this.Extraction = extraction;
             this.ReferenceDate = referenceDate;
-            this.Start = new ChronoxDateBuilder();
+            this.DateTime = new ChronoxDateBuilder(settings);
         }
 
         public int CompareTo(ChronoxDateTimeExtraction other)
@@ -53,43 +49,7 @@ namespace Chronox
 
         internal ChronoxDateBuilder GetCurrent()
         {
-            return Get(Pointer);
-        }
-
-        internal void Set(DateRangePointer pointer, ChronoxDateBuilder component)
-        {
-            switch (pointer)
-            {
-                case DateRangePointer.Start:
-
-                    Start = component;
-
-                    break;
-
-                case DateRangePointer.End:
-
-                    End = component;
-
-                    break;
-            }
-        }
-
-        internal ChronoxDateBuilder Get(DateRangePointer pointer)
-        {
-            switch (pointer)
-            {
-                case DateRangePointer.Start:
-
-                    return Start;
-
-                case DateRangePointer.End:
-
-                    return End;
-
-                default:
-
-                    return Start;
-            }
+            return DateTime;
         }
     }
 }

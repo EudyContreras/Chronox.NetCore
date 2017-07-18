@@ -1,20 +1,20 @@
 ﻿
+using Chronox.Constants;
+using Chronox.Constants.Banks;
+using Chronox.Handlers.Banks;
+using Chronox.Handlers.Models;
+using Chronox.Handlers.Patterns;
+using Chronox.Handlers.Wrappers;
+using Chronox.Helpers.Patterns;
+using Chronox.Utilities.Extenssions;
+using Chronox.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Chronox.Utilities.Extenssions;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
-using Chronox.Constants;
-using Chronox.Handlers.Models;
-using Chronox.Helpers.Patterns;
-using Chronox.Wrappers;
-using Chronox.Handlers.Patterns;
-using Chronox.Handlers.Banks;
-using Chronox.Constants.Banks;
-using Chronox.Handlers.Wrappers;
+using System.Text;
 
 namespace Chronox.Handlers
 {
@@ -22,7 +22,7 @@ namespace Chronox.Handlers
     {
         private static LanguageHandler instance;
 
-        public static LanguageHandler DefaultLanguage(ChronoxOption options) => GetInstance(options, Definitions.FilePath, Definitions.DefaultLanguage);
+        public static LanguageHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.FilePath, Definitions.DefaultLanguage);
 
         public Glossary Vocabulary { get; private set; }
 
@@ -50,13 +50,13 @@ namespace Chronox.Handlers
 
         internal SequenceHandler SequenceHandler { get; private set; }
 
-        private ChronoxOption options { get; set; }
+        private ChronoxSettings settings { get; set; }
 
-        private LanguageHandler(ChronoxOption options, string directory, string language)
+        private LanguageHandler(ChronoxSettings settings, string directory, string language)
         {
-            this.options = options;
+            this.settings = settings;
 
-            Vocabulary = !string.IsNullOrEmpty(language) ? Load(directory,language) : DefaultLanguage(options).Vocabulary;
+            Vocabulary = !string.IsNullOrEmpty(language) ? Load(directory,language) : DefaultLanguage(settings).Vocabulary;
 
             VocabularyBank = new GlossaryBank();
 
@@ -101,11 +101,11 @@ namespace Chronox.Handlers
 
         }
 
-        public static LanguageHandler GetInstance(ChronoxOption options, string directory, string language)
+        public static LanguageHandler GetInstance(ChronoxSettings settings, string directory, string language)
         {
             if (instance == null)
             {
-                instance = new LanguageHandler(options, directory, language);
+                instance = new LanguageHandler(settings, directory, language);
             }
             return instance;
         }
@@ -358,16 +358,16 @@ namespace Chronox.Handlers
 
             AllRegexSequences = new List<RegexSequence>();
 
-            DateTimeRegexSequences = SequenceHandler.BuildPatternSequences(options, SequenceLibrary.SequencesDateTimeCombinations, PatternLibrary.Patterns);
+            DateTimeRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesDateTimeCombinations, PatternLibrary.Patterns);
             DateTimeRegexSequences.ForEach(s => s.ComputeRelevance(DateTimeRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
-            DurationRegexSequences = SequenceHandler.BuildPatternSequences(options, SequenceLibrary.SequencesDurationCombinations, PatternLibrary.Patterns);        
+            DurationRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesDurationCombinations, PatternLibrary.Patterns);        
             DurationRegexSequences.ForEach(s => s.ComputeRelevance(DurationRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
-            RepeaterRegexSequences = SequenceHandler.BuildPatternSequences(options, SequenceLibrary.SequencesRepeaterCombinations, PatternLibrary.Patterns);
+            RepeaterRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesRepeaterCombinations, PatternLibrary.Patterns);
             RepeaterRegexSequences.ForEach(s => s.ComputeRelevance(RepeaterRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
-            RangedRegexSequences = SequenceHandler.BuildPatternSequences(options, SequenceLibrary.SequencesRangeCombinations, PatternLibrary.Patterns);
+            RangedRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesRangeCombinations, PatternLibrary.Patterns);
             RangedRegexSequences.ForEach(s => s.ComputeRelevance(RangedRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
             AllRegexSequences.AddRange(DateTimeRegexSequences);

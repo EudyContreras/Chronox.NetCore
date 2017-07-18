@@ -9,9 +9,9 @@ using Chronox.Interfaces;
 
 namespace Chronox.Scanners
 {
-    internal class HolidayScanner : IScanner
+    internal class HolidayScanner : IChronoxScanner
     {
-        public ScanResult Scan(ChronoxOption option, string expression)
+        public ScanResult Scan(ChronoxSettings option, string expression)
         {
             var holidays = option.Language.VocabularyBank.GetDictionary(Definitions.Property.Holidays);
 

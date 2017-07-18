@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Utilities
 {
-    public static class DateTimeUtility
+    public static class ChronoxDateTimeUtility
     {
         public static readonly int[] DaysInMonthInLeapYears = new int[] { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -166,6 +166,10 @@ namespace Chronox.Utilities
 
         public static DateTime GetNextWeekday(this DateTime source, int day)
         {
+            if (GetDayOfWeek(day) == source.DayOfWeek)
+            {
+                return source.AddDays(7);
+            }
             return source.AddDays((day - (int)source.DayOfWeek + 7) % 7);
         }
 
@@ -174,6 +178,10 @@ namespace Chronox.Utilities
 
         public static DateTime GetPreviousWeekday(this DateTime source, int day)
         {
+            if(GetDayOfWeek(day) == source.DayOfWeek)
+            {
+                return source.AddDays(-7);
+            }
             return source.AddDays((day - (int)source.DayOfWeek - 7) % 7);
         }
 

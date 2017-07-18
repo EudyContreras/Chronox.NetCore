@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Chronox.Abstractions
 {
-    internal abstract class AbstractPostProcessor : IProcessor
+    internal abstract class AbstractPostProcessor : IChronoxProcessor
     {
         public ProcessorType Type
         {
@@ -16,16 +16,16 @@ namespace Chronox.Abstractions
             set { }
         }
 
-        public abstract List<ChronoxDateTimeExtraction> ProcessExpression(ChronoxOption options, List<ChronoxDateTimeExtraction> extractions, string text);
+        public abstract List<ChronoxDateTimeExtraction> ProcessExpression(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text);
 
-        public string PreProcess(ChronoxOption options, string text)
+        public string PreProcess(ChronoxSettings settings, string text)
         {
             return string.Empty;
         }
 
-        public List<ChronoxDateTimeExtraction> PostProcess(ChronoxOption options, List<ChronoxDateTimeExtraction> extractions, string text)
+        public List<ChronoxDateTimeExtraction> PostProcess(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text)
         {
-            return ProcessExpression(options, extractions, text);
+            return ProcessExpression(settings, extractions, text);
         }
     }
 }

@@ -11,18 +11,17 @@ namespace Tests
 {
     class DetectionTest
     {
-        ChronoxOption options;
+        ChronoxSettings settings;
 
         string[] TestedAndWorking =
         {
-            /*
+
             "4pm",
             "4:00",
             "7:00",
             "14:00",
             "17:00",
             "1800s",
-            "1900s",
             "night",
             "today",
             "dec 25",
@@ -108,11 +107,13 @@ namespace Tests
             "this november",
             "this thursday",
             "tomorrow noon",
-            "monday the 3rd",
-
+            "monday the 3rd",         
             "the day before",
-            "3 days from now",
+            "3 days from now", 
             "4 saturdays ago",
+            "3 saturdays after",
+            "3 mondays ago",
+            "3 mondays after",
             "4th of jan 2000",
             "5 fridays after",
             "7 days from now",
@@ -141,6 +142,8 @@ namespace Tests
             "tomorrow evening",
             "tomorrow morning",
             "2 tuesdays before",
+            "4 tuesdays after",
+            "2 mondays after",
             "the monday after",
             "the monday before",
             "one monday before",
@@ -234,6 +237,10 @@ namespace Tests
             "the monday before the next",
             "the monday before the previous",
             "the wednesday before the next",
+            "the wednesday before the previous",
+            "the wednesday after the previous",
+            "the wednesday after this",
+            "the monday after this one",
             "the sunday before the previous",
             "the sunday before the next",
             "the day after the next",
@@ -243,12 +250,14 @@ namespace Tests
             "the day before the previous",
             "the month after the next",
             "first friday in two months",
+            "first monday in two months",
+            "second friday in two months",
             "second friday in one month",
             "third friday in two years",
             "second monday in three months",
             "third week in December",
-            "3 days before next week",//?? Problem due to start of week offset! maybe fixed!
-            "4 days after next week",//?? Problem due to start of week offset! maybe fixed"!
+            "3 days before next week",
+            "4 days after next week",
             "1 hours before midnight",
             "2 hours before tomorrow",
             "3:45 on tuesday morning",
@@ -269,6 +278,7 @@ namespace Tests
             "the week after next week",
             "3:45 on tuesday afternoon",
             "first friday of this year",
+            "the fourth day of the next week",
             "january twenty-third 2017",
             "monday the 3 of June 2017",
             "next sat 7 in the evening",
@@ -282,6 +292,7 @@ namespace Tests
             "sunday november 26 in 2017",
             "the 3 of June 2017 at 10pm",
             "the day after next tuesday",
+            "the day before next tuesday",
             "the fourth day of the year",
             "the last day of next month",
             "the third day of next week",
@@ -301,6 +312,8 @@ namespace Tests
             "sunday november 26th in 2017",
             "the 3rd of June 2017 at 10pm",
             "the first week of last month",
+            "the second week of last month",
+            "the second week of this month",
             "the first week of this month",
             "The 25 April in the year 2008",
             "the second week of next month",
@@ -314,6 +327,7 @@ namespace Tests
             "this sat the 7th in the evening",
             "3 months ago saturday at 5:00 pm",
             "first day of the following month",
+            "twenty second day of the following month",
             "Friday the 21st of November 1997",
             "Sun, Nov 2nd of 1990 at 10:30 pm",
             "The 22nd of May in the year 2010",
@@ -340,7 +354,6 @@ namespace Tests
             "The thirtieth  of April in the year 2008 at 10 pm",
             "the thirty first of december of the year 2017 at 12 am",
             "fourteenth of june 2010 at eleven o'clock in the evening"
-            */
         };
 
         string[] ProblematicNeedsFixing =
@@ -356,9 +369,9 @@ namespace Tests
      
         };
 
-        public DetectionTest(ChronoxOption options)
+        public DetectionTest(ChronoxSettings settings)
         {
-            this.options = options;
+            this.settings = settings;
         }
          
         public void TryDectect()
@@ -369,7 +382,7 @@ namespace Tests
             {
                 var text = $"I will come visit you {format}";
 
-                var date = ChronoxParser.ParseDate(options, text);
+                var date = ChronoxParser.ParseDate(settings, text);
 
                 Console.WriteLine($"Format: {format} | DateTime: {date}");
             }

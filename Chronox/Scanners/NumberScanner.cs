@@ -9,9 +9,9 @@ using Chronox.Interfaces;
 
 namespace Chronox.Scanners
 {
-    internal class NumberScanner : IScanner
+    internal class NumberScanner : IChronoxScanner
     {
-        public ScanResult Scan(ChronoxOption option, string expression)
+        public ScanResult Scan(ChronoxSettings option, string expression)
         {
             var numbers = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue);
 

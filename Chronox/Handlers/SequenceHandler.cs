@@ -90,7 +90,7 @@ namespace Chronox.Handlers
             return false;
         }
 
-        public List<RegexSequence> BuildPatternSequences(ChronoxOption options, List<Sequence> sequences, Dictionary<string,RegexPattern> patterns)
+        public List<RegexSequence> BuildPatternSequences(ChronoxSettings settings, List<Sequence> sequences, Dictionary<string,RegexPattern> patterns)
         {
             var regexSequences = new List<RegexSequence>();
 

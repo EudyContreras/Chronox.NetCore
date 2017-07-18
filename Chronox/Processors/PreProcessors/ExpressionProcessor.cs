@@ -8,9 +8,9 @@ namespace Chronox.Processors.PreProcessors
 {
     internal class ExpressionProcessor : AbstractPreProcessor
     {
-        protected override string ProcessExpression(ChronoxOption options, string expression)
+        protected override string ProcessExpression(ChronoxSettings settings, string expression)
         {
-            expression = expression.RemoveWords(options.Language.Vocabulary.Ignored).Trim();
+            expression = expression.RemoveWords(settings.Language.Vocabulary.Ignored).Trim();
 
             expression = expression.PadPunctuationExact(0, 1).ToLower();
 

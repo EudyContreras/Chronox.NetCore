@@ -6,7 +6,7 @@ using Enumerations;
 
 namespace Chronox
 {
-    internal class ChronoxDurationExtraction : IExtraction
+    internal class ChronoxDurationExtraction : IChronoxExtraction
     {
         public ExtractionResultType ResultType => ExtractionResultType.Duration;
     }

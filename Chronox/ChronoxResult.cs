@@ -18,12 +18,12 @@ namespace Chronox
 
         private ChronoxDateTimeExtraction dateTimeExtraction { get; set; }
 
-        public ChronoxResult(IExtraction result)
+        public ChronoxResult(IChronoxExtraction result)
         {
             ResultType = result.ResultType;
         }
 
-        public IExtraction GetResult()
+        public IChronoxExtraction GetResult()
         {
             switch (ResultType)
             {
@@ -33,7 +33,7 @@ namespace Chronox
                     return dateTimeExtraction;
                 case ExtractionResultType.Repeater:
                     return dateTimeRepeaterExtraction;
-                case ExtractionResultType.DateRange:
+                case ExtractionResultType.DateTimeRange:
                     return dateTimeRangeExtraction;
             }
 

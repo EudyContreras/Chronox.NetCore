@@ -8,13 +8,13 @@ namespace Chronox.Processors.PostProcessors
 {
     internal class StandardPostProcessor : AbstractPostProcessor
     {
-        public override List<ChronoxDateTimeExtraction> ProcessExpression(ChronoxOption options, List<ChronoxDateTimeExtraction> extractions, string text)
+        public override List<ChronoxDateTimeExtraction> ProcessExpression(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text)
         {
-            var referenceDate = DateTime.Now.GetDateComponent();
+            var referenceDate = settings.ReferencDate.GetDateComponent();
 
             foreach(var extraction in extractions)
             {
-                if(extraction.Get(Enumerations.DateRangePointer.Start).Date().CompareTo(referenceDate) != 0)
+                if(extraction.GetCurrent().Date().CompareTo(referenceDate) != 0)
                 {
 
                 }

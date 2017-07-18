@@ -13,60 +13,60 @@ using Enumerations;
 
 namespace Chronox.Abstractions
 {
-    internal abstract class AbstractParser : IParser
+    internal abstract class AbstractParser : IChronoxParser
     {
 
-        protected abstract void Extract(String text, DateTime refDate, RegexSequence sequence, Match matcher, ChronoxOption option, ChronoxDateTimeInformation information, ref ChronoxDateTimeExtraction result);
+        protected abstract void Extract(String text, DateTime refDate, RegexSequence sequence, Match matcher, ChronoxSettings option, ChronoxBuildInformation information, ref ChronoxDateTimeExtraction result);
 
-        public List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxOption options)
+        public List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxSettings settings)
         {
             var results = new HashSet<ChronoxDateTimeExtraction>();
 
-            var information = new ChronoxDateTimeInformation(text, options);
+            var information = new ChronoxBuildInformation(text, settings);
 
             var sequences = new List<RegexSequence>();
 
-            switch (options.Preferences.ParsingMode)
+            switch (settings.Preferences.ParsingMode)
             {
                 case ExtractionResultType.General:
 
-                    sequences = PreselectSequences(options.Language.AllRegexSequences);
+                    sequences = PreselectSequences(settings.Language.AllRegexSequences);
 
-                    return Execute(text, referenceDate, options, sequences, results, null, information, 1);
+                    return Execute(text, referenceDate, settings, sequences, results, null, information, 1);
 
                 case ExtractionResultType.Duration:
 
-                    sequences = PreselectSequences(options.Language.DurationRegexSequences);
+                    sequences = PreselectSequences(settings.Language.DurationRegexSequences);
 
-                    return Execute(text, referenceDate, options, sequences, results, null, information, 1);
+                    return Execute(text, referenceDate, settings, sequences, results, null, information, 1);
 
                 case ExtractionResultType.DateTime:
 
-                    sequences = PreselectSequences(options.Language.DateTimeRegexSequences);
+                    sequences = PreselectSequences(settings.Language.DateTimeRegexSequences);
 
-                    return Execute(text, referenceDate, options, sequences, results, null, information, 1);
+                    return Execute(text, referenceDate, settings, sequences, results, null, information, 1);
 
                 case ExtractionResultType.Repeater:
 
-                    sequences = PreselectSequences(options.Language.RepeaterRegexSequences);
+                    sequences = PreselectSequences(settings.Language.RepeaterRegexSequences);
 
-                    return Execute(text, referenceDate, options, sequences, results, null, information, 1);
+                    return Execute(text, referenceDate, settings, sequences, results, null, information, 1);
 
-                case ExtractionResultType.DateRange:
+                case ExtractionResultType.DateTimeRange:
 
-                    sequences = PreselectSequences(options.Language.RangedRegexSequences);
+                    sequences = PreselectSequences(settings.Language.RangedRegexSequences);
 
-                    return Execute(text, referenceDate, options, sequences, results, null, information, 1);
+                    return Execute(text, referenceDate, settings, sequences, results, null, information, 1);
 
                 default:
 
-                    sequences = PreselectSequences(options.Language.AllRegexSequences);
+                    sequences = PreselectSequences(settings.Language.AllRegexSequences);
 
-                    return Execute(text, referenceDate, options, sequences, results, null, information, 1);
+                    return Execute(text, referenceDate, settings, sequences, results, null, information, 1);
             }
         }
            
-        private List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxOption options, IEnumerable<RegexSequence> sequences,  HashSet<ChronoxDateTimeExtraction> results, ChronoxDateTimeExtraction last, ChronoxDateTimeInformation information, int passCount)
+        private List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxSettings settings, IEnumerable<RegexSequence> sequences,  HashSet<ChronoxDateTimeExtraction> results, ChronoxDateTimeExtraction last, ChronoxBuildInformation information, int passCount)
         {
             var matchesFound = new List<MatchWrapper>();
 
@@ -78,7 +78,7 @@ namespace Chronox.Abstractions
             {
                 if (sequence.PatternCount > parts.Length + 1) continue;
 
-                var regex = new Regex(sequence.NormalizedPattern(options.Language), RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                var regex = new Regex(sequence.NormalizedPattern(settings.Language), RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
                 var match = regex.Match(information.ProcessedString);
 
@@ -99,7 +99,7 @@ namespace Chronox.Abstractions
             {
                 information.LatestMatch = perfectMatch;
 
-                Extract(information.ProcessedString, referenceDate, perfectMatch.Sequence, perfectMatch.Match, options, information, ref result);
+                Extract(information.ProcessedString, referenceDate, perfectMatch.Sequence, perfectMatch.Match, settings, information, ref result);
 
                 var index = perfectMatch.Match.Index + perfectMatch.Match.Length;
 
@@ -111,16 +111,16 @@ namespace Chronox.Abstractions
                     {
                         results.Add(result);
 
-                        if(passCount < options.SearchPassCount)
+                        if(passCount < settings.SearchPassCount)
                         {
-                            if(information.ProcessedString.Length >= options.MinInputTextLength)
+                            if(information.ProcessedString.Length >= settings.MinInputTextLength)
                             {
                                 information.ClearFloaters();
                                 information.ResetFlags();
 
                                 var date = information.DateTime;
 
-                                return Execute(information.ProcessedString, information.DateTime, options, sequences, results, result, information, passCount + 1);
+                                return Execute(information.ProcessedString, information.DateTime, settings, sequences, results, result, information, passCount + 1);
                             }
                         }
                     }
@@ -166,6 +166,5 @@ namespace Chronox.Abstractions
 
             return regexes;
         }
-
     }
 }

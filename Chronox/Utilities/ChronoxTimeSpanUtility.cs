@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Chronox.Utilities
 {
-    internal class TimeUtility
+    internal class ChronoxTimeSpanUtility
     {
-        public static int DAYS_IN_YEARS { get; private set; } = 365;
 
-        public static int DAYS_IN_MONTH { get; private set; } = 28 | 29 | 30 | 31;
+        public DateTime ReferenceDate { get; set; } = DateTime.Now;
 
         public static int MONTHS_IN_YEAR { get; private set; } = 12;
 
@@ -23,58 +22,59 @@ namespace Chronox.Utilities
 
         public static int DAYS_IN_WEEK { get; private set; } = 7;
 
-        public TimeUtility()
+        public ChronoxTimeSpanUtility(DateTime referenceDate)
         {
-            DAYS_IN_YEARS = DateTime.IsLeapYear(DateTime.Now.Year) ? 366 : 365;
-
-            DAYS_IN_MONTH = DateTimeUtility.DaysInMonth(DateTime.Now);
+            ReferenceDate = referenceDate;
         }
 
-        static TimeUtility()
+        public static int DAYS_IN_YEARS(DateTime referenceDate)
         {
-            DAYS_IN_YEARS = DateTime.IsLeapYear(DateTime.Now.Year) ? 366 : 365;
-
-            DAYS_IN_MONTH = DateTimeUtility.DaysInMonth(DateTime.Now);
+            return DateTime.IsLeapYear(referenceDate.Year) ? 366 : 365;
         }
 
-        public int ConvertValue(DateTimeUnit source, DateTimeUnit target, int value) => (int) Convert(source, target, (double)value);
+        public static int DAYS_IN_MONTH(DateTime referenceDate)
+        {
+            return ChronoxDateTimeUtility.DaysInMonth(referenceDate);
+        }
+
+        public int ConvertValue(DateTimeUnit source, DateTimeUnit target, int value) => (int) Convert(ReferenceDate, source, target, (double)value);
 
 
-        public double ConvertValue(DateTimeUnit source, DateTimeUnit target, double value) => (int)Convert(source, target, value);
+        public double ConvertValue(DateTimeUnit source, DateTimeUnit target, double value) => (int)Convert(ReferenceDate, source, target, value);
 
 
-        public static int Convert(DateTimeUnit source, DateTimeUnit target, int value) => (int)Convert(source, target, (double)value);
+        public static int Convert(DateTime referenceDate, DateTimeUnit source, DateTimeUnit target, int value) => (int)Convert(referenceDate, source, target, (double)value);
         
 
-        public static double Convert(DateTimeUnit source, DateTimeUnit target, double value)
+        public static double Convert(DateTime referenceDate, DateTimeUnit source, DateTimeUnit target, double value)
         {
             switch (source)
             {
                 case DateTimeUnit.Year:
-                    return ConvertFromYearsTo(target, value);
+                    return ConvertFromYearsTo(referenceDate, target, value);
                 case DateTimeUnit.Month:
-                    return ConvertFromMonthsTo(target, value);
+                    return ConvertFromMonthsTo(referenceDate, target, value);
                 case DateTimeUnit.Day:
-                    return ConvertFromDaysTo(target, value);
+                    return ConvertFromDaysTo(referenceDate, target, value);
                 case DateTimeUnit.Hour:
-                    return ConvertFromHoursTo(target, value);
+                    return ConvertFromHoursTo(referenceDate, target, value);
                 case DateTimeUnit.Minute:
-                    return ConvertFromMinutesTo(target, value);
+                    return ConvertFromMinutesTo(referenceDate, target, value);
                 case DateTimeUnit.Second:
-                    return ConvertFromSecondsTo(target, value);
+                    return ConvertFromSecondsTo(referenceDate, target, value);
             }
 
             return value;
         }
 
-        private static double ConvertFromSecondsTo(DateTimeUnit target, double value)
+        private static double ConvertFromSecondsTo(DateTime referenceDate, DateTimeUnit target, double value)
         {
             switch (target)
             {
                 case DateTimeUnit.Year:
-                    return ((((value /SECONDS_IN_MINUTE)/ MINUTES_IN_HOUR) / HOURS_IN_DAY) / DAYS_IN_MONTH) / MONTHS_IN_YEAR;
+                    return ((((value /SECONDS_IN_MINUTE)/ MINUTES_IN_HOUR) / HOURS_IN_DAY) / DAYS_IN_MONTH(referenceDate)) / MONTHS_IN_YEAR;
                 case DateTimeUnit.Month:
-                    return (((value / SECONDS_IN_MINUTE) / MINUTES_IN_HOUR) / HOURS_IN_DAY) / DAYS_IN_MONTH;
+                    return (((value / SECONDS_IN_MINUTE) / MINUTES_IN_HOUR) / HOURS_IN_DAY) / DAYS_IN_MONTH(referenceDate);
                 case DateTimeUnit.Day:
                     return ((value / SECONDS_IN_MINUTE) / MINUTES_IN_HOUR) / HOURS_IN_DAY;
                 case DateTimeUnit.Hour:
@@ -88,14 +88,14 @@ namespace Chronox.Utilities
             return value;
         }
 
-        private static double ConvertFromMinutesTo(DateTimeUnit target, double value)
+        private static double ConvertFromMinutesTo(DateTime referenceDate, DateTimeUnit target, double value)
         {
             switch (target)
             {
                 case DateTimeUnit.Year:
-                    return (((value / MINUTES_IN_HOUR)/ HOURS_IN_DAY) / DAYS_IN_MONTH) / MONTHS_IN_YEAR;
+                    return (((value / MINUTES_IN_HOUR)/ HOURS_IN_DAY) / DAYS_IN_MONTH(referenceDate)) / MONTHS_IN_YEAR;
                 case DateTimeUnit.Month:
-                    return ((value / MINUTES_IN_HOUR) / HOURS_IN_DAY) / DAYS_IN_MONTH;
+                    return ((value / MINUTES_IN_HOUR) / HOURS_IN_DAY) / DAYS_IN_MONTH(referenceDate);
                 case DateTimeUnit.Day:
                     return (value / MINUTES_IN_HOUR) / HOURS_IN_DAY;
                 case DateTimeUnit.Hour:
@@ -108,14 +108,14 @@ namespace Chronox.Utilities
             return value;
         }
 
-        private static double ConvertFromHoursTo(DateTimeUnit target, double value)
+        private static double ConvertFromHoursTo(DateTime referenceDate, DateTimeUnit target, double value)
         {
             switch (target)
             {
                 case DateTimeUnit.Year:
-                    return ((value / HOURS_IN_DAY) / DAYS_IN_MONTH) / MONTHS_IN_YEAR;
+                    return ((value / HOURS_IN_DAY) / DAYS_IN_MONTH(referenceDate)) / MONTHS_IN_YEAR;
                 case DateTimeUnit.Month:
-                    return (value / HOURS_IN_DAY) / DAYS_IN_MONTH;
+                    return (value / HOURS_IN_DAY) / DAYS_IN_MONTH(referenceDate);
                 case DateTimeUnit.Day:
                     return value / HOURS_IN_DAY;
                 case DateTimeUnit.Hour:
@@ -128,14 +128,14 @@ namespace Chronox.Utilities
             return value;
         }
 
-        private static double ConvertFromDaysTo(DateTimeUnit target, double value)
+        private static double ConvertFromDaysTo(DateTime referenceDate, DateTimeUnit target, double value)
         {
             switch (target)
             {
                 case DateTimeUnit.Year:
-                    return (value / DAYS_IN_MONTH) / MONTHS_IN_YEAR;
+                    return (value / DAYS_IN_MONTH(referenceDate)) / MONTHS_IN_YEAR;
                 case DateTimeUnit.Month:
-                    return value / DAYS_IN_MONTH;
+                    return value / DAYS_IN_MONTH(referenceDate);
                 case DateTimeUnit.Day:
                     return value;
                 case DateTimeUnit.Hour:
@@ -148,7 +148,7 @@ namespace Chronox.Utilities
             return value;
         }
 
-        private static double ConvertFromMonthsTo(DateTimeUnit target, double value)
+        private static double ConvertFromMonthsTo(DateTime referenceDate, DateTimeUnit target, double value)
         {
             switch (target)
             {
@@ -157,18 +157,18 @@ namespace Chronox.Utilities
                 case DateTimeUnit.Month:
                     return value;
                 case DateTimeUnit.Day:
-                    return (value * DAYS_IN_MONTH);
+                    return (value * DAYS_IN_MONTH(referenceDate));
                 case DateTimeUnit.Hour:
-                    return (value * DAYS_IN_MONTH) * HOURS_IN_DAY;
+                    return (value * DAYS_IN_MONTH(referenceDate)) * HOURS_IN_DAY;
                 case DateTimeUnit.Minute:
-                    return ((value * DAYS_IN_MONTH) * HOURS_IN_DAY) * MINUTES_IN_HOUR;
+                    return ((value * DAYS_IN_MONTH(referenceDate)) * HOURS_IN_DAY) * MINUTES_IN_HOUR;
                 case DateTimeUnit.Second:
-                    return (((value * DAYS_IN_MONTH) * HOURS_IN_DAY) * MINUTES_IN_HOUR) * SECONDS_IN_MINUTE;
+                    return (((value * DAYS_IN_MONTH(referenceDate)) * HOURS_IN_DAY) * MINUTES_IN_HOUR) * SECONDS_IN_MINUTE;
             }
             return value;
         }
 
-        private static double ConvertFromYearsTo(DateTimeUnit target, double value)
+        private static double ConvertFromYearsTo(DateTime referenceDate, DateTimeUnit target, double value)
         {
             switch (target)
             {
@@ -177,13 +177,13 @@ namespace Chronox.Utilities
                 case DateTimeUnit.Month:
                     return value * MONTHS_IN_YEAR;
                 case DateTimeUnit.Day:
-                    return (value * DAYS_IN_YEARS);
+                    return (value * DAYS_IN_YEARS(referenceDate));
                 case DateTimeUnit.Hour:
-                    return ((value * MONTHS_IN_YEAR) * DAYS_IN_MONTH) * HOURS_IN_DAY;
+                    return ((value * MONTHS_IN_YEAR) * DAYS_IN_MONTH(referenceDate)) * HOURS_IN_DAY;
                 case DateTimeUnit.Minute:
-                    return (((value * MONTHS_IN_YEAR) * DAYS_IN_MONTH) * HOURS_IN_DAY) * MINUTES_IN_HOUR;
+                    return (((value * MONTHS_IN_YEAR) * DAYS_IN_MONTH(referenceDate)) * HOURS_IN_DAY) * MINUTES_IN_HOUR;
                 case DateTimeUnit.Second:
-                    return ((((value * MONTHS_IN_YEAR) * DAYS_IN_MONTH) * HOURS_IN_DAY) * MINUTES_IN_HOUR) * SECONDS_IN_MINUTE;
+                    return ((((value * MONTHS_IN_YEAR) * DAYS_IN_MONTH(referenceDate)) * HOURS_IN_DAY) * MINUTES_IN_HOUR) * SECONDS_IN_MINUTE;
             }
 
             return value;

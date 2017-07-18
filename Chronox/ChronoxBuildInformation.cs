@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class ChronoxDateTimeInformation
+    internal class ChronoxBuildInformation
     {
         private string TagName = "DateTimevalue";
 
@@ -15,7 +15,7 @@ namespace Chronox.Wrappers
 
         public DateTime CurrentDate { get; } = DateTime.Now;
 
-        public ChronoxOption Options { get; set; }
+        public ChronoxSettings Settings { get; set; }
 
         public MatchWrapper LatestMatch { get; set; }
 
@@ -95,10 +95,12 @@ namespace Chronox.Wrappers
 
         public bool ProcessTime = false;
 
-        public ChronoxDateTimeInformation(string text, ChronoxOption options)
+        public ChronoxBuildInformation(string text, ChronoxSettings settings)
         {
+            this.Settings = settings;
             this.ProcessedString = text;
-            this.Options = options;          
+            this.CurrentDate = settings.ReferencDate;
+
             this.NumericWords = new Queue<int>();
             this.NumericValues = new Queue<int>();
             this.FloatingHours = new Queue<int>();

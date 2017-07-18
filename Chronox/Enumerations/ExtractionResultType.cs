@@ -12,7 +12,7 @@ namespace Enumerations
 
         Repeater,
 
-        DateRange,
+        DateTimeRange,
 
         General,
 

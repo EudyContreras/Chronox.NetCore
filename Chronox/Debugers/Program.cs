@@ -18,10 +18,11 @@ namespace Chronox.Debugers
     {
         static void Main(string[] args)
         {
-            ChronoxOption options = new ChronoxOption("english");
-            
+            ChronoxSettings settings = new ChronoxSettings("english");
 
-            DetectionTest detectionTest = new DetectionTest(options);
+            //settings.ReferencDate = DateTime.Parse("7/18/2017, 18:00");
+            
+            DetectionTest detectionTest = new DetectionTest(settings);
 
             detectionTest.TryDectect();
 
