@@ -13,6 +13,7 @@ namespace Tests
     {
         ChronoxSettings settings;
 
+        //TODO: Needs a complete retest
         string[] TestedAndWorking =
         {
 
