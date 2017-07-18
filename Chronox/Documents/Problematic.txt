@@ -1,27 +1,4 @@
-﻿the monday after,
-the monday before,
-2 tuesdays before,
-4 tuesdays after,
-5 hours before now,
-2 hours before noon,
-2 hours to midnight,
-2 hours past midnight,
-2 hours from midnight,
-first friday of the following month at noon,
-last monday of the previous month at midnight,
-Fourth Thursday in November,
-Fourth day in November,
-third week in December,
-in 2 months on the first friday,
-first friday in 2 months,
-the second week of july,
-the week third of december,
-7 hours before tomorrow at noon, //Is that valid : Noon overides 7 hours or vice versa
-5 minutes from tomorrow, //Very tricky but doable
-3 days before next week, //Very tricky but doable
-2 days from tomorrow, //Very tricky bu doable
-
-
+﻿
 both tommorrow and the day after during the morning ??
 
 	RECURRING
