@@ -7,13 +7,13 @@ namespace Chronox.Wrappers
 {
     internal class MatchWrapper
     {
-        public RegexSequence Sequence { get; set; }
+        public PatternSequence Sequence { get; set; }
 
         public static MatchWrapper Null {get;}
 
         public Match Match { get; set; }
 
-        public MatchWrapper(RegexSequence sequence, Match match)
+        public MatchWrapper(PatternSequence sequence, Match match)
         {
             this.Sequence = sequence;
             this.Match = match;

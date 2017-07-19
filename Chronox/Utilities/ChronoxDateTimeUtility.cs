@@ -235,9 +235,9 @@ namespace Chronox.Utilities
             return culture.Calendar.GetWeekOfYear(source, culture.DateTimeFormat.CalendarWeekRule, culture.DateTimeFormat.FirstDayOfWeek);
         }
 
-        internal static ChronoxDateComponent GetDateComponent(this DateTime source) => new ChronoxDateComponent(source.Year, source.Month, source.Day);
+        internal static ChronoxDate GetDateComponent(this DateTime source) => new ChronoxDate(source.Year, source.Month, source.Day);
 
-        internal static ChronoxTimeComponent GetTimeComponent(this DateTime source) => new ChronoxTimeComponent(source.Hour, source.Minute, source.Second);
+        internal static ChronoxTime GetTimeComponent(this DateTime source) => new ChronoxTime(source.Hour, source.Minute, source.Second);
 
         public static int GetSeason(this DateTime date, bool SouthHemisphere)
         {

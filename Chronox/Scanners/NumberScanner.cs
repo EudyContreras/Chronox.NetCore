@@ -11,13 +11,13 @@ namespace Chronox.Scanners
 {
     internal class NumberScanner : IChronoxScanner
     {
-        public ScanResult Scan(ChronoxSettings option, string expression)
+        public ScanWrapper Scan(ChronoxSettings option, string expression)
         {
             var numbers = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue);
 
             var resultWrapper = expression.Contains(numbers.Keys.ToArray());
 
-            var result = new ScanResult();
+            var result = new ScanWrapper();
 
             if(resultWrapper.Count > 0)
             {

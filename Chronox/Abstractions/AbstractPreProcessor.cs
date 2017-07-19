@@ -23,7 +23,7 @@ namespace Chronox.Abstractions
             return ProcessExpression(settings,text);
         }
 
-        public List<ChronoxDateTimeExtraction> PostProcess(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text)
+        public List<IChronoxExtraction> PostProcess(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text)
         {
             throw new NotImplementedException();
         }

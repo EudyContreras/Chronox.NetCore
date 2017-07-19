@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxSettings
+    internal class ChronoxSettings : IEquatable<ChronoxSettings>
     {
         private int searchPassCount = 3;
 
@@ -308,5 +308,10 @@ namespace Chronox
 
         public IEnumerable<IChronoxProcessor> Processors(ProcessorType type) => type == ProcessorType.PostProcessor ? postProcessors : preProcessors;
 
+        //TODO: Implement equals effectively by invoking different properties
+        public bool Equals(ChronoxSettings other)
+        {
+            return ChronoxSettings.Equals(this, other);
+        }
     }
 }

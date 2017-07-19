@@ -11,6 +11,8 @@ namespace Chronox.Handlers.Models
 
         public bool AssumeSpace { get; set; } = true;
 
+        public string PreferedEndianFormat { get; set; } = "M.D.Y";
+
         public List<string> Ignored { get; set; }
 
         public List<string> SectionTypes { get; set; }
@@ -19,7 +21,13 @@ namespace Chronox.Handlers.Models
 
         public List<string> SupportedSectionAbreviations { get; set; }
 
-        public List<string> SupportedDateFormats { get; set; }
+        public List<string> supportedDateTimeFormats { get; set; }
+
+        public List<string> supportedTimeRangeFormats { get; set; }
+
+        public List<string> supportedTimeSpanFormats { get; set; }
+
+        public List<string> supportedTimeSetFormats { get; set; }
 
         public List<Section> Section { get; set; }
     }

@@ -8,6 +8,6 @@ namespace Chronox.Interfaces
 {
     internal interface IChronoxParser
     {
-        List<ChronoxDateTimeExtraction> Execute(string text, DateTime referenceDate, ChronoxSettings settings);
+        List<IChronoxExtraction> Execute(string text, DateTime referenceDate, ChronoxSettings settings);
     }
 }

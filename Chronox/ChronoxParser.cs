@@ -1,4 +1,5 @@
-﻿using Chronox.Parsers;
+﻿using Chronox.Interfaces;
+using Chronox.Parsers;
 using Chronox.Processors;
 using Chronox.Wrappers;
 using Enumerations;
@@ -10,107 +11,127 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxParser
+    internal class ChronoxParser : IChronox
     {
 
-        public ChronoxSettings Settings { get; private set; } = ChronoxSettings.Standard;
+        private static IChronox Instance = null;
 
-        private static readonly ChronoxSettings standardsettings = ChronoxSettings.Standard;
+        public ChronoxSettings Settings { get; set; }
 
-        private static readonly ChronoxParser standardParser = new ChronoxParser(standardsettings);
+        private static ChronoxSettings StandardSettings = ChronoxSettings.Standard;
 
-        public ChronoxParser() : this(standardsettings) { }
 
-        public ChronoxParser(ChronoxSettings settings)
+        private ChronoxParser(ChronoxSettings settings)
         {
-            settings = settings ?? settings;
+            Settings = settings ?? ChronoxSettings.Standard;
         }
 
-        private static ChronoxParser GetInstance(ChronoxSettings settings) => new ChronoxParser(settings);
+
+        public static IChronox GetInstance() => GetInstance(StandardSettings);
 
 
-        public static ParsedResult Parse(string input) => Parse(DateTime.MinValue, input);
+        public static IChronox GetInstance(ChronoxSettings settings)
+        {
+            if(Instance == null)
+            {
+                Instance = new ChronoxParser(settings);
+
+                return Instance;
+            }
+            else
+            {
+                if (!Instance.Settings.Equals(settings))
+                {
+                    Instance = new ChronoxParser(settings);
+
+                    return Instance;
+                }
+                else
+                {
+                    return Instance;
+                }
+            }
+        }
+
+
+        public static ResultWrapper Parse(string input) => Parse(DateTime.MinValue, input);
         
 
-        public static ParsedResult Parse(DateTime referenceDate, string input) => Parse(standardsettings, referenceDate, input);
+        public static ResultWrapper Parse(DateTime referenceDate, string input) => Parse(StandardSettings, referenceDate, input);
 
 
-        public static ParsedResult Parse(ChronoxSettings settings, string input) => Parse(settings, DateTime.MinValue, input);
+        public static ResultWrapper Parse(ChronoxSettings settings, string input) => Parse(settings, DateTime.MinValue, input);
 
 
-        public static ParsedResult Parse(ChronoxSettings option, DateTime referenceDate, string input)
-        {
-            var instance = GetInstance(option);
-
-            return new ParsedResult(instance, instance.ExtractDates(option, referenceDate, input));
-        }
-
-        public static DateResult ParseDate(string input) => ParseDate(DateTime.MinValue, input); 
-
-
-        public static DateResult ParseDate(DateTime referenceDate, string input) => ParseDate(standardsettings, referenceDate, input);
-
-
-        public static DateResult ParseDate(ChronoxSettings settings, string input) => ParseDate(settings, DateTime.MinValue, input);
-
-
-        public static DateResult ParseDate(ChronoxSettings option, DateTime referenceDate, string input)
-        {
-            var instance = GetInstance(option);
-
-            return new DateResult(instance, instance.ParseDateTime(option, referenceDate, input));
-        }
-
-        public static DateResult ParseTimeSpan(string input) => ParseTimeSpan(DateTime.MinValue, input);
-
-
-        public static DateResult ParseTimeSpan(DateTime referenceDate, string input) => ParseTimeSpan(standardsettings, referenceDate, input);
-
-
-        public static DateResult ParseTimeSpan(ChronoxSettings settings, string input) => ParseTimeSpan(settings, DateTime.MinValue, input);
-
-
-        public static DateResult ParseTimeSpan(ChronoxSettings option, DateTime referenceDate, string input)
-        {
-            var instance = GetInstance(option);
-
-            return new DateResult(instance, instance.ParseDateTime(option, referenceDate, input));
-        }
-
-        public static DateResult ParseTimeSet(string input) => ParseTimeSet(DateTime.MinValue, input);
-
-
-        public static DateResult ParseTimeSet(DateTime referenceDate, string input) => ParseTimeSet(standardsettings, referenceDate, input);
-
-
-        public static DateResult ParseTimeSet(ChronoxSettings settings, string input) => ParseTimeSet(settings, DateTime.MinValue, input);
-
-
-        public static DateResult ParseTimeSet(ChronoxSettings option, DateTime referenceDate, string input)
-        {
-            var instance = GetInstance(option);
-
-            return new DateResult(instance, instance.ParseDateTime(option, referenceDate, input));
-        }
-
-        public List<ChronoxDateTimeExtraction> ExtractDates(string input) => ExtractDates(DateTime.MinValue, input);
+        public static ResultWrapper Parse(ChronoxSettings settings, DateTime referenceDate, string input) => GetInstance(settings).Parse(settings, referenceDate, input);
         
 
-        public List<ChronoxDateTimeExtraction> ExtractDates(DateTime referenceDate, string input) => ExtractDates(Settings, referenceDate, input);
+        public static bool TryParse(string input, out ResultWrapper result) => TryParse(DateTime.MinValue, input, out result);
 
 
-        public List<ChronoxDateTimeExtraction> ExtractDates(ChronoxSettings settings, string input) => ExtractDates(settings, DateTime.MinValue, input );
+        public static bool TryParse(DateTime referenceDate, string input, out ResultWrapper result) => TryParse(StandardSettings, referenceDate, input, out result);
 
 
-        public List<ChronoxDateTimeExtraction> ExtractDates(ChronoxSettings settings, DateTime referenceDate, string input )
+        public static bool TryParse(ChronoxSettings settings, string input, out ResultWrapper result) => TryParse(settings, DateTime.MinValue, input, out result);
+
+
+        public static bool TryParse(ChronoxSettings settings, DateTime referenceDate, string input, out ResultWrapper result) => GetInstance(settings).TryParse(settings, referenceDate, input, out result);
+        
+
+        public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(string input) => ParseDateTime(DateTime.MinValue, input); 
+
+
+        public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(DateTime referenceDate, string input) => ParseDateTime(StandardSettings, referenceDate, input);
+
+
+        public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(ChronoxSettings settings, string input) => ParseDateTime(settings, DateTime.MinValue, input);
+
+
+        public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(ChronoxSettings settings, DateTime referenceDate, string input) => GetInstance(settings).ParseDateTime(settings, referenceDate, input);
+       
+
+        public static IReadOnlyList<ChronoxTimeRangeExtraction> ParseTimeRange(string input) => ParseTimeRange(DateTime.MinValue, input);
+
+
+        public static IReadOnlyList<ChronoxTimeRangeExtraction> ParseTimeRange(DateTime referenceDate, string input) => ParseTimeRange(StandardSettings, referenceDate, input);
+
+
+        public static IReadOnlyList<ChronoxTimeRangeExtraction> ParseTimeRange(ChronoxSettings settings, string input) => ParseTimeRange(settings, DateTime.MinValue, input);
+
+
+        public static IReadOnlyList<ChronoxTimeRangeExtraction> ParseTimeRange(ChronoxSettings settings, DateTime referenceDate, string input) => GetInstance(settings).ParseTimeRange(settings, referenceDate, input);
+        
+
+        public static IReadOnlyList<ChronoxTimeSpanExtraction> ParseTimeSpan(string input) => ParseTimeSpan(StandardSettings, input);
+
+
+        public static IReadOnlyList<ChronoxTimeSpanExtraction> ParseTimeSpan(ChronoxSettings settings, string input) => GetInstance(settings).ParseTimeSpan(settings, input);
+        
+
+        public static IReadOnlyList<ChronoxTimeSetExtraction> ParseTimeSet(string input) => ParseTimeSet(StandardSettings, input);
+
+
+        public static IReadOnlyList<ChronoxTimeSetExtraction> ParseTimeSet(ChronoxSettings settings, string input) => GetInstance(settings).ParseTimeSet(settings, input);
+
+
+        ResultWrapper IChronox.Parse(string input) => Parse(Settings, input);
+
+
+        ResultWrapper IChronox.Parse(DateTime referenceDate, string input) => Parse(Settings, referenceDate, input);
+
+
+        ResultWrapper IChronox.Parse(ChronoxSettings settings, string input) => Parse(settings, DateTime.MinValue, input);
+
+
+        ResultWrapper IChronox.Parse(ChronoxSettings settings, DateTime referenceDate, string input)
         {
-            var allResults = new List<ChronoxDateTimeExtraction>();
+            var allResults = new List<IChronoxExtraction>();
 
             var processed = PreProcessExpression(ProcessorType.PreProcessor, input);
 
             var scanResults = PerformExpressionScanAndReplace(processed);
 
-            if(referenceDate != DateTime.MinValue)
+            if (referenceDate != DateTime.MinValue)
             {
                 settings.ReferencDate = referenceDate;
             }
@@ -126,34 +147,96 @@ namespace Chronox
 
             allResults.Sort();
 
-            return allResults;
+            if (allResults.Count > 0)
+            {
+                return new ResultWrapper(this, allResults);
+            }
+
+            return null;
         }
 
-        public DateTime ParseDateTime(string input) => ParseDateTime(DateTime.MinValue, input);
+
+        bool IChronox.TryParse(string input, out ResultWrapper result) => TryParse(DateTime.MinValue, input, out result);
 
 
-        public DateTime ParseDateTime(DateTime referenceDate, string input) => ParseDateTime(Settings, referenceDate, input);
+        bool IChronox.TryParse(DateTime referenceDate, string input, out ResultWrapper result) => TryParse(Settings, referenceDate, input, out result);
 
 
-        public DateTime ParseDateTime(ChronoxSettings settings, string input) => ParseDateTime(settings, DateTime.MinValue, input);
+        bool IChronox.TryParse(ChronoxSettings settings, string input, out ResultWrapper result) => TryParse(settings, DateTime.MinValue, input, out result);
 
 
-        public DateTime ParseDateTime(ChronoxSettings settings, DateTime referenceDate, string input )
+        bool IChronox.TryParse(ChronoxSettings settings, DateTime referenceDate, string input, out ResultWrapper result)
         {
-            if (referenceDate != DateTime.MinValue)
+            var parsedResult = Parse(settings, referenceDate, input);
+
+            if (parsedResult != null)
             {
-                settings.ReferencDate = referenceDate;
+                result = parsedResult;
+
+                return true;
             }
-
-            var results = ExtractDates(settings, settings.ReferencDate, input);
-
-            if (results.Count > 0)
+            else
             {
-                return results[0].GetCurrent().DateTime(); 
-            }
+                result = null;
 
-            return DateTime.MinValue;
+                return false;
+            }
         }
+
+        IReadOnlyList<ChronoxDateTimeExtraction> IChronox.ParseDateTime(string input) => ParseDateTime(DateTime.MinValue, input);
+
+
+        IReadOnlyList<ChronoxDateTimeExtraction> IChronox.ParseDateTime(DateTime referenceDate, string input) => ParseDateTime(Settings, referenceDate, input);
+
+
+        IReadOnlyList<ChronoxDateTimeExtraction> IChronox.ParseDateTime(ChronoxSettings settings, string input) => ParseDateTime(settings, DateTime.MinValue, input);
+
+
+        IReadOnlyList<ChronoxDateTimeExtraction> IChronox.ParseDateTime(ChronoxSettings settings, DateTime referenceDate, string input)
+        {
+            settings.Preferences.ParsingMode = ExtractionResultType.DateTime;
+
+            return Parse(settings, referenceDate, input).Results.Cast<ChronoxDateTimeExtraction>().ToList();
+        }
+
+
+        IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(string input) => ParseTimeRange(DateTime.MinValue, input);
+
+
+        IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(DateTime referenceDate, string input) => ParseTimeRange(Settings, referenceDate, input);
+
+
+        IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(ChronoxSettings settings, string input) => ParseTimeRange(settings, DateTime.MinValue, input);
+
+
+        IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(ChronoxSettings settings, DateTime referenceDate, string input)
+        {
+            settings.Preferences.ParsingMode = ExtractionResultType.TimeRange;
+
+            return Parse(settings, referenceDate, input).Results.Cast<ChronoxTimeRangeExtraction>().ToList();
+        }
+
+        IReadOnlyList<ChronoxTimeSpanExtraction> IChronox.ParseTimeSpan(string input) => ParseTimeSpan(Settings, input);
+
+
+        IReadOnlyList<ChronoxTimeSpanExtraction> IChronox.ParseTimeSpan(ChronoxSettings settings, string input)
+        {
+            settings.Preferences.ParsingMode = ExtractionResultType.TimeSpan;
+
+            return Parse(settings, DateTime.MinValue, input).Results.Cast<ChronoxTimeSpanExtraction>().ToList();
+        }
+
+
+        IReadOnlyList<ChronoxTimeSetExtraction> IChronox.ParseTimeSet(string input) => ParseTimeSet(Settings, input);
+
+
+        IReadOnlyList<ChronoxTimeSetExtraction> IChronox.ParseTimeSet(ChronoxSettings settings, string input)
+        {
+            settings.Preferences.ParsingMode = ExtractionResultType.TimeSet;
+
+            return Parse(settings, DateTime.MinValue, input).Results.Cast<ChronoxTimeSetExtraction>().ToList();
+        }
+
 
         private string PreProcessExpression(ProcessorType type, string input)
         {
@@ -161,21 +244,22 @@ namespace Chronox
             {
                 foreach (var processor in Settings.Processors(type))
                 {
-                    input = processor.PreProcess(Settings,input);
+                    input = processor.PreProcess(Settings, input);
                 }
             }
             return input;
         }
 
-        private PairWrapper<string,List<ScanResult>> PerformExpressionScanAndReplace(string input)
+
+        private PairWrapper<string, List<ScanWrapper>> PerformExpressionScanAndReplace(string input)
         {
-            var results = new List<ScanResult>();
+            var results = new List<ScanWrapper>();
 
             var expression = input;
 
             foreach (var scanner in Settings.Scanners())
             {
-                var result = scanner.Scan(Settings,expression);
+                var result = scanner.Scan(Settings, expression);
 
                 if (result.ResultWrappers.Count > 0)
                 {
@@ -185,16 +269,17 @@ namespace Chronox
                 }
             }
 
-            return new PairWrapper<string, List<ScanResult>>(expression,results);
+            return new PairWrapper<string, List<ScanWrapper>>(expression, results);
         }
 
-        private List<ChronoxDateTimeExtraction> PostProcessResults(List<ChronoxDateTimeExtraction> results, string input, ChronoxSettings settings)
+
+        private List<IChronoxExtraction> PostProcessResults(List<IChronoxExtraction> results, string input, ChronoxSettings settings)
         {
             if (!settings.Processors(ProcessorType.PostProcessor).Any()) return results;
 
             foreach (var processor in settings.Processors(ProcessorType.PostProcessor))
             {
-                results = processor.PostProcess(settings,results, input);
+                results = processor.PostProcess(settings, results, input);
             }
 
             return results;

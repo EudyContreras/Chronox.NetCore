@@ -65,6 +65,17 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.TimeMeridiam
                 ),
+            new Sequence(SequenceType.DateTime, "weekend",
+                    Definitions.Property.DayOfWeekType
+                ),
+            new Sequence(SequenceType.DateTime, "next weekend | last weekend",
+                    Definitions.Property.GrabberExpressions,
+                    Definitions.Property.DayOfWeekType
+                ),
+            new Sequence(SequenceType.DateTime, "the weekend after | the weekend before",
+                    Definitions.Property.DayOfWeekType,
+                    Definitions.Property.GrabberExpressions
+                ),
             new Sequence(SequenceType.DateTime, "6 in the morning | 8pm in the evening",
                     Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam,
@@ -662,68 +673,68 @@ namespace Chronox.Constants.Banks
 
         public static readonly IEnumerable<Sequence> RepeaterSequences = new List<Sequence>()
         {
-            new Sequence(SequenceType.Repeater, "every other day | every other week | every year | every week",
+            new Sequence(SequenceType.TimeSet, "every other day | every other week | every year | every week",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Repeater, "every monday | every sunday",
+            new Sequence(SequenceType.TimeSet, "every monday | every sunday",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.DaysOfWeek
                 ),
-            new Sequence(SequenceType.Repeater, "every afternoon | every morning",
+            new Sequence(SequenceType.TimeSet, "every afternoon | every morning",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.TimeOfDay
                 ),
-            new Sequence(SequenceType.Repeater, "daily | weekly | monthly ",
+            new Sequence(SequenceType.TimeSet, "daily | weekly | monthly ",
                     Definitions.Property.RepeaterExpressions
                 ),
-            new Sequence(SequenceType.Repeater, "every 2 days | every 30 seconds",
+            new Sequence(SequenceType.TimeSet, "every 2 days | every 30 seconds",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Repeater, "every first day | every 2nd month",
+            new Sequence(SequenceType.TimeSet, "every first day | every 2nd month",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Repeater, "every first day of the year | every fifth day of the year",
+            new Sequence(SequenceType.TimeSet, "every first day of the year | every fifth day of the year",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DayUnit,
                     Definitions.Property.YearUnit
                 ),
-            new Sequence(SequenceType.Repeater, "every first day of the month | every 2nd day of the month",
+            new Sequence(SequenceType.TimeSet, "every first day of the month | every 2nd day of the month",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DayUnit,
                     Definitions.Property.MonthUnit
                 ),
-            new Sequence(SequenceType.Repeater, "every first day of the week | every 2nd day of the week",
+            new Sequence(SequenceType.TimeSet, "every first day of the week | every 2nd day of the week",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DayUnit,
                     Definitions.Property.WeekUnit
                 ),
-            new Sequence(SequenceType.Repeater, "every first week of the month | every 2nd week of the month",
+            new Sequence(SequenceType.TimeSet, "every first week of the month | every 2nd week of the month",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.WeekUnit,
                     Definitions.Property.MonthUnit
                 ),
-            new Sequence(SequenceType.Repeater, "every first week of the year | every 2nd week of the year",
+            new Sequence(SequenceType.TimeSet, "every first week of the year | every 2nd week of the year",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.WeekUnit,
                     Definitions.Property.YearUnit
                 ),
-            new Sequence(SequenceType.Repeater, "every first month of the year| every 2nd month of the year",
+            new Sequence(SequenceType.TimeSet, "every first month of the year| every 2nd month of the year",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.MonthUnit,
                     Definitions.Property.YearUnit
                 ),
-            new Sequence(SequenceType.Repeater, "every first day of the month| every 2nd day of the month",
+            new Sequence(SequenceType.TimeSet, "every first day of the month| every 2nd day of the month",
                     Definitions.Property.RepeaterIndicators,
                     Definitions.Property.NumericWord,
                     Definitions.Property.WeekUnit,
@@ -734,80 +745,80 @@ namespace Chronox.Constants.Banks
 
         public static readonly IEnumerable<Sequence> DurationSequences = new List<Sequence>()
         {        
-            new Sequence(SequenceType.Duration, "for aproximately five seconds | for exactly ten years",
+            new Sequence(SequenceType.TimeSpan, "for aproximately five seconds | for exactly ten years",
                     Definitions.Property.DurationIndicators,
                     Definitions.Property.Proximity,
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "for aproximately 5 seconds | for exactly 10 years",
+            new Sequence(SequenceType.TimeSpan, "for aproximately 5 seconds | for exactly 10 years",
                     Definitions.Property.DurationIndicators,
                     Definitions.Property.Proximity,
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "five seconds long | ten years long",
+            new Sequence(SequenceType.TimeSpan, "five seconds long | ten years long",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "5 seconds long | 5 years long",
+            new Sequence(SequenceType.TimeSpan, "5 seconds long | 5 years long",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "five decades | five millenniums",
+            new Sequence(SequenceType.TimeSpan, "five decades | five millenniums",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.TimePeriods
                 ),
-            new Sequence(SequenceType.Duration, "5 decades | 5 millenniums",
+            new Sequence(SequenceType.TimeSpan, "5 decades | 5 millenniums",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.TimePeriods
                 ),
-            new Sequence(SequenceType.Duration, "a half a minute | two quaters of two minutes",
+            new Sequence(SequenceType.TimeSpan, "a half a minute | two quaters of two minutes",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DurationExpressions,
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.TimePeriods
                 ),
-            new Sequence(SequenceType.Duration, "a half minute | a quater minute",
+            new Sequence(SequenceType.TimeSpan, "a half minute | a quater minute",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DurationExpressions,
                     Definitions.Property.TimePeriods
                 ),
-            new Sequence(SequenceType.Duration, "one fifth of a second | two thirds of a year",
+            new Sequence(SequenceType.TimeSpan, "one fifth of a second | two thirds of a year",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DurationExpressions,
                     Definitions.Property.TimePeriods
                 ),
-            new Sequence(SequenceType.Duration, "45 minutes and 3 seconds",
+            new Sequence(SequenceType.TimeSpan, "45 minutes and 3 seconds",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "forty five minutes and three seconds",
+            new Sequence(SequenceType.TimeSpan, "forty five minutes and three seconds",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "45 minutes and three seconds",
+            new Sequence(SequenceType.TimeSpan, "45 minutes and three seconds",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "forty five minutes and 3 seconds",
+            new Sequence(SequenceType.TimeSpan, "forty five minutes and 3 seconds",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.Duration, "a week | a month | two weeks",
+            new Sequence(SequenceType.TimeSpan, "a week | a month | two weeks",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits
                 ),

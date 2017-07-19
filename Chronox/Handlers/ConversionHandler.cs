@@ -137,7 +137,7 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static ChronoxTimeComponent TimeExpression(ChronoxSettings settings, string input)
+        public static ChronoxTime TimeExpression(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
@@ -151,7 +151,7 @@ namespace Chronox.Helpers.Interpreters
             return null;
         }
 
-        public static TimeRange TimeOfDay(ChronoxSettings settings, string input)
+        public static RangeWrapper TimeOfDay(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
@@ -191,6 +191,20 @@ namespace Chronox.Helpers.Interpreters
             }
 
             return Enumerations.LogicalOperator.Default;
+        }
+
+        public static DayOfWeekType DayOfWeekType(ChronoxSettings settings, string input)
+        {
+            var key = string.Empty;
+
+            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.DayOfWeekType);
+
+            if (dictionary.TryGetValue(input, out key))
+            {
+                return Definitions.Converters.WEEK_DAY_TYPE[key];
+            }
+
+            return Enumerations.DayOfWeekType.Default;
         }
 
         public static TimeRepeater RepeaterExpression(ChronoxSettings settings, string input)

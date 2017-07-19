@@ -9,10 +9,10 @@ using Enumerations;
 
 namespace Chronox.Wrappers
 {
-    internal class RegexSequence
+    internal class PatternSequence
     {
 
-        public readonly List<RegexPattern> Patterns = new List<RegexPattern>();
+        public readonly List<PatternRegex> Patterns = new List<PatternRegex>();
 
         public string CombinedPattern { get; set; }
 
@@ -22,7 +22,7 @@ namespace Chronox.Wrappers
 
         public SequenceType SequenceType { get; private set; }
 
-        public RegexSequence(SequenceType type)
+        public PatternSequence(SequenceType type)
         {
             SequenceType = type;
         }

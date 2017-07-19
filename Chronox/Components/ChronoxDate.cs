@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox
 {
-    internal class ChronoxDateComponent : IComparable<ChronoxDateComponent>
+    internal class ChronoxDate : IComparable<ChronoxDate>
     {
         public int Year { get; set; }
 
@@ -13,7 +13,7 @@ namespace Chronox
 
         public int Day { get; set; }
 
-        public ChronoxDateComponent(int year, int month, int day)
+        public ChronoxDate(int year, int month, int day)
         {
             Year = year;
             Month = month;
@@ -22,7 +22,7 @@ namespace Chronox
 
         public override string ToString() => $"{Year}-{Month}-{Day}";
 
-        public int CompareTo(ChronoxDateComponent other)
+        public int CompareTo(ChronoxDate other)
         {
             var compoundOne = Year + Month + Day;
 

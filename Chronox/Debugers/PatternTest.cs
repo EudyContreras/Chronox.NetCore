@@ -12,7 +12,7 @@ namespace Tests
 {
     internal class PatternTest
     {
-        public Dictionary<string, RegexPattern> Patterns = new Dictionary<string, RegexPattern>();
+        public Dictionary<string, PatternRegex> Patterns = new Dictionary<string, PatternRegex>();
 
         public ChronoxSettings settings = ChronoxSettings.Standard;
 

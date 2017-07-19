@@ -8,5 +8,7 @@ namespace Chronox.Interfaces
     internal interface IChronoxExtraction
     {
         ExtractionResultType ResultType { get; }
+
+        string Extraction { get; set; }
     }
 }

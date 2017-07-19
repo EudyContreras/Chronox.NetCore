@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Chronox.Interfaces;
 
 namespace Tests
 {
@@ -16,7 +17,6 @@ namespace Tests
         //TODO: Needs a complete retest
         string[] TestedAndWorking =
         {
-
             "4pm",
             "4:00",
             "7:00",
@@ -115,6 +115,11 @@ namespace Tests
             "3 saturdays after",
             "3 mondays ago",
             "3 mondays after",
+            "next weekend",
+            "last weekend",
+            "the weekend",
+            "the weekend after",
+            "the weekend before",
             "4th of jan 2000",
             "5 fridays after",
             "7 days from now",
@@ -379,11 +384,14 @@ namespace Tests
         {
             //var count = TestedAndWorking.Length;
 
+            var parser = ChronoxParser.GetInstance(settings);
+
+
             foreach (var format in TestedAndWorking)
             {
                 var text = $"I will come visit you {format}";
 
-                var date = ChronoxParser.ParseDate(settings, text);
+                var date = parser.ParseDateTime(settings, text)[0].GetCurrent().DateTime();
 
                 Console.WriteLine($"Format: {format} | DateTime: {date}");
             }

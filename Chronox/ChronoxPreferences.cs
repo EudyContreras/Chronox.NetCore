@@ -43,31 +43,14 @@ namespace Chronox
 
         public ChronoxPreferences(ChronoxSettings settings)
         {
-            var dateTime = settings.ReferencDate;
-
-            year = dateTime.Year;
-            month = dateTime.Month;
-            day = dateTime.Day;
+            year = settings.ReferencDate.Year;
+            month = settings.ReferencDate.Month;
+            day = settings.ReferencDate.Day;
             hour = (int)RangeConstants.MORNING_RANGE.Start;
             minute = 00;
             second = 00;
             timeZone = TimeZoneInfo.Local.DisplayName;
             StartOfWeek = DayOfWeek.Monday;
-        }
-
-        public void ChangeStartOfWeek(DayOfWeek dayOfWeek)
-        {
-            var culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-
-            var uiCulture = (CultureInfo)CultureInfo.CurrentUICulture.Clone();
-
-            culture.DateTimeFormat.FirstDayOfWeek = dayOfWeek;
-
-            uiCulture.DateTimeFormat.FirstDayOfWeek = dayOfWeek;
-
-            CultureInfo.CurrentCulture = culture;
-
-            CultureInfo.CurrentUICulture = uiCulture;
         }
 
         public int PreferedYear

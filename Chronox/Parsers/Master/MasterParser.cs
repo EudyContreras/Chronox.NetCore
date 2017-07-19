@@ -20,44 +20,129 @@ namespace Chronox.Parsers.English
 {
     internal class MasterParser : AbstractParser
     {
-        private IChronoxParseHelper helper = new DateTimeHelper(null);
+        private IChronoxParseHelper<ChronoxDateTimeExtraction> helperA = null;
 
-        protected override void Extract(string text, DateTime refDate, RegexSequence sequence, Match match, ChronoxSettings settings, ChronoxBuildInformation information, ref ChronoxDateTimeExtraction result)
+        private IChronoxParseHelper<ChronoxTimeRangeExtraction> helperB = null;
+
+        private IChronoxParseHelper<ChronoxTimeSpanExtraction> helperC = null;
+
+        private IChronoxParseHelper<ChronoxTimeSetExtraction> helperD = null;
+
+        protected override void Extract(string text, DateTime refDate, PatternSequence sequence, Match match, ChronoxSettings settings, ChronoxBuildInformation information, ref IChronoxExtraction result)
         {
             var dateTime = ChronoxDateTimeUtility.CreateDateTime(refDate);
-          
-            if(result == null)
+
+            var sequenceControll = false;
+
+            if (result == null)
             {
-                result = new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, text);
+                switch (settings.Preferences.ParsingMode)
+                {
+                    case ExtractionResultType.TimeSpan:
+                        break;
+                    case ExtractionResultType.DateTime:
+                        result = new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, text);
+                        break;
+                    case ExtractionResultType.TimeSet:
+                        break;
+                    case ExtractionResultType.TimeRange:
+                        break;
+                    case ExtractionResultType.General:
+
+                        sequenceControll = true;
+
+                        break;
+                }
             }
 
+            var parseResult = new ChronoxParsedResult(InitializeFromSequenceType(text, sequence, match, settings, result, dateTime, sequenceControll));
+
+            HandleResultType(match, settings, information, parseResult, ref dateTime);
+
+            result = parseResult.Result;
+        }
+
+        private IChronoxExtraction InitializeFromSequenceType(string text, PatternSequence sequence, Match match, ChronoxSettings settings, IChronoxExtraction result, DateTime dateTime, bool sequenceControll)
+        {
             switch (sequence.SequenceType)
             {
                 case SequenceType.DateTime:
-                    helper = new DateTimeHelper(this);
+                    helperA = (helperA == null) ? new DateTimeHelper(this) : helperA;
+
+                    result = (sequenceControll && result == null) ? new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, text) : result;
                     break;
-                case SequenceType.DateRange:
-                    helper = new TimeRangeHelper();
+                case SequenceType.TimeRange:
+                    helperB = (helperB == null) ? new TimeRangeHelper() : helperB;
                     break;
-                case SequenceType.Duration:
-                    helper = new DurationHelper();
+                case SequenceType.TimeSpan:
+                    helperC = (helperC == null) ? new TimeSpanHelper() : helperC;
                     break;
-                case SequenceType.Repeater:
-                    helper = new RepeaterHelper();
+                case SequenceType.TimeSet:
+                    helperD = (helperD == null) ? new TimeSetHelper() : helperD;
                     break;
             }
 
+            return result;
+        }
+
+        private void HandleResultType(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxParsedResult result, ref DateTime dateTime)
+        {
+            var groups = ProcessGroups(match, ref dateTime, information, settings);
+
+            switch (result.ResultType)
+            {
+                case ExtractionResultType.DateTime:
+                    result.DateTimeExtraction = HandleDateTimeExtraction(match, settings, information, result.DateTimeExtraction, groups, ref dateTime);
+                    break;
+                case ExtractionResultType.TimeRange:
+                    result.TimeRangeExtraction = HandleTimeRangeExtraction(match, settings, information, result.TimeRangeExtraction, groups, ref dateTime);
+                    break;
+                case ExtractionResultType.TimeSpan:
+                    result.TimeSpanExtraction = HandleTimeSpanExtraction(match, settings, information, result.TimeSpanExtraction, groups, ref dateTime);
+                    break;
+                case ExtractionResultType.TimeSet:
+                    result.TimeSetExtraction = HandleTimeSetExtraction(match, settings, information, result.TimeSetExtraction, groups, ref dateTime);
+                    break;
+
+            }
+        }
+
+        private ChronoxDateTimeExtraction HandleDateTimeExtraction(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxDateTimeExtraction result, List<GroupWrapper> groups, ref DateTime dateTime)
+        {
             var now = settings.ReferencDate;
 
-            result = AssignGroups(match, ref dateTime, result, information, settings);
+            result = ComputeInstructions(groups, ref dateTime, result, information, settings, helperA); 
 
             result.GetCurrent().NormalizeDateValues(now, dateTime, information.Settings);
             result.GetCurrent().NormalizeTimeValues(now, dateTime, information.Settings);
 
             information.DateTime = dateTime;
+
+            return result;
         }
 
-        private ChronoxDateTimeExtraction AssignGroups(Match match, ref DateTime dateTime, ChronoxDateTimeExtraction result, ChronoxBuildInformation information, ChronoxSettings settings)
+        private ChronoxTimeRangeExtraction HandleTimeRangeExtraction(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxTimeRangeExtraction result, List<GroupWrapper> groups, ref DateTime dateTime)
+        {
+            result = ComputeInstructions(groups, ref dateTime, result, information, settings, helperB);
+
+            return null;
+        }
+
+        private ChronoxTimeSpanExtraction HandleTimeSpanExtraction(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxTimeSpanExtraction result, List<GroupWrapper> groups, ref DateTime dateTime)
+        {
+            result = ComputeInstructions(groups, ref dateTime, result, information, settings, helperC);
+
+            return null;
+        }
+
+        private ChronoxTimeSetExtraction HandleTimeSetExtraction(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxTimeSetExtraction result, List<GroupWrapper> groups, ref DateTime dateTime)
+        {
+            result = ComputeInstructions(groups, ref dateTime, result, information, settings, helperD);
+
+            return null;
+        }
+
+        private List<GroupWrapper> ProcessGroups(Match match, ref DateTime dateTime, ChronoxBuildInformation information, ChronoxSettings settings)
         {
             var matches = new HashSet<GroupWrapper>();
 
@@ -73,23 +158,22 @@ namespace Chronox.Parsers.English
                     }
                     else if(capture is Capture)
                     {
-                        var cap = new GroupWrapper((Capture)capture);
+                        var captureWrapper = new GroupWrapper((Capture)capture);
 
-                        cap.Name = group.Name;
-                        cap.Group = group;
+                        captureWrapper.Name = group.Name;
+                        captureWrapper.Group = group;
 
-                        matches.Add(cap);
+                        matches.Add(captureWrapper);
                     }
                 }
             }
+
             var filterd = matches.Where(m => !string.IsNullOrEmpty(m.Value) && !string.IsNullOrWhiteSpace(m.Value));
 
-            var ordered = filterd.OrderBy(g => g.Index).ThenByDescending(g => g.Value.Length).ToList();
-
-            return ComputeInstructions(ordered, ref dateTime, result, information, settings);
+            return filterd.OrderBy(g => g.Index).ThenByDescending(g => g.Value.Length).ToList();
         }
 
-        private ChronoxDateTimeExtraction ComputeInstructions(List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxDateTimeExtraction result, ChronoxBuildInformation information, ChronoxSettings settings)
+        private TResult ComputeInstructions<TResult>(List<GroupWrapper> foundGroups, ref DateTime dateTime, TResult result, ChronoxBuildInformation information, ChronoxSettings settings, IChronoxParseHelper<TResult> helper)
         {
             var date = dateTime;
 
@@ -191,6 +275,12 @@ namespace Chronox.Parsers.English
                     var seasonOfYear = ConversionHandler.DayOffset(settings, group.Value.Trim());
 
                     helper.ProcessSeason(result, foundGroups, ref dateTime, information, seasonOfYear);
+                }
+                else if (group.Name == Definitions.Property.DayOfWeekType)
+                {
+                    var dayOfWeekType = ConversionHandler.DayOfWeekType(settings, group.Value.Trim());
+
+                    helper.ProcessDayOfWeekType(result, foundGroups, ref dateTime, information, dayOfWeekType);
                 }
                 else if (group.Name == Definitions.Property.DaysOfWeek)
                 {

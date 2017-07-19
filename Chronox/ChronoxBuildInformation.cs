@@ -49,7 +49,7 @@ namespace Chronox.Wrappers
 
         public Queue<int> FloatingGrabbers { get; set; }
 
-        public Queue<TimeRange> FloatingTimeOfDay { get; set; }
+        public Queue<RangeWrapper> FloatingTimeOfDay { get; set; }
 
         public Queue<DateTimeUnit> ProcessedTimeUnit { get; set; }
 
@@ -115,7 +115,7 @@ namespace Chronox.Wrappers
             this.GrabberOffsets = new Queue<int>();
             this.NumericOrdinals = new Queue<int>();
             this.FloatingGrabbers = new Queue<int>();
-            this.FloatingTimeOfDay = new Queue<TimeRange>();
+            this.FloatingTimeOfDay = new Queue<RangeWrapper>();
             this.FloatingTimeUnits = new Queue<DateTimeUnit>();
             this.ProcessedTimeUnit = new Queue<DateTimeUnit>();     
             this.FloatingConjointer = new Queue<TimeConjointer>();

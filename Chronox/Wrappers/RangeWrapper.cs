@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace Chronox.Helpers
 {
-    internal class TimeRange
+    internal class RangeWrapper
     {
-        public static readonly TimeRange Default = DefaultRange();
+        public static readonly RangeWrapper Default = DefaultRange();
 
         public long Start { get; private set; }
 
         public long End { get; private set; }
 
-        public TimeRange(long start, long end)
+        public RangeWrapper(long start, long end)
         {
             Start = start;
             End = end;
         }
 
-        private static TimeRange DefaultRange()
+        private static RangeWrapper DefaultRange()
         {
-            return new TimeRange(-1, -1);
+            return new RangeWrapper(-1, -1);
         }
 
         public bool Contains(long point) => Start <= point && End >= point;
 
-        public bool Contains(TimeRange range) => (Start <= range.Start && End >= range.End);
+        public bool Contains(RangeWrapper range) => (Start <= range.Start && End >= range.End);
 
     }
 }

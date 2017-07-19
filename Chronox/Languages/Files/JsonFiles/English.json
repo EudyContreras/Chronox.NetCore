@@ -1,8 +1,8 @@
 ﻿{
   "language": "English",
-  "ignored": [ "the", ",", "of", "at", "on", "in","oclock","o'clock","during" ],
+  "ignored": [ "the", ",", "of", "at", "on", "in", "oclock", "o'clock", "during" ],
   "assumeSpace": true,
-  "endianFormat": "M.D.Y", 
+  "preferedEndianFormat": "M.D.Y",
   "sectionTypes": [ "combined", "combinedReversed", "combinedOptional", "n/a" ],
   "propertyTypes": [ "group", "groupOptional", "optional", "filler", "interpreted", "n/a" ],
   "supportedSectionCodes": [
@@ -63,7 +63,16 @@
     "M", //: monthDiscrete, : 10
     "D" //: dayDiscrete, : 24
   ],
-  "supportedDateFormats": [ //The parser supports many formats but Write additional formats which you would like to support! the parser will do its best to make it work! Example: "(N.W|M.O.Y|N.M.4.D)" this could translate to: (july the thirteenth 2017 | apr 14th of '97)
+  "supportedDateTimeFormats": [ //The parser supports many formats but Write additional formats which you would like to support! the parser will do its best to make it work! Example: "(N.W|M.O.Y|N.M.4.D)" this could translate to: (july the thirteenth 2017 | apr 14th of '97)
+
+  ],
+  "supportedTimeRangeFormats": [
+
+  ],
+  "supportedTimeSpanFormats": [
+
+  ],
+  "supportedTimeSetFormats": [
 
   ],
   "section": [
@@ -191,7 +200,7 @@
           "value": "0",
           "type": "group",
           "pattern": "this|current|present|within",
-          "variations": [ "this", "current", "present","within" ]
+          "variations": [ "this", "current", "present", "within" ]
         },
         {
           "key": "next",
@@ -267,17 +276,23 @@
           "type": "group",
           "pattern": "midnight",
           "variations": [ "midnight" ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "julianDay",
+      "type": "n/a",
+      "properties": [
         {
           "key": "sunrise",
-          "value": "6:00",
+          "value": "n/a",
           "type": "group",
           "pattern": "sunrise",
           "variations": [ "sunrise" ]
         },
         {
           "key": "sunset",
-          "value": "18:00",
+          "value": "n/a",
           "type": "group",
           "pattern": "sunset",
           "variations": [ "sunset" ]
@@ -334,7 +349,7 @@
           "value": "n/a",
           "type": "group",
           "pattern": "from\\s*now|hence|after",
-          "variations": [ "from now","hence","after" ]
+          "variations": [ "from now", "hence", "after" ]
         },
         {
           "key": "from",
@@ -823,8 +838,8 @@
       ]
     },
     {
-      "label": "typeOfDay",
-      "type": "",
+      "label": "dayOfWeekType",
+      "type": "combined",
       "properties": [
         {
           "key": "weekday",
@@ -840,7 +855,7 @@
           "pattern": "weekend",
           "variations": [ "weekend" ]
         }
-      ]      
+      ]
     },
     {
       "label": "dateTimeUnits",
@@ -1216,7 +1231,7 @@
           "value": "5",
           "type": "group",
           "pattern": "fi(?:fth|th|ve)|5th",
-          "variations": [ "five", "fith","fifth","5th" ]
+          "variations": [ "five", "fith", "fifth", "5th" ]
         },
         {
           "key": "six",

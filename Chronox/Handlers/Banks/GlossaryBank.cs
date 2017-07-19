@@ -86,6 +86,8 @@ namespace Chronox.Handlers.Banks
 
         private Dictionary<string, string> TimeMeridiam = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
+        private Dictionary<string, string> DayOfWeekType = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
         public Dictionary<string, string> GetDictionary(string dictionary)
         {
             if (dictionary.Equals(Definitions.Property.LogicalOperator)) return LogicalOperator;
@@ -161,6 +163,8 @@ namespace Chronox.Handlers.Banks
             if (dictionary.Equals(Definitions.Property.NumericWordCardinal)) return NumericWordCardinal;
 
             if (dictionary.Equals(Definitions.Property.TimeMeridiam)) return TimeMeridiam;
+
+            if (dictionary.Equals(Definitions.Property.DayOfWeekType)) return DayOfWeekType;
 
             return null;
         }

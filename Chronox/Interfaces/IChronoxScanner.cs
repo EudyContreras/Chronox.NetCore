@@ -7,6 +7,6 @@ namespace Chronox.Interfaces
 {
     internal interface IChronoxScanner
     {
-        ScanResult Scan(ChronoxSettings option, string expression);
+        ScanWrapper Scan(ChronoxSettings option, string expression);
     }
 }

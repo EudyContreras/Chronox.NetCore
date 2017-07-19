@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxDateBuilder
+    internal class ChronoxDateTimeBuilder
     {
 
         private ChronoxSettings settings;
@@ -25,7 +25,7 @@ namespace Chronox
 
         public DateTime DateTime() => Merge(Date(), Time());
 
-        public ChronoxDateBuilder(ChronoxSettings settings)
+        public ChronoxDateTimeBuilder(ChronoxSettings settings)
         {
             this.settings = settings;
         }
@@ -95,7 +95,7 @@ namespace Chronox
             }
         }
 
-        public ChronoxDateComponent Date()
+        public ChronoxDate Date()
         {
             var dateValues = new Dictionary<DateTimeUnit, int>();
 
@@ -103,7 +103,7 @@ namespace Chronox
 
             dateValues.AddAll(this.knownValues);
 
-            var date = new ChronoxDateComponent(
+            var date = new ChronoxDate(
                     dateValues[DateTimeUnit.Year],
                     dateValues[DateTimeUnit.Month],
                     dateValues[DateTimeUnit.Day]);
@@ -111,10 +111,10 @@ namespace Chronox
             return date;
         }
 
-        private DateTime Merge(ChronoxDateComponent date, ChronoxTimeComponent time) => new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, time.Seconds);
+        private DateTime Merge(ChronoxDate date, ChronoxTime time) => new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, time.Seconds);
         
 
-        public ChronoxTimeComponent Time()
+        public ChronoxTime Time()
         {
             var timeValues = new Dictionary<DateTimeUnit, int>();
 
@@ -122,7 +122,7 @@ namespace Chronox
 
             timeValues.AddAll(this.knownValues);
 
-            var time = new ChronoxTimeComponent(
+            var time = new ChronoxTime(
                     timeValues[DateTimeUnit.Hour],
                     timeValues[DateTimeUnit.Minute],
                     timeValues[DateTimeUnit.Second]);

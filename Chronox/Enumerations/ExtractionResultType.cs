@@ -6,16 +6,14 @@ namespace Enumerations
 {
     internal enum ExtractionResultType
     {
-        Duration,
+        General,
+
+        TimeSpan,
 
         DateTime,
 
-        Repeater,
+        TimeSet,
 
-        DateTimeRange,
-
-        General,
-
-        Default = -1
+        TimeRange,
     }
 }

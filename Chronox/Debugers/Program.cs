@@ -11,6 +11,7 @@ using Chronox.Utilities.Extenssions;
 using Tests;
 using System;
 using System.Collections.Generic;
+using Chronox.Constants;
 
 namespace Chronox.Debugers
 {
@@ -18,13 +19,17 @@ namespace Chronox.Debugers
     {
         static void Main(string[] args)
         {
-            ChronoxSettings settings = new ChronoxSettings("english");
+            //ChronoxSettings settings = new ChronoxSettings("english");
 
-            //settings.ReferencDate = DateTime.Parse("7/18/2017, 18:00");
-            
-            DetectionTest detectionTest = new DetectionTest(settings);
 
-            detectionTest.TryDectect();
+            //DetectionTest detectionTest = new DetectionTest(settings);
+            //detectionTest.TryDectect();
+
+            var fileParser = new LanguageFileHandler();
+
+            var glossary = fileParser.CreatGlossary(Definitions.FilePath, "english");
+
+            var d = glossary;
 
             Console.ReadKey();
         }

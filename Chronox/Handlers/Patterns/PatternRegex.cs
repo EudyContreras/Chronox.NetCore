@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Chronox.Wrappers
 {
-    public class RegexPattern : IComparable<RegexPattern>
+    public class PatternRegex : IComparable<PatternRegex>
     {
         public string Value { get; set; }
 
         public string Label { get; set; }
 
-        public static RegexPattern Null { get; private set; }
+        public static PatternRegex Null { get; private set; }
 
-        public RegexPattern(string pattern) : this(string.Empty, pattern) { }
+        public PatternRegex(string pattern) : this(string.Empty, pattern) { }
 
-        public RegexPattern(string label, string pattern)
+        public PatternRegex(string label, string pattern)
         {
             this.Label = label;
             this.Value = pattern;
@@ -28,7 +28,7 @@ namespace Chronox.Wrappers
             return Value;
         }
 
-        public int CompareTo(RegexPattern other)
+        public int CompareTo(PatternRegex other)
         {
             return string.Compare(Label, other.Label, true);
         }

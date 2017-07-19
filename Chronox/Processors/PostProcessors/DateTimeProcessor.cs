@@ -1,4 +1,5 @@
 ﻿using Chronox.Abstractions;
+using Chronox.Interfaces;
 using Chronox.Utilities;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,16 @@ namespace Chronox.Processors.PostProcessors
 {
     internal class StandardPostProcessor : AbstractPostProcessor
     {
-        public override List<ChronoxDateTimeExtraction> ProcessExpression(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text)
+        public override List<IChronoxExtraction> ProcessExpression(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text)
         {
             var referenceDate = settings.ReferencDate.GetDateComponent();
 
             foreach(var extraction in extractions)
             {
-                if(extraction.GetCurrent().Date().CompareTo(referenceDate) != 0)
-                {
+                //if(extraction.GetCurrent().Date().CompareTo(referenceDate) != 0)
+                //{
 
-                }
+                //}
             }
 
             return extractions;

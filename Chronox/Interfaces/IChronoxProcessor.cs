@@ -1,4 +1,5 @@
-﻿using Enumerations;
+﻿using Chronox.Interfaces;
+using Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Chronox.Processors
     {
         string PreProcess(ChronoxSettings settings, string text);
 
-        List<ChronoxDateTimeExtraction> PostProcess(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text);
+        List<IChronoxExtraction> PostProcess(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text);
 
         ProcessorType Type { get; set; }
     }

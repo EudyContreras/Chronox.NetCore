@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxRangeExtraction : IDateTimeRangeExtraction, IComparable<ChronoxDateTimeExtraction>
+    internal class ChronoxTimeRangeExtraction : IChronoxExtraction, IComparable<ChronoxDateTimeExtraction>
     {
 
         public int Index { get; set; }
@@ -20,25 +20,25 @@ namespace Chronox
 
         public DateTime ReferenceDate { get; set; }
 
-        private ChronoxDateBuilder Start { get; set; }
+        private ChronoxDateTimeBuilder Start { get; set; }
 
-        private ChronoxDateBuilder End { get; set; }
+        private ChronoxDateTimeBuilder End { get; set; }
 
-        internal static ChronoxDateTimeExtraction EmptyExtraction { get; set; } = null;
+        internal static ChronoxTimeRangeExtraction EmptyExtraction { get; set; } = null;
 
-        public ExtractionResultType ResultType => ExtractionResultType.DateTimeRange;
+        public ExtractionResultType ResultType => ExtractionResultType.TimeRange;
 
         internal DateRangePointer Pointer { get; set; } = DateRangePointer.Start;
 
-        private ChronoxRangeExtraction() { }
+        private ChronoxTimeRangeExtraction() { }
 
-        public ChronoxRangeExtraction(ChronoxSettings settings, DateTime referenceDate, int index, string extraction, string text) : this()
+        public ChronoxTimeRangeExtraction(ChronoxSettings settings, DateTime referenceDate, int index, string extraction, string text) : this()
         {
             this.Index = index;
             this.Original = text;
             this.Extraction = extraction;
             this.ReferenceDate = referenceDate;
-            this.Start = new ChronoxDateBuilder(settings);
+            this.Start = new ChronoxDateTimeBuilder(settings);
         }
 
         public int CompareTo(ChronoxDateTimeExtraction other)
@@ -51,12 +51,12 @@ namespace Chronox
             return Extraction;
         }
 
-        internal ChronoxDateBuilder GetCurrent()
+        internal ChronoxDateTimeBuilder GetCurrent()
         {
             return Get(Pointer);
         }
 
-        internal void Set(DateRangePointer pointer, ChronoxDateBuilder component)
+        internal void Set(DateRangePointer pointer, ChronoxDateTimeBuilder component)
         {
             switch (pointer)
             {
@@ -74,7 +74,7 @@ namespace Chronox
             }
         }
 
-        internal ChronoxDateBuilder Get(DateRangePointer pointer)
+        internal ChronoxDateTimeBuilder Get(DateRangePointer pointer)
         {
             switch (pointer)
             {

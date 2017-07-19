@@ -16,14 +16,14 @@ namespace Chronox.Abstractions
             set { }
         }
 
-        public abstract List<ChronoxDateTimeExtraction> ProcessExpression(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text);
+        public abstract List<IChronoxExtraction> ProcessExpression(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text);
 
         public string PreProcess(ChronoxSettings settings, string text)
         {
             return string.Empty;
         }
 
-        public List<ChronoxDateTimeExtraction> PostProcess(ChronoxSettings settings, List<ChronoxDateTimeExtraction> extractions, string text)
+        public List<IChronoxExtraction> PostProcess(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text)
         {
             return ProcessExpression(settings, extractions, text);
         }

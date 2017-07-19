@@ -32,15 +32,15 @@ namespace Chronox.Handlers
 
         public SequenceBank SequenceLibrary { get; private set; }
 
-        public List<RegexSequence> DateTimeRegexSequences { get; private set; }
+        public List<PatternSequence> DateTimeRegexSequences { get; private set; }
 
-        public List<RegexSequence> DurationRegexSequences { get; private set; }
+        public List<PatternSequence> DurationRegexSequences { get; private set; }
 
-        public List<RegexSequence> RepeaterRegexSequences { get; private set; }
+        public List<PatternSequence> RepeaterRegexSequences { get; private set; }
 
-        public List<RegexSequence> RangedRegexSequences { get; private set; }
+        public List<PatternSequence> RangedRegexSequences { get; private set; }
 
-        public List<RegexSequence> AllRegexSequences { get; private set; }
+        public List<PatternSequence> AllRegexSequences { get; private set; }
 
         public Dictionary<string,string> Holidays { get; set; }
 
@@ -68,7 +68,7 @@ namespace Chronox.Handlers
 
             SequenceLibrary = new SequenceBank();
 
-            DateTimeRegexSequences = new List<RegexSequence>();
+            DateTimeRegexSequences = new List<PatternSequence>();
 
             Holidays = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
@@ -167,6 +167,7 @@ namespace Chronox.Handlers
             PopulateGlossary(Definitions.Property.NumericWordOrdinal);
             PopulateGlossary(Definitions.Property.NumericWordCardinal);
             PopulateGlossary(Definitions.Property.TimeMeridiam);
+            PopulateGlossary(Definitions.Property.DayOfWeekType);
         }
 
         private void PopulateGlossary(string label)
@@ -335,6 +336,7 @@ namespace Chronox.Handlers
             CreatePattern(Definitions.Property.NumericWordOrdinal);
             CreatePattern(Definitions.Property.NumericWordCardinal);
             CreatePattern(Definitions.Property.TimeMeridiam);
+            CreatePattern(Definitions.Property.DayOfWeekType);
 
             PatternLibrary.Patterns.AddAll(PatternLibrary.CommonDatePatterns);
 
@@ -347,7 +349,7 @@ namespace Chronox.Handlers
         {
             var combined = PatternHandler.GeneratePattern(PatternOption.Standard, Vocabulary, label);
 
-            PatternLibrary.Patterns.Add(label, new RegexPattern(label, combined));
+            PatternLibrary.Patterns.Add(label, new PatternRegex(label, combined));
         }
 
         private void CreateSequences()
@@ -356,7 +358,7 @@ namespace Chronox.Handlers
 
             SequenceHandler.ExtractPatternSequences(Vocabulary);
 
-            AllRegexSequences = new List<RegexSequence>();
+            AllRegexSequences = new List<PatternSequence>();
 
             DateTimeRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesDateTimeCombinations, PatternLibrary.Patterns);
             DateTimeRegexSequences.ForEach(s => s.ComputeRelevance(DateTimeRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));

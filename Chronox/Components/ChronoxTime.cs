@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox
 {
-    internal class ChronoxTimeComponent
+    internal class ChronoxTime
     {
         public int Hours { get; set; }
 
@@ -14,11 +14,11 @@ namespace Chronox
 
         public int MilliSecond { get; set; }
 
-        public ChronoxTimeComponent() : this(0, 0, 0) { }
+        public ChronoxTime() : this(0, 0, 0) { }
 
-        public ChronoxTimeComponent(int hour, int minute, int second) : this(hour, minute, second, 0) { }
+        public ChronoxTime(int hour, int minute, int second) : this(hour, minute, second, 0) { }
 
-        public ChronoxTimeComponent(int hour, int minute, int second, int milliSecond)
+        public ChronoxTime(int hour, int minute, int second, int milliSecond)
         {
             Hours = hour;
             Minutes = minute;
@@ -26,7 +26,7 @@ namespace Chronox
             MilliSecond = milliSecond;
         }
 
-        public ChronoxTimeComponent AddHour(int hour)
+        public ChronoxTime AddHour(int hour)
         {
             for(var i = 0; i<Math.Abs(hour); i++)
             {
@@ -45,7 +45,7 @@ namespace Chronox
             return this;
         }
 
-        public ChronoxTimeComponent AddMinute(int minute)
+        public ChronoxTime AddMinute(int minute)
         {
             this.Minutes += minute;
 
@@ -58,7 +58,7 @@ namespace Chronox
             return this;
         }
 
-        public ChronoxTimeComponent AddSecond(int second)
+        public ChronoxTime AddSecond(int second)
         {
             this.Seconds += second;
 
@@ -72,7 +72,7 @@ namespace Chronox
             return this;
         }
 
-        public ChronoxTimeComponent AddMillisecond(int milli)
+        public ChronoxTime AddMillisecond(int milli)
         {
             this.MilliSecond += milli;
 

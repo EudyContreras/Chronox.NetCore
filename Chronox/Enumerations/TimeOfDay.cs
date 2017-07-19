@@ -16,6 +16,10 @@
 
         Midnight,
 
+        Sunrise,
+
+        Sunset,
+
         Default = -1
     }
 }

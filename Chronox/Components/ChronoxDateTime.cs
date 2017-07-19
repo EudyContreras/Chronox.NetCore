@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chronox.Wrappers
+namespace Chronox.Components
 {
-    internal class DateResult
+    internal class ChronoxDateTime
     {
         public ChronoxParser Parser { get; private set; }
         
         public DateTime? Date { get; private set; }
 
-        public DateResult(ChronoxParser parser, DateTime date)
+        public ChronoxDateTime(ChronoxParser parser, DateTime date)
         {
             Parser = parser;
 

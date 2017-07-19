@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxDateTimeExtraction : IDateTimeExtraction, IComparable<ChronoxDateTimeExtraction>
+    internal class ChronoxDateTimeExtraction : IChronoxExtraction, IComparable<ChronoxDateTimeExtraction>
     {
 
         public int Index { get; set; }
@@ -20,7 +20,7 @@ namespace Chronox
 
         public DateTime ReferenceDate { get; set; }
 
-        private ChronoxDateBuilder DateTime { get; set; }
+        private ChronoxDateTimeBuilder DateTime { get; set; }
 
         internal static ChronoxDateTimeExtraction EmptyExtraction { get; set; } = null;
 
@@ -34,7 +34,7 @@ namespace Chronox
             this.Original = text;
             this.Extraction = extraction;
             this.ReferenceDate = referenceDate;
-            this.DateTime = new ChronoxDateBuilder(settings);
+            this.DateTime = new ChronoxDateTimeBuilder(settings);
         }
 
         public int CompareTo(ChronoxDateTimeExtraction other)
@@ -47,7 +47,7 @@ namespace Chronox
             return Extraction;
         }
 
-        internal ChronoxDateBuilder GetCurrent()
+        internal ChronoxDateTimeBuilder GetCurrent()
         {
             return DateTime;
         }

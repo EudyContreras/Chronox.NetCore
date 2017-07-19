@@ -4,15 +4,11 @@ using System.Text;
 
 namespace Enumerations
 {
-    internal enum SequenceType
+    internal enum DayOfWeekType
     {
-        DateTime,
+        Weekday,
 
-        TimeRange,
-
-        TimeSpan,
-
-        TimeSet,
+        Weekend,
 
         Default = -1
     }

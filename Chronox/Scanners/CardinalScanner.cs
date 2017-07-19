@@ -13,9 +13,9 @@ namespace Chronox.Scanners
 {
     internal class CardinalScanner : IChronoxScanner
     {
-        public ScanResult Scan(ChronoxSettings option, string input)
+        public ScanWrapper Scan(ChronoxSettings option, string input)
         {
-            var scanResult = new ScanResult();
+            var scanResult = new ScanWrapper();
 
             var number = new StringBuilder();
 
@@ -48,7 +48,10 @@ namespace Chronox.Scanners
 
             var dictionaryDimensionsOrdinal = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericMagnitudeOrdinal);
 
-            var ignored = option.Language.VocabularyBank.GetDictionary(Definitions.Property.LogicalOperator).Where(e => Definitions.Converters.LOGICAL_OPERATOR[e.Value] == LogicalOperator.And).Select(e => e.Key).ToList();
+            var ignored = option.Language.VocabularyBank.GetDictionary(Definitions.Property.LogicalOperator)
+                .Where(e => Definitions.Converters.LOGICAL_OPERATOR[e.Value] == LogicalOperator.And)
+                .Select(e => e.Key)
+                .ToList();
 
             var startIndex = -1;
 
@@ -97,7 +100,7 @@ namespace Chronox.Scanners
                         {
                             var endIndex = expression.LastIndexOf(part);
 
-                            var cardinal = number.ToString().ReplaceLast(" and ", " ").Replace(" - ", "-").Trim();
+                            var cardinal = number.ToString().ReplaceLast(" and ", " ").Replace(" - ", "-").Trim(); //Make language independent
 
                             var digit = CardinalConverter.WordsToNumber(cardinal);
 

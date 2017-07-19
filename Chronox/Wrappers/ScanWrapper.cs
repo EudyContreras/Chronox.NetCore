@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class ScanResult
+    internal class ScanWrapper
     {
         public List<ContainsWrapper> ResultWrappers { get; set; } = new List<ContainsWrapper>();
 
