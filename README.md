@@ -1,4 +1,4 @@
 # Chronox.NetCore
 
-Library for parsing relaxed and strict chronlogical expressions into discrete objects.
+.NetCore Library for parsing relaxed and strict chronological expressions into discrete objects.
 
