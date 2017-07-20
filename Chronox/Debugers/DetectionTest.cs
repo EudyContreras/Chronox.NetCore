@@ -401,7 +401,7 @@ namespace Tests
         {
             //var count = TestedAndWorking.Length;
 
-            var parser = ChronoxParser.GetInstance(settings);
+            var parser = ChronoxParser.GetInstance(new ChronoxSettings("english"));
 
 
             foreach (var format in TestedAndWorking)

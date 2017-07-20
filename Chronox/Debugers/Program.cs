@@ -22,6 +22,7 @@ namespace Chronox.Debugers
             var settings = new ChronoxSettings("english");
 
             var detectionTest = new DetectionTest(settings);
+
             detectionTest.TryDectect();
 
             Console.ReadKey();

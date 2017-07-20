@@ -1,0 +1,12 @@
+﻿[TestMethod]
+public void TestExample?()
+{
+	var expression = "#";
+    
+	var result = Chronox.ParseDateTime(Reference, Expressions[?]);
+
+    var date = result[0].GetCurrent().DateTime();
+
+    Assert.AreEqual<DateTime>(TestData[Expressions[?]], date);
+}
+       
