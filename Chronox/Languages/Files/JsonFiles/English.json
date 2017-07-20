@@ -572,8 +572,8 @@
           "key": "morning",
           "value": "n/a",
           "type": "group",
-          "pattern": "morning(s)?",
-          "variations": [ "morning" ]
+          "pattern": "morning(s)?|day",
+          "variations": [ "morning","day" ]
         },
         {
           "key": "afternoon",

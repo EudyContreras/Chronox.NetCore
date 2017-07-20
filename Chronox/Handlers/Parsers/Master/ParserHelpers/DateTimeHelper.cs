@@ -128,6 +128,8 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             var hasGrabber = false;
 
+            var processUnit = true;
+
             if (grabberOffset == int.MinValue)
             {
                 grabberOffset = information.NumericValues.Count > 0 ? information.NumericValues.Dequeue() : int.MinValue;
@@ -198,6 +200,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
             }
 
+            if (!processUnit) return;
+
             grabberOffset = grabberOffset == int.MinValue ? 0 : grabberOffset;
 
             if (information.PreferedDayOfWeek != null && !result.GetCurrent().IsValueCertain(DateTimeUnit.Day))
@@ -213,7 +217,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             if (information.PreferedDayOfWeek != null && !result.GetCurrent().IsValueCertain(DateTimeUnit.Day) && !parser.IsTimeUnit(timeUnit))
             {
-                if(!hasGrabber)
+                if (!hasGrabber && !DayHasChanged(timeUnit, grabberOffset))
                 {
                     dateTime = dateTime.SetWeekDay(information.PreferedDayOfWeek.Value);
 
@@ -222,6 +226,12 @@ namespace Chronox.Parsers.General.ParserHelpers
                     result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
                 }
             }
+
+        }
+
+        private bool DayHasChanged(DateTimeUnit unit, int grabberOffset)
+        {
+            return unit == DateTimeUnit.Day && grabberOffset != 0;
         }
 
         private void CheckForSuffixInfo(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateTimeUnit current)
@@ -1034,11 +1044,18 @@ namespace Chronox.Parsers.General.ParserHelpers
                                 if(dayOfWeek <= today)
                                 {
                                     HandleDateTimeUnits(result, foundGroups, ref dateTime, information, DateTimeUnit.Week, offset, true);
+
+                                    today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
                                 }
                             }
                             else
                             {
-                                HandleDateTimeUnits(result, foundGroups, ref dateTime, information, DateTimeUnit.Week, offset, true);
+                                if(today <= dayOfWeek)
+                                {
+                                    HandleDateTimeUnits(result, foundGroups, ref dateTime, information, DateTimeUnit.Week, offset, true);
+
+                                    today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+                                }
                             }
                         }
                     }

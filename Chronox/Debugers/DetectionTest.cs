@@ -242,7 +242,7 @@ namespace Tests
              "the day after tomorrow",
              "in 3 months on the first friday",
              "first friday in 3 months",
-             "five weeks ago on saturday",*/
+             "five weeks ago on saturday",
              "ten months ago on saturday at 6pm",
              "4 weeks ago on saturday",
              "saturday 4 weeks ago",
@@ -266,6 +266,7 @@ namespace Tests
              "the day before the previous",
              "the month after the next",
              "first friday in two months",
+             "the thursday before the previous",
              "first monday in two months",
              "second friday in two months",
              "second friday in one month",
@@ -306,7 +307,7 @@ namespace Tests
              "second friday of next year",
              "second monday of the month",
              "sunday november 26 in 2017",
-             "the 3 of June 2017 at 10pm",
+             "the 3 of June 2017 at 10pm",*/
              "the day after next tuesday",
              "the day before next tuesday",
              "the fourth day of the year",
@@ -411,7 +412,8 @@ namespace Tests
 
                 var date = parser.ParseDateTime(settings, text)[0].GetCurrent().DateTime();
 
-                Console.WriteLine($"Format: {format} | DateTime: {date}");
+                Console.WriteLine($"{format} | {date}");
+                Console.WriteLine();
             }
         }
     }
