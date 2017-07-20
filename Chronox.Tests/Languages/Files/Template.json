@@ -1,8 +1,8 @@
 ﻿{
-  "language": "English",
-  "ignored": [ "the", ",", "of", "at", "on", "in", "oclock", "o'clock", "during" ],
+  "language": "",
+  "ignored": [ ],
   "assumeSpace": true,
-  "preferedEndianFormat": "M.D.Y",
+  "preferedEndianFormat": "",
   "supportedDateTimeFormats": [ //The parser supports many formats but Write additional formats which you would like to support! the parser will do its best to make it work! Example: "(N.W|M.O.Y|N.M.4.D)" this could translate to: (july the thirteenth 2017 | apr 14th of '97)
 
   ],
@@ -24,36 +24,36 @@
           "key": "on",
           "value": "n/a",
           "type": "optional",
-          "pattern": "on|at",
-          "variations": [ "on", "at" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "oclock",
           "value": "n/a",
           "type": "optional",
-          "pattern": "o'clock|oclock",
-          "variations": [ "o'clock", "oclock" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "in",
           "value": "n/a",
           "type": "optional",
-          "pattern": "on|in(?:\\s*aproximately|within)?|from\\s*now|before",
-          "variations": [ "in approximately", "in within", "in", "before" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "during",
           "value": "n/a",
           "type": "optional",
-          "pattern": "during|while|along|throughout|over|amid",
-          "variations": [ "during", "while", "along", "throughout", "over", "amid" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "of",
           "value": "n/a",
           "type": "optional",
-          "pattern": "of",
-          "variations": [ "of" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -65,22 +65,22 @@
           "key": "tonight",
           "value": "n/a",
           "type": "interpreted",
-          "pattern": "tonight",
-          "variations": [ "tonight" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "last night",
           "value": "n/a",
           "type": "interpreted",
-          "pattern": "last(?:\\s*|-)night",
-          "variations": [ "last night" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "now",
           "value": "n/a",
           "type": "interpreted",
-          "pattern": "(right\\s*)?now|(at\\s*)?this\\s*(second|instant|moment)",
-          "variations": [ "now", "this second", "this instant", "at this moment", "right now" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -92,15 +92,15 @@
           "key": "and",
           "value": "n/a",
           "type": "group",
-          "pattern": "and",
-          "variations": [ "and" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "or",
           "value": "n/a",
           "type": "group",
-          "pattern": "or",
-          "variations": [ "or" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -112,22 +112,22 @@
           "key": "-",
           "value": "n/a",
           "type": "group",
-          "pattern": "-|minus|substract|negat|less",
-          "variations": [ "-", "minus", "substract", "negate", "less" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "and",
           "value": "n/a",
           "type": "optional",
-          "pattern": "and|or",
-          "variations": [ "and", "or" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "+",
           "value": "n/a",
           "type": "group",
-          "pattern": "+|plus|more|add|aggregate",
-          "variations": [ "+", "plus", "more", "add", "aggregate" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -139,22 +139,22 @@
           "key": "this",
           "value": "0",
           "type": "group",
-          "pattern": "this\\s*one|this|current|present|within",
-          "variations": [ "this one", "this", "current", "present", "within" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "next",
           "value": "1",
           "type": "group",
-          "pattern": "next|following|upcoming|precedent|on|forthcoming|after|future",
-          "variations": [ "next", "following", "upcoming", "on", "precedent", "forthcoming", "after", "future" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "last",
           "value": "-1",
           "type": "group",
-          "pattern": "last|past|previous|preciding|gone|antecedent|prior|foregoing|before",
-          "variations": [ "last", "past", "previous", "preciding", "gone", "antecedent", "prior", "foregoing", "before" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -166,36 +166,36 @@
           "key": "today",
           "value": "0",
           "type": "group",
-          "pattern": "today",
-          "variations": [ "today" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "tomorrow",
           "value": "1",
           "type": "group",
-          "pattern": "tom(?:orrow)",
-          "variations": [ "tomorrow", "tom" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "yesterday",
           "value": "-1",
           "type": "group",
-          "pattern": "yesterday",
-          "variations": [ "yesterday" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "day after tomorrow",
           "value": "2",
           "type": "group",
-          "pattern": "day\\s*after\\s*tomorrow|post(?:\\s*|-)?tomorrow",
-          "variations": [ "day after tomorrow", "post-tomorrow" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "day before yesterday",
           "value": "-2",
           "type": "group",
-          "pattern": "day\\s*before\\s*yesterday|pre(?:\\s*|-)?yesterday",
-          "variations": [ "day before yesterday", "pre-yesterday" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -207,15 +207,15 @@
           "key": "midday",
           "value": "12:00",
           "type": "group",
-          "pattern": "noon|midday",
-          "variations": [ "noon", "midday" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "midnight",
           "value": "24:00",
           "type": "group",
-          "pattern": "midnight",
-          "variations": [ "midnight" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -227,15 +227,15 @@
           "key": "sunrise",
           "value": "n/a",
           "type": "group",
-          "pattern": "sunrise",
-          "variations": [ "sunrise" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sunset",
           "value": "n/a",
           "type": "group",
-          "pattern": "sunset",
-          "variations": [ "sunset" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -247,15 +247,15 @@
           "key": "half",
           "value": "0.50",
           "type": "group",
-          "pattern": "half",
-          "variations": [ "half" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "quater",
           "value": "0.25",
           "type": "group",
-          "pattern": "quater",
-          "variations": [ "quater" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -267,36 +267,36 @@
           "key": "to",
           "value": "n/a",
           "type": "group",
-          "pattern": "to|before(\\s*now)?",
-          "variations": [ "to", "before", "before now" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "past",
           "value": "n/a",
           "type": "group",
-          "pattern": "past",
-          "variations": [ "past" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "ago",
           "value": "n/a",
           "type": "group",
-          "pattern": "ago|before(\\s*now)?",
-          "variations": [ "ago", "before now", "before" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "from now",
           "value": "n/a",
           "type": "group",
-          "pattern": "from\\s*now|hence|after",
-          "variations": [ "from now", "hence", "after" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "from",
           "value": "n/a",
           "type": "group",
-          "pattern": "from",
-          "variations": [ "from" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -308,15 +308,15 @@
           "key": "am",
           "value": "n/a",
           "type": "group",
-          "pattern": "am|a.m(.)?",
-          "variations": [ "am", "a.m", "a.m." ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "pm",
           "value": "n/a",
           "type": "group",
-          "pattern": "pm|p.m(.)?",
-          "variations": [ "pm", "p.m", "p.m." ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -329,14 +329,14 @@
           "value": "n/a",
           "type": "group",
           "pattern": "",
-          "variations": [ "exactly", "exact", "precisely", "accurately", "definitely", "clearly", "strictly", "sharply", "literally", "surely", "truly", "positively", "without doubt" ]
+          "variations": ""
         },
         {
           "key": "approximate",
           "value": "n/a",
           "type": "group",
           "pattern": "",
-          "variations": [ "approximate", "approximately", "roughly", "about", "around", "nearly", "more or less", "circa", "almost", "close to", "not far from", "virtually", "mostly" ]
+          "variations": ""
         }
       ]
     },
@@ -348,8 +348,8 @@
           "key": "for",
           "value": "n/a",
           "type": "groupOptional",
-          "pattern": "for",
-          "variations": [ "for" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -361,22 +361,22 @@
           "key": "whole",
           "value": "n/a",
           "type": "group",
-          "pattern": "all|whole|entire",
-          "variations": [ "all", "whole", "entire" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "half",
           "value": "n/a",
           "type": "group",
-          "pattern": "half",
-          "variations": [ "half" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "quater",
           "value": "n/a",
           "type": "group",
-          "pattern": "quater",
-          "variations": [ "quater" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -388,15 +388,15 @@
           "key": "every",
           "value": "n/a",
           "type": "group",
-          "pattern": "every",
-          "variations": [ "every", "each" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "every other",
           "value": "n/a",
           "type": "group",
-          "pattern": "every\\s*other",
-          "variations": [ "every other" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -408,50 +408,50 @@
           "key": "secondly",
           "value": "n/a",
           "type": "group",
-          "pattern": "second\\s*whise|secondly",
-          "variations": [ "second wise", "secondly" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "minutely",
           "value": "n/a",
           "type": "group",
-          "pattern": "minute\\s*wise|minutely",
-          "variations": [ "minute wise", "minutely" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "hourly",
           "value": "n/a",
           "type": "group",
-          "pattern": "hour\\s*wise|hourly",
-          "variations": [ "hour wise", "hourly" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "daily",
           "value": "n/a",
           "type": "group",
-          "pattern": "day\\s*wise|daily",
-          "variations": [ "day wise", "daily" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "weekly",
           "value": "n/a",
           "type": "group",
-          "pattern": "week\\s*wise|weekly",
-          "variations": [ "week wise", "weekly" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "monthly",
           "value": "n/a",
           "type": "group",
-          "pattern": "month\\s*wise|monthly",
-          "variations": [ "month wise", "monthly" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "yearly",
           "value": "n/a",
           "type": "group",
-          "pattern": "year\\s*wise|yearly",
-          "variations": [ "year wise", "yearly" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -463,8 +463,8 @@
           "key": "from",
           "value": "n/a",
           "type": "filler",
-          "pattern": "from|between|hence|across",
-          "variations": [ "from", "between", "hence", "across" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -476,8 +476,8 @@
           "key": "to",
           "value": "n/a",
           "type": "filler",
-          "pattern": "?:to(?:the)?|and|-|\\s*-\\s*|~|\\s*~\\s*|〜|\\s*〜\\s*",
-          "variations": [ "to the", "and", "to", "-", "〜" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -489,78 +489,78 @@
           "key": "new year's day",
           "value": "january 1",
           "type": "group",
-          "pattern": "New\\s*wYear's(?:\\s*Day)?",
-          "variations": [ "New Year's Day", "New Year's" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "new year's eve",
           "value": "december 31",
           "type": "group",
-          "pattern": "New\\s*wYear's(?:\\s*Eve)?",
-          "variations": [ "New Year's Eve" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "christmass day",
           "value": "december 25",
           "type": "group",
           "pattern": "",
-          "variations": [ "Christmass day", "Christmass" ]
+          "variations": ""
         },
         {
           "key": "independence day",
           "value": "july 4",
           "type": "group",
-          "pattern": "Independence\\s*Day",
-          "variations": [ "Independence Day" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "father's day",
           "value": "third sunday in June",
           "type": "group",
-          "pattern": "Father's\\s*Day",
-          "variations": [ "Father's Day" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "mother's day",
           "value": "second sunday in may",
           "type": "group",
-          "pattern": "Mother's\\s*Day",
-          "variations": [ "Mother's Day" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "labor lay",
           "value": "first monday in september",
           "type": "group",
-          "pattern": "Labor\\s*Day",
-          "variations": [ "Labor Day" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "valentines day",
           "value": "february 4th",
           "type": "group",
-          "pattern": "Valentines(?:\\s*Day)",
-          "variations": [ "Valentines Day", "Valentines" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "holloween",
           "value": "october 31",
           "type": "group",
-          "pattern": "Holloween",
-          "variations": [ "Holloween" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "april fools fay",
           "value": "april 1st",
           "type": "group",
-          "pattern": "April\\s*Fools(?:\\s*Day)",
-          "variations": [ "April Fools Day", "April Fools" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thanksgiving day",
           "value": "Fourth Thursday in November",
           "type": "group",
-          "pattern": "Thanskgiving(?:\\s*Day)",
-          "variations": [ "Thanksgiving Day", "Thanksgiving" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -572,29 +572,29 @@
           "key": "morning",
           "value": "n/a",
           "type": "group",
-          "pattern": "morning(s)?|day",
-          "variations": [ "morning","day" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "afternoon",
           "value": "n/a",
           "type": "group",
-          "pattern": "afternoon(s)?",
-          "variations": [ "afternoon" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "evening",
           "value": "n/a",
           "type": "group",
-          "pattern": "evening(s)?",
-          "variations": [ "evening" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "night",
           "value": "n/a",
           "type": "group",
-          "pattern": "night(s)?",
-          "variations": [ "night" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -606,50 +606,50 @@
           "key": "monday",
           "value": "0",
           "type": "group",
-          "pattern": "mon(?:days|day)?",
-          "variations": [ "mondays", "monday", "mon" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "tuesday",
           "value": "1",
           "type": "group",
-          "pattern": "tu(?:esdays|esday|es|e)?",
-          "variations": [ "tuesdays", "tuesday", "tues", "tue" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "wednesday",
           "value": "2",
           "type": "group",
-          "pattern": "wed(?:nesdays|nesday)?",
-          "variations": [ "wednesdays", "wednesday", "wed" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thursday",
           "value": "3",
           "type": "group",
-          "pattern": "th(?:ursdays|ursday|urs|ur|u)?",
-          "variations": [ "thursdays", "thursday", "thurs", "thur", "thu" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "friday",
           "value": "4",
           "type": "group",
-          "pattern": "fri(?:days|day)?",
-          "variations": [ "fridays", "friday", "fri" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "saturday",
           "value": "5",
           "type": "group",
-          "pattern": "sat(?:urdays|urday)?",
-          "variations": [ "saturdays", "saturday", "sat" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sunday",
           "value": "6",
           "type": "group",
-          "pattern": "sun(?:days|day)?",
-          "variations": [ "sundays", "sunday", "sun" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -661,29 +661,29 @@
           "key": "spring",
           "value": "0",
           "type": "group",
-          "pattern": "spring(s)?",
-          "variations": [ "spring" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "summer",
           "value": "1",
           "type": "group",
-          "pattern": "summer(s)?",
-          "variations": [ "summer" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "autumn",
           "value": "2",
           "type": "group",
-          "pattern": "autumn(s)?|fall(s)?",
-          "variations": [ "autumn", "fall" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "winter",
           "value": "3",
           "type": "group",
-          "pattern": "winter(s)?",
-          "variations": [ "winter" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -695,85 +695,85 @@
           "key": "january",
           "value": "0",
           "type": "group",
-          "pattern": "jan(?:uary|.)?",
-          "variations": [ "january", "jan.", "jan" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "february",
           "value": "1",
           "type": "group",
-          "pattern": "feb(?:ruary|\\.)?",
-          "variations": [ "february", "feb.", "feb" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "march",
           "value": "2",
           "type": "group",
-          "pattern": "mar(?:ch|\\.)?",
-          "variations": [ "march", "mar.", "mar" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "april",
           "value": "3",
           "type": "group",
-          "pattern": "apr(?:il|\\.)?",
-          "variations": [ "april", "apr.", "apr" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "may",
           "value": "4",
           "type": "group",
-          "pattern": "may(?:\\.)?",
-          "variations": [ "may", "may." ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "june",
           "value": "5",
           "type": "group",
-          "pattern": "jun(?:e|\\.)?",
-          "variations": [ "june", "jun.", "jun" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "july",
           "value": "6",
           "type": "group",
-          "pattern": "jul(?:y|\\.)?",
-          "variations": [ "july", "jul.", "jul" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "august",
           "value": "7",
           "type": "group",
-          "pattern": "aug(?:ust|\\.)?",
-          "variations": [ "august", "aug.", "aug" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "september",
           "value": "8",
           "type": "group",
-          "pattern": "sep(?:tember|t.|t|\\.)?",
-          "variations": [ "september", "sept.", "sept", "sep.", "sep" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "october",
           "value": "9",
           "type": "group",
-          "pattern": "oct(?:ober|\\.)?",
-          "variations": [ "october", "oct.", "oct" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "november",
           "value": "10",
           "type": "group",
-          "pattern": "nov(?:ember|\\.)?",
-          "variations": [ "november", "nov.", "nov" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "december",
           "value": "11",
           "type": "group",
-          "pattern": "dec(?:ember|\\.)?",
-          "variations": [ "december", "dec.", "dec" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -785,15 +785,15 @@
           "key": "weekday",
           "value": "n/a",
           "type": "group",
-          "pattern": "weekday",
-          "variations": [ "weekday" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "weekend",
           "value": "n/a",
           "type": "group",
-          "pattern": "weekend",
-          "variations": [ "weekend" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -805,50 +805,50 @@
           "key": "year",
           "value": "n/a",
           "type": "group",
-          "pattern": "year(s)?|yrs",
-          "variations": [ "years", "year", "yrs" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "month",
           "value": "n/a",
           "type": "group",
-          "pattern": "month(s)?|mo",
-          "variations": [ "months", "month", "mo" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "week",
           "value": "n/a",
           "type": "group",
-          "pattern": "week(s)?|w",
-          "variations": [ "weeks", "week", "w" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "day",
           "value": "n/a",
           "type": "group",
-          "pattern": "days|day|d",
-          "variations": [ "days", "day", "d" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "hour",
           "value": "n/a",
           "type": "group",
-          "pattern": "h(?:ours|our)?",
-          "variations": [ "hours", "hour", "h" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "minute",
           "value": "n/a",
           "type": "group",
-          "pattern": "m(?:inutes|inute|ins|in)?",
-          "variations": [ "minutes", "minute", "mins", "min", "m" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "second",
           "value": "n/a",
           "type": "group",
-          "pattern": "s(?:econds|econd|ec|ecs)?",
-          "variations": [ "seconds", "second", "sec", "s" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -860,71 +860,71 @@
           "key": "0",
           "value": "0",
           "type": "n/a",
-          "pattern": "0",
-          "variations": [ "0" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "1",
           "value": "1",
           "type": "n/a",
-          "pattern": "1",
-          "variations": [ "1" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "2",
           "value": "2",
           "type": "n/a",
-          "pattern": "2",
-          "variations": [ "2" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "3",
           "value": "3",
           "type": "n/a",
-          "pattern": "3",
-          "variations": [ "3" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "4",
           "value": "4",
           "type": "n/a",
-          "pattern": "4",
-          "variations": [ "4" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "5",
           "value": "5",
           "type": "n/a",
-          "pattern": "5",
-          "variations": [ "5" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "6",
           "value": "6",
           "type": "n/a",
-          "pattern": "6",
-          "variations": [ "6" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "7",
           "value": "7",
           "type": "n/a",
-          "pattern": "7",
-          "variations": [ "7" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "8",
           "value": "8",
           "type": "n/a",
-          "pattern": "8",
-          "variations": [ "8" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "9",
           "value": "9",
           "type": "n/a",
-          "pattern": "9",
-          "variations": [ "9" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -936,22 +936,22 @@
           "key": "decade",
           "value": "n/a",
           "type": "group",
-          "pattern": "decades|decade",
-          "variations": [ "decade", "decades" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "century",
           "value": "n/a",
           "type": "group",
-          "pattern": "century|centuries",
-          "variations": [ "century", "centuries" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "millennium",
           "value": "n/a",
           "type": "group",
-          "pattern": "millenium|millenia|milleniums|millenniums",
-          "variations": [ "millenium", "millenia", "milleniums", "millenniums" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -963,64 +963,64 @@
           "key": "tens",
           "value": "1910",
           "type": "group",
-          "pattern": "tens",
-          "variations": [ "tens" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenties",
           "value": "1920",
           "type": "group",
-          "pattern": "twenties",
-          "variations": [ "twenties" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirties",
           "value": "1930",
           "type": "group",
-          "pattern": "thirties",
-          "variations": [ "thirties" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "forties",
           "value": "1940",
           "type": "group",
-          "pattern": "forties",
-          "variations": [ "forties" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fifties",
           "value": "1950",
           "type": "group",
-          "pattern": "fifties",
-          "variations": [ "fifties" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixties",
           "value": "1960",
           "type": "group",
-          "pattern": "sixties",
-          "variations": [ "sixties" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventies",
           "value": "1970",
           "type": "group",
-          "pattern": "seventies",
-          "variations": [ "seventies" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eighties",
           "value": "1980",
           "type": "group",
-          "pattern": "eighties",
-          "variations": [ "eighties" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "nineties",
           "value": "1990",
           "type": "group",
-          "pattern": "nineties",
-          "variations": [ "nineties" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -1032,50 +1032,50 @@
           "key": "hundred",
           "value": "100",
           "type": "group",
-          "pattern": "hundred",
-          "variations": [ "hundred" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thousand",
           "value": "1000",
           "type": "group",
-          "pattern": "thousand",
-          "variations": [ "thousand" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "million",
           "value": "1000000",
           "type": "group",
-          "pattern": "million",
-          "variations": [ "million" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "billion",
           "value": "1000000000",
           "type": "group",
-          "pattern": "billion",
-          "variations": [ "billion" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "trillion",
           "value": "1000000000000",
           "type": "group",
-          "pattern": "trillion",
-          "variations": [ "trillion" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "quadrillion",
           "value": "1000000000000000",
           "type": "group",
-          "pattern": "quadrillion",
-          "variations": [ "quadrillion" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "quintillion",
           "value": "1000000000000000000",
           "type": "group",
-          "pattern": "quintillion",
-          "variations": [ "quintillion" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -1087,50 +1087,50 @@
           "key": "hundredth",
           "value": "100",
           "type": "group",
-          "pattern": "hundredth(s)?",
-          "variations": [ "hundredth", "hundredths" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thousandth",
           "value": "1000",
           "type": "group",
-          "pattern": "thousandth(s)?",
-          "variations": [ "thousandth", "thousandth" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "millionth",
           "value": "1000000",
           "type": "group",
-          "pattern": "millionth(s)?",
-          "variations": [ "millionth", "millionths" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "billionth",
           "value": "1000000000",
           "type": "group",
-          "pattern": "billionth(s)?",
-          "variations": [ "billionth", "billionths" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "trillionth",
           "value": "1000000000000",
           "type": "group",
-          "pattern": "trillionth(s)?",
-          "variations": [ "trillionth", "trillionths" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "quadrillionth",
           "value": "1000000000000000",
           "type": "group",
-          "pattern": "quadrillionth(s)?",
-          "variations": [ "quadrillionth", "quadrillionths" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "quintillionth",
           "value": "1000000000000000000",
           "type": "group",
-          "pattern": "quintillionth(s)?",
-          "variations": [ "quintillionth", "quintillionths" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -1142,225 +1142,225 @@
           "key": "one",
           "value": "1",
           "type": "group",
-          "pattern": "one|first|1st|an|a",
-          "variations": [ "one", "first", "1st", "an", "a" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "two",
           "value": "2",
           "type": "group",
-          "pattern": "two|second|2nd",
-          "variations": [ "two", "second", "2nd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "three",
           "value": "3",
           "type": "group",
-          "pattern": "three|third|3rd",
-          "variations": [ "three", "third", "3rd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "four",
           "value": "4",
           "type": "group",
-          "pattern": "four(?:th)?|4th",
-          "variations": [ "fourth", "four", "4th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "five",
           "value": "5",
           "type": "group",
-          "pattern": "fi(?:fth|th|ve)|5th",
-          "variations": [ "five", "fith", "fifth", "5th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "six",
           "value": "6",
           "type": "group",
-          "pattern": "six(?:th)?|6th",
-          "variations": [ "sixth", "six", "6th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seven",
           "value": "7",
           "type": "group",
-          "pattern": "seven(?:th)?|7th",
-          "variations": [ "seventh", "seven", "7th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eight",
           "value": "8",
           "type": "group",
-          "pattern": "eight(?:h)|8th",
-          "variations": [ "eighth", "eight", "8th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "nine",
           "value": "9",
           "type": "group",
-          "pattern": "nin(?:eth|e|th)|9th",
-          "variations": [ "nineth", "ninth", "nine", "9th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "ten",
           "value": "10",
           "type": "group",
-          "pattern": "ten(?:th)?|10th",
-          "variations": [ "tenth", "ten", "10th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eleven",
           "value": "11",
           "type": "group",
-          "pattern": "eleven(?:th)?|11th",
-          "variations": [ "eleventh", "eleven", "11th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twelve",
           "value": "12",
           "type": "group",
-          "pattern": "twel(?:veth|fth|ve|th)|12th",
-          "variations": [ "twelveth", "twelfth", "twelve", "twelth", "12th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirteen",
           "value": "13",
           "type": "group",
-          "pattern": "thirteen(?:th)?|13th",
-          "variations": [ "thirteenth", "thirteen", "13th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fourteen",
           "value": "14",
           "type": "group",
-          "pattern": "fourteen(?:th)?|14th",
-          "variations": [ "fourteenth", "fourteen", "14th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fifteen",
           "value": "15",
           "type": "group",
-          "pattern": "fifteen(?:th)?|15th",
-          "variations": [ "fifteenth", "fifteen", "15th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixteen",
           "value": "16",
           "type": "group",
-          "pattern": "sixteen(?:th)?|16th",
-          "variations": [ "sixteenth", "sixteen", "16th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventeen",
           "value": "17",
           "type": "group",
-          "pattern": "seventeen(?:th)?",
-          "variations": [ "seventeenth", "seventeen", "17th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eighteen",
           "value": "18",
           "type": "group",
-          "pattern": "eighteen(?:th)?|18th",
-          "variations": [ "eighteenth", "eighteen", "18th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "nineteen",
           "value": "19",
           "type": "group",
-          "pattern": "nineteen(?:th)?|19th",
-          "variations": [ "nineteenth", "nineteen", "19th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty",
           "value": "20",
           "type": "group",
-          "pattern": "twent(?:ieth|ty)|20th",
-          "variations": [ "twenty", "twentieth", "20th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty one",
           "value": "21",
           "type": "group",
-          "pattern": "twenty(?:\\s*one|\\s*first|-one|-first)|21st",
-          "variations": [ "twenty one", "twenty-one", "twenty first", "twenty-first", "21st" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty two",
           "value": "22",
           "type": "group",
-          "pattern": "twenty(?:\\s*two|\\s*second|-two|-second)|22nd",
-          "variations": [ "twenty two", "twenty-two", "twenty second", "twenty-second", "22nd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty three",
           "value": "23",
           "type": "group",
-          "pattern": "twenty(?:\\s*three|\\s*third|-three|-third)|23rd",
-          "variations": [ "twenty three", "twenty-three", "twenty third", "twenty-third", "23rd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty four",
           "value": "24",
           "type": "group",
-          "pattern": "twenty(?:\\s*four(?:th)|-four(?:th))|24th",
-          "variations": [ "twenty four", "twenty-four", "twenty fourth", "twenty-fourth", "24th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty five",
           "value": "25",
           "type": "group",
-          "pattern": "twenty(?:\\s*fi(?:ve|fth)|-fi(?:ve|fth))|25th",
-          "variations": [ "twenty five", "twenty-five", "twenty fifth", "twenty-fifth", "25th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty six",
           "value": "26",
           "type": "group",
-          "pattern": "twenty(?:\\s*six(?:th)|-six(?:th))|26th",
-          "variations": [ "twenty six", "twenty-six", "twenty sixth", "twenty-sixth", "26th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty seven",
           "value": "27",
           "type": "group",
-          "pattern": "twenty(?:\\s*seven(?:th)|-seven(?:th))|27th",
-          "variations": [ "twenty seven", "twenty-seven", "twenty seventh", "twenty-seventh", "27th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty eight",
           "value": "28",
           "type": "group",
-          "pattern": "twenty(?:\\s*eight(?:h)|-eight(?:h))|28th",
-          "variations": [ "twenty eight", "twenty-eight", "twenty eighth", "twenty-eighth", "28th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty nine",
           "value": "29",
           "type": "group",
-          "pattern": "twenty(?:\\s*nin(?:th|eth|e)|-nin(?:th|eth|e))|29th",
-          "variations": [ "twenty nine", "twenty-nine", "twenty ninth", "twenty-ninth", "29th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirty",
           "value": "30",
           "type": "group",
-          "pattern": "thirt(?:ieth|y)|30th",
-          "variations": [ "thirty", "thirtieth", "30th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirty one",
           "value": "31",
           "type": "group",
-          "pattern": "thirty(?:\\s*one|\\s*first|-one|-first)|31st",
-          "variations": [ "thirty one", "thirty-one", "thirty first", "thirty-first", "31st" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "last",
           "value": "-1",
           "type": "group",
-          "pattern": "last|end",
-          "variations": [ "last", "end" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -1372,260 +1372,260 @@
           "key": "one",
           "value": "1",
           "type": "group",
-          "pattern": "one|an|a",
-          "variations": [ "one", "an", "a" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "two",
           "value": "2",
           "type": "group",
-          "pattern": "two",
-          "variations": [ "two" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "three",
           "value": "3",
           "type": "group",
-          "pattern": "three",
-          "variations": [ "three" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "four",
           "value": "4",
           "type": "group",
-          "pattern": "four",
-          "variations": [ "four" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "five",
           "value": "5",
           "type": "group",
-          "pattern": "five",
-          "variations": [ "five" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "six",
           "value": "6",
           "type": "group",
-          "pattern": "six",
-          "variations": [ "six" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seven",
           "value": "7",
           "type": "group",
-          "pattern": "seven",
-          "variations": [ "seven" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eight",
           "value": "8",
           "type": "group",
-          "pattern": "eight",
-          "variations": [ "eight" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "nine",
           "value": "9",
           "type": "group",
-          "pattern": "nine",
-          "variations": [ "nine" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "ten",
           "value": "10",
           "type": "group",
-          "pattern": "ten",
-          "variations": [ "ten" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eleven",
           "value": "11",
           "type": "group",
-          "pattern": "eleven",
-          "variations": [ "eleven" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twelve",
           "value": "12",
           "type": "group",
-          "pattern": "twelve",
-          "variations": [ "twelve" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirteen",
           "value": "13",
           "type": "group",
-          "pattern": "thirteen",
-          "variations": [ "thirteen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fourteen",
           "value": "14",
           "type": "group",
-          "pattern": "fourteen",
-          "variations": [ "fourteen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fifteen",
           "value": "15",
           "type": "group",
-          "pattern": "fifteen",
-          "variations": [ "fifteen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixteen",
           "value": "16",
           "type": "group",
-          "pattern": "sixteen",
-          "variations": [ "sixteen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventeen",
           "value": "17",
           "type": "group",
-          "pattern": "seventeen",
-          "variations": [ "seventeen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eighteen",
           "value": "18",
           "type": "group",
-          "pattern": "eighteen",
-          "variations": [ "eighteen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "nineteen",
           "value": "19",
           "type": "group",
-          "pattern": "nineteen",
-          "variations": [ "nineteen" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty",
           "value": "20",
           "type": "group",
-          "pattern": "twenty",
-          "variations": [ "twenty" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty one",
           "value": "21",
           "type": "group",
-          "pattern": "twenty(?:\\s*one|-one)",
-          "variations": [ "twenty one", "twenty-one" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty two",
           "value": "22",
           "type": "group",
-          "pattern": "twenty(?:\\s*two|-two)",
-          "variations": [ "twenty two", "twenty-two" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty three",
           "value": "23",
           "type": "group",
-          "pattern": "twenty(?:\\s*three|-three)",
-          "variations": [ "twenty three", "twenty-three" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty four",
           "value": "24",
           "type": "group",
-          "pattern": "twenty(?:\\s*four|-four)",
-          "variations": [ "twenty four", "twenty-four" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty five",
           "value": "25",
           "type": "group",
-          "pattern": "twenty(?:\\s*five|-five)",
-          "variations": [ "twenty five", "twenty-five" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty six",
           "value": "26",
           "type": "group",
-          "pattern": "twenty(?:\\s*six|-six)",
-          "variations": [ "twenty six", "twenty-six" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty seven",
           "value": "27",
           "type": "group",
-          "pattern": "twenty(?:\\s*seven|-seven)",
-          "variations": [ "twenty seven", "twenty-seven" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty eight",
           "value": "28",
           "type": "group",
-          "pattern": "twenty(?:\\s*eight|-eight)",
-          "variations": [ "twenty eight", "twenty-eight" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty nine",
           "value": "29",
           "type": "group",
-          "pattern": "twenty(?:\\s*nine|-nine)",
-          "variations": [ "twenty nine", "twenty-nine" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirty",
           "value": "30",
           "type": "group",
-          "pattern": "thirty",
-          "variations": [ "thirty" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirty one",
           "value": "31",
           "type": "group",
-          "pattern": "thirty(?:\\s*one|-one)",
-          "variations": [ "thirty one", "thirty-one" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "forty",
           "value": "40",
           "type": "group",
-          "pattern": "forty|fourty",
-          "variations": [ "forty", "fourty" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fifty",
           "value": "50",
           "type": "group",
-          "pattern": "fifty",
-          "variations": [ "fifty" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixty",
           "value": "60",
           "type": "group",
-          "pattern": "sixty",
-          "variations": [ "sixty" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventy",
           "value": "70",
           "type": "group",
-          "pattern": "seventy",
-          "variations": [ "seventy" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eighty",
           "value": "80",
           "type": "group",
-          "pattern": "eighty",
-          "variations": [ "eighty" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "ninety",
           "value": "90",
           "type": "group",
-          "pattern": "ninety",
-          "variations": [ "ninety" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     },
@@ -1637,274 +1637,274 @@
           "key": "start",
           "value": "0",
           "type": "group",
-          "pattern": "start",
-          "variations": [ "start" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "first",
           "value": "1",
           "type": "group",
-          "pattern": "first|1st",
-          "variations": [ "first", "1st" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "second",
           "value": "2",
           "type": "group",
-          "pattern": "second(s)?|2nd",
-          "variations": [ "second", "2nd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "third",
           "value": "3",
           "type": "group",
-          "pattern": "third(s)?|3rd",
-          "variations": [ "third", "thirds", "thirds", "3rd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fourth",
           "value": "4",
           "type": "group",
-          "pattern": "fourth(s)?|4th",
-          "variations": [ "fourth", "fourths", "4th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fifth",
           "value": "5",
           "type": "group",
-          "pattern": "fifth(s)?|5th",
-          "variations": [ "fith", "fiths", "5th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixth",
           "value": "6",
           "type": "group",
-          "pattern": "sixth(s)?|6th",
-          "variations": [ "sixth", "sixths", "6th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventh",
           "value": "7",
           "type": "group",
-          "pattern": "seventh(s)?|7th",
-          "variations": [ "seventh", "sevenths", "7th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eighth",
           "value": "8",
           "type": "group",
-          "pattern": "eighth(s)?|8th",
-          "variations": [ "eighth", "eighths", "8th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "ninth",
           "value": "9",
           "type": "group",
-          "pattern": "nin(eth|th)(s)?|9th",
-          "variations": [ "nineth", "nineths", "ninth", "ninths", "9th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "tenth",
           "value": "10",
           "type": "group",
-          "pattern": "tenth(s)?|10th",
-          "variations": [ "tenth", "tenths", "10th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eleventh",
           "value": "11",
           "type": "group",
-          "pattern": "eleventh(s)?|11th",
-          "variations": [ "eleventh", "elevenths", "11th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twelfth",
           "value": "12",
           "type": "group",
-          "pattern": "twel(?:veth|fth|th)(s)?|12th",
-          "variations": [ "twelveth", "twelveths", "twelfth", "twelfths", "twelth", "twelths", "12th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirteenth",
           "value": "13",
           "type": "group",
-          "pattern": "thirteenth(s)?|13th",
-          "variations": [ "thirteenth", "thirteenths", "13th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fourteenth",
           "value": "14",
           "type": "group",
-          "pattern": "fourteenth(s)?|14th",
-          "variations": [ "fourteenth", "fourteenths", "14th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fifteenth",
           "value": "15",
           "type": "group",
-          "pattern": "fifteenth(s)?|15th",
-          "variations": [ "fifteenth", "fifteenths", "15th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixteenth",
           "value": "16",
           "type": "group",
-          "pattern": "sixteenth(s)?|16th",
-          "variations": [ "sixteenth", "sixteenths", "16th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventeenth",
           "value": "17",
           "type": "group",
-          "pattern": "seventeenth(s)?",
-          "variations": [ "seventeenth", "seventeenths", "17th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eighteenth",
           "value": "18",
           "type": "group",
-          "pattern": "eighteenth(s)?|18th",
-          "variations": [ "eighteenth", "eighteenths", "18th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "nineteenth",
           "value": "19",
           "type": "group",
-          "pattern": "nineteenth(s)?|19th",
-          "variations": [ "nineteenth", "nineteenths", "19th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twentieth",
           "value": "20",
           "type": "group",
-          "pattern": "twentieth(s)?|20th",
-          "variations": [ "twentieth", "twentieths", "20th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty first",
           "value": "21",
           "type": "group",
-          "pattern": "twenty(?:\\s*first|-first)|21st",
-          "variations": [ "twenty first", "twenty-first", "21st" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty second",
           "value": "22",
           "type": "group",
-          "pattern": "twenty(?:\\s*second|-second)|22nd",
-          "variations": [ "twenty second", "twenty-second", "22nd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty third",
           "value": "23",
           "type": "group",
-          "pattern": "twenty(?:\\s*third(s)?|-third(s)?)|23rd",
-          "variations": [ "twenty third", "twenty thirds", "twenty-third", "twenty-thirds", "23rd" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty fourth",
           "value": "24",
           "type": "group",
-          "pattern": "twenty(?:\\s*fourth(s)?|-fourth(s)?)|24th",
-          "variations": [ "twenty fourth", "twenty fourths", "twenty-fourth", "twenty-fourths", "24th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty fith",
           "value": "25",
           "type": "group",
-          "pattern": "twenty(?:\\s*fith(s)?|-fith(s)?)|25th",
-          "variations": [ "twenty fith", "twenty fiths", "twenty-fifh", "twenty-fifhs", "25th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty sixth",
           "value": "26",
           "type": "group",
-          "pattern": "twenty(?:\\s*sixth(s)?|-sixth(s)?)|26th",
-          "variations": [ "twenty sixth", "twenty sixths", "twenty-sixth", "twenty-sixths", "26th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty seventh",
           "value": "27",
           "type": "group",
-          "pattern": "twenty(?:\\s*seventh(s)?|-seventh(s)?)|27th",
-          "variations": [ "twenty seventh", "twenty sevenths", "twenty-seventh", "twenty-sevenths", "27th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty eighth",
           "value": "28",
           "type": "group",
-          "pattern": "twenty(?:\\s*eighth(s)?|-eighth(s)?)|28th",
-          "variations": [ "twenty eighth", "twenty eighths", "twenty-eighth", "twenty-eighths", "28th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "twenty ninth",
           "value": "29",
           "type": "group",
-          "pattern": "twenty(?:\\s*ninth(s)?|-ninth(s)?)|29th",
-          "variations": [ "twenty ninth", "twenty ninths", "twenty-ninth", "twenty-ninths", "29th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirtieth",
           "value": "30",
           "type": "group",
-          "pattern": "thirtieth(s)?|30th",
-          "variations": [ "thirtieth", "thirtieths", "30th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "thirty first",
           "value": "31",
           "type": "group",
-          "pattern": "thirty(?:\\s*first|-first)|31st",
-          "variations": [ "thirty first", "thirty-first", "31st" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fortieth",
           "value": "40",
           "type": "group",
-          "pattern": "fortieth(s)?|40th",
-          "variations": [ "fortieth", "fortieths", "40th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "fiftieth",
           "value": "50",
           "type": "group",
-          "pattern": "fiftieth(s)?|50th",
-          "variations": [ "fiftieth", "fiftieths", "50th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "sixtieth",
           "value": "60th",
           "type": "group",
-          "pattern": "sixtieth(s)?|60th",
-          "variations": [ "sixtieth", "sixtieths", "60th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "seventieth",
           "value": "70",
           "type": "group",
-          "pattern": "seventieth(s)?|70th",
-          "variations": [ "seventieth", "seventieths", "70th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "eightieth",
           "value": "80",
           "type": "group",
-          "pattern": "eightieth(s)?|80th",
-          "variations": [ "eightieth", "eightieths", "80th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "ninetieth",
           "value": "90",
           "type": "group",
-          "pattern": "ninetieth(s)?|90th",
-          "variations": [ "ninetieth", "ninetieths", "90th" ]
+          "pattern": "",
+          "variations": ""
         },
         {
           "key": "last",
           "value": "-1",
           "type": "group",
-          "pattern": "last|end",
-          "variations": [ "last", "end" ]
+          "pattern": "",
+          "variations": ""
         }
       ]
     }

@@ -13,7 +13,7 @@ namespace Chronox.Constants
     internal static class Definitions
     {
         public const string FilePathTxt = @"Languages\Files\TextFiles";
-        public const string FilePathJson = @"Languages\Files\JsonFiles";
+        public const string FilePathJson = @"..\..\..\Languages\Files\JsonFiles";
 
         public const string DefaultLanguage = "English";
 

@@ -1,0 +1,75 @@
+﻿sectionTypes: 
+
+	combined
+	combinedReversed	
+	combinedOptional
+	n/a   
+
+propertyTypes:
+
+	group
+	groupOptional
+	optional
+	filler
+	interpreted
+	n/a
+
+supporteSectionCodes:
+
+   [Code]	    [StrictRepresentation]		    [ExampleVariations]
+	
+	C.E 		//: casualExpressions 
+	G.E 		//: grabberExpressions			//: this|next|last
+	D.O 		//: dayOffsets					//: tomorrow|today|yesterday
+	T.E 		//: timeExpressions				//: noon|midnight|
+	T.F 		//: timeFractions				//: quater|half
+	T.C 		//: timeConjointer				//: ago|to|from now
+	I.E 		//: interpretedExpressions		//: tonight|last night|now
+	T.M 		//: timeMeridiam				//: AM|PM
+	A.O 		//: arithmeticOperator			//: -|+
+	R.I 		//: rangeIndicators				//: from
+	R.S 		//: rangeSeparators				//: to|-
+	N.V 		//: numericValues				//: 0|1|2|3|4
+	N.W 		//: numericWords				//: 21s|twenty one|twenty first
+	N.W.O 		//: numericWordsOrdinal			//: 21st|twenty first
+	N.W.C 		//: numericWordsCardinal		//: twenty one|twenty-one
+	N.M.C 		//: numericMagnitudeCardinal	//: hundred|thousand
+	N.M.O 		//: numericMagnitudeOrdinal		//: hundredth|thousandth
+	D.E.I 		//: durationIndicators:			//: whole|all|half
+	R.E.I 		//: repeaterIndicators:			//: every|each
+	R.E 		//: repeaterExpressions:		//: hourly|weekly
+	D.E 		//: durationExpressions:		//: for
+	P.T 		//: proximity					//: exactly|preciesly|approximately
+	T.O.D 		//: timesOfDay					//: monrning|afternoon|evening|night
+	D.O.W 		//: daysOfWeek					//: monday|tuesday|
+	S.O.Y 		//: seasonsOfYear				//: spring|summer|autumn|winter
+	M.O.Y 		//: monthsOfYear				//: jan|feb|april
+	T.P 		//: timePeriods					//: decade|century|milleniumn
+	D.T.U 		//: dateTimeUnits				//: minute|hour|year|week
+	T.U 		//: timeUnits					//: minute|hour|second
+	D.U 		//: dateUnits					//: month|day|year|week
+	D.V 		//: decadeValues				//: nineties|senventies
+	D.D.B 		//: discreteDateBigEndian		//: YYYY|MM|DD
+	D.D.L 		//: discreteDateLittleEndian	//: DD|MM|YYYY
+	D.D.M 		//: discreteDateMiddleEndian	//: MM|DD|YYYY
+	D.T 		//: discreteTime				//: 10:33pm|10Pm|10:33
+	D.Y 		//: discreteYear				//: 2017|97|'98
+	W.S 		//: whiteSpace 
+	L.O 		//: logicalOperator				//: and|or
+	D.T.S 		//: discreteTimeSeparator		//: .|:
+	D.D.S 		//: discreteDateSeparator		//: /|-|.
+	N.M.2.D 	//: numberMax2Digits			//: 1|10
+	N.M.4.D 	//: numberMax4Digits			//: 1|10|100|1000
+	N.M.5.D 	//: numberMax5Digits			//: 1:10|100|1000|10000
+	D.U.B 		//: dateUnit					//: year|months|weeks|days
+	T.U.B 		//: timeUnit					//: years|months|weeks|days
+	Y.U 		//: yearUnit					//: year|years
+	M.U 		//: monthUnit					//: month|months
+	W.U 		//: weekUnit					//: week|weeks
+	D.U 		//: dayUnit						//: day|days
+	H.U 		//: hourUnit					//: hour|h
+	M.I.U 		//: minuteUnit					//: minutes|min|m
+	S.U 		//: secondUnit					//: second|sec
+	Y 			//: yearDiscrete				//: 2010
+	M 			//: monthDiscrete				//: 10
+	D			//: dayDiscrete					//: 24

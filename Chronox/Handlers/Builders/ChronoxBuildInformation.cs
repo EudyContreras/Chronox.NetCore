@@ -60,7 +60,9 @@ namespace Chronox.Wrappers
         public DayOfWeek? PreferedDayOfWeek = null;
 
         public string ProcessedString { get; set; }
- 
+
+        public bool HasOrdinalNumber = false;
+
         public bool HasCasualExpression = false;
 
         public bool HasGrabberExpression = false;
@@ -126,6 +128,7 @@ namespace Chronox.Wrappers
         {
             PreferedDayOfWeek = null;
             ProcessTime = false;
+            HasOrdinalNumber = false;
             HasRangeIndicator = false;
             HasRangeSeparator = false;
             HasGrabberExpression = false;

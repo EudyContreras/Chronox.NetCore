@@ -157,6 +157,10 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "november",
                     Definitions.Property.MonthsOfYear
                 ),
+             new Sequence(SequenceType.DateTime, "november 16th",
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.NumericWord
+                ),
             new Sequence(SequenceType.DateTime, "this november | last december",
                     Definitions.Property.GrabberExpressions,
                     Definitions.Property.MonthsOfYear

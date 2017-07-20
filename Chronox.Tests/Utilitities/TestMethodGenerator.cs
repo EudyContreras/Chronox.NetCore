@@ -8,7 +8,7 @@ namespace Chronox.Tests.Utilitities
 {
     internal class TestMethodGenerator
     {
-        public void Generate(string[] expressions, string path)
+        public static void Generate(string[] expressions, DateTime[] ExpectedResults, string path)
         {
             var lines = File.ReadAllLines(path);
 
@@ -20,6 +20,7 @@ namespace Chronox.Tests.Utilitities
                 {
                     var newLine = line;
 
+                    newLine = newLine.Replace("&", ExpectedResults[i].ToString(), true);
                     newLine = newLine.Replace("#", expressions[i], true);
                     newLine = newLine.Replace("?", i.ToString(), true);
 

@@ -56,6 +56,8 @@ namespace Chronox.Parsers.General.ParserHelpers
         public void ProcessNumericWordOrdinal(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int numericValue)
         {
             information.NumericOrdinals.Enqueue(numericValue);
+
+            information.HasOrdinalNumber = true;
         }
 
         public void ProcessInterpretedExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateTimeExpression interpretedExpression)
@@ -630,6 +632,12 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     break;
             }
+
+            if (dateTime.HasDifferentDate(information.CurrentDate) && !information.HasInterpretedExpression && !information.HasTimeExpression)
+            {
+                ProcessTimeExpression(result, foundGroups, ref dateTime, information, new ChronoxTime(0, 0, 0));
+            }
+
         }
 
         private void ProcessWeekScalar(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateTimeUnit dateTimeUnit, int offset)
@@ -727,7 +735,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     break;
                 case DateTimeUnit.Day:
 
-                    if (offset == 0 && information.NumericOrdinals.Count <= 0) //Maybe a better way to check if context is morning
+                    if (offset == 0 && information.NumericOrdinals.Count <= 0 && !information.HasOrdinalNumber) //Maybe a better way to check if context is morning
                     {
                         ProcessTimeOfDay(result, foundGroups, ref dateTime, information, RangeConstants.MORNING_RANGE);
                     }
@@ -1426,9 +1434,13 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 if (year < 100)
                 {
-                    if (year > 10)
+                    if (year >= 20)
                     {
                         year = 1900 + year;
+                    }
+                    else if(year < 20)
+                    {
+                        year = 2000 + year;
                     }
                     else
                     {
@@ -1442,6 +1454,20 @@ namespace Chronox.Parsers.General.ParserHelpers
                         year = dateTime.Year;
                     }
                 }
+            }
+
+            if (!result.GetCurrent().ContainsValue(DateTimeUnit.Day))
+            {
+                dateTime = dateTime.SetDay(1);
+
+                result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+            }
+
+            if (!result.GetCurrent().ContainsValue(DateTimeUnit.Month))
+            {
+                dateTime = dateTime.SetMonth(1);
+
+                result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
             }
 
             dateTime = dateTime.SetYear(year);

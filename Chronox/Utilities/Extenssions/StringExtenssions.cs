@@ -100,6 +100,12 @@ namespace Chronox.Utilities.Extenssions
                                     startIndex = i;
                                 }
                             }
+                            else
+                            {
+                                counter++;
+
+                                startIndex = i;
+                            }
                         }
                         else
                         {

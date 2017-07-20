@@ -23,7 +23,11 @@ namespace Chronox.Scanners
 
             var timeExpressions = option.Language.VocabularyBank.GetDictionary(Definitions.Property.InterpretedExpression);
 
+            var grabberExpression = option.Language.VocabularyBank.GetDictionary(Definitions.Property.GrabberExpressions);
+
             var containsWrapper = expression.Contains(timeExpressions.Keys.ToArray());
+
+            containsWrapper.AddRange(expression.Contains(grabberExpression.Keys.ToArray()));
 
             var masks = new List<string>();
 

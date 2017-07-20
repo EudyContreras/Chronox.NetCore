@@ -96,7 +96,6 @@ namespace Chronox
                 }
                 return instance;
             }
-            set { }
         }
 
         public static ChronoxSettings Casual
@@ -109,7 +108,6 @@ namespace Chronox
                 }
                 return instance;
             }
-            set { }
         }
 
         public static ChronoxSettings Strict
@@ -122,7 +120,6 @@ namespace Chronox
                 }
                 return instance;
             }
-            set { }
         }
 
         public int SearchPassCount
@@ -159,7 +156,6 @@ namespace Chronox
             }
         }
 
-
         public void SetLanguageFilePath(string fullPath)
         {
             Language.DestroyInstance();
@@ -179,20 +175,14 @@ namespace Chronox
 
         private static ChronoxSettings Standardsettings()
         {
-            var settings = new ChronoxSettings(null);
-
-            settings.AddProcessor(ProcessorType.PostProcessor, settings.StandardPostProcessors().ToArray());
-            settings.AddProcessor(ProcessorType.PreProcessor, settings.StandardPreProcessors().ToArray());
-
-            settings.AddParser(settings.CasualExpressionParsers().ToArray());
-            settings.AddScanner(settings.StandarScanners().ToArray());
+            var settings = new ChronoxSettings("English");
 
             return settings;
         }
 
         private static ChronoxSettings CasualModesettings()
         {
-            var settings = new ChronoxSettings(null);
+            var settings = new ChronoxSettings("English");
 
             settings.AddProcessor(ProcessorType.PostProcessor, settings.StandardPostProcessors().ToArray());
             settings.AddProcessor(ProcessorType.PreProcessor, settings.StandardPreProcessors().ToArray());
