@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxDateTimeExtraction : IChronoxExtraction, IComparable<ChronoxDateTimeExtraction>
+    public class ChronoxDateTimeExtraction : IChronoxExtraction, IComparable<ChronoxDateTimeExtraction>
     {
 
         public int Index { get; set; }

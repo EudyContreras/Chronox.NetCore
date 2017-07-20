@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxSettings : IEquatable<ChronoxSettings>
+    public class ChronoxSettings : IEquatable<ChronoxSettings>
     {
         private int searchPassCount = 3;
 
@@ -29,7 +29,7 @@ namespace Chronox
 
         public DateTime ReferencDate { get; set; } = DateTime.Now;
 
-        public LanguageHandler Language { get; private set; }
+        public VocabularyHandler Language { get; private set; }
 
         public ChronoxPreferences Preferences { get; private set; }
 
@@ -58,7 +58,7 @@ namespace Chronox
             this.TimeParsing= timeType;
             this.DateParsing = dateType;
             this.Preferences = new ChronoxPreferences(this);
-            this.Language = !string.IsNullOrEmpty(language) ? LanguageHandler.GetInstance(this, Definitions.FilePath, language) : LanguageHandler.DefaultLanguage(this);
+            this.Language = !string.IsNullOrEmpty(language) ? VocabularyHandler.GetInstance(this, Definitions.FilePathJson, language) : VocabularyHandler.DefaultLanguage(this);
             this.parsers = parsers ?? new List<IChronoxParser>(StandardExpressionParsers());
 
             if(processors!= null)
@@ -172,7 +172,7 @@ namespace Chronox
 
             var path = fullPath.Replace(language, string.Empty).Trim();
 
-            Language = LanguageHandler.GetInstance(this, path, language);
+            Language = VocabularyHandler.GetInstance(this, path, language);
         }
 
         public void DestroyInstance() => instance = null;

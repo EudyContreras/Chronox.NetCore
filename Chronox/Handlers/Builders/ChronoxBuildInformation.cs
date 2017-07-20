@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class ChronoxBuildInformation
+    public class ChronoxBuildInformation
     {
         private string TagName = "DateTimevalue";
 

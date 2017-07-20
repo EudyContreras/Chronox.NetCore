@@ -1,6 +1,6 @@
 ﻿namespace Enumerations
 {
-    internal enum TimeFraction
+    public enum TimeFraction
     {
         Quater,
 

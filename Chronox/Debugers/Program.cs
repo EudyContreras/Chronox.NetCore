@@ -19,17 +19,10 @@ namespace Chronox.Debugers
     {
         static void Main(string[] args)
         {
-            //ChronoxSettings settings = new ChronoxSettings("english");
+            var settings = new ChronoxSettings("english");
 
-
-            //DetectionTest detectionTest = new DetectionTest(settings);
-            //detectionTest.TryDectect();
-
-            var fileParser = new LanguageFileHandler();
-
-            var glossary = fileParser.CreatGlossary(Definitions.FilePath, "english");
-
-            var d = glossary;
+            var detectionTest = new DetectionTest(settings);
+            detectionTest.TryDectect();
 
             Console.ReadKey();
         }

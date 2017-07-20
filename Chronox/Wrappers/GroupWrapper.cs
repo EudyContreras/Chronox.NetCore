@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Chronox.Wrappers
 {
-    internal class GroupWrapper : IComparable<GroupWrapper> , IEquatable<GroupWrapper>,  IEqualityComparer<GroupWrapper>
+    public class GroupWrapper : IComparable<GroupWrapper> , IEquatable<GroupWrapper>,  IEqualityComparer<GroupWrapper>
     {
         public Group Group { get; set; }
 

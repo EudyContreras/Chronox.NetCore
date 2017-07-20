@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Handlers.Wrappers
 {
-    internal class Property
+    public class Property
     {
         public string Key { get; set; }
 
@@ -15,5 +15,10 @@ namespace Chronox.Handlers.Wrappers
         public string Pattern { get; set; }
 
         public List<string> Variations { get; set; }
+
+        public override string ToString()
+        {
+            return Key;
+        }
     }
 }

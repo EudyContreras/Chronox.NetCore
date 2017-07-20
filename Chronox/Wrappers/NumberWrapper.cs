@@ -5,7 +5,7 @@ using Enumerations;
 
 namespace Chronox.Wrappers
 {
-    internal class NumberWrapper
+    public class NumberWrapper
     {
         public decimal Value { get; private set; }
 

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Chronox.Converters
 {
-    internal class CardinalConverter
+    public class CardinalConverter
     {
         private static readonly List<string> Numbers = new List<string>();
 

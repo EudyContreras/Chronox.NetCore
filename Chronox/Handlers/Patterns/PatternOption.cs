@@ -14,7 +14,7 @@ namespace Chronox.Handlers.Patterns
             return new PatternOption();
         }
 
-        internal class PatternCreationType
+        public class PatternCreationType
         {
             public static readonly string Combined = "combined";
 

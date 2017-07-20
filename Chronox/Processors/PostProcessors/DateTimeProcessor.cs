@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Chronox.Processors.PostProcessors
 {
-    internal class StandardPostProcessor : AbstractPostProcessor
+    public class StandardPostProcessor : AbstractPostProcessor
     {
         public override List<IChronoxExtraction> ProcessExpression(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text)
         {
@@ -15,10 +15,7 @@ namespace Chronox.Processors.PostProcessors
 
             foreach(var extraction in extractions)
             {
-                //if(extraction.GetCurrent().Date().CompareTo(referenceDate) != 0)
-                //{
 
-                //}
             }
 
             return extractions;

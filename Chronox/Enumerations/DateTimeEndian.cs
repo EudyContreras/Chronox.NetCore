@@ -1,6 +1,6 @@
 ﻿namespace Enumerations
 {
-    internal enum DateTimeEndian
+    public enum DateTimeEndian
     {
        
         Little,

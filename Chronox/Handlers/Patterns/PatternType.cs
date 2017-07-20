@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Handlers.Patterns
 {
-    internal enum PatternType
+    public enum PatternType
     {
         Combined,
 

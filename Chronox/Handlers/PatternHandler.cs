@@ -10,7 +10,7 @@ using Chronox.Handlers.Models;
 
 namespace Chronox.Handlers
 {
-    internal class PatternHandler
+    public class PatternHandler
     {
         public string GeneratePattern(PatternOption option, Glossary glossary, string label)
         {

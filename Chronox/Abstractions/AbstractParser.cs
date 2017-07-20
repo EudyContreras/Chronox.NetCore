@@ -13,7 +13,7 @@ using Enumerations;
 
 namespace Chronox.Abstractions
 {
-    internal abstract class AbstractParser : IChronoxParser
+    public abstract class AbstractParser : IChronoxParser
     {
 
         protected abstract void Extract(String text, DateTime refDate, PatternSequence sequence, Match matcher, ChronoxSettings option, ChronoxBuildInformation information, ref IChronoxExtraction result);

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox
 {
-    internal class ChronoxDate : IComparable<ChronoxDate>
+    public class ChronoxDate : IComparable<ChronoxDate>
     {
         public int Year { get; set; }
 

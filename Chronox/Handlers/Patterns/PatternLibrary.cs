@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Helpers.Patterns
 {
-    internal class PatternLibrary
+    public class PatternLibrary
     {
 
         internal readonly Dictionary<string, PatternRegex> Patterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase);

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Chronox.Handlers.Banks
 {
-    internal class GlossaryBank
+    public class GlossaryBank
     {
         public string WordStart = PatternLibrary.HelperPatterns[Definitions.Patterns.WordStart].Value;
 

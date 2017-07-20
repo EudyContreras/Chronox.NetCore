@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Helpers.Interpreters
 {
-    internal class ConversionHandler
+    public class ConversionHandler
     {
         public static int DayOfWeek(ChronoxSettings settings, string dayOfWeek)
         {

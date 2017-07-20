@@ -8,6 +8,7 @@ using Chronox.Handlers.Wrappers;
 using Chronox.Helpers.Patterns;
 using Chronox.Utilities.Extenssions;
 using Chronox.Wrappers;
+using Enumerations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -18,11 +19,11 @@ using System.Text;
 
 namespace Chronox.Handlers
 {
-    internal class LanguageHandler
+    public class VocabularyHandler
     {
-        private static LanguageHandler instance;
+        private static VocabularyHandler instance;
 
-        public static LanguageHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.FilePath, Definitions.DefaultLanguage);
+        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.FilePathJson, Definitions.DefaultLanguage);
 
         public Glossary Vocabulary { get; private set; }
 
@@ -52,7 +53,7 @@ namespace Chronox.Handlers
 
         private ChronoxSettings settings { get; set; }
 
-        private LanguageHandler(ChronoxSettings settings, string directory, string language)
+        private VocabularyHandler(ChronoxSettings settings, string directory, string language)
         {
             this.settings = settings;
 
@@ -85,6 +86,7 @@ namespace Chronox.Handlers
             SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.RepeaterSequences.Distinct());
             SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.TimeRangeSequences.Distinct());
 
+            /*
             SequenceRepresentations = SequenceLibrary.SequencesDateTimeCombinations
                 .Select(s => s.Representation.Split('|'))
                 .SelectMany(s => s)
@@ -92,6 +94,7 @@ namespace Chronox.Handlers
                 .Where(s => !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s))
                 .Select(s => string.Concat("\"",s,"\","))
                 .ToList();
+            */
 
             CreateVocabulary();
 
@@ -101,11 +104,11 @@ namespace Chronox.Handlers
 
         }
 
-        public static LanguageHandler GetInstance(ChronoxSettings settings, string directory, string language)
+        public static VocabularyHandler GetInstance(ChronoxSettings settings, string directory, string language)
         {
             if (instance == null)
             {
-                instance = new LanguageHandler(settings, directory, language);
+                instance = new VocabularyHandler(settings, directory, language);
             }
             return instance;
         }
@@ -114,10 +117,54 @@ namespace Chronox.Handlers
 
         private Glossary Load(string directory, string language)
         {
-            var fileName = new StringBuilder(language.FirstLetterToUpper(true)).Append(".json");
+            var fileName = new StringBuilder(language.FirstLetterToUpper(true));
 
-            var path = Path.Combine(directory, fileName.ToString());
+            var path = Path.Combine(directory, fileName.Append(".json").ToString());
 
+            if (File.Exists(path))
+            {
+                return LoadJsonFile(path);
+            }
+            else
+            {
+                path = Path.Combine(Definitions.FilePathJson, fileName.Append(".json").ToString());
+
+                if (File.Exists(path))
+                {
+                    return LoadJsonFile(path);
+                }
+                else
+                {
+                    var langFileHandler = new FileHandler();
+
+                    path = Path.Combine(directory, fileName.Append(".txt").ToString());
+
+                    if (File.Exists(path))
+                    {
+                        return langFileHandler.CreateGlossary(path);
+                    }
+                    else
+                    {
+                        path = Path.Combine(Definitions.FilePathTxt, fileName.Append(".txt").ToString());
+
+                        if (File.Exists(path))
+                        {
+                            return langFileHandler.CreateGlossary(path);
+                        }
+                    }                  
+                }
+            }
+
+
+            fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".json");
+
+            path = Path.Combine(Definitions.FilePathJson, fileName.ToString());
+
+            return LoadJsonFile(path);
+        }
+
+        private static Glossary LoadJsonFile(string path)
+        {
             var textFile = File.OpenText(path);
 
             var reader = new JsonTextReader(textFile);
@@ -125,6 +172,21 @@ namespace Chronox.Handlers
             var jsonObject = (JObject)JToken.ReadFrom(reader);
 
             return JsonConvert.DeserializeObject<Glossary>(jsonObject.ToString());
+        }
+
+        public void AddGlossary(Glossary glossary)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveGlossary(Glossary glossary)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Glossary MergeGlossaries(params Glossary[] glossaries)
+        {
+            throw new NotImplementedException();
         }
 
         private void CreateVocabulary()
@@ -282,7 +344,6 @@ namespace Chronox.Handlers
                         Properties = section.Properties.Where(p => string.Compare(p.Key, Definitions.General.Month) == 0).ToList()
                     };         
                 }
-
             return null;
         }
 
@@ -356,7 +417,13 @@ namespace Chronox.Handlers
         {
             SequenceHandler.ExtractStandAlonePatterns();
 
-            SequenceHandler.ExtractPatternSequences(Vocabulary);
+            SequenceHandler.ExtractPatternSequences(Vocabulary, Vocabulary.SupportedDateTimeFormats, SequenceType.DateTime);
+
+            SequenceHandler.ExtractPatternSequences(Vocabulary, Vocabulary.SupportedTimeRangeFormats, SequenceType.TimeRange);
+
+            SequenceHandler.ExtractPatternSequences(Vocabulary, Vocabulary.SupportedTimeSpanFormats, SequenceType.TimeSpan);
+
+            SequenceHandler.ExtractPatternSequences(Vocabulary, Vocabulary.SupportedTimeSetFormats, SequenceType.TimeSet);
 
             AllRegexSequences = new List<PatternSequence>();
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Components
 {
-    internal class ChronoxDateTime
+    public class ChronoxDateTime
     {
         public ChronoxParser Parser { get; private set; }
         

@@ -1,6 +1,6 @@
 ﻿namespace Enumerations
 {
-    internal enum TimeSeparator
+    public enum TimeSeparator
     {
         Comma,
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Wrappers
 {
-    internal class ContainsWrapper
+    public class ContainsWrapper
     {
         public string Text { get; set; }
 

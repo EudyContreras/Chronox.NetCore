@@ -10,7 +10,7 @@ using Chronox;
 
 namespace Tests
 {
-    internal class PatternTest
+    public class PatternTest
     {
         public Dictionary<string, PatternRegex> Patterns = new Dictionary<string, PatternRegex>();
 

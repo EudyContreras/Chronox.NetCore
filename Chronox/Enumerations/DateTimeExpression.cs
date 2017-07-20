@@ -1,7 +1,7 @@
 ﻿
 namespace Enumerations
 {
-    internal enum DateTimeExpression
+    public enum DateTimeExpression
     {
         Tonight,
 

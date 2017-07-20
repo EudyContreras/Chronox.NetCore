@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxParser : IChronox
+    public class ChronoxParser : IChronox
     {
 
         private static IChronox Instance = null;

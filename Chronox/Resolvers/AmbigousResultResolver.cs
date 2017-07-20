@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Resolutions.Resolvers
 {
-    internal enum AmbigousResultResolver
+    public enum AmbigousResultResolver
     {
         ReturnNull,
 

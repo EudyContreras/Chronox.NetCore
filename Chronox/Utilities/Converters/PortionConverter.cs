@@ -14,7 +14,7 @@ namespace Chronox.Converters
     //One quater
     //One Half
     //One sixth
-    internal class PortionConverter
+    public class PortionConverter
     {
         private static readonly string[] Suffixes = new string[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
 

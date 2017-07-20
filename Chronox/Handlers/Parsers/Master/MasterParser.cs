@@ -18,7 +18,7 @@ using Chronox.Interfaces;
 
 namespace Chronox.Parsers.English
 {
-    internal class MasterParser : AbstractParser
+    public class MasterParser : AbstractParser
     {
         private IChronoxParseHelper<ChronoxDateTimeExtraction> helperA = null;
 
@@ -146,7 +146,7 @@ namespace Chronox.Parsers.English
         {
             var matches = new HashSet<GroupWrapper>();
 
-            foreach(var property in Definitions.Properties.Dynamic.Union(Definitions.Properties.Static))
+            foreach(var property in Definitions.General.CombinedProperties)
             {
                 var group = match.Groups[property];
 

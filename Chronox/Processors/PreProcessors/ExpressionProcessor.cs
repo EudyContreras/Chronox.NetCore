@@ -6,7 +6,7 @@ using Chronox.Abstractions;
 
 namespace Chronox.Processors.PreProcessors
 {
-    internal class ExpressionProcessor : AbstractPreProcessor
+    public class ExpressionProcessor : AbstractPreProcessor
     {
         protected override string ProcessExpression(ChronoxSettings settings, string expression)
         {

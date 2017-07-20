@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace Chronox
 {
-    internal class ChronoxPreferences
+    public class ChronoxPreferences
     {
         public TimeRelationResolver TimeRelationResolver { get; set; } = TimeRelationResolver.Present;
 
@@ -26,6 +26,8 @@ namespace Chronox
         public PrefferedHolder PrefferedDay { get; set; } = PrefferedHolder.Current;
 
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
+
+        public string[] Languages { get; set; }
 
         private int year;
 

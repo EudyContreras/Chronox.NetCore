@@ -19,7 +19,7 @@ using Chronox.Parsers.English;
 
 namespace Chronox.Parsers.General.ParserHelpers
 {
-    internal class DateTimeHelper : IChronoxParseHelper<ChronoxDateTimeExtraction>
+    public class DateTimeHelper : IChronoxParseHelper<ChronoxDateTimeExtraction>
     {
         private MasterParser parser;
 
@@ -213,7 +213,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             if (information.PreferedDayOfWeek != null && !result.GetCurrent().IsValueCertain(DateTimeUnit.Day) && !parser.IsTimeUnit(timeUnit))
             {
-                if(grabberOffset == 0)
+                if(!hasGrabber)
                 {
                     dateTime = dateTime.SetWeekDay(information.PreferedDayOfWeek.Value);
 
@@ -289,10 +289,14 @@ namespace Chronox.Parsers.General.ParserHelpers
                     
                     foundGroups.Find(g => g.Name == Definitions.Property.DayOffset).GroupUsed = true;
 
+                    if (dateTime.HasDifferentDate(information.CurrentDate) && !information.HasInterpretedExpression && !information.HasTimeExpression)
+                    {
+                        ProcessTimeExpression(result, foundGroups, ref dateTime, information, new ChronoxTime(0, 0, 0));
+                    }
+
                     result.GetCurrent().UnAssignValue(DateTimeUnit.Hour);
                     result.GetCurrent().UnAssignValue(DateTimeUnit.Minute);
                     result.GetCurrent().UnAssignValue(DateTimeUnit.Second);
-
 
                 }
 
@@ -737,6 +741,8 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddHours(offset);
 
+                    result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
+                    result.GetCurrent().ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
                     result.GetCurrent().AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
                     break;
@@ -754,6 +760,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddMinutes(offset);
 
+                    result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
                     result.GetCurrent().AssignValue(DateTimeUnit.Minute, dateTime.Minute);
                     result.GetCurrent().ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
 

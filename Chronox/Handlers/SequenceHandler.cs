@@ -12,10 +12,10 @@ using Enumerations;
 
 namespace Chronox.Handlers
 {
-    internal class SequenceHandler
+    public class SequenceHandler
     {
      
-        internal LanguageHandler LanguageHandler { get; private set; }
+        internal VocabularyHandler LanguageHandler { get; private set; }
 
         internal PatternRegex TimePattern { get; set; }
 
@@ -31,7 +31,7 @@ namespace Chronox.Handlers
 
         internal PatternRegex SecondsDiscretePattern { get; set; }
 
-        public SequenceHandler(LanguageHandler languageHandler)
+        public SequenceHandler(VocabularyHandler languageHandler)
         {   
             LanguageHandler = languageHandler;
         }
@@ -336,13 +336,11 @@ namespace Chronox.Handlers
             return new PatternRegex(Definitions.Patterns.SecondDiscrete, labeledSeconds);
         }
 
-        public void ExtractPatternSequences(Glossary glossary)
+        public void ExtractPatternSequences(Glossary glossary, List<string> userSequences, SequenceType type)
         {
-            foreach (var format in glossary.supportedDateTimeFormats)
+            foreach (var format in userSequences)
             {
                 var parts = format.Split(':');
-
-                var type = GetSequenceType(parts[0]);
 
                 if (parts.Length > 1)
                 {

@@ -1,6 +1,6 @@
 ﻿namespace Enumerations
 {
-    internal enum DateCasualExpression
+    public enum DateCasualExpression
     {
 
         On,

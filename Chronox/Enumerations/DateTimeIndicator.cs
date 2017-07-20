@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Enumerations
 {
-    internal enum DateTimeIndicator
+    public enum DateTimeIndicator
     {
         In,
         

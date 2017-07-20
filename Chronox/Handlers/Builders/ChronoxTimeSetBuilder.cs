@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxTimeSetBuilder
+    public class ChronoxTimeSetBuilder
     {
 
         private ChronoxSettings settings;

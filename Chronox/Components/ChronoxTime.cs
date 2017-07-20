@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox
 {
-    internal class ChronoxTime
+    public class ChronoxTime
     {
         public int Hours { get; set; }
 

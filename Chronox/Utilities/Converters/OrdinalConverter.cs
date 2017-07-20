@@ -9,7 +9,7 @@ using Enumerations;
 
 namespace Chronox.Converters
 {
-    internal class OrdinalConverter
+    public class OrdinalConverter
     {
         private static readonly string[] Suffixes = new string[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
 

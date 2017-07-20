@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class ResultWrapper
+    public class ResultWrapper
     {
         public ChronoxParser Parser { get; private set; }
 

@@ -1,7 +1,7 @@
 ﻿
 namespace Enumerations
 {
-    internal enum TimeConjointer
+    public enum TimeConjointer
     {
         To,
 

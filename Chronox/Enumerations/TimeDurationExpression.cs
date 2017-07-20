@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Enumerations
 {
-    internal enum TimeDurationExpression
+    public enum TimeDurationExpression
     {
         Whole,
 

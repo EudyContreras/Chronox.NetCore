@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Enumerations
 {
-    internal enum TimeRangePointer
+    public enum TimeRangePointer
     {
         Indicator,
 

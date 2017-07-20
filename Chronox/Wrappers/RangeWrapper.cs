@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Helpers
 {
-    internal class RangeWrapper
+    public class RangeWrapper
     {
         public static readonly RangeWrapper Default = DefaultRange();
 

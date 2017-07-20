@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class IndexWrapper
+    public class IndexWrapper
     {
         public int StartIndex { get; set; }
 

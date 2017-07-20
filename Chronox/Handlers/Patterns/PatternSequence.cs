@@ -9,7 +9,7 @@ using Enumerations;
 
 namespace Chronox.Wrappers
 {
-    internal class PatternSequence
+    public class PatternSequence
     {
 
         public readonly List<PatternRegex> Patterns = new List<PatternRegex>();
@@ -27,7 +27,7 @@ namespace Chronox.Wrappers
             SequenceType = type;
         }
 
-        public string NormalizedPattern(LanguageHandler handler)
+        public string NormalizedPattern(VocabularyHandler handler)
         {
             return string.Concat(handler.VocabularyBank.WordStart,CombinedPattern, handler.VocabularyBank.WordEnd);
         }

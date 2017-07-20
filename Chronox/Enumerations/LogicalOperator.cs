@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Enumerations
 {
-    internal enum LogicalOperator
+    public enum LogicalOperator
     {
         And,
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Processors
 {
-    internal interface IChronoxProcessor
+    public interface IChronoxProcessor
     {
         string PreProcess(ChronoxSettings settings, string text);
 

@@ -10,7 +10,7 @@ using Enumerations;
 
 namespace Chronox.Parsers.General.ParserHelpers
 {
-    internal class TimeSetHelper : IChronoxParseHelper<ChronoxTimeSetExtraction>
+    public class TimeSetHelper : IChronoxParseHelper<ChronoxTimeSetExtraction>
     {
         public void DetermineTimeMeridiam(List<GroupWrapper> foundGroups, GroupWrapper meridiam, ChronoxBuildInformation information, ref DateTime dateTime)
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    internal class ChronoxTimeSpanBuilder
+    public class ChronoxDateTimeBuilder
     {
 
         private ChronoxSettings settings;
@@ -25,7 +25,7 @@ namespace Chronox
 
         public DateTime DateTime() => Merge(Date(), Time());
 
-        public ChronoxTimeSpanBuilder(ChronoxSettings settings)
+        public ChronoxDateTimeBuilder(ChronoxSettings settings)
         {
             this.settings = settings;
         }

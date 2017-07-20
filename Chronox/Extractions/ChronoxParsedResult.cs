@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Chronox
 {
-    internal class ChronoxParsedResult
+    public class ChronoxParsedResult
     {
         public ExtractionResultType ResultType { get; private set; }
 
@@ -93,6 +93,8 @@ namespace Chronox
         public void SetResult(IChronoxExtraction extraction)
         {
             if (extraction == null) return;
+
+            ResultType = extraction.ResultType;
 
             switch (extraction.ResultType)
             {

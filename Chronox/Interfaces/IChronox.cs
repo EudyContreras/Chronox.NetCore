@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox.Interfaces
 {
-    internal interface IChronox
+    public interface IChronox
     {
 
         ChronoxSettings Settings { get; set; }

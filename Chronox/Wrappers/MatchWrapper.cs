@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Chronox.Wrappers
 {
-    internal class MatchWrapper
+    public class MatchWrapper
     {
         public PatternSequence Sequence { get; set; }
 

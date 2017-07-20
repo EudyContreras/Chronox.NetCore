@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Utilities
 {
-    internal class ChronoxTimeSpanUtility
+    public class ChronoxTimeSpanUtility
     {
 
         public DateTime ReferenceDate { get; set; } = DateTime.Now;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Constants
 {
-    internal class RangeConstants
+    public class RangeConstants
     {
         public static readonly RangeWrapper AM_RANGE = new RangeWrapper(0, 11);
 

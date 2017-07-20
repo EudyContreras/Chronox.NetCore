@@ -16,6 +16,12 @@
 
         Second,
 
+        Millisecond,
+
+        Microsecond,
+
+        Nanosecond,
+
         Meridiam,
 
         Default = -1

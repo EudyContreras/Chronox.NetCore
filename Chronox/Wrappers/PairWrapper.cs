@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class PairWrapper<TKey,TValue>
+    public class PairWrapper<TKey,TValue>
     {
         public TKey Key { get; private set; }
 

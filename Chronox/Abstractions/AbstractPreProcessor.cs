@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Chronox.Abstractions
 {
-    internal abstract class AbstractPreProcessor : IChronoxProcessor
+    public abstract class AbstractPreProcessor : IChronoxProcessor
     {
         public ProcessorType Type
         {

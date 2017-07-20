@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Chronox.Handlers.Models
 {
-    internal class Sequence : IEquatable<Sequence>, IComparable<Sequence>, IEqualityComparer<Sequence>
+    public class Sequence : IEquatable<Sequence>, IComparable<Sequence>, IEqualityComparer<Sequence>
     {
         public string DateSequence { get; set; }
 

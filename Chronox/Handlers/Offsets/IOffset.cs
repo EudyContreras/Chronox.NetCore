@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Helpers.Offsets
 {
-    internal interface IOffset
+    public interface IOffset
     {
         int Offset { get; set; }
     }

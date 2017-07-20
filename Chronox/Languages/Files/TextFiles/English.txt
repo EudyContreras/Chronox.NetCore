@@ -2,20 +2,20 @@
 
 ignored: the, of, at, on, in, oclock, o'clock, during
 
-assumeSpace: true  
+assumeSpace: true
 
-preferedEndianFormat: M.D.Y    
+preferedEndianFormat: M.D.Y
 
-supportedDateTimeFormats: 
+supportedDateTimeFormats:
 
-	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M				/*Next week the third of july of the year 2017 at 10pm*/
-	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M				/*Next week the third of july of the year 2017 at 10pm*/
+	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M				//* Next week the third of july of the year 2017 at 10pm *//
+	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M				//* Next week the third of july of the year 2017 at 10pm *//
 
-supportedTimeRangeFormats: 
+supportedTimeRangeFormats:
 
-supportedTimespanFormats: 
+supportedTimespanFormats:
 
-supportedTimeSetFormats: 
+supportedTimeSetFormats:
 
 casualExpressions: n/a
 
@@ -23,7 +23,31 @@ casualExpressions: n/a
 	value: n/a
 	type: optional
 	pattern: on|at
-	variations: on, at
+	variations:  on, at
+
+	key: oclock
+	value: n/a
+	type: optional
+	pattern: o'clock|oclock
+	variations:  o'clock, oclock
+
+	key: in
+	value: n/a
+	type: optional
+	pattern: on|in(?:\\s*aproximately|within)?|from\\s*now|before
+	variations:  in approximately, in within, in, before
+
+	key: during
+	value: n/a
+	type: optional
+	pattern: during|while|along|throughout|over|amid
+	variations:  during, while, along, throughout, over, amid
+
+	key: of
+	value: n/a
+	type: optional
+	pattern: of
+	variations:  of
 
 	<----------------->
 
@@ -34,7 +58,7 @@ interpretedExpressions: combined
 	type: interpreted
 	pattern: tonight
 	variations: tonight
-    
+
 	key: last night
 	value: n/a
 	type: interpreted
@@ -45,8 +69,1534 @@ interpretedExpressions: combined
 	value: n/a
 	type: interpreted
 	pattern: (right\\s*)?now|(at\\s*)?this\\s*(second|instant|moment)
-	variations: now, this second, this instant, at this moment, right now 
+	variations: now, this second, this instant, at this moment, right now
 
 	<----------------->
-    
+
 logicalOperator: combinedOptional
+
+	key: and
+	value: n/a
+	type: group
+	pattern: and
+	variations:  and
+
+	key: or
+	value: n/a
+	type: group
+	pattern: or
+	variations:  or
+
+	<----------------->
+
+arithmeticOperator: combined
+
+	key: -
+	value: n/a
+	type: group
+	pattern: -|minus|substract|negat|less
+	variations:  -, minus, substract, negate, less
+
+	key: and
+	value: n/a
+	type: optional
+	pattern: and|or
+	variations:  and, or
+
+	key: +
+	value: n/a
+	type: group
+	pattern: +|plus|more|add|aggregate
+	variations:  +, plus, more, add, aggregate
+
+	<----------------->
+
+grabberExpressions: combinedOptional
+
+	key: this
+	value: 0
+	type: group
+	pattern: this|current|present|within
+	variations:  this, current, present, within
+
+	key: next
+	value: 1
+	type: group
+	pattern: next|following|upcoming|precedent|on|forthcoming|after|future
+	variations:  next, following, upcoming, on, precedent, forthcoming, after, future
+
+	key: last
+	value: -1
+	type: group
+	pattern: last|past|previous|preciding|gone|antecedent|prior|foregoing|before
+	variations:  last, past, previous, preciding, gone, antecedent, prior, foregoing, before
+
+	<----------------->
+
+dayOffsets: combined
+
+	key: today
+	value: 0
+	type: group
+	pattern: today
+	variations:  today
+
+	key: tomorrow
+	value: 1
+	type: group
+	pattern: tom(?:orrow)
+	variations:  tomorrow, tom
+
+	key: yesterday
+	value: -1
+	type: group
+	pattern: yesterday
+	variations:  yesterday
+
+	key: day after tomorrow
+	value: 2
+	type: group
+	pattern: day\\s*after\\s*tomorrow|post(?:\\s*|-)?tomorrow
+	variations:  day after tomorrow, post-tomorrow
+
+	key: day before yesterday
+	value: -2
+	type: group
+	pattern: day\\s*before\\s*yesterday|pre(?:\\s*|-)?yesterday
+	variations:  day before yesterday, pre-yesterday
+
+	<----------------->
+
+timeExpressions: combined
+
+	key: midday
+	value: 12:00
+	type: group
+	pattern: noon|midday
+	variations:  noon, midday
+
+	key: midnight
+	value: 24:00
+	type: group
+	pattern: midnight
+	variations:  midnight
+
+	<----------------->
+
+julianDay: n/a
+
+	key: sunrise
+	value: n/a
+	type: group
+	pattern: sunrise
+	variations:  sunrise
+
+	key: sunset
+	value: n/a
+	type: group
+	pattern: sunset
+	variations:  sunset
+
+	<----------------->
+
+timeFractions: combined
+
+	key: half
+	value: 0.50
+	type: group
+	pattern: half
+	variations:  half
+
+	key: quater
+	value: 0.25
+	type: group
+	pattern: quater
+	variations:  quater
+
+	<----------------->
+
+timeConjointer: combined
+
+	key: to
+	value: n/a
+	type: group
+	pattern: to|before(\\s*now)?
+	variations:  to, before, before now
+
+	key: past
+	value: n/a
+	type: group
+	pattern: past
+	variations:  past
+
+	key: ago
+	value: n/a
+	type: group
+	pattern: ago|before(\\s*now)?
+	variations:  ago, before now, before
+
+	key: from now
+	value: n/a
+	type: group
+	pattern: from\\s*now|hence|after
+	variations:  from now, hence, after
+
+	key: from
+	value: n/a
+	type: group
+	pattern: from
+	variations:  from
+
+	<----------------->
+
+timeMeridiam: combinedOptional
+
+	key: am
+	value: n/a
+	type: group
+	pattern: am|a.m(.)?
+	variations:  am, a.m, a.m.
+
+	key: pm
+	value: n/a
+	type: group
+	pattern: pm|p.m(.)?
+	variations:  pm, p.m, p.m.
+
+	<----------------->
+
+proximity: combinedOptional
+
+	key: exact
+	value: n/a
+	type: group
+	pattern:
+	variations:  exactly, exact, precisely, accurately, definitely, clearly, strictly, sharply, literally, surely, truly, positively, without doubt
+
+	key: approximate
+	value: n/a
+	type: group
+	pattern:
+	variations:  approximate, approximately, roughly, about, around, nearly, more or less, circa, almost, close to, not far from, virtually, mostly
+
+	<----------------->
+
+durationIndicators: n/a
+
+	key: for
+	value: n/a
+	type: groupOptional
+	pattern: for
+	variations:  for
+
+	<----------------->
+
+durationExpressions: n/a
+
+	key: whole
+	value: n/a
+	type: group
+	pattern: all|whole|entire
+	variations:  all, whole, entire
+
+	key: half
+	value: n/a
+	type: group
+	pattern: half
+	variations:  half
+
+	key: quater
+	value: n/a
+	type: group
+	pattern: quater
+	variations:  quater
+
+	<----------------->
+
+repeaterIndicators: combined
+
+	key: every
+	value: n/a
+	type: group
+	pattern: every
+	variations:  every, each
+
+	key: every other
+	value: n/a
+	type: group
+	pattern: every\\s*other
+	variations:  every other
+
+	<----------------->
+
+repeaterExpressions: combined
+
+	key: secondly
+	value: n/a
+	type: group
+	pattern: second\\s*whise|secondly
+	variations:  second wise, secondly
+
+	key: minutely
+	value: n/a
+	type: group
+	pattern: minute\\s*wise|minutely
+	variations:  minute wise, minutely
+
+	key: hourly
+	value: n/a
+	type: group
+	pattern: hour\\s*wise|hourly
+	variations:  hour wise, hourly
+
+	key: daily
+	value: n/a
+	type: group
+	pattern: day\\s*wise|daily
+	variations:  day wise, daily
+
+	key: weekly
+	value: n/a
+	type: group
+	pattern: week\\s*wise|weekly
+	variations:  week wise, weekly
+
+	key: monthly
+	value: n/a
+	type: group
+	pattern: month\\s*wise|monthly
+	variations:  month wise, monthly
+
+	key: yearly
+	value: n/a
+	type: group
+	pattern: year\\s*wise|yearly
+	variations:  year wise, yearly
+
+	<----------------->
+
+rangeIndicators: n/a
+
+	key: from
+	value: n/a
+	type: filler
+	pattern: from|between|hence|across
+	variations:  from, between, hence, across
+
+	<----------------->
+
+rangeSeparators: n/a
+
+	key: to
+	value: n/a
+	type: filler
+	pattern: ?:to(?:the)?|and|-|\\s*-\\s*|~|\\s*~\\s*|〜|\\s*〜\\s*
+	variations:  to the, and, to, -, 〜
+
+	<----------------->
+
+holidays: combined
+
+	key: new year's day
+	value: january 1
+	type: group
+	pattern: New\\s*wYear's(?:\\s*Day)?
+	variations:  New Year's Day, New Year's
+
+	key: new year's eve
+	value: december 31
+	type: group
+	pattern: New\\s*wYear's(?:\\s*Eve)?
+	variations:  New Year's Eve
+
+	key: christmass day
+	value: december 25
+	type: group
+	pattern:
+	variations:  Christmass day, Christmass
+
+	key: independence day
+	value: july 4
+	type: group
+	pattern: Independence\\s*Day
+	variations:  Independence Day
+
+	key: father's day
+	value: third sunday in June
+	type: group
+	pattern: Father's\\s*Day
+	variations:  Father's Day
+
+	key: mother's day
+	value: second sunday in may
+	type: group
+	pattern: Mother's\\s*Day
+	variations:  Mother's Day
+
+	key: labor lay
+	value: first monday in september
+	type: group
+	pattern: Labor\\s*Day
+	variations:  Labor Day
+
+	key: valentines day
+	value: february 4th
+	type: group
+	pattern: Valentines(?:\\s*Day)
+	variations:  Valentines Day, Valentines
+
+	key: holloween
+	value: october 31
+	type: group
+	pattern: Holloween
+	variations:  Holloween
+
+	key: april fools fay
+	value: april 1st
+	type: group
+	pattern: April\\s*Fools(?:\\s*Day)
+	variations:  April Fools Day, April Fools
+
+	key: thanksgiving day
+	value: Fourth Thursday in November
+	type: group
+	pattern: Thanskgiving(?:\\s*Day)
+	variations:  Thanksgiving Day, Thanksgiving
+
+	<----------------->
+
+timesOfDay: combined
+
+	key: morning
+	value: n/a
+	type: group
+	pattern: morning(s)?
+	variations:  morning
+
+	key: afternoon
+	value: n/a
+	type: group
+	pattern: afternoon(s)?
+	variations:  afternoon
+
+	key: evening
+	value: n/a
+	type: group
+	pattern: evening(s)?
+	variations:  evening
+
+	key: night
+	value: n/a
+	type: group
+	pattern: night(s)?
+	variations:  night
+
+	<----------------->
+
+daysOfWeek: combined
+
+	key: monday
+	value: 0
+	type: group
+	pattern: mon(?:days|day)?
+	variations:  mondays, monday, mon
+
+	key: tuesday
+	value: 1
+	type: group
+	pattern: tu(?:esdays|esday|es|e)?
+	variations:  tuesdays, tuesday, tues, tue
+
+	key: wednesday
+	value: 2
+	type: group
+	pattern: wed(?:nesdays|nesday)?
+	variations:  wednesdays, wednesday, wed
+
+	key: thursday
+	value: 3
+	type: group
+	pattern: th(?:ursdays|ursday|urs|ur|u)?
+	variations:  thursdays, thursday, thurs, thur, thu
+
+	key: friday
+	value: 4
+	type: group
+	pattern: fri(?:days|day)?
+	variations:  fridays, friday, fri
+
+	key: saturday
+	value: 5
+	type: group
+	pattern: sat(?:urdays|urday)?
+	variations:  saturdays, saturday, sat
+
+	key: sunday
+	value: 6
+	type: group
+	pattern: sun(?:days|day)?
+	variations:  sundays, sunday, sun
+
+	<----------------->
+
+seasonsOfYear: combined
+
+	key: spring
+	value: 0
+	type: group
+	pattern: spring(s)?
+	variations:  spring
+
+	key: summer
+	value: 1
+	type: group
+	pattern: summer(s)?
+	variations:  summer
+
+	key: autumn
+	value: 2
+	type: group
+	pattern: autumn(s)?|fall(s)?
+	variations:  autumn, fall
+
+	key: winter
+	value: 3
+	type: group
+	pattern: winter(s)?
+	variations:  winter
+
+	<----------------->
+
+monthsOfYear: combined
+
+	key: january
+	value: 0
+	type: group
+	pattern: jan(?:uary|.)?
+	variations:  january, jan., jan
+
+	key: february
+	value: 1
+	type: group
+	pattern: feb(?:ruary|\\.)?
+	variations:  february, feb., feb
+
+	key: march
+	value: 2
+	type: group
+	pattern: mar(?:ch|\\.)?
+	variations:  march, mar., mar
+
+	key: april
+	value: 3
+	type: group
+	pattern: apr(?:il|\\.)?
+	variations:  april, apr., apr
+
+	key: may
+	value: 4
+	type: group
+	pattern: may(?:\\.)?
+	variations:  may, may.
+
+	key: june
+	value: 5
+	type: group
+	pattern: jun(?:e|\\.)?
+	variations:  june, jun., jun
+
+	key: july
+	value: 6
+	type: group
+	pattern: jul(?:y|\\.)?
+	variations:  july, jul., jul
+
+	key: august
+	value: 7
+	type: group
+	pattern: aug(?:ust|\\.)?
+	variations:  august, aug., aug
+
+	key: september
+	value: 8
+	type: group
+	pattern: sep(?:tember|t.|t|\\.)?
+	variations:  september, sept., sept, sep., sep
+
+	key: october
+	value: 9
+	type: group
+	pattern: oct(?:ober|\\.)?
+	variations:  october, oct., oct
+
+	key: november
+	value: 10
+	type: group
+	pattern: nov(?:ember|\\.)?
+	variations:  november, nov., nov
+
+	key: december
+	value: 11
+	type: group
+	pattern: dec(?:ember|\\.)?
+	variations:  december, dec., dec
+
+	<----------------->
+
+dayOfWeekType: combined
+
+	key: weekday
+	value: n/a
+	type: group
+	pattern: weekday
+	variations:  weekday
+
+	key: weekend
+	value: n/a
+	type: group
+	pattern: weekend
+	variations:  weekend
+
+	<----------------->
+
+dateTimeUnits: combined
+
+	key: year
+	value: n/a
+	type: group
+	pattern: year(s)?|yrs
+	variations:  years, year, yrs
+
+	key: month
+	value: n/a
+	type: group
+	pattern: month(s)?|mo
+	variations:  months, month, mo
+
+	key: week
+	value: n/a
+	type: group
+	pattern: week(s)?|w
+	variations:  weeks, week, w
+
+	key: day
+	value: n/a
+	type: group
+	pattern: days|day|d
+	variations:  days, day, d
+
+	key: hour
+	value: n/a
+	type: group
+	pattern: h(?:ours|our)?
+	variations:  hours, hour, h
+
+	key: minute
+	value: n/a
+	type: group
+	pattern: m(?:inutes|inute|ins|in)?
+	variations:  minutes, minute, mins, min, m
+
+	key: second
+	value: n/a
+	type: group
+	pattern: s(?:econds|econd|ec|ecs)?
+	variations:  seconds, second, sec, s
+
+	<----------------->
+
+numericValues: combined
+
+	 key: 0
+	 value: 0
+	 type: n/a
+	 pattern: 0
+	 variations:  0
+
+	 key: 1
+	 value: 1
+	 type: n/a
+	 pattern: 1
+	 variations:  1
+
+	 key: 2
+	 value: 2
+	 type: n/a
+	 pattern: 2
+	 variations:  2
+
+	 key: 3
+	 value: 3
+	 type: n/a
+	 pattern: 3
+	 variations:  3
+
+	 key: 4
+	 value: 4
+	 type: n/a
+	 pattern: 4
+	 variations:  4
+
+	 key: 5
+	 value: 5
+	 type: n/a
+	 pattern: 5
+	 variations:  5
+
+	 key: 6
+	 value: 6
+	 type: n/a
+	 pattern: 6
+	 variations:  6
+
+	 key: 7
+	 value: 7
+	 type: n/a
+	 pattern: 7
+	 variations:  7
+
+	 key: 8
+	 value: 8
+	 type: n/a
+	 pattern: 8
+	 variations:  8
+
+	 key: 9
+	 value: 9
+	 type: n/a
+	 pattern: 9
+	 variations:  9
+
+	 <----------------->
+
+timePeriods: combined
+
+	key: decade
+	value: n/a
+	type: group
+	pattern: decades|decade
+	variations:  decade, decades
+
+	key: century
+	value: n/a
+	type: group
+	pattern: century|centuries
+	variations:  century, centuries
+
+	key: millennium
+	value: n/a
+	type: group
+	pattern: millenium|millenia|milleniums|millenniums
+	variations:  millenium, millenia, milleniums, millenniums
+
+	<----------------->
+
+decadeValues: combined
+
+	key: tens
+	value: 1910
+	type: group
+	pattern: tens
+	variations:  tens
+
+	key: twenties
+	value: 1920
+	type: group
+	pattern: twenties
+	variations:  twenties
+
+	key: thirties
+	value: 1930
+	type: group
+	pattern: thirties
+	variations:  thirties
+
+	key: forties
+	value: 1940
+	type: group
+	pattern: forties
+	variations:  forties
+
+	key: fifties
+	value: 1950
+	type: group
+	pattern: fifties
+	variations:  fifties
+
+	key: sixties
+	value: 1960
+	type: group
+	pattern: sixties
+	variations:  sixties
+
+	key: seventies
+	value: 1970
+	type: group
+	pattern: seventies
+	variations:  seventies
+
+	key: eighties
+	value: 1980
+	type: group
+	pattern: eighties
+	variations:  eighties
+
+	key: nineties
+	value: 1990
+	type: group
+	pattern: nineties
+	variations:  nineties
+
+	<----------------->
+
+numericMagnitudeCardinal: combined
+
+	key: hundred
+	value: 100
+	type: group
+	pattern: hundred
+	variations:  hundred
+
+	key: thousand
+	value: 1000
+	type: group
+	pattern: thousand
+	variations:  thousand
+
+	key: million
+	value: 1000000
+	type: group
+	pattern: million
+	variations:  million
+
+	key: billion
+	value: 1000000000
+	type: group
+	pattern: billion
+	variations:  billion
+
+	key: trillion
+	value: 1000000000000
+	type: group
+	pattern: trillion
+	variations:  trillion
+
+	key: quadrillion
+	value: 1000000000000000
+	type: group
+	pattern: quadrillion
+	variations:  quadrillion
+
+	key: quintillion
+	value: 1000000000000000000
+	type: group
+	pattern: quintillion
+	variations:  quintillion
+
+	<----------------->
+
+numericMagnitudeOrdinal: combined
+
+	key: hundredth
+	value: 100
+	type: group
+	pattern: hundredth(s)?
+	variations:  hundredth, hundredths
+
+	key: thousandth
+	value: 1000
+	type: group
+	pattern: thousandth(s)?
+	variations:  thousandth, thousandth
+
+	key: millionth
+	value: 1000000
+	type: group
+	pattern: millionth(s)?
+	variations:  millionth, millionths
+
+	key: billionth
+	value: 1000000000
+	type: group
+	pattern: billionth(s)?
+	variations:  billionth, billionths
+
+	key: trillionth
+	value: 1000000000000
+	type: group
+	pattern: trillionth(s)?
+	variations:  trillionth, trillionths
+
+	key: quadrillionth
+	value: 1000000000000000
+	type: group
+	pattern: quadrillionth(s)?
+	variations:  quadrillionth, quadrillionths
+
+	key: quintillionth
+	value: 1000000000000000000
+	type: group
+	pattern: quintillionth(s)?
+	variations:  quintillionth, quintillionths
+
+	<----------------->
+
+numericWords: combinedReversed
+
+	key: one
+	value: 1
+	type: group
+	pattern: one|first|1st|an|a
+	variations:  one, first, 1st, an, a
+
+	key: two
+	value: 2
+	type: group
+	pattern: two|second|2nd
+	variations:  two, second, 2nd
+
+	key: three
+	value: 3
+	type: group
+	pattern: three|third|3rd
+	variations:  three, third, 3rd
+
+	key: four
+	value: 4
+	type: group
+	pattern: four(?:th)?|4th
+	variations:  fourth, four, 4th
+
+	key: five
+	value: 5
+	type: group
+	pattern: fi(?:fth|th|ve)|5th
+	variations:  five, fith, fifth, 5th
+
+	key: six
+	value: 6
+	type: group
+	pattern: six(?:th)?|6th
+	variations:  sixth, six, 6th
+
+	key: seven
+	value: 7
+	type: group
+	pattern: seven(?:th)?|7th
+	variations:  seventh, seven, 7th
+
+	key: eight
+	value: 8
+	type: group
+	pattern: eight(?:h)|8th
+	variations:  eighth, eight, 8th
+
+	key: nine
+	value: 9
+	type: group
+	pattern: nin(?:eth|e|th)|9th
+	variations:  nineth, ninth, nine, 9th
+
+	key: ten
+	value: 10
+	type: group
+	pattern: ten(?:th)?|10th
+	variations:  tenth, ten, 10th
+
+	key: eleven
+	value: 11
+	type: group
+	pattern: eleven(?:th)?|11th
+	variations:  eleventh, eleven, 11th
+
+	key: twelve
+	value: 12
+	type: group
+	pattern: twel(?:veth|fth|ve|th)|12th
+	variations:  twelveth, twelfth, twelve, twelth, 12th
+
+	key: thirteen
+	value: 13
+	type: group
+	pattern: thirteen(?:th)?|13th
+	variations:  thirteenth, thirteen, 13th
+
+	key: fourteen
+	value: 14
+	type: group
+	pattern: fourteen(?:th)?|14th
+	variations:  fourteenth, fourteen, 14th
+
+	key: fifteen
+	value: 15
+	type: group
+	pattern: fifteen(?:th)?|15th
+	variations:  fifteenth, fifteen, 15th
+
+	key: sixteen
+	value: 16
+	type: group
+	pattern: sixteen(?:th)?|16th
+	variations:  sixteenth, sixteen, 16th
+
+	key: seventeen
+	value: 17
+	type: group
+	pattern: seventeen(?:th)?
+	variations:  seventeenth, seventeen, 17th
+
+	key: eighteen
+	value: 18
+	type: group
+	pattern: eighteen(?:th)?|18th
+	variations:  eighteenth, eighteen, 18th
+
+	key: nineteen
+	value: 19
+	type: group
+	pattern: nineteen(?:th)?|19th
+	variations:  nineteenth, nineteen, 19th
+
+	key: twenty
+	value: 20
+	type: group
+	pattern: twent(?:ieth|ty)|20th
+	variations:  twenty, twentieth, 20th
+
+	key: twenty one
+	value: 21
+	type: group
+	pattern: twenty(?:\\s*one|\\s*first|-one|-first)|21st
+	variations:  twenty one, twenty-one, twenty first, twenty-first, 21st
+
+	key: twenty two
+	value: 22
+	type: group
+	pattern: twenty(?:\\s*two|\\s*second|-two|-second)|22nd
+	variations:  twenty two, twenty-two, twenty second, twenty-second, 22nd
+
+	key: twenty three
+	value: 23
+	type: group
+	pattern: twenty(?:\\s*three|\\s*third|-three|-third)|23rd
+	variations:  twenty three, twenty-three, twenty third, twenty-third, 23rd
+
+	key: twenty four
+	value: 24
+	type: group
+	pattern: twenty(?:\\s*four(?:th)|-four(?:th))|24th
+	variations:  twenty four, twenty-four, twenty fourth, twenty-fourth, 24th
+
+	key: twenty five
+	value: 25
+	type: group
+	pattern: twenty(?:\\s*fi(?:ve|fth)|-fi(?:ve|fth))|25th
+	variations:  twenty five, twenty-five, twenty fifth, twenty-fifth, 25th
+
+	key: twenty six
+	value: 26
+	type: group
+	pattern: twenty(?:\\s*six(?:th)|-six(?:th))|26th
+	variations:  twenty six, twenty-six, twenty sixth, twenty-sixth, 26th
+
+	key: twenty seven
+	value: 27
+	type: group
+	pattern: twenty(?:\\s*seven(?:th)|-seven(?:th))|27th
+	variations:  twenty seven, twenty-seven, twenty seventh, twenty-seventh, 27th
+
+	key: twenty eight
+	value: 28
+	type: group
+	pattern: twenty(?:\\s*eight(?:h)|-eight(?:h))|28th
+	variations:  twenty eight, twenty-eight, twenty eighth, twenty-eighth, 28th
+
+	key: twenty nine
+	value: 29
+	type: group
+	pattern: twenty(?:\\s*nin(?:th|eth|e)|-nin(?:th|eth|e))|29th
+	variations:  twenty nine, twenty-nine, twenty ninth, twenty-ninth, 29th
+
+	key: thirty
+	value: 30
+	type: group
+	pattern: thirt(?:ieth|y)|30th
+	variations:  thirty, thirtieth, 30th
+
+	key: thirty one
+	value: 31
+	type: group
+	pattern: thirty(?:\\s*one|\\s*first|-one|-first)|31st
+	variations:  thirty one, thirty-one, thirty first, thirty-first, 31st
+
+	key: last
+	value: -1
+	type: group
+	pattern: last|end
+	variations:  last, end
+
+	<----------------->
+
+numericWordsCardinal: combinedReversed
+
+	key: one
+	value: 1
+	type: group
+	pattern: one|an|a
+	variations:  one, an, a
+
+	key: two
+	value: 2
+	type: group
+	pattern: two
+	variations:  two
+
+	key: three
+	value: 3
+	type: group
+	pattern: three
+	variations:  three
+
+	key: four
+	value: 4
+	type: group
+	pattern: four
+	variations:  four
+
+	key: five
+	value: 5
+	type: group
+	pattern: five
+	variations:  five
+
+	key: six
+	value: 6
+	type: group
+	pattern: six
+	variations:  six
+
+	key: seven
+	value: 7
+	type: group
+	pattern: seven
+	variations:  seven
+
+	key: eight
+	value: 8
+	type: group
+	pattern: eight
+	variations:  eight
+
+	key: nine
+	value: 9
+	type: group
+	pattern: nine
+	variations:  nine
+
+	key: ten
+	value: 10
+	type: group
+	pattern: ten
+	variations:  ten
+
+	key: eleven
+	value: 11
+	type: group
+	pattern: eleven
+	variations:  eleven
+
+	key: twelve
+	value: 12
+	type: group
+	pattern: twelve
+	variations:  twelve
+
+	key: thirteen
+	value: 13
+	type: group
+	pattern: thirteen
+	variations:  thirteen
+
+	key: fourteen
+	value: 14
+	type: group
+	pattern: fourteen
+	variations:  fourteen
+
+	key: fifteen
+	value: 15
+	type: group
+	pattern: fifteen
+	variations:  fifteen
+
+	key: sixteen
+	value: 16
+	type: group
+	pattern: sixteen
+	variations:  sixteen
+
+	key: seventeen
+	value: 17
+	type: group
+	pattern: seventeen
+	variations:  seventeen
+
+	key: eighteen
+	value: 18
+	type: group
+	pattern: eighteen
+	variations:  eighteen
+
+	key: nineteen
+	value: 19
+	type: group
+	pattern: nineteen
+	variations:  nineteen
+
+	key: twenty
+	value: 20
+	type: group
+	pattern: twenty
+	variations:  twenty
+
+	key: twenty one
+	value: 21
+	type: group
+	pattern: twenty(?:\\s*one|-one)
+	variations:  twenty one, twenty-one
+
+	key: twenty two
+	value: 22
+	type: group
+	pattern: twenty(?:\\s*two|-two)
+	variations:  twenty two, twenty-two
+
+	key: twenty three
+	value: 23
+	type: group
+	pattern: twenty(?:\\s*three|-three)
+	variations:  twenty three, twenty-three
+
+	key: twenty four
+	value: 24
+	type: group
+	pattern: twenty(?:\\s*four|-four)
+	variations:  twenty four, twenty-four
+
+	key: twenty five
+	value: 25
+	type: group
+	pattern: twenty(?:\\s*five|-five)
+	variations:  twenty five, twenty-five
+
+	key: twenty six
+	value: 26
+	type: group
+	pattern: twenty(?:\\s*six|-six)
+	variations:  twenty six, twenty-six
+
+	key: twenty seven
+	value: 27
+	type: group
+	pattern: twenty(?:\\s*seven|-seven)
+	variations:  twenty seven, twenty-seven
+
+	key: twenty eight
+	value: 28
+	type: group
+	pattern: twenty(?:\\s*eight|-eight)
+	variations:  twenty eight, twenty-eight
+
+	key: twenty nine
+	value: 29
+	type: group
+	pattern: twenty(?:\\s*nine|-nine)
+	variations:  twenty nine, twenty-nine
+
+	key: thirty
+	value: 30
+	type: group
+	pattern: thirty
+	variations:  thirty
+
+	key: thirty one
+	value: 31
+	type: group
+	pattern: thirty(?:\\s*one|-one)
+	variations:  thirty one, thirty-one
+
+	key: forty
+	value: 40
+	type: group
+	pattern: forty|fourty
+	variations:  forty, fourty
+
+	key: fifty
+	value: 50
+	type: group
+	pattern: fifty
+	variations:  fifty
+
+	key: sixty
+	value: 60
+	type: group
+	pattern: sixty
+	variations:  sixty
+
+	key: seventy
+	value: 70
+	type: group
+	pattern: seventy
+	variations:  seventy
+
+	key: eighty
+	value: 80
+	type: group
+	pattern: eighty
+	variations:  eighty
+
+	key: ninety
+	value: 90
+	type: group
+	pattern: ninety
+	variations:  ninety
+
+	<----------------->
+
+numericWordsOrdinal: combinedReversed
+
+	key: start
+	value: 0
+	type: group
+	pattern: start
+	variations:  start
+
+	key: first
+	value: 1
+	type: group
+	pattern: first|1st
+	variations:  first, 1st
+
+	key: second
+	value: 2
+	type: group
+	pattern: second(s)?|2nd
+	variations:  second, 2nd
+
+	key: third
+	value: 3
+	type: group
+	pattern: third(s)?|3rd
+	variations:  third, thirds, thirds, 3rd
+
+	key: fourth
+	value: 4
+	type: group
+	pattern: fourth(s)?|4th
+	variations:  fourth, fourths, 4th
+
+	key: fifth
+	value: 5
+	type: group
+	pattern: fifth(s)?|5th
+	variations:  fith, fiths, 5th
+
+	key: sixth
+	value: 6
+	type: group
+	pattern: sixth(s)?|6th
+	variations:  sixth, sixths, 6th
+
+	key: seventh
+	value: 7
+	type: group
+	pattern: seventh(s)?|7th
+	variations:  seventh, sevenths, 7th
+
+	key: eighth
+	value: 8
+	type: group
+	pattern: eighth(s)?|8th
+	variations:  eighth, eighths, 8th
+
+	key: ninth
+	value: 9
+	type: group
+	pattern: nin(eth|th)(s)?|9th
+	variations:  nineth, nineths, ninth, ninths, 9th
+
+	key: tenth
+	value: 10
+	type: group
+	pattern: tenth(s)?|10th
+	variations:  tenth, tenths, 10th
+
+	key: eleventh
+	value: 11
+	type: group
+	pattern: eleventh(s)?|11th
+	variations:  eleventh, elevenths, 11th
+
+	key: twelfth
+	value: 12
+	type: group
+	pattern: twel(?:veth|fth|th)(s)?|12th
+	variations:  twelveth, twelveths, twelfth, twelfths, twelth, twelths, 12th
+
+	key: thirteenth
+	value: 13
+	type: group
+	pattern: thirteenth(s)?|13th
+	variations:  thirteenth, thirteenths, 13th
+
+	key: fourteenth
+	value: 14
+	type: group
+	pattern: fourteenth(s)?|14th
+	variations:  fourteenth, fourteenths, 14th
+
+	key: fifteenth
+	value: 15
+	type: group
+	pattern: fifteenth(s)?|15th
+	variations:  fifteenth, fifteenths, 15th
+
+	key: sixteenth
+	value: 16
+	type: group
+	pattern: sixteenth(s)?|16th
+	variations:  sixteenth, sixteenths, 16th
+
+	key: seventeenth
+	value: 17
+	type: group
+	pattern: seventeenth(s)?
+	variations:  seventeenth, seventeenths, 17th
+
+	key: eighteenth
+	value: 18
+	type: group
+	pattern: eighteenth(s)?|18th
+	variations:  eighteenth, eighteenths, 18th
+
+	key: nineteenth
+	value: 19
+	type: group
+	pattern: nineteenth(s)?|19th
+	variations:  nineteenth, nineteenths, 19th
+
+	key: twentieth
+	value: 20
+	type: group
+	pattern: twentieth(s)?|20th
+	variations:  twentieth, twentieths, 20th
+
+	key: twenty first
+	value: 21
+	type: group
+	pattern: twenty(?:\\s*first|-first)|21st
+	variations:  twenty first, twenty-first, 21st
+
+	key: twenty second
+	value: 22
+	type: group
+	pattern: twenty(?:\\s*second|-second)|22nd
+	variations:  twenty second, twenty-second, 22nd
+
+	key: twenty third
+	value: 23
+	type: group
+	pattern: twenty(?:\\s*third(s)?|-third(s)?)|23rd
+	variations:  twenty third, twenty thirds, twenty-third, twenty-thirds, 23rd
+
+	key: twenty fourth
+	value: 24
+	type: group
+	pattern: twenty(?:\\s*fourth(s)?|-fourth(s)?)|24th
+	variations:  twenty fourth, twenty fourths, twenty-fourth, twenty-fourths, 24th
+
+	key: twenty fith
+	value: 25
+	type: group
+	pattern: twenty(?:\\s*fith(s)?|-fith(s)?)|25th
+	variations:  twenty fith, twenty fiths, twenty-fifh, twenty-fifhs, 25th
+
+	key: twenty sixth
+	value: 26
+	type: group
+	pattern: twenty(?:\\s*sixth(s)?|-sixth(s)?)|26th
+	variations:  twenty sixth, twenty sixths, twenty-sixth, twenty-sixths, 26th
+
+	key: twenty seventh
+	value: 27
+	type: group
+	pattern: twenty(?:\\s*seventh(s)?|-seventh(s)?)|27th
+	variations:  twenty seventh, twenty sevenths, twenty-seventh, twenty-sevenths, 27th
+
+	key: twenty eighth
+	value: 28
+	type: group
+	pattern: twenty(?:\\s*eighth(s)?|-eighth(s)?)|28th
+	variations:  twenty eighth, twenty eighths, twenty-eighth, twenty-eighths, 28th
+
+	key: twenty ninth
+	value: 29
+	type: group
+	pattern: twenty(?:\\s*ninth(s)?|-ninth(s)?)|29th
+	variations:  twenty ninth, twenty ninths, twenty-ninth, twenty-ninths, 29th
+
+	key: thirtieth
+	value: 30
+	type: group
+	pattern: thirtieth(s)?|30th
+	variations:  thirtieth, thirtieths, 30th
+
+	key: thirty first
+	value: 31
+	type: group
+	pattern: thirty(?:\\s*first|-first)|31st
+	variations:  thirty first, thirty-first, 31st
+
+	key: fortieth
+	value: 40
+	type: group
+	pattern: fortieth(s)?|40th
+	variations:  fortieth, fortieths, 40th
+
+	key: fiftieth
+	value: 50
+	type: group
+	pattern: fiftieth(s)?|50th
+	variations:  fiftieth, fiftieths, 50th
+
+	key: sixtieth
+	value: 60th
+	type: group
+	pattern: sixtieth(s)?|60th
+	variations:  sixtieth, sixtieths, 60th
+
+	key: seventieth
+	value: 70
+	type: group
+	pattern: seventieth(s)?|70th
+	variations:  seventieth, seventieths, 70th
+
+	key: eightieth
+	value: 80
+	type: group
+	pattern: eightieth(s)?|80th
+	variations:  eightieth, eightieths, 80th
+
+	key: ninetieth
+	value: 90
+	type: group
+	pattern: ninetieth(s)?|90th
+	variations:  ninetieth, ninetieths, 90th
+
+	key: last
+	value: -1
+	type: group
+	pattern: last|end
+	variations:  last, end
+
+	<----------------->

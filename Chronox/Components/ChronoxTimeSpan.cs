@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Wrappers
 {
-    internal class ChronoxTimeSpan
+    public class ChronoxTimeSpan
     {
         public ChronoxParser Parser { get; private set; }
         

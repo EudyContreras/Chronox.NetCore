@@ -12,7 +12,8 @@ namespace Chronox.Constants
 {
     internal static class Definitions
     {
-        public const string FilePath = @"Languages\Files";
+        public const string FilePathTxt = @"Languages\Files\TextFiles";
+        public const string FilePathJson = @"Languages\Files\JsonFiles";
 
         public const string DefaultLanguage = "English";
 
@@ -45,165 +46,8 @@ namespace Chronox.Constants
             public const string TimeSet = "timeSet";
             public const string TimeSpan = "timeSpan";
             public const string TimeRange = "timeRange";
-        }
 
-        public static class DynamicIndex
-        {
-
-            public const int LogicalOperator = 0;
-            public const int ArithmeticOperator = 1;
-            public const int CasualExpressions = 2;
-            public const int GrabberExpressions = 3;
-            public const int TimeExpressions = 4;
-            public const int TimeFractions = 5;
-            public const int TimeConjointer = 6;
-            public const int InterpretedExpression = 7;
-            public const int RangeIndicator = 8;
-            public const int RangeSeparator = 9;
-            public const int DecadeValues = 10;
-            public const int TimePeriods = 11;
-            public const int DayOffset = 12;
-            public const int Holidays = 13;
-            public const int TimeOfDay = 14;
-            public const int DaysOfWeek = 15;
-            public const int SeasonOfYear = 16;
-            public const int MonthsOfYear = 17;
-            public const int DateTimeUnits = 18;
-            public const int NumericValue = 19;
-            public const int NumericWord = 20;
-            public const int NumericWordOrdinal = 21;
-            public const int NumericWordCardinal = 22;
-            public const int TimeMeridiam = 23;
-            public const int DateUnits = 24;
-            public const int TimeUnits = 25;
-            public const int YearUnit = 26;
-            public const int MonthUnit = 27;
-            public const int WeekUnit = 28;
-            public const int DayUnit = 29;
-            public const int HourUnit = 30;
-            public const int MinuteUnit = 31;
-            public const int SecondUnit = 32;
-            public const int Proximity = 33;
-            public const int RepeaterExpressions = 34;
-            public const int DurationExpressions = 35;
-            public const int RepeaterIndicators = 36;
-            public const int DurationIndicators = 37;
-            public const int NumericMagnitudeCardinal = 38;
-            public const int NumericMagnitudeOrdinal = 39;
-            public const int DayOfWeekType = 40;
-        }
-
-
-        public static class StaticIndex
-        {
-            public const int DateBigEndian = 0;
-            public const int DateLittleEndian = 1;
-            public const int DateMiddleEndian = 2;
-            public const int SpaceSeparator = 3;
-            public const int OptionalSpace = 4;
-            public const int SpaceRemover = 5;
-            public const int TimeSeparator = 6;
-            public const int DateSeparator = 7;
-            public const int NumberMax2Digits = 8;
-            public const int NumberMax4Digits = 9;
-            public const int NumberMax5Digits = 10;
-            public const int WordStart = 11;
-            public const int WordEnd = 12;
-            public const int Date = 13;
-            public const int Time = 14;
-            public const int Year = 15;
-            public const int YearDiscrete = 16;
-            public const int MonthDiscrete = 17;
-            public const int DayDiscrete = 18;
-            public const int Hour = 19;
-            public const int Minute = 20;
-            public const int Second = 21;
-            public const int HourDiscrete = 22;
-            public const int MinuteDiscrete = 23;
-            public const int SecondDiscrete = 24;
-            public const int Millis = 25;
-            public const int ZoneOffset = 26;
-        }
-
-        //TODO: Need to switch to this acessing method!
-        public static class Properties
-        {
-
-            public static readonly string[] Dynamic =
-            {
-                "logicalOperator",
-                "arithmeticOperator",
-                "casualExpressions",
-                "grabberExpressions",
-                "timeExpressions",
-                "timeFractions",
-                "timeConjointer",
-                "interpretedExpressions",
-                "rangeIndicators",
-                "rangeSeparators",
-                "decadeValues",
-                "timePeriods",
-                "dayOffsets",
-                "holidays",
-                "timesOfDay",
-                "daysOfWeek",
-                "seasonsOfYear",
-                "monthsOfYear",
-                "dateTimeUnits",
-                "numericValues",
-                "numericWords",
-                "numericWordsOrdinal",
-                "numericWordsCardinal",
-                "timeMeridiam",
-                "dateUnit",
-                "timeUnit",
-                "yearUnit",
-                "monthUnit",
-                "weekUnit",
-                "dayUnit",
-                "hourUnit",
-                "minuteUnit",
-                "secondUnit",
-                "proximity",
-                "repeaterExpressions",
-                "durationExpressions",
-                "repeaterIndicators",
-                "durationIndicators",
-                "numericMagnitudeCardinal",
-                "numericMagnitudeOrdinal",
-                "dayOfWeekType",
-            };
-            
-            public static string[] Static =
-            {
-                "discreteDateBigEndian",
-                "discreteDateLittleEndian",
-                "discreteDateMediumEndian",
-                "whiteSpace",
-                "optionalSpace",
-                "whiteSpaceRemover",
-                "discreteTimeSeparator",
-                "discreteDateSeparator",
-                "numberMax2Digits",
-                "numberMax4Digits",
-                "numberMax5Digits",
-                "wordStart",
-                "wordEnd",
-                "discreteDate",
-                "discreteTime",
-                "dependentYear",
-                "discreteYear",
-                "discreteMonth",
-                "discreteDay",
-                "dependentHour",
-                "dependentMinute",
-                "dependentSecond",
-                "discreteHour",
-                "discreteMinute",
-                "discreteSecond",
-                "dependentMilliseconds",
-                "discreteZone",
-            };
+            public static readonly List<string> CombinedProperties = Property.Dynamic.Values.Union(Patterns.Static.Values).ToList();
         }
 
         public static class Property
@@ -249,6 +93,51 @@ namespace Chronox.Constants
             public const string NumericMagnitudeCardinal = "numericMagnitudeCardinal";
             public const string NumericMagnitudeOrdinal = "numericMagnitudeOrdinal";
             public const string DayOfWeekType = "dayOfWeekType";
+
+            public static readonly Dictionary<string, string> Dynamic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                {LogicalOperator,"logicalOperator"},
+                {ArithmeticOperator,"arithmeticOperator"},
+                {CasualExpressions,"casualExpressions"},
+                {GrabberExpressions,"grabberExpressions"},
+                {TimeExpressions,"timeExpressions"},
+                {TimeFractions,"timeFractions"},
+                {TimeConjointer,"timeConjointer"},
+                {InterpretedExpression,"interpretedExpressions"},
+                {RangeIndicator,"rangeIndicators"},
+                {RangeSeparator,"rangeSeparators"},
+                {DecadeValues,"decadeValues"},
+                {TimePeriods,"timePeriods"},
+                {DayOffset,"dayOffsets"},
+                {Holidays,"holidays"},
+                {TimeOfDay,"timesOfDay"},
+                {DaysOfWeek,"daysOfWeek"},
+                {SeasonOfYear,"seasonsOfYear"},
+                {MonthsOfYear,"monthsOfYear"},
+                {DateTimeUnits,"dateTimeUnits"},
+                {NumericValue,"numericValues"},
+                {NumericWord,"numericWords"},
+                {NumericWordOrdinal,"numericWordsOrdinal"},
+                {NumericWordCardinal,"numericWordsCardinal"},
+                {TimeMeridiam,"timeMeridiam"},
+                {DateUnits,"dateUnit"},
+                {TimeUnits,"timeUnit"},
+                {YearUnit,"yearUnit"},
+                {MonthUnit,"monthUnit"},
+                {WeekUnit,"weekUnit"},
+                {DayUnit,"dayUnit"},
+                {HourUnit,"hourUnit"},
+                {MinuteUnit,"minuteUnit"},
+                {SecondUnit,"secondUnit"},
+                {Proximity,"proximity"},
+                {RepeaterExpressions,"repeaterExpressions"},
+                {DurationExpressions,"durationExpressions"},
+                {RepeaterIndicators,"repeaterIndicators"},
+                {DurationIndicators,"durationIndicators"},
+                {NumericMagnitudeCardinal,"numericMagnitudeCardinal"},
+                {NumericMagnitudeOrdinal,"numericMagnitudeOrdinal"},
+                {DayOfWeekType,"dayOfWeekType"},
+            };
         }
 
         public static class Patterns
@@ -280,6 +169,37 @@ namespace Chronox.Constants
             public const string SecondDiscrete = "discreteSecond";
             public const string Millis = "dependentMilliseconds";
             public const string ZoneOffset = "discreteZone";
+
+            public static readonly Dictionary<string, string> Static = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                {DateBigEndian,"discreteDateBigEndian"},
+                {DateLittleEndian,"discreteDateLittleEndian"},
+                {DateMiddleEndian,"discreteDateMediumEndian"},
+                {SpaceSeparator,"whiteSpace"},
+                {OptionalSpace,"optionalSpace"},
+                {SpaceRemover,"whiteSpaceRemover"},
+                {TimeSeparator,"discreteTimeSeparator"},
+                {DateSeparator,"discreteDateSeparator"},
+                {NumberMax2Digits,"numberMax2Digits"},
+                {NumberMax4Digits,"numberMax4Digits"},
+                {NumberMax5Digits,"numberMax5Digits"},
+                {WordStart,"wordStart"},
+                {WordEnd,"wordEnd"},
+                {Date,"discreteDate"},
+                {Time,"discreteTime"},
+                {Year,"dependentYear"},
+                {YearDiscrete,"discreteYear"},
+                {MonthDiscrete,"discreteMonth"},
+                {DayDiscrete,"discreteDay"},
+                {Hour,"dependentHour"},
+                {Minute,"dependentMinute"},
+                {Second,"dependentSecond"},
+                {HourDiscrete,"discreteHour"},
+                {MinuteDiscrete,"discreteMinute"},
+                {SecondDiscrete,"discreteSecond"},
+                {Millis,"dependentMilliseconds"},
+                {ZoneOffset, "discreteZone"},
+            };
         }
 
         public static class Converters
@@ -485,6 +405,9 @@ namespace Chronox.Constants
                 {"hour", DateTimeUnit.Hour},
                 {"minute", DateTimeUnit.Minute},
                 {"second", DateTimeUnit.Second},
+                {"millisecond", DateTimeUnit.Millisecond },
+                {"microsecond", DateTimeUnit.Microsecond},
+                {"nanosecond", DateTimeUnit.Nanosecond},
             };
 
             public static readonly IReadOnlyDictionary<string, DayOfWeek> DAY_OF_WEEK = new Dictionary<string, DayOfWeek>(StringComparer.OrdinalIgnoreCase)

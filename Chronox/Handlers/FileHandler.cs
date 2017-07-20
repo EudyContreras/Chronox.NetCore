@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Chronox.Handlers
 {
-    internal class LanguageFileHandler
+    public class FileHandler
     {
         private const string Language = "language";
         private const string Ignored = "ignored";
@@ -28,27 +28,148 @@ namespace Chronox.Handlers
         private const string Pattern = "pattern";
         private const string Variations = "variations";
 
-        public string GetPath(string directory, string langName)
+        private string GetPath(string directory, string langName, string extension)
         {
-            var fileName = new StringBuilder(langName.FirstLetterToUpper(true)).Append(".txt");
+            var fileName = new StringBuilder(langName.FirstLetterToUpper(true)).Append(extension);
 
             return Path.Combine(directory, fileName.ToString());
         }
 
-        public List<string> ReadFile(string filePath)
+        public void NormalizeFile(string directory, string langName)
+        {
+            var lines = ReadFile(GetPath(directory, langName, ".txt")).Select(s => s.TrimEnd());
+
+            var newLines = new List<string>();
+
+            var cleanLines = new List<string>();
+
+            var lastLine = ".";
+
+            foreach(var line in lines)
+            {
+                if (EmptyLine(lastLine))
+                {
+                    if (!EmptyLine(line))
+                    {
+                        newLines.Add(line);
+                    }
+                }
+                else
+                {
+                    newLines.Add(line);
+                }
+
+                lastLine = line;
+            }
+
+            foreach(var line in newLines)
+            {
+                var cleanLine = line;
+
+                if (!EmptyLine(cleanLine))
+                {
+                    if (cleanLine[cleanLine.Length - 1] == ',')
+                    {
+                        cleanLine = new string( cleanLine.Take(cleanLine.Length - 1).ToArray());
+                    }
+                }
+
+                cleanLines.Add(cleanLine.TrimEnd());
+            }
+
+            File.WriteAllLines(GetPath(directory, langName, ".txt"), cleanLines);
+        }
+
+        public void GenerateTemplateTxt(string directory, string langName)
+        {
+            var lines = ReadFile(GetPath(directory, langName, ".txt")).Select(s => s.TrimEnd());
+
+            var newLines = new List<string>();
+
+            foreach(var line in lines)
+            {
+                var part = line.Split(':');
+
+                var key = part[0];
+
+                var clean = line;
+
+                if (!EmptyLine(key))
+                {
+                    if(string.Compare(key.Trim(), Pattern, true) == 0)
+                    {
+                        clean = key + ":";
+                    }
+                    else if(string.Compare(key.Trim(), Variations, true) == 0)
+                    {
+                        clean = key + ":";
+                    }
+                }
+
+                newLines.Add(clean);
+            }
+
+            File.WriteAllLines(@"Languages\Files\Template.txt", newLines);
+        }
+
+        public void GenerateTemplateJson(string directory, string langName)
+        {
+            var lines = ReadFile(GetPath(directory, langName, ".json")).Select(s => s.TrimEnd());
+
+            var newLines = new List<string>();
+
+            foreach (var line in lines)
+            {
+                var part = line.Split(':');
+
+                var key = part[0];
+
+                var clean = line;
+
+                if (!EmptyLine(key))
+                {
+                    if (string.Compare(key.RemoveSubstrings("\"").Trim(), Pattern, true) == 0)
+                    {
+                        clean = string.Concat(key, ":", " \"\",");
+                    }
+                    else if (string.Compare(key.RemoveSubstrings("\"").Trim(), Variations, true) == 0)
+                    {
+                        clean = string.Concat(key, ":"," \"\"");
+                    }
+                }
+
+                newLines.Add(clean);
+            }
+
+            File.WriteAllLines(@"Languages\Files\Template.json", newLines);
+        }
+
+        private List<string> ReadFile(string filePath)
         {
             return File.ReadLines(filePath).ToList();
         }
 
-        public Glossary CreatGlossary(string directory, string langName)
+        public Glossary CreateGlossary(string directory, string langName)
         {
-            var lines = ReadFile(GetPath(directory, langName));
+            return CreateGlossary(ReadFile(GetPath(directory, langName, ".txt")));
+        }
 
+        public Glossary CreateGlossary(string path)
+        {
+            return CreateGlossary(ReadFile(path));
+        }
+
+        private Glossary CreateGlossary(List<string> rawLines)
+        {
             var sections = new List<Section>();
 
             var glossary = new Glossary();
 
-            for (var i = 0; i<lines.Count; i++)
+            var lines = new List<string>();
+
+            RemoveComments(rawLines, lines);
+
+            for (var i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
 
@@ -64,13 +185,13 @@ namespace Chronox.Handlers
                     {
                         case Language:
 
-                            if(value != null)
+                            if (value != null)
                             {
                                 glossary.Language = value;
                             }
                             break;
                         case Ignored:
-                       
+
                             if (value != null)
                             {
                                 glossary.Ignored = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
@@ -93,27 +214,27 @@ namespace Chronox.Handlers
                             break;
                         case SupportedDateTimeFormats:
 
-                            glossary.supportedDateTimeFormats = ExtractFormats(lines, SupportedTimeRangeFormats, i);
+                            glossary.SupportedDateTimeFormats = ExtractFormats(lines, SupportedTimeRangeFormats, i);
 
                             break;
                         case SupportedTimeRangeFormats:
 
-                            glossary.supportedTimeRangeFormats = ExtractFormats(lines, SupportedTimeSpanFormats, i);
+                            glossary.SupportedTimeRangeFormats = ExtractFormats(lines, SupportedTimeSpanFormats, i);
 
                             break;
                         case SupportedTimeSpanFormats:
 
-                            glossary.supportedTimeSpanFormats = ExtractFormats(lines, SupportedTimeSetFormats, i);
+                            glossary.SupportedTimeSpanFormats = ExtractFormats(lines, SupportedTimeSetFormats, i);
 
                             break;
                         case SupportedTimeSetFormats:
 
-                            glossary.supportedTimeSetFormats = ExtractFormats(lines, Definitions.Property.CasualExpressions.ToLower(), i);
+                            glossary.SupportedTimeSetFormats = ExtractFormats(lines, Definitions.Property.CasualExpressions.ToLower(), i);
 
                             break;
                         default:
 
-                            HandleSections(lines,sections, attribute, value, i);
+                            HandleSections(lines, sections, attribute, value, i);
 
                             break;
                     }
@@ -123,6 +244,38 @@ namespace Chronox.Handlers
             glossary.Section = sections;
 
             return glossary;
+        }
+
+        private static void RemoveComments(List<string> rawLines, List<string> lines)
+        {
+            foreach (var line in rawLines)
+            {
+                if (line.Contains("//*") && line.Contains("*//"))
+                {
+                    var parts = line.Split("//*");
+
+                    if (parts.Length > 1)
+                    {
+                        if (!line.StartsWith("//*"))
+                        {
+                            lines.Add(parts[0]);
+                        }
+                    }
+                }
+                else
+                {
+                    lines.Add(line);
+                }
+
+            }
+
+            foreach(var line in lines)
+            {
+                if (line.Contains("//*") || line.Contains("*//"))
+                {
+                    throw new Exception("Please review the comments written and make sure the follow the right format");
+                }
+            }
         }
 
         private List<string> ExtractFormats(List<string> lines, string endFormat, int index)
@@ -149,7 +302,7 @@ namespace Chronox.Handlers
 
         private void HandleSections(List<string> lines, List<Section> sections, string attribute, string value, int index)
         {
-            foreach (var propertyName in Definitions.Properties.Dynamic)
+            foreach (var propertyName in Definitions.Property.Dynamic.Values)
             {
                 if(string.Compare(propertyName, attribute, true) == 0)
                 {
@@ -173,7 +326,7 @@ namespace Chronox.Handlers
         {
             var properties = new List<Property>();
 
-            var sectAtributes = lines.Skip(index + 2).ToList();
+            var sectAtributes = lines.Skip(index + 1).ToList();
 
             var propAttributes = sectAtributes.TakeWhile(s => string.Compare(s.Trim(), End, true) != 0).Select(s => s.ToLower().Trim()).ToList();
 
@@ -187,13 +340,12 @@ namespace Chronox.Handlers
 
                 var key = parts[0].Trim();
 
-                var val = parts[1].Trim();
+                var val = string.Join(":", parts.Skip(1)).Trim();
 
                 switch (key)
                 {
                     case Key:
                         property = new Property();
-
                         property.Key = val;
                         break;
                     case Value:
@@ -209,12 +361,10 @@ namespace Chronox.Handlers
                         var variations = val.Split(',').Select(v => v.Trim()).ToList();
 
                         property.Variations = variations;
-
                         properties.Add(property);
                         break;
                 }
             }
-
             return properties;
         }
 

@@ -1,7 +1,7 @@
 ﻿
 namespace Enumerations
 {
-    internal enum DateRangePointer
+    public enum DateRangePointer
     {
         Start,
 

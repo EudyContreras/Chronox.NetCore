@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Chronox.Constants.Banks
 {
-    internal class SequenceBank
+    public class SequenceBank
     {
         public readonly List<Sequence> SequencesAllCombinations = new List<Sequence>();
 
@@ -38,6 +38,11 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.TimeMeridiam,
                     Definitions.Property.GrabberExpressions,
                     Definitions.Property.DaysOfWeek
+                ),
+            new Sequence(SequenceType.DateTime, "10pm tomorrow",
+                    Definitions.Patterns.Time,
+                    Definitions.Property.TimeMeridiam,
+                    Definitions.Property.DayOffset
                 ),
             new Sequence(SequenceType.DateTime, "12:30 on friday",
                     Definitions.Patterns.Time,
@@ -119,6 +124,10 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "yesterday | tomorrow | today | day after tomorrow | etc",
                     Definitions.Property.DayOffset
+                ),
+            new Sequence(SequenceType.DateTime, "yesterda noon || tomorrow midday",
+                    Definitions.Property.DayOffset,
+                    Definitions.Property.TimeExpressions
                 ),
             new Sequence(SequenceType.DateTime, "afternoon yesterday || evening yesterday", //Should it be supported by default!
                     Definitions.Property.TimeOfDay,

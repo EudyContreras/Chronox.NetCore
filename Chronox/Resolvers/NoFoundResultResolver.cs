@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Resolutions.Resolvers
 {
-    internal enum NoFoundResultResolver
+    public enum NoFoundResultResolver
     {
         ReturnNull,
 

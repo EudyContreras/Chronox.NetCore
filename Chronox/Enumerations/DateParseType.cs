@@ -1,6 +1,6 @@
 ﻿namespace Enumerations
 {
-    internal enum DateParseType
+    public enum DateParseType
     {
         LongFormat,
 

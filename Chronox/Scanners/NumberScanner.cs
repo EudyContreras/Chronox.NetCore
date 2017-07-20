@@ -9,7 +9,7 @@ using Chronox.Interfaces;
 
 namespace Chronox.Scanners
 {
-    internal class NumberScanner : IChronoxScanner
+    public class NumberScanner : IChronoxScanner
     {
         public ScanWrapper Scan(ChronoxSettings option, string expression)
         {

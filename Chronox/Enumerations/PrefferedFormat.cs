@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Enumerations
 {
-    internal enum PrefferedEndian
+    public enum PrefferedEndian
     {
 
         MiddleEndian,

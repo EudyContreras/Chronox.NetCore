@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Resolutions
 {
-    internal enum TimeRelationResolver
+    public enum TimeRelationResolver
     {
         Present,
 
