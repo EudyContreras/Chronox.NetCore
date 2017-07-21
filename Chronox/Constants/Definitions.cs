@@ -13,7 +13,7 @@ namespace Chronox.Constants
     internal static class Definitions
     {
         public const string FilePathTxt = @"Languages\Files\TextFiles";
-        public const string FilePathJson = @"..\..\..\Languages\Files\JsonFiles";
+        public const string FilePathJson = @"Languages\Files\JsonFiles";
 
         public const string DefaultLanguage = "English";
 
@@ -47,7 +47,7 @@ namespace Chronox.Constants
             public const string TimeSpan = "timeSpan";
             public const string TimeRange = "timeRange";
 
-            public static readonly List<string> CombinedProperties = Property.Dynamic.Values.Union(Patterns.Static.Values).ToList();
+            public static readonly IReadOnlyList<string> CombinedProperties = Property.Dynamic.Values.Union(Patterns.Static.Values).ToList();
         }
 
         public static class Property
@@ -94,7 +94,7 @@ namespace Chronox.Constants
             public const string NumericMagnitudeOrdinal = "numericMagnitudeOrdinal";
             public const string DayOfWeekType = "dayOfWeekType";
 
-            public static readonly Dictionary<string, string> Dynamic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IReadOnlyDictionary<string, string> Dynamic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 {LogicalOperator,"logicalOperator"},
                 {ArithmeticOperator,"arithmeticOperator"},
@@ -170,7 +170,7 @@ namespace Chronox.Constants
             public const string Millis = "dependentMilliseconds";
             public const string ZoneOffset = "discreteZone";
 
-            public static readonly Dictionary<string, string> Static = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IReadOnlyDictionary<string, string> Static = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 {DateBigEndian,"discreteDateBigEndian"},
                 {DateLittleEndian,"discreteDateLittleEndian"},

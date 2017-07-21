@@ -16,7 +16,7 @@ namespace Chronox.Helpers.Patterns
 
         internal static readonly IDictionary<string,PatternRegex> HelperPatterns = new Dictionary<string,PatternRegex>(StringComparer.OrdinalIgnoreCase)
         {
-           { Definitions.Patterns.OptionalSpace,  new PatternRegex(Definitions.Patterns.OptionalSpace, "\\s*\\,?\\s*") },
+           { Definitions.Patterns.OptionalSpace,  new PatternRegex(Definitions.Patterns.OptionalSpace, "\\s*\\,?(and)?\\s*") },
 
            { Definitions.Patterns.SpaceSeparator,  new PatternRegex(Definitions.Patterns.SpaceSeparator, "\\s*\\,?\\s") },
 

@@ -1684,6 +1684,10 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                         foundGroups.Find(g => g.Name == Definitions.Patterns.HourDiscrete).GroupUsed = true;
                     }
+                    else
+                    {
+                        ProcessDiscreteHours(result, foundGroups, ref dateTime, information, (dateTime.Hour + 1).ToString());
+                    }
 
                     floatingMinutes = information.FloatingMinutes.Count > 0 ? information.FloatingMinutes.Dequeue() : int.MinValue;
 
@@ -1703,6 +1707,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                         foundGroups.Find(g => g.Name == Definitions.Patterns.HourDiscrete).GroupUsed = true;
                     }
+
                     floatingMinutes = information.FloatingMinutes.Count > 0 ? information.FloatingMinutes.Dequeue() : 0;
 
                     if (floatingMinutes != int.MinValue)

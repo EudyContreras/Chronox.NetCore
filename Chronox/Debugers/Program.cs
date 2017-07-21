@@ -23,7 +23,7 @@ namespace Chronox.Debugers
 
             var detectionTest = new DetectionTest(settings);
 
-            detectionTest.TryDectect();
+            detectionTest.TestDateTimeParsing();
 
             Console.ReadKey();
         }

@@ -393,7 +393,7 @@ namespace Chronox.Tests
 
             { "the wednesday after this", DateTime.Parse("7/26/2017, 00:00:00") },
 
-            /*Failed*/ { "the monday after this one", DateTime.Parse("7/24/2017, 00:00:00") }, //One handled as time
+            { "the monday after this one", DateTime.Parse("7/24/2017, 00:00:00") },
 
             { "the sunday before the previous", DateTime.Parse("7/9/2017, 00:00:00") },
 
@@ -490,6 +490,16 @@ namespace Chronox.Tests
             { "sunday november 26 in 2017", DateTime.Parse("11/26/2017, 00:00:00") },
 
             { "the 3 of June 2017 at 10pm", DateTime.Parse("6/3/2017, 22:00:00") },
+
+            { "in 5 years and 3 months", DateTime.Parse("10/20/2022, 00:00:00") },
+
+            { "in five minutes and six hour", DateTime.Parse("7/20/2017, 20:35:00") },
+
+            { "in five minutes, six hours and 20 seconds", DateTime.Parse("7/20/2017, 20:35:20") },
+
+            { "in six weeks and 3 days", DateTime.Parse("9/3/2017, 00:00:00") },
+
+            { "in 3 days and 4 hours and 30 seconds", DateTime.Parse("7/23/2017, 18:30:30") },
 
             { "the day after next tuesday", DateTime.Parse("7/26/2017, 00:00:00") },
 

@@ -49,6 +49,10 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.TimeMeridiam,
                     Definitions.Property.DaysOfWeek
                 ),
+            new Sequence(SequenceType.DateTime, "quater to | quater past",
+                    Definitions.Property.TimeFractions,
+                    Definitions.Property.TimeConjointer
+                ),
             new Sequence(SequenceType.DateTime, "10 to 8 | 10 past 8",
                     Definitions.Patterns.MinuteDiscrete,
                     Definitions.Property.TimeConjointer,
@@ -178,6 +182,36 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "last night | right now | tonight",
                     Definitions.Property.InterpretedExpression
+                ),
+            new Sequence(SequenceType.DateTime, "five hours",
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits
+                ),
+            new Sequence(SequenceType.DateTime, "five hours and six minutes",
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits
+                ),
+            new Sequence(SequenceType.DateTime, "five hours and six minutes and six seconds | 10 years 6 days and 3 minutes",
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits
+                ),
+            new Sequence(SequenceType.DateTime, "five hours and six minutes and six seconds | 10 years 6 days and 3 minutes",
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Property.DateTimeUnits
                 ),
             new Sequence(SequenceType.DateTime, "the third week of december | the third day of july",
                     Definitions.Property.NumericWordOrdinal,
@@ -390,7 +424,7 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear
                 ),
-           new Sequence(SequenceType.DateTime, "december 31st 2017 | january twenty-third 2017",
+            new Sequence(SequenceType.DateTime, "december 31st 2017 | january twenty-third 2017",
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.NumericWord,
                     Definitions.Patterns.Year
@@ -514,44 +548,44 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer
                 ),
-             new Sequence(SequenceType.DateTime, "four weeks from now | three days from now",
+            new Sequence(SequenceType.DateTime, "four weeks from now | three days from now",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer
                 ),
-             new Sequence(SequenceType.DateTime, "five weeks ago on saturday",
+            new Sequence(SequenceType.DateTime, "five weeks ago on saturday",
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer,
                     Definitions.Property.DaysOfWeek
                 ),
-             new Sequence(SequenceType.DateTime, "saturday five week ago",
+            new Sequence(SequenceType.DateTime, "saturday five week ago",
                     Definitions.Property.DaysOfWeek,
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer
                 ),
-             new Sequence(SequenceType.DateTime, "ten months ago on saturday at 6pm", //Is that valid?
+            new Sequence(SequenceType.DateTime, "ten months ago on saturday at 6pm", //Is that valid?
                     Definitions.Property.NumericWordCardinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer,
                     Definitions.Property.DaysOfWeek,
                     Definitions.Patterns.Time
                 ),
-             new Sequence(SequenceType.DateTime, "4 days before next week",
+            new Sequence(SequenceType.DateTime, "4 days before next week",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer,
                     Definitions.Property.GrabberExpressions,
                     Definitions.Property.DateTimeUnits
                 ),
-             new Sequence(SequenceType.DateTime, "4 weeks ago on saturday",
+            new Sequence(SequenceType.DateTime, "4 weeks ago on saturday",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer,
                     Definitions.Property.DaysOfWeek
                 ),
-             new Sequence(SequenceType.DateTime, "saturday 4 weeks ago",
+            new Sequence(SequenceType.DateTime, "saturday 4 weeks ago",
                     Definitions.Property.DaysOfWeek,
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,

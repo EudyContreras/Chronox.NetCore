@@ -129,35 +129,54 @@ namespace Chronox.Abstractions
 
                 var result = chronoxResult.Result;
 
-                Extract(information.ProcessedString, referenceDate, perfectMatch.Sequence, perfectMatch.Match, settings, information, ref result);
-
-                chronoxResult.Result = result;
-
-                var index = perfectMatch.Match.Index + perfectMatch.Match.Length;
-
-                information.ProcessedString = text.Substring(index < text.Length - 1 ? index : text.Length - 1);
-
-                if (chronoxResult.Result != null && !string.IsNullOrEmpty(chronoxResult.Result.Extraction))
+                switch (perfectMatch.Sequence.SequenceType)
                 {
-                    if (!results.Contains(chronoxResult.Result))
+                    case SequenceType.DateTime:
+                        return HandleDateTimeMatch(text, referenceDate, settings, sequences, results, type, information, passCount, perfectMatch, chronoxResult, ref result);
+                    case SequenceType.TimeRange:
+                        break;
+                    case SequenceType.TimeSpan:
+                        break;
+                    case SequenceType.TimeSet:
+                        break;
+                    case SequenceType.Default:
+                        break;
+                }
+            }
+            return results.ToList();
+        }
+
+        private List<IChronoxExtraction> HandleDateTimeMatch(string text, DateTime referenceDate, ChronoxSettings settings, IEnumerable<PatternSequence> sequences, HashSet<IChronoxExtraction> results, ExtractionResultType type, ChronoxBuildInformation information, int passCount, MatchWrapper perfectMatch, ChronoxParsedResult chronoxResult, ref IChronoxExtraction result)
+        {
+            Extract(information.ProcessedString, referenceDate, perfectMatch.Sequence, perfectMatch.Match, settings, information, ref result);
+
+            chronoxResult.Result = result;
+
+            var index = perfectMatch.Match.Index + perfectMatch.Match.Length;
+
+            information.ProcessedString = text.Substring(index < text.Length - 1 ? index : text.Length - 1);
+
+            if (chronoxResult.Result != null && !string.IsNullOrEmpty(chronoxResult.Result.Extraction))
+            {
+                if (!results.Contains(chronoxResult.Result))
+                {
+                    results.Add(chronoxResult.Result);
+
+                    if (passCount < settings.SearchPassCount)
                     {
-                        results.Add(chronoxResult.Result);
-
-                        if (passCount < settings.SearchPassCount)
+                        if (information.ProcessedString.Length >= settings.MinInputTextLength)
                         {
-                            if (information.ProcessedString.Length >= settings.MinInputTextLength)
-                            {
-                                information.ClearFloaters();
-                                information.ResetFlags();
+                            information.ClearFloaters();
+                            information.ResetFlags();
 
-                                var date = information.DateTime;
+                            var date = information.DateTime;
 
-                                return Execute(information.ProcessedString, information.DateTime, settings, sequences, results, chronoxResult.Result, type, information, passCount + 1);
-                            }
+                            return Execute(information.ProcessedString, information.DateTime, settings, sequences, results, chronoxResult.Result, type, information, passCount + 1);
                         }
                     }
                 }
             }
+
             return results.ToList();
         }
 

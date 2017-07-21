@@ -106,14 +106,14 @@
     },
     {
       "label": "arithmeticOperator",
-      "type": "combined",
+      "type": "combinedOptional",
       "properties": [
         {
           "key": "-",
           "value": "n/a",
           "type": "group",
-          "pattern": "-|minus|substract|negat|less",
-          "variations": [ "-", "minus", "substract", "negate", "less" ]
+          "pattern": "\\-|minus|substract|negative|negate|less",
+          "variations": [ "-", "minus", "substract", "negate","negative", "less" ]
         },
         {
           "key": "and",
@@ -126,7 +126,7 @@
           "key": "+",
           "value": "n/a",
           "type": "group",
-          "pattern": "+|plus|more|add|aggregate",
+          "pattern": "\\+|plus|more|add|aggregate",
           "variations": [ "+", "plus", "more", "add", "aggregate" ]
         }
       ]

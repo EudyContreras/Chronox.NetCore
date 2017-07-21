@@ -26,20 +26,18 @@ namespace Tests
 
         string[] TestedAndWorking =
         {
-            "the monday after this one", //The one at the end gets parsed as time!
-         };
+             "in 5 years and 3 months",
+             "in five minutes and six hour",
+             "in five minutes, six hours and 20 seconds",
+             "in six weeks and 3 days",
+             "in 3 days and 4 hours and 30 seconds"
+
+        };
 
         string[] ProblematicNeedsFixing =
         {
               
              /* Exact timing parsing currently not supported */
-
-             "3 hour after next tuesday",
-             "6 hours before next monday",
-             "in five minutes and six hour",
-             "in five minutes, six hours and 20 seconds",
-             "in six weeks and 3 days",
-             "in 3 days and 4 hours and 30 seconds"
 
              /*To add support:
               * at sunset
@@ -58,7 +56,7 @@ namespace Tests
 
             { "17:00", DateTime.Parse("7/20/2017, 17:00:00") },
 
-            { "1800s", DateTime.Parse("1/1/1800, 00:00:00") }, //Fix so that it resets month and day
+            { "1800s", DateTime.Parse("1/1/1800, 00:00:00") },
 
             { "night", DateTime.Parse("7/20/2017, 21:00:00") },
 
@@ -84,7 +82,7 @@ namespace Tests
 
             { "sat 7am", DateTime.Parse("7/22/2017, 7:00:00") },
 
-            { "the day", DateTime.Parse("7/20/2017, 6:00:00") }, //Probably not handled
+            { "the day", DateTime.Parse("7/20/2017, 6:00:00") },
 
             { "tonight", DateTime.Parse("7/20/2017, 21:00:00") },
 
@@ -134,7 +132,7 @@ namespace Tests
 
             { "a year ago", DateTime.Parse("7/20/2016, 00:00:00") },
 
-            /*Failed*/ { "christmass", DateTime.Parse("12/25/2017, 00:00:00") },
+            { "christmass", DateTime.Parse("12/25/2017, 00:00:00") },
 
             { "friday 1pm", DateTime.Parse("7/21/2017, 13:00:00") },
 
@@ -162,13 +160,13 @@ namespace Tests
 
             { "Jan 21, '97", DateTime.Parse("1/21/1997, 00:00:00") },
 
-            /*Failed*/ { "Sept 5th, '06", DateTime.Parse("9/5/2006, 00:00:00") }, //Probably not supported!
+            { "Sept 5th, '06", DateTime.Parse("9/5/2006, 00:00:00") }, // Limited support
 
             { "quater to 2", DateTime.Parse("7/20/2017, 1:45:00") },
 
             { "Sun, Nov 21", DateTime.Parse("11/21/2017, 00:00:00") }, //Should i check if 21st is a Sunday?
 
-            /*Failed*/ { "this second", DateTime.Parse("7/20/2017, 14:30:00") },
+            { "this second", DateTime.Parse("7/20/2017, 14:30:00") },
 
             { "1 week hence", DateTime.Parse("7/27/2017, 00:00:00") },
 
@@ -428,7 +426,7 @@ namespace Tests
 
             { "the wednesday after this", DateTime.Parse("7/26/2017, 00:00:00") },
 
-            /*Failed*/ { "the monday after this one", DateTime.Parse("7/24/2017, 00:00:00") }, //One handled as time
+            { "the monday after this one", DateTime.Parse("7/24/2017, 00:00:00") },
 
             { "the sunday before the previous", DateTime.Parse("7/9/2017, 00:00:00") },
 
@@ -526,6 +524,16 @@ namespace Tests
 
             { "the 3 of June 2017 at 10pm", DateTime.Parse("6/3/2017, 22:00:00") },
 
+            { "in 5 years and 3 months", DateTime.Parse("10/20/2022, 00:00:00") },
+
+            { "in five minutes and six hour", DateTime.Parse("7/20/2017, 20:32:00") },
+
+            { "in five minutes, six hours and 20 seconds", DateTime.Parse("7/20/2017, 20:35:20") },
+
+            { "in six weeks and 3 days", DateTime.Parse("9/3/2017, 00:00:00") },
+
+            { "in 3 days and 4 hours and 30 seconds", DateTime.Parse("7/23/2017, 18:30:30") },
+
             { "the day after next tuesday", DateTime.Parse("7/26/2017, 00:00:00") },
 
             { "the fourth day of the year", DateTime.Parse("1/4/2017, 00:00:00") },
@@ -576,7 +584,7 @@ namespace Tests
 
             { "the day before yesterday at 10", DateTime.Parse("7/18/2017, 10:00:00") },
 
-            /*Failed*/ { "independence day during the day", DateTime.Parse("7/4/2017, 6:00:00") },
+            { "independence day during the day", DateTime.Parse("7/4/2017, 6:00:00") },
 
             { "last day of the following month", DateTime.Parse("8/31/2017, 00:00:00") },
 
@@ -598,7 +606,7 @@ namespace Tests
 
             { "The 22nd of march in the year 2010", DateTime.Parse("3/22/2010, 00:00:00") },
 
-            /*Failed*/ { "independence day during the night", DateTime.Parse("7/4/2017, 21:00:00") },
+            { "independence day during the night", DateTime.Parse("7/4/2017, 21:00:00") },
 
             { "July, 15 of 2014 10:30:20.1000 PM", DateTime.Parse("7/15/2014, 22:30:20") },
 
@@ -648,36 +656,43 @@ namespace Tests
 
         public void TestDateTimeParsing()
         {
-            var Chronox = ChronoxParser.GetInstance(settings);
+            var chronox = ChronoxParser.GetInstance(settings);
+
+            var allPassed = true;
 
             foreach (var expression in TestData.Keys)
             {
                 var text = $"I will come and visit you on {expression}";
 
-                var result = Chronox.ParseDateTime(Reference, text);
+                var result = chronox.ParseDateTime(Reference, text);
 
                 var date = result[0].GetCurrent().DateTime();
 
-                AreEqual(expression, TestData[expression].ToString(), date.ToString());
+                AreEqual(expression, TestData[expression].ToString(), date.ToString(), ref allPassed);
+            }
+
+            if (allPassed)
+            {
+                Console.WriteLine("All passed!");
             }
         }
 
         public void TryDectect()
         {
-            var Chronox = ChronoxParser.GetInstance(settings);
+            var chronox = ChronoxParser.GetInstance(settings);
 
             foreach (var expression in TestedAndWorking)
             {
-                var result = Chronox.ParseDateTime(Reference, expression);
+                var result = chronox.ParseDateTime(Reference, expression);
 
-                var date = result[0].GetCurrent().DateTime();
+                var date = result?[0].GetCurrent().DateTime();
 
                 Console.WriteLine($"{expression} | {date}");
                 Console.WriteLine();
             }
         }
 
-        private void AreEqual(string expression, string expected, string actual)
+        private void AreEqual(string expression, string expected, string actual, ref bool allPassed)
         {
             if (string.Compare(expected, actual) != 0)
             {
@@ -685,6 +700,8 @@ namespace Tests
                 Console.WriteLine(string.Concat("Expected: ", expected));
                 Console.WriteLine(string.Concat("Result: ", actual));
                 Console.WriteLine();
+
+                allPassed = false;
             }
         }
     }
