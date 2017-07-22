@@ -23,7 +23,7 @@ namespace Chronox.Tests
 
             { "17:00", DateTime.Parse("7/20/2017, 17:00:00") },
 
-            { "1800s", DateTime.Parse("1/1/1800, 00:00:00") }, 
+            { "1800s", DateTime.Parse("1/1/1800, 00:00:00") },
 
             { "night", DateTime.Parse("7/20/2017, 21:00:00") },
 
@@ -49,7 +49,7 @@ namespace Chronox.Tests
 
             { "sat 7am", DateTime.Parse("7/22/2017, 7:00:00") },
 
-            { "the day", DateTime.Parse("7/20/2017, 6:00:00") }, 
+            { "the day", DateTime.Parse("7/20/2017, 6:00:00") },
 
             { "tonight", DateTime.Parse("7/20/2017, 21:00:00") },
 
@@ -169,7 +169,7 @@ namespace Chronox.Tests
 
             { "this november", DateTime.Parse("11/1/2017, 00:00:00") },
 
-            { "this thursday", DateTime.Parse("7/20/2017, 14:30:00") }, 
+            { "this thursday", DateTime.Parse("7/20/2017, 14:30:00") },
 
             { "tomorrow noon", DateTime.Parse("7/21/2017, 12:00:00") },
 
@@ -213,7 +213,7 @@ namespace Chronox.Tests
 
             { "3 fridays before", DateTime.Parse("6/30/2017, 00:00:00") },
 
-            { "4 weeks from now", DateTime.Parse("8/17/2017, 00:00:00") }, 
+            { "4 weeks from now", DateTime.Parse("8/17/2017, 00:00:00") },
 
             { "4pm next tuesday", DateTime.Parse("7/25/2017, 16:00:00") },
 
@@ -499,6 +499,10 @@ namespace Chronox.Tests
 
             { "in six weeks and 3 days", DateTime.Parse("9/3/2017, 00:00:00") },
 
+            { "2 months, 4 week and 6 day ago", DateTime.Parse("4/16/2017, 00:00:00") },
+
+            { "4 years and 6 days from now", DateTime.Parse("7/26/2021, 00:00:00") },
+
             { "in 3 days and 4 hours and 30 seconds", DateTime.Parse("7/23/2017, 18:30:30") },
 
             { "the day after next tuesday", DateTime.Parse("7/26/2017, 00:00:00") },
@@ -614,12 +618,12 @@ namespace Chronox.Tests
             { "the thirty first of december of the year 2017 at 12 am", DateTime.Parse("12/31/2017, 00:00:00") },
 
             { "fourteenth of june 2010 at eleven o'clock in the evening", DateTime.Parse("6/14/2010, 23:00:00") }
-         };
+        };
 
         private static readonly string[] Expressions = TestData.Keys.ToArray();
 
 
-        [TestMethod]
+		[TestMethod]
         public void TestExample0()
         {
             // Date Expression : 4pm;
@@ -2261,7 +2265,7 @@ namespace Chronox.Tests
         public void TestExample126()
         {
             // Date Expression : 5 hours before now;
-			// Expected Result : 7/20/2017 9:30:00 PM
+			// Expected Result : 7/20/2017 9:30:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[126]);
 
@@ -2560,7 +2564,7 @@ namespace Chronox.Tests
         public void TestExample149()
         {
             // Date Expression : next monday evening;
-			// Expected Result : 7/24/2017 9:00:00 PM
+			// Expected Result : 7/24/2017 6:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[149]);
 
@@ -3119,7 +3123,7 @@ namespace Chronox.Tests
         public void TestExample192()
         {
             // Date Expression : the day before the next;
-			// Expected Result : 7/20/2017 12:00:00 AM
+			// Expected Result : 7/20/2017 2:30:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[192]);
 
@@ -3392,7 +3396,7 @@ namespace Chronox.Tests
         public void TestExample213()
         {
             // Date Expression : 4 days before next week;
-			// Expected Result : 7/20/2017 14:30:00 AM //same day!
+			// Expected Result : 7/20/2017 2:30:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[213]);
 
@@ -3690,8 +3694,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample236()
         {
-            // Date Expression : the day after next tuesday;
-			// Expected Result : 7/26/2017 12:00:00 AM
+            // Date Expression : in 5 years and 3 months;
+			// Expected Result : 10/20/2022 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[236]);
 
@@ -3703,8 +3707,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample237()
         {
-            // Date Expression : the fourth day of the year;
-			// Expected Result : 1/4/2017 12:00:00 AM
+            // Date Expression : in five minutes and six hour;
+			// Expected Result : 7/20/2017 8:35:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[237]);
 
@@ -3716,8 +3720,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample238()
         {
-            // Date Expression : the last day of next month;
-			// Expected Result : 8/31/2017 12:00:00 AM
+            // Date Expression : in five minutes, six hours and 20 seconds;
+			// Expected Result : 7/20/2017 8:35:20 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[238]);
 
@@ -3729,8 +3733,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample239()
         {
-            // Date Expression : the third day of next week;
-			// Expected Result : 7/26/2017 12:00:00 AM
+            // Date Expression : in six weeks and 3 days;
+			// Expected Result : 9/3/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[239]);
 
@@ -3742,8 +3746,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample240()
         {
-            // Date Expression : the week third of december;
-			// Expected Result : 12/15/2017 12:00:00 AM
+            // Date Expression : 2 months, 4 week and 6 day ago;
+			// Expected Result : 4/16/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[240]);
 
@@ -3755,8 +3759,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample241()
         {
-            // Date Expression : third saturday of the year;
-			// Expected Result : 1/21/2017 12:00:00 AM
+            // Date Expression : 4 years and 6 days from now;
+			// Expected Result : 7/26/2021 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[241]);
 
@@ -3768,8 +3772,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample242()
         {
-            // Date Expression : third Thursday in November;
-			// Expected Result : 11/16/2017 12:00:00 AM
+            // Date Expression : in 3 days and 4 hours and 30 seconds;
+			// Expected Result : 7/23/2017 6:30:30 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[242]);
 
@@ -3781,8 +3785,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample243()
         {
-            // Date Expression : monday 10:30 in the morning;
-			// Expected Result : 7/17/2017 10:30:00 AM
+            // Date Expression : the day after next tuesday;
+			// Expected Result : 7/26/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[243]);
 
@@ -3794,8 +3798,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample244()
         {
-            // Date Expression : monday the 3rd of June 2017;
-			// Expected Result : 6/3/2017 12:00:00 AM
+            // Date Expression : the fourth day of the year;
+			// Expected Result : 1/4/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[244]);
 
@@ -3807,8 +3811,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample245()
         {
-            // Date Expression : next week on monday morning;
-			// Expected Result : 7/24/2017 6:00:00 AM
+            // Date Expression : the last day of next month;
+			// Expected Result : 8/31/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[245]);
 
@@ -3820,8 +3824,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample246()
         {
-            // Date Expression : the day before next tuesday;
-			// Expected Result : 7/24/2017 12:00:00 AM
+            // Date Expression : the third day of next week;
+			// Expected Result : 7/26/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[246]);
 
@@ -3833,8 +3837,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample247()
         {
-            // Date Expression : the first day of next month;
-			// Expected Result : 8/1/2017 12:00:00 AM
+            // Date Expression : the week third of december;
+			// Expected Result : 12/15/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[247]);
 
@@ -3846,8 +3850,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample248()
         {
-            // Date Expression : the third week of next year;
-			// Expected Result : 1/15/2018 12:00:00 AM
+            // Date Expression : third saturday of the year;
+			// Expected Result : 1/21/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[248]);
 
@@ -3859,8 +3863,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample249()
         {
-            // Date Expression : third of june 2017 at 11 PM;
-			// Expected Result : 6/3/2017 11:00:00 PM
+            // Date Expression : third Thursday in November;
+			// Expected Result : 11/16/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[249]);
 
@@ -3872,8 +3876,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample250()
         {
-            // Date Expression : 3rd of December 2020 at 10pm;
-			// Expected Result : 12/3/2020 10:00:00 PM
+            // Date Expression : monday 10:30 in the morning;
+			// Expected Result : 7/17/2017 10:30:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[250]);
 
@@ -3885,8 +3889,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample251()
         {
-            // Date Expression : December 3rd of 2022 at 12pm;
-			// Expected Result : 12/3/2022 12:00:00 PM
+            // Date Expression : monday the 3rd of June 2017;
+			// Expected Result : 6/3/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[251]);
 
@@ -3898,8 +3902,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample252()
         {
-            // Date Expression : sunday november 26th in 2017;
-			// Expected Result : 11/26/2017 12:00:00 AM
+            // Date Expression : next week on monday morning;
+			// Expected Result : 7/24/2017 6:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[252]);
 
@@ -3911,8 +3915,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample253()
         {
-            // Date Expression : the 3rd of June 2017 at 10pm;
-			// Expected Result : 6/3/2017 10:00:00 PM
+            // Date Expression : the day before next tuesday;
+			// Expected Result : 7/24/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[253]);
 
@@ -3924,8 +3928,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample254()
         {
-            // Date Expression : the first week of last month;
-			// Expected Result : 6/1/2017 12:00:00 AM
+            // Date Expression : the first day of next month;
+			// Expected Result : 8/1/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[254]);
 
@@ -3937,8 +3941,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample255()
         {
-            // Date Expression : the second week of last month;
-			// Expected Result : 6/8/2017 12:00:00 AM
+            // Date Expression : the third week of next year;
+			// Expected Result : 1/15/2018 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[255]);
 
@@ -3950,8 +3954,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample256()
         {
-            // Date Expression : the first week of this month;
-			// Expected Result : 7/1/2017 12:00:00 AM
+            // Date Expression : third of june 2017 at 11 PM;
+			// Expected Result : 6/3/2017 11:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[256]);
 
@@ -3963,8 +3967,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample257()
         {
-            // Date Expression : The 25 september in the year 2008;
-			// Expected Result : 9/25/2008 12:00:00 AM
+            // Date Expression : 3rd of December 2020 at 10pm;
+			// Expected Result : 12/3/2020 10:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[257]);
 
@@ -3976,8 +3980,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample258()
         {
-            // Date Expression : first friday of the next month;
-			// Expected Result : 8/4/2017 12:00:00 AM
+            // Date Expression : December 3rd of 2022 at 12pm;
+			// Expected Result : 12/3/2022 12:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[258]);
 
@@ -3989,8 +3993,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample259()
         {
-            // Date Expression : last week on tuesday afternoon;
-			// Expected Result : 7/11/2017 1:00:00 PM
+            // Date Expression : sunday november 26th in 2017;
+			// Expected Result : 11/26/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[259]);
 
@@ -4002,8 +4006,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample260()
         {
-            // Date Expression : the day before yesterday at 10;
-			// Expected Result : 7/18/2017 10:00:00 AM
+            // Date Expression : the 3rd of June 2017 at 10pm;
+			// Expected Result : 6/3/2017 10:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[260]);
 
@@ -4015,8 +4019,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample261()
         {
-            // Date Expression : independence day during the day;
-			// Expected Result : 7/4/2017 6:00:00 AM
+            // Date Expression : the first week of last month;
+			// Expected Result : 6/1/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[261]);
 
@@ -4028,8 +4032,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample262()
         {
-            // Date Expression : last day of the following month;
-			// Expected Result : 8/31/2017 12:00:00 AM
+            // Date Expression : the second week of last month;
+			// Expected Result : 6/8/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[262]);
 
@@ -4041,8 +4045,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample263()
         {
-            // Date Expression : next week on thursday afternoon;
-			// Expected Result : 7/27/2017 1:00:00 PM
+            // Date Expression : the first week of this month;
+			// Expected Result : 7/1/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[263]);
 
@@ -4054,8 +4058,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample264()
         {
-            // Date Expression : the third week of next february;
-			// Expected Result : 2/15/2018 12:00:00 AM
+            // Date Expression : The 25 september in the year 2008;
+			// Expected Result : 9/25/2008 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[264]);
 
@@ -4067,8 +4071,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample265()
         {
-            // Date Expression : this sat the 7th in the evening;
-			// Expected Result : 7/7/2017 6:00:00 PM
+            // Date Expression : first friday of the next month;
+			// Expected Result : 8/4/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[265]);
 
@@ -4080,8 +4084,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample266()
         {
-            // Date Expression : 3 months ago saturday at 5:00 pm;
-			// Expected Result : 4/22/2017 5:00:00 PM
+            // Date Expression : last week on tuesday afternoon;
+			// Expected Result : 7/11/2017 1:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[266]);
 
@@ -4093,8 +4097,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample267()
         {
-            // Date Expression : third day of the following month;
-			// Expected Result : 8/3/2017 12:00:00 AM
+            // Date Expression : the day before yesterday at 10;
+			// Expected Result : 7/18/2017 10:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[267]);
 
@@ -4106,8 +4110,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample268()
         {
-            // Date Expression : twenty second day of the following month;
-			// Expected Result : 8/22/2017 12:00:00 AM
+            // Date Expression : independence day during the day;
+			// Expected Result : 7/4/2017 6:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[268]);
 
@@ -4119,8 +4123,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample269()
         {
-            // Date Expression : Friday the 21st of November 1997;
-			// Expected Result : 11/21/1997 12:00:00 AM
+            // Date Expression : last day of the following month;
+			// Expected Result : 8/31/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[269]);
 
@@ -4132,8 +4136,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample270()
         {
-            // Date Expression : Sun, Nov 2nd of 1990 at 10:30 pm;
-			// Expected Result : 11/2/1990 10:30:00 PM
+            // Date Expression : next week on thursday afternoon;
+			// Expected Result : 7/27/2017 1:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[270]);
 
@@ -4145,8 +4149,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample271()
         {
-            // Date Expression : The 22nd of march in the year 2010;
-			// Expected Result : 3/22/2010 12:00:00 AM
+            // Date Expression : the third week of next february;
+			// Expected Result : 2/15/2018 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[271]);
 
@@ -4158,8 +4162,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample272()
         {
-            // Date Expression : independence day during the night;
-			// Expected Result : 7/4/2017 9:00:00 PM
+            // Date Expression : this sat the 7th in the evening;
+			// Expected Result : 7/7/2017 6:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[272]);
 
@@ -4171,8 +4175,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample273()
         {
-            // Date Expression : July, 15 of 2014 10:30:20.1000 PM;
-			// Expected Result : 7/15/2014 10:30:20 PM
+            // Date Expression : 3 months ago saturday at 5:00 pm;
+			// Expected Result : 4/22/2017 5:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[273]);
 
@@ -4184,8 +4188,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample274()
         {
-            // Date Expression : next saturday 7:00 in the evening;
-			// Expected Result : 7/29/2017 7:00:00 PM
+            // Date Expression : third day of the following month;
+			// Expected Result : 8/3/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[274]);
 
@@ -4197,8 +4201,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample275()
         {
-            // Date Expression : second day of the following month;
-			// Expected Result : 8/2/2017 12:00:00 AM
+            // Date Expression : twenty second day of the following month;
+			// Expected Result : 8/22/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[275]);
 
@@ -4210,8 +4214,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample276()
         {
-            // Date Expression : this saturday at 7 in the evening;
-			// Expected Result : 7/22/2017 7:00:00 PM
+            // Date Expression : Friday the 21st of November 1997;
+			// Expected Result : 11/21/1997 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[276]);
 
@@ -4223,8 +4227,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample277()
         {
-            // Date Expression : The 25th of April in the year 2008;
-			// Expected Result : 4/25/2008 12:00:00 AM
+            // Date Expression : Sun, Nov 2nd of 1990 at 10:30 pm;
+			// Expected Result : 11/2/1990 10:30:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[277]);
 
@@ -4236,8 +4240,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample278()
         {
-            // Date Expression : the twenty sixth day of next month;
-			// Expected Result : 8/26/2017 12:00:00 AM
+            // Date Expression : The 22nd of march in the year 2010;
+			// Expected Result : 3/22/2010 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[278]);
 
@@ -4249,8 +4253,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample279()
         {
-            // Date Expression : monday the 3rd of June 2017 at 20pm;
-			// Expected Result : 6/3/2017 8:00:00 PM
+            // Date Expression : independence day during the night;
+			// Expected Result : 7/4/2017 9:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[279]);
 
@@ -4262,8 +4266,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample280()
         {
-            // Date Expression : second monday of the previous month;
-			// Expected Result : 6/12/2017 12:00:00 AM
+            // Date Expression : July, 15 of 2014 10:30:20.1000 PM;
+			// Expected Result : 7/15/2014 10:30:20 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[280]);
 
@@ -4275,8 +4279,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample281()
         {
-            // Date Expression : last monday the first in the morning;
-			// Expected Result : 7/1/2017 6:00:00 AM
+            // Date Expression : next saturday 7:00 in the evening;
+			// Expected Result : 7/29/2017 7:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[281]);
 
@@ -4288,8 +4292,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample282()
         {
-            // Date Expression : the 31st of december of the year 2018;
-			// Expected Result : 12/31/2018 12:00:00 AM
+            // Date Expression : second day of the following month;
+			// Expected Result : 8/2/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[282]);
 
@@ -4301,8 +4305,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample283()
         {
-            // Date Expression : the following week on wednesday night;
-			// Expected Result : 7/26/2017 9:00:00 PM
+            // Date Expression : this saturday at 7 in the evening;
+			// Expected Result : 7/22/2017 7:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[283]);
 
@@ -4314,8 +4318,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample284()
         {
-            // Date Expression : may seventh '97 at three in the morning;
-			// Expected Result : 5/7/1997 3:00:00 AM
+            // Date Expression : The 25th of April in the year 2008;
+			// Expected Result : 4/25/2008 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[284]);
 
@@ -4327,8 +4331,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample285()
         {
-            // Date Expression : The 21 of April in the year 2008 at 10 pm;
-			// Expected Result : 4/21/2008 10:00:00 PM
+            // Date Expression : the twenty sixth day of next month;
+			// Expected Result : 8/26/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[285]);
 
@@ -4340,8 +4344,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample286()
         {
-            // Date Expression : first friday of the following month at noon;
-			// Expected Result : 8/4/2017 12:00:00 PM
+            // Date Expression : monday the 3rd of June 2017 at 20pm;
+			// Expected Result : 6/3/2017 8:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[286]);
 
@@ -4353,8 +4357,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample287()
         {
-            // Date Expression : last monday of the previous month at midnight;
-			// Expected Result : 6/26/2017 12:00:00 AM
+            // Date Expression : second monday of the previous month;
+			// Expected Result : 6/12/2017 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[287]);
 
@@ -4366,8 +4370,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample288()
         {
-            // Date Expression : monday the 3rd of June of the year 2017 at 20pm;
-			// Expected Result : 6/3/2017 8:00:00 PM
+            // Date Expression : last monday the first in the morning;
+			// Expected Result : 7/1/2017 6:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[288]);
 
@@ -4379,8 +4383,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample289()
         {
-            // Date Expression : the 31 of december of the year 2017 at 10:31 pm;
-			// Expected Result : 12/31/2017 10:31:00 PM
+            // Date Expression : the 31st of december of the year 2018;
+			// Expected Result : 12/31/2018 12:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[289]);
 
@@ -4392,8 +4396,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample290()
         {
-            // Date Expression : The thirtieth of April in the year 2008 at 10 pm;
-			// Expected Result : 4/30/2008 10:00:00 PM
+            // Date Expression : the following week on wednesday night;
+			// Expected Result : 7/26/2017 9:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[290]);
 
@@ -4405,8 +4409,8 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample291()
         {
-            // Date Expression : the thirty first of december of the year 2017 at 12 am;
-			// Expected Result : 12/31/2017 12:00:00 AM
+            // Date Expression : may seventh '97 at three in the morning;
+			// Expected Result : 5/7/1997 3:00:00 AM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[291]);
 
@@ -4418,14 +4422,105 @@ namespace Chronox.Tests
 		[TestMethod]
         public void TestExample292()
         {
-            // Date Expression : fourteenth of june 2010 at eleven o'clock in the evening;
-			// Expected Result : 6/14/2010 11:00:00 PM
+            // Date Expression : The 21 of April in the year 2008 at 10 pm;
+			// Expected Result : 4/21/2008 10:00:00 PM
 
             var result = Chronox.ParseDateTime(Reference, Expressions[292]);
 
             var date = result[0].GetCurrent().DateTime();
 
             Assert.AreEqual(TestData[Expressions[292]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample293()
+        {
+            // Date Expression : first friday of the following month at noon;
+			// Expected Result : 8/4/2017 12:00:00 PM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[293]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[293]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample294()
+        {
+            // Date Expression : last monday of the previous month at midnight;
+			// Expected Result : 6/26/2017 12:00:00 AM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[294]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[294]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample295()
+        {
+            // Date Expression : monday the 3rd of June of the year 2017 at 20pm;
+			// Expected Result : 6/3/2017 8:00:00 PM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[295]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[295]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample296()
+        {
+            // Date Expression : the 31 of december of the year 2017 at 10:31 pm;
+			// Expected Result : 12/31/2017 10:31:00 PM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[296]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[296]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample297()
+        {
+            // Date Expression : The thirtieth of April in the year 2008 at 10 pm;
+			// Expected Result : 4/30/2008 10:00:00 PM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[297]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[297]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample298()
+        {
+            // Date Expression : the thirty first of december of the year 2017 at 12 am;
+			// Expected Result : 12/31/2017 12:00:00 AM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[298]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[298]].ToString(), date.ToString());
+        }
+
+		[TestMethod]
+        public void TestExample299()
+        {
+            // Date Expression : fourteenth of june 2010 at eleven o'clock in the evening;
+			// Expected Result : 6/14/2010 11:00:00 PM
+
+            var result = Chronox.ParseDateTime(Reference, Expressions[299]);
+
+            var date = result[0].GetCurrent().DateTime();
+
+            Assert.AreEqual(TestData[Expressions[299]].ToString(), date.ToString());
         }
     }
 }

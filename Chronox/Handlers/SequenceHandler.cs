@@ -163,6 +163,7 @@ namespace Chronox.Handlers
                 }
 
                 regexSequence.CombinedPattern = result;
+                regexSequence.RegexMatcher = regexSequence.InitRegexMatcher(LanguageHandler);
 
                 regexSequences.Add(regexSequence);
 

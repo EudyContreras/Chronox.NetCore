@@ -12,11 +12,13 @@ using Tests;
 using System;
 using System.Collections.Generic;
 using Chronox.Constants;
+using System.IO;
 
 namespace Chronox.Debugers
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             var settings = new ChronoxSettings("english");

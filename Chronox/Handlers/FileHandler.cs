@@ -292,7 +292,7 @@ namespace Chronox.Handlers
                 }
                 if (EmptyLine(format)) continue;
 
-                var dateTimeFormat = format.ToUpper().Split("/*")[0].Trim();
+                var dateTimeFormat = format.ToUpper().Split("//*")[0].Trim();
 
                 dateTimeFormats.Add(dateTimeFormat);
             }

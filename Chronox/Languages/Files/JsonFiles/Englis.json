@@ -261,7 +261,7 @@
     },
     {
       "label": "timeConjointer",
-      "type": "combined",
+      "type": "combinedOptional",
       "properties": [
         {
           "key": "to",

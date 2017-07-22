@@ -185,14 +185,16 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "five hours",
                     Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "five hours and six minutes",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "five hours and six minutes and six seconds | 10 years 6 days and 3 minutes",
                     Definitions.Patterns.NumberMax5Digits,
@@ -201,7 +203,8 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "five hours and six minutes and six seconds | 10 years 6 days and 3 minutes",
                     Definitions.Patterns.NumberMax5Digits,
@@ -211,7 +214,8 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.LogicalOperator,
                     Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "the third week of december | the third day of july",
                     Definitions.Property.NumericWordOrdinal,

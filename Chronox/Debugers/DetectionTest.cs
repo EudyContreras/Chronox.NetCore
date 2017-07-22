@@ -24,20 +24,8 @@ namespace Tests
          * - expressions such as in 4 months if no day specified the dayofweek will be left the same
          * */
 
-        string[] TestedAndWorking =
+        private static string[] ProblematicNeedsFixing =
         {
-             "in 5 years and 3 months",
-             "in five minutes and six hour",
-             "in five minutes, six hours and 20 seconds",
-             "in six weeks and 3 days",
-             "in 3 days and 4 hours and 30 seconds"
-
-        };
-
-        string[] ProblematicNeedsFixing =
-        {
-              
-             /* Exact timing parsing currently not supported */
 
              /*To add support:
               * at sunset
@@ -47,7 +35,7 @@ namespace Tests
 
         };
 
-        private DateTime Reference = new DateTime(year: 2017, month: 07, day: 20, hour: 14, minute: 30, second: 00);
+        private static DateTime Reference = new DateTime(year: 2017, month: 07, day: 20, hour: 14, minute: 30, second: 00);
 
         private static readonly Dictionary<string, DateTime> TestData = new Dictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase)
         {
@@ -526,11 +514,15 @@ namespace Tests
 
             { "in 5 years and 3 months", DateTime.Parse("10/20/2022, 00:00:00") },
 
-            { "in five minutes and six hour", DateTime.Parse("7/20/2017, 20:32:00") },
+            { "in five minutes and six hour", DateTime.Parse("7/20/2017, 20:35:00") },
 
             { "in five minutes, six hours and 20 seconds", DateTime.Parse("7/20/2017, 20:35:20") },
 
             { "in six weeks and 3 days", DateTime.Parse("9/3/2017, 00:00:00") },
+
+            { "2 months, 4 week and 6 day ago", DateTime.Parse("4/16/2017, 00:00:00") },
+
+            { "4 years and 6 days from now", DateTime.Parse("7/26/2021, 00:00:00") },
 
             { "in 3 days and 4 hours and 30 seconds", DateTime.Parse("7/23/2017, 18:30:30") },
 
@@ -681,7 +673,7 @@ namespace Tests
         {
             var chronox = ChronoxParser.GetInstance(settings);
 
-            foreach (var expression in TestedAndWorking)
+            foreach (var expression in TestData.Keys)
             {
                 var result = chronox.ParseDateTime(Reference, expression);
 
@@ -703,6 +695,29 @@ namespace Tests
 
                 allPassed = false;
             }
+        }
+
+        public static void Generate(string[] expressions, DateTime[] ExpectedResults, string path)
+        {
+            var lines = File.ReadAllLines(path);
+
+            var newLines = new List<string>();
+
+            for (int i = 0; i < expressions.Length; i++)
+            {
+                foreach (var line in lines)
+                {
+                    var newLine = line;
+
+                    newLine = newLine.Replace("&", ExpectedResults[i].ToString(), true);
+                    newLine = newLine.Replace("#", expressions[i], true);
+                    newLine = newLine.Replace("?", i.ToString(), true);
+
+                    newLines.Add(newLine);
+                }
+            }
+
+            File.AppendAllLines(path, newLines);
         }
     }
 }

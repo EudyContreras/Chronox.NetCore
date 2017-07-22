@@ -127,7 +127,7 @@ namespace Chronox.Handlers
             }
             else
             {
-                path = Path.Combine(Definitions.FilePathJson, fileName.Append(".json").ToString());
+                path = Path.Combine(Definitions.FilePathJson, fileName.ToString());
 
                 if (File.Exists(path))
                 {
@@ -137,7 +137,7 @@ namespace Chronox.Handlers
                 {
                     var langFileHandler = new FileHandler();
 
-                    path = Path.Combine(directory, fileName.Append(".txt").ToString());
+                    path = Path.Combine(directory, fileName.Replace(".json",string.Empty).Append(".txt").ToString());
 
                     if (File.Exists(path))
                     {
@@ -145,7 +145,7 @@ namespace Chronox.Handlers
                     }
                     else
                     {
-                        path = Path.Combine(Definitions.FilePathTxt, fileName.Append(".txt").ToString());
+                        path = Path.Combine(Definitions.FilePathTxt, fileName.ToString());
 
                         if (File.Exists(path))
                         {

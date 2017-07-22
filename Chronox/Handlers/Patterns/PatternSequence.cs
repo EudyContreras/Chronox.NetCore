@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Chronox.Constants;
 using Enumerations;
+using System.Text.RegularExpressions;
 
 namespace Chronox.Wrappers
 {
@@ -13,6 +14,8 @@ namespace Chronox.Wrappers
     {
 
         public readonly List<PatternRegex> Patterns = new List<PatternRegex>();
+
+        public Regex RegexMatcher { get; set; }
 
         public string CombinedPattern { get; set; }
 
@@ -27,9 +30,11 @@ namespace Chronox.Wrappers
             SequenceType = type;
         }
 
-        public string NormalizedPattern(VocabularyHandler handler)
+        public Regex InitRegexMatcher(VocabularyHandler handler)
         {
-            return string.Concat(handler.VocabularyBank.WordStart,CombinedPattern, handler.VocabularyBank.WordEnd);
+            var pattern = string.Concat(handler.VocabularyBank.WordStart, CombinedPattern, handler.VocabularyBank.WordEnd);
+
+            return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
         public void ComputeRelevance(int maxCount)

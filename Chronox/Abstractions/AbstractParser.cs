@@ -188,9 +188,7 @@ namespace Chronox.Abstractions
             {
                 if (sequence.PatternCount > parts.Length + 1) continue;
 
-                var regex = new Regex(sequence.NormalizedPattern(settings.Language), RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-                var match = regex.Match(information.ProcessedString);
+                var match = sequence.RegexMatcher.Match(information.ProcessedString);
 
                 if (match.Success && !string.IsNullOrEmpty(match.Value))
                 {
