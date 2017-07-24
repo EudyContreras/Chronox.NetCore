@@ -1,0 +1,106 @@
+﻿
+//Might not be needed!
+
+TIME_OF_DAY
+
+	morning: 6-11
+	afternoon: 13-17
+	evening: 17-20
+	night: 21-23
+
+DAY_OFFSET
+
+	today: 0
+	yesterday: -1
+	tomrrow: 1
+	day after tomorrow: 2
+	day before yesterday: -2
+
+DECADES
+
+	tens: 10
+	twenties: 20
+	thirties: 30
+	forties: 40
+	fifties: 50
+	sixties: 60
+	seventies: 70
+	eighties: 80
+	nineties: 90
+
+TIME_PERIOD
+
+	decade: 10
+	century: 100
+	millennium: 1000
+
+REPEATER_INDICATOR
+
+	every: enum 0
+	every enum 1
+
+DURATION_INDICATOR
+
+	for: enum 0
+
+DATETIME_INDICATOR
+
+	in: enum 0
+
+TIME_FRACTIONS
+
+	quater: enum 0
+	half: enum 1
+
+TIME_CONJOINTER
+	
+	to: enum 0
+	past: enum 1
+	ago: enum 2
+	from: enum 3
+	from now: enum 4
+
+TIME_MERIDIAM
+	
+	am: enum 0
+	pm: enum 1
+
+ARITHMETIC_OPERATION
+	
+	-: enum 0
+	+: enum 1
+
+LOGICAL_OPERATOR
+
+	and: enum 0
+	or: enum 1
+
+DATE_TIME_EXPRESSION
+
+	tonight: enum 0
+	last night: enum 1
+	now: enum 2
+
+TIME_EXPRESSION
+
+	midday: 12
+	midnight: 0
+
+WEEK_DAY_TYPE
+
+	weekday: enum 0
+	weekend: enum 1
+
+RELATION_EXPRESSION
+
+	this: 0
+	next: 1
+	last: -1
+
+DATE_TIME_UNIT
+	
+	
+
+	
+	
+

@@ -327,7 +327,7 @@ namespace Chronox.Helpers.Interpreters
 
             if (dictionary.TryGetValue(input, out key))
             {
-                return Definitions.Converters.TIME_UNIT[key];
+                return Definitions.Converters.DATE_TIME_UNIT[key];
             }
 
             return Enumerations.DateTimeUnit.Default;
@@ -341,7 +341,7 @@ namespace Chronox.Helpers.Interpreters
 
             if (dictionary.TryGetValue(input, out key))
             {
-                return Definitions.Converters.TIME_UNIT[key];
+                return Definitions.Converters.DATE_TIME_UNIT[key];
             }
 
             return Enumerations.DateTimeUnit.Default;
@@ -355,7 +355,7 @@ namespace Chronox.Helpers.Interpreters
 
             if (dictionary.TryGetValue(input, out key))
             {
-                return Definitions.Converters.TIME_UNIT[key];
+                return Definitions.Converters.DATE_TIME_UNIT[key];
             }
 
             return Enumerations.DateTimeUnit.Default;
@@ -369,10 +369,10 @@ namespace Chronox.Helpers.Interpreters
 
             if (dictionary.TryGetValue(input, out key))
             {
-                return Definitions.Converters.GRABBER_EXPRESSION[key];
+                return Definitions.Converters.RELATION_EXPRESSION[key];
             }
 
-            return TimeRelation.Default;
+            return TimeRelation.Present;
         }
 
         public static TimeFraction Fraction(ChronoxSettings settings, string input)

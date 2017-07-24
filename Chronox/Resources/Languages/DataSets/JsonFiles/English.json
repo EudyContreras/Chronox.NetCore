@@ -1,8 +1,11 @@
 ﻿{
   "language": "English",
-  "ignored": [ "the", ",", "of", "at", "on", "in", "oclock", "o'clock", "during" ],
   "assumeSpace": true,
   "preferedEndianFormat": "M.D.Y",
+  "dateTimeIgnored": [ "the", ",", "of", "at", "on", "in", "oclock", "o'clock", "" ],
+  "timeRangeIgnored": [ ],
+  "timeSpanIgnored": [ ],
+  "timeSetIgnored": [ ],
   "supportedDateTimeFormats": [ //The parser supports many formats but Write additional formats which you would like to support! the parser will do its best to make it work! Example: "(N.W|M.O.Y|N.M.4.D)" this could translate to: (july the thirteenth 2017 | apr 14th of '97)
 
   ],
@@ -113,7 +116,7 @@
           "value": "n/a",
           "type": "group",
           "pattern": "\\-|minus|substract|negative|negate|less",
-          "variations": [ "-", "minus", "substract", "negate","negative", "less" ]
+          "variations": [ "-", "minus", "substract", "negate", "negative", "less" ]
         },
         {
           "key": "and",
@@ -573,7 +576,7 @@
           "value": "n/a",
           "type": "group",
           "pattern": "morning(s)?|day",
-          "variations": [ "morning","day" ]
+          "variations": [ "morning", "day" ]
         },
         {
           "key": "afternoon",

@@ -11,9 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TimeRangeTests\" />
-    <Folder Include="TimeSetTests\" />
-    <Folder Include="TimeSpanTests\" />
+    <Folder Include="TestModules\TimeRangeTests\" />
+    <Folder Include="TestModules\TimeRangeTests\TimeSetTests\" />
+    <Folder Include="TestModules\TimeSetTests\" />
+    <Folder Include="TestModules\TimeSpanTests\" />
   </ItemGroup>
 
   <ItemGroup>

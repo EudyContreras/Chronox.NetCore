@@ -1,10 +1,16 @@
 ﻿language: English
 
-ignored: the, of, at, on, in, oclock, o'clock, during
-
 assumeSpace: true
 
 preferedEndianFormat: M.D.Y
+
+dateTimeIgnored: the, of, at, on, in, oclock, o'clock, during
+
+timeRangeIgnored: 
+
+timeSpanIgnored: 
+
+timeSetIgnored: 
 
 supportedDateTimeFormats:
 

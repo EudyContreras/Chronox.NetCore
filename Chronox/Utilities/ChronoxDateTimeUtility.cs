@@ -33,11 +33,13 @@ namespace Chronox.Utilities
 
         public static DateTime CreateDateTime() => CreateDateTime(DateTime.Now);
 
-        public static DateTime CreateDateTime(DateTime dateTime) => CreateDateTime(dateTime, 0, 0, 0, 0, 0, 0);
+        public static DateTime CreateDateTime(DateTime dateTime) => CreateDateTime(dateTime,null, 0, 0, 0, 0, 0, 0);
 
-        public static DateTime CreateDateTime(DateTime dateTime, int dayOffset, int monthOffset, int yearOffset, int hourOffset, int minutesOffset, int secondsOffset)
+        public static DateTime CreateDateTime(DateTime dateTime, TimeZoneInfo timeZoneInfo) => CreateDateTime(dateTime, timeZoneInfo, 0, 0, 0, 0, 0, 0);
+
+        public static DateTime CreateDateTime(DateTime dateTime, TimeZoneInfo timeZoneInfo, int dayOffset, int monthOffset, int yearOffset, int hourOffset, int minutesOffset, int secondsOffset)
         {
-            return new DateTime(
+            var newDateTime =  new DateTime(
                 dateTime.Year + yearOffset,
                 dateTime.Month + monthOffset,
                 dateTime.Day + dayOffset,
@@ -46,25 +48,36 @@ namespace Chronox.Utilities
                 dateTime.Second + secondsOffset,
                 dateTime.Millisecond,
                 dateTime.Kind);
+
+            if (timeZoneInfo != null)
+            {
+                return TimeZoneInfo.ConvertTime(DateTime.SpecifyKind(newDateTime, DateTimeKind.Unspecified), timeZoneInfo);
+            }
+
+            return newDateTime;       
         }
+
+        public static DateTime AddOffset(this DateTime dateTime, TimeSpan timeSpan) => dateTime.Add(timeSpan.Subtract(TimeZoneInfo.Local.GetUtcOffset(DateTime.Now)));
 
         public static DateTime AddWeeks(this DateTime dateTime, int numberOfWeeks) => dateTime.AddDays(numberOfWeeks * 7);
 
         public static DateTime SetWeekDay(this DateTime dateTime, DayOfWeek dayOfWeek) => SetWeekDay(dateTime, (int)dayOfWeek);
 
-        public static DateTime SetYear(this DateTime dateTime, int year) => SetDate(dateTime, year, null, null, null, null, null);
+        public static DateTime SetYear(this DateTime dateTime, int year) => SetDate(dateTime, year, null, null, null, null, null, null);
 
-        public static DateTime SetMonth(this DateTime dateTime, int month) => SetDate(dateTime, null, month, null, null, null, null);
+        public static DateTime SetMonth(this DateTime dateTime, int month) => SetDate(dateTime, null, month, null, null, null, null, null);
 
-        public static DateTime SetDay(this DateTime dateTime, int day) => SetDate(dateTime, null, null, day, null, null, null);
+        public static DateTime SetDay(this DateTime dateTime, int day) => SetDate(dateTime, null, null, day, null, null, null, null);
 
-        public static DateTime SetHour(this DateTime dateTime, int hour) => SetDate(dateTime, null, null, null, hour, null, null);
+        public static DateTime SetHour(this DateTime dateTime, int hour) => SetDate(dateTime, null, null, null, hour, null, null, null);
 
-        public static DateTime SetMinutes(this DateTime dateTime, int minute) => SetDate(dateTime, null, null, null, null, minute, null);
+        public static DateTime SetMinutes(this DateTime dateTime, int minute) => SetDate(dateTime, null, null, null, null, minute, null, null);
 
-        public static DateTime SetSeconds(this DateTime dateTime, int seconds) => SetDate(dateTime, null, null, null, null, null, seconds);
+        public static DateTime SetSeconds(this DateTime dateTime, int seconds) => SetDate(dateTime, null, null, null, null, null, seconds, null);
 
-        public static DateTime SetDate(this DateTime dateTime, int? years, int? months, int? days, int? hours, int? minutes, int? seconds)
+        public static DateTime SetKind(this DateTime dateTime, DateTimeKind kind) => SetDate(dateTime, null, null, null, null, null, null, kind);
+
+        public static DateTime SetDate(this DateTime dateTime, int? years = null, int? months = null, int? days = null, int? hours = null, int? minutes = null, int? seconds = null, DateTimeKind? kind = DateTimeKind.Local)
         {
             if (years < 1) years = dateTime.Year;
 
@@ -94,7 +107,7 @@ namespace Chronox.Utilities
                 minutes != null ? minutes.Value : dateTime.Minute,
                 seconds != null ? seconds.Value : dateTime.Second,
                 dateTime.Millisecond,
-                dateTime.Kind);
+                kind != null ? kind.Value : dateTime.Kind);
         }
 
         public static DateTime SetDate(this DateTime dateTime, DateTime other)

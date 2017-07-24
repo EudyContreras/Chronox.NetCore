@@ -11,7 +11,7 @@ namespace Chronox.Processors.PostProcessors
     {
         public override List<IChronoxExtraction> ProcessExpression(ChronoxSettings settings, List<IChronoxExtraction> extractions, string text)
         {
-            var referenceDate = settings.ReferencDate.GetDateComponent();
+            var referenceDate = settings.ReferenceDate.GetDateComponent();
 
             foreach(var extraction in extractions)
             {

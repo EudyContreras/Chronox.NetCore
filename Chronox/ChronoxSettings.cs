@@ -27,7 +27,7 @@ namespace Chronox
 
         private static ChronoxSettings instance;
 
-        public DateTime ReferencDate { get; set; } = DateTime.Now;
+        public DateTime ReferenceDate = DateTime.Now;
 
         public VocabularyHandler Language { get; private set; }
 
@@ -41,25 +41,17 @@ namespace Chronox
 
         private List<IChronoxParser> parsers = new List<IChronoxParser>();
 
-        public TimeParseType TimeParsing { get; set; } = TimeParseType.MilitaryTime;
+        public ChronoxSettings() : this(new ChronoxPreferences()) { }
 
-        public DateParseType DateParsing { get; set; } = DateParseType.Standard;
+        public ChronoxSettings(ChronoxPreferences preferences) : this(preferences, null) { }
 
-        public ChronoxSettings(string language) : this(language,TimeParseType.MilitaryTime,DateParseType.LongFormat) { }
-
-        public ChronoxSettings(string language, TimeParseType timeType, DateParseType dateType) : this(language, timeType, dateType,null,null) {}
-
-        public ChronoxSettings(string language, TimeParseType timeType, DateParseType dateType, List<IChronoxProcessor> processors) : this(language, timeType, dateType, null, processors) { }
-
-        public ChronoxSettings(string language, TimeParseType timeType, DateParseType dateType, List<IChronoxParser> parsers) : this(language, timeType,dateType,parsers,null) { }
-
-        public ChronoxSettings(string language, TimeParseType timeType, DateParseType dateType, List<IChronoxParser> parsers, List<IChronoxProcessor> processors)
+        public ChronoxSettings(ChronoxPreferences preferences, List<IChronoxProcessor> processors)
         {
-            this.TimeParsing= timeType;
-            this.DateParsing = dateType;
-            this.Preferences = new ChronoxPreferences(this);
-            this.Language = !string.IsNullOrEmpty(language) ? VocabularyHandler.GetInstance(this, Definitions.FilePathJson, language) : VocabularyHandler.DefaultLanguage(this);
-            this.parsers = parsers ?? new List<IChronoxParser>(StandardExpressionParsers());
+            this.Preferences = preferences ?? new ChronoxPreferences();
+
+            this.Language = SetLanguagePreferences(preferences);
+
+            AddParser(StandardExpressionParsers().ToArray());
 
             if(processors!= null)
             {
@@ -84,6 +76,11 @@ namespace Chronox
 
                 AddScanner(StandarScanners().ToArray());
             }
+        }
+
+        private VocabularyHandler SetLanguagePreferences(ChronoxPreferences preferences)
+        {
+            return VocabularyHandler.GetInstance(this, Definitions.TextLangDataPath, preferences.Languages[0]);
         }
 
         public static ChronoxSettings Standard
@@ -156,7 +153,7 @@ namespace Chronox
             }
         }
 
-        public void SetLanguageFilePath(string fullPath)
+        public void SetLangDataSetFilePath(string fullPath)
         {
             Language.DestroyInstance();
 
@@ -175,14 +172,14 @@ namespace Chronox
 
         private static ChronoxSettings Standardsettings()
         {
-            var settings = new ChronoxSettings("English");
+            var settings = new ChronoxSettings();
 
             return settings;
         }
 
         private static ChronoxSettings CasualModesettings()
         {
-            var settings = new ChronoxSettings("English");
+            var settings = new ChronoxSettings();
 
             settings.AddProcessor(ProcessorType.PostProcessor, settings.StandardPostProcessors().ToArray());
             settings.AddProcessor(ProcessorType.PreProcessor, settings.StandardPreProcessors().ToArray());
@@ -208,19 +205,10 @@ namespace Chronox
 
         private IEnumerable<IChronoxParser> StandardExpressionParsers()
         {
-            var parsers = new List<IChronoxParser>();
-
-            parsers.Add(new MasterParser());
-
-            return parsers;
-        }
-
-        private IEnumerable<IChronoxParser> CasualExpressionParsers()
-        {
-            var parsers = new List<IChronoxParser>();
-
-            parsers.Add(new MasterParser());
-
+            var parsers = new List<IChronoxParser>
+            {
+                new MasterParser()
+            };
             return parsers;
         }
 
@@ -233,12 +221,12 @@ namespace Chronox
 
         private IEnumerable<IChronoxScanner> StandarScanners()
         {
-            var scanners = new List<IChronoxScanner>();
-
-            scanners.Add(new HolidayScanner());
-            scanners.Add(new NumberScanner());
-            scanners.Add(new CardinalScanner());
-
+            var scanners = new List<IChronoxScanner>
+            {
+                new HolidayScanner(),
+                new NumberScanner(),
+                new CardinalScanner()
+            };
             return scanners;
         }
 
@@ -251,10 +239,10 @@ namespace Chronox
 
         private IEnumerable<IChronoxProcessor> StandardPreProcessors()
         {
-            var processors = new List<IChronoxProcessor>();
-
-            processors.Add(new ExpressionProcessor());
-
+            var processors = new List<IChronoxProcessor>
+            {
+                new ExpressionProcessor()
+            };
             return processors;
         }
 

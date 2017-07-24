@@ -600,7 +600,7 @@ namespace Chronox.Utilities.Extenssions
         /// <param name="source"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        public static string RemoveWords(this string source, params string[] wordsToRemove) => RemoveWords(source, wordsToRemove.ToList());
+        public static string RemoveWords(this string source, params string[] wordsToRemove) => (wordsToRemove == null || wordsToRemove.Length <= 0) ? source :  RemoveWords(source, wordsToRemove.ToList());
 
         /// <summary>
         /// Extension for removing the specified words from a string 
@@ -608,7 +608,7 @@ namespace Chronox.Utilities.Extenssions
         /// <param name="source"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        public static string RemoveWords(this string source, List<string> wordsToRemove) => RemoveWords(source.Split(' '), new HashSet<string>(wordsToRemove));
+        public static string RemoveWords(this string source, List<string> wordsToRemove) => (wordsToRemove == null || wordsToRemove.Count <= 0) ? source : RemoveWords(source.Split(' '), new HashSet<string>(wordsToRemove));
 
         /// <summary>
         /// Extension for removing the specified words from a string 
@@ -619,6 +619,8 @@ namespace Chronox.Utilities.Extenssions
         public static string RemoveWords(this string[] source, HashSet<string> wordsToRemove)
         {
             var cleanSource = new StringBuilder();
+
+            if (wordsToRemove == null || wordsToRemove.Count <= 0) return string.Join(" ", source);
 
             for (var i = 0; i < source.Length; i++)
             {

@@ -6,11 +6,11 @@ namespace Enumerations
 {
     public enum TimePeriod
     {
-        Decade,
+        Decade = 10,
 
-        Century,
+        Century = 100,
 
-        Millennium,
+        Millennium = 1000,
 
         Default = -1
     }

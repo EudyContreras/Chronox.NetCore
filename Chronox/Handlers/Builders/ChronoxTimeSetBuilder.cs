@@ -32,7 +32,7 @@ namespace Chronox
 
         internal void ImplyDefault()
         {
-            var dateTime = settings.ReferencDate;
+            var dateTime = settings.ReferenceDate;
 
             ImplyValue(DateTimeUnit.Year, dateTime.Year);
             ImplyValue(DateTimeUnit.Month, dateTime.Month);

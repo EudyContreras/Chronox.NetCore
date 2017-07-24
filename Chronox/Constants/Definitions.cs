@@ -1,9 +1,12 @@
-﻿using Chronox.Helpers;
+﻿using Chronox.Components;
+using Chronox.Helpers;
 using Chronox.Helpers.Offsets;
+using Chronox.Utilities.Extenssions;
 using Chronox.Wrappers;
 using Enumerations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +15,10 @@ namespace Chronox.Constants
 {
     internal static class Definitions
     {
-        public const string FilePathTxt = @"..\..\..\Languages\Files\TextFiles";
-        public const string FilePathJson = @"..\..\..\Languages\Files\JsonFiles";
+        public const string TextLangDataPath = @"Resources\Languages\DataSets\TextFiles";
+        public const string JsonLangDataPath = @"Resources\Languages\DataSets\JsonFiles";
+        public const string TimeZoneFilePath = @"Resources\DataSets\TimeZoneInfo.txt";
+        public const string FilePathDataSets = @"Resources\DataSets";
 
         public const string DefaultLanguage = "English";
 
@@ -204,6 +209,7 @@ namespace Chronox.Constants
 
         public static class Converters
         {
+            private static IReadOnlyDictionary<string, ChronoxTimeZone> timeZones = null;
 
             public static readonly IReadOnlyDictionary<string, string> PROPERTIES = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -270,19 +276,19 @@ namespace Chronox.Constants
 
             public static readonly IReadOnlyDictionary<string, RangeWrapper> TIME_OF_DAY = new Dictionary<string, RangeWrapper>(StringComparer.OrdinalIgnoreCase)
             {
-                {"Morning", RangeConstants.MORNING_RANGE},
-                {"Afternoon", RangeConstants.AFTERNOON_RANGE},
-                {"Evening", RangeConstants.EVENING_RANGE},
-                {"Night", RangeConstants.NIGHT_RANGE},
+                {"morning", RangeConstants.MORNING_RANGE},
+                {"afternoon", RangeConstants.AFTERNOON_RANGE},
+                {"evening", RangeConstants.EVENING_RANGE},
+                {"night", RangeConstants.NIGHT_RANGE},
             };
 
             public static readonly IReadOnlyDictionary<string, int> DAY_OFFSET = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
             {
-                {"Today", 0},
-                {"Yesterday", -1},
-                {"Tomorrow", 1},
-                {"Day After Tomorrow",2},
-                {"Day Before Yesterday", -2},
+                {"today", 0},
+                {"yesterday", -1},
+                {"tomorrow", 1},
+                {"day after tomorrow",2},
+                {"day before yesterday", -2},
             };
 
             public static readonly IReadOnlyDictionary<string, int> DECADE_VALUES = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
@@ -350,9 +356,9 @@ namespace Chronox.Constants
 
             public static readonly IReadOnlyDictionary<string, DateTimeExpression> DATE_TIME_EXPRESSION = new Dictionary<string, DateTimeExpression>(StringComparer.OrdinalIgnoreCase)
             {
-                {"Tonight",DateTimeExpression.Tonight },
-                {"Last Night",DateTimeExpression.LastNight },
-                {"Now", DateTimeExpression.Now },
+                {"tonight",DateTimeExpression.Tonight },
+                {"last night",DateTimeExpression.LastNight },
+                {"now", DateTimeExpression.Now },
             };
 
             public static readonly IReadOnlyDictionary<string, ChronoxTime> TIME_EXPRESSION = new Dictionary<string, ChronoxTime>(StringComparer.OrdinalIgnoreCase)
@@ -373,14 +379,14 @@ namespace Chronox.Constants
                 {"sunset", TimeOfDay.Sunset},
             };
 
-            public static readonly IReadOnlyDictionary<string, TimeRelation> GRABBER_EXPRESSION = new Dictionary<string, TimeRelation>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IReadOnlyDictionary<string, TimeRelation> RELATION_EXPRESSION = new Dictionary<string, TimeRelation>(StringComparer.OrdinalIgnoreCase)
             {
                 {"last",TimeRelation.Past },
                 {"next",TimeRelation.Future },
                 {"this",TimeRelation.Present },
             };
 
-            public static readonly IReadOnlyDictionary<string, DateCasualExpression> CASUAL_EXPRESSION = new Dictionary<string, DateCasualExpression>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IDictionary<string, DateCasualExpression> CASUAL_EXPRESSION = new Dictionary<string, DateCasualExpression>(StringComparer.OrdinalIgnoreCase)
             {        
                 {"on",DateCasualExpression.On },
                 {"oclock",DateCasualExpression.Oclock },
@@ -396,7 +402,7 @@ namespace Chronox.Constants
                 {"or",LogicalOperator.Or }
             };
 
-            public static readonly IReadOnlyDictionary<string, DateTimeUnit> TIME_UNIT = new Dictionary<string, DateTimeUnit>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IReadOnlyDictionary<string, DateTimeUnit> DATE_TIME_UNIT = new Dictionary<string, DateTimeUnit>(StringComparer.OrdinalIgnoreCase)
             {
                 {"year", DateTimeUnit.Year},
                 {"month", DateTimeUnit.Month},
@@ -625,225 +631,56 @@ namespace Chronox.Constants
                 {"last", int.MaxValue }
             };
 
-            public static readonly IReadOnlyDictionary<string, int> TIMEZONE_OFFSETS = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
+            public static IReadOnlyDictionary<string, ChronoxTimeZone> TIMEZONE_OFFSETS
             {
-                {"A",60},
-                {"ACDT",630},
-                {"ACST",570},
-                {"ADT",-180},
-                {"AEDT",660},
-                {"AEST",600},
-                {"AFT",270},
-                {"AKDT",-480},
-                {"AKST",-540},
-                {"ALMT",360},
-                {"AMST",-180},
-                {"AMT",-240},
-                {"ANAST",720},
-                {"ANAT",720},
-                {"AQTT",300},
-                {"ART",-180},
-                {"AST",-240},
-                {"AWDT",540},
-                {"AWST",480},
-                {"AZOST",0},
-                {"AZOT",-60},
-                {"AZST",300},
-                {"AZT",240},
-                {"B",120},
-                {"BNT",480},
-                {"BOT",-240},
-                {"BRST",-120},
-                {"BRT",-180},
-                {"BST",60},
-                {"BTT",360},
-                {"C",180},
-                {"CAST",480},
-                {"CAT",120},
-                {"CCT",390},
-                {"CDT",-300},
-                {"CEST",120},
-                {"CET",60},
-                {"CHADT",825},
-                {"CHAST",765},
-                {"CKT",-600},
-                {"CLST",-180},
-                {"CLT",-240},
-                {"COT",-300},
-                {"CST",-360},
-                {"CVT",-60},
-                {"CXT",420},
-                {"ChST",600},
-                {"D",240},
-                {"DAVT",420},
-                {"E",300},
-                {"EASST",-300},
-                {"EAST",-360},
-                {"EAT",180},
-                {"ECT",-300},
-                {"EDT",-240},
-                {"EEST",180},
-                {"EET",120},
-                {"EGST",0},
-                {"EGT",-60},
-                {"EST",-300},
-                {"ET",-300},
-                {"F",360},
-                {"FJST",780},
-                {"FJT",720},
-                {"FKST",-180},
-                {"FKT",-240},
-                {"FNT",-120},
-                {"G",420},
-                {"GALT",-360},
-                {"GAMT",-540},
-                {"GET",240},
-                {"GFT",-180},
-                {"GILT",720},
-                {"GMT",0},
-                {"GST",240},
-                {"GYT",-240},
-                {"H",480},
-                {"HAA",-180},
-                {"HAC",-300},
-                {"HADT",-540},
-                {"HAE",-240},
-                {"HAP",-420},
-                {"HAR",-360},
-                {"HAST",-600},
-                {"HAT",-90},
-                {"HAY",-480},
-                {"HKT",480},
-                {"HLV",-210},
-                {"HNA",-240},
-                {"HNC",-360},
-                {"HNE",-300},
-                {"HNP",-480},
-                {"HNR",-420},
-                {"HNT",-150},
-                {"HNY",-540},
-                {"HOVT",420},
-                {"I",540},
-                {"ICT",420},
-                {"IDT",180},
-                {"IOT",360},
-                {"IRDT",270},
-                {"IRKST",540},
-                {"IRKT",540},
-                {"IRST",210},
-                {"IST",60},
-                {"JST",540},
-                {"K",600},
-                {"KGT",360},
-                {"KRAST",480},
-                {"KRAT",480},
-                {"KST",540},
-                {"KUYT",240},
-                {"L",660},
-                {"LHDT",660},
-                {"LHST",630},
-                {"LINT",840},
-                {"M",720},
-                {"MAGST",720},
-                {"MAGT",720},
-                {"MART",-510},
-                {"MAWT",300},
-                {"MDT",-360},
-                {"MESZ",120},
-                {"MEZ",60},
-                {"MHT",720},
-                {"MMT",390},
-                {"MSD",240},
-                {"MSK",240},
-                {"MST",-420},
-                {"MUT",240},
-                {"MVT",300},
-                {"MYT",480},
-                {"N",-60},
-                {"NCT",660},
-                {"NDT",-90},
-                {"NFT",690},
-                {"NOVST",420},
-                {"NOVT",360},
-                {"NPT",345},
-                {"NST",-150},
-                {"NUT",-660},
-                {"NZDT",780},
-                {"NZST",720},
-                {"O",-120},
-                {"OMSST",420},
-                {"OMST",420},
-                {"P",-180},
-                {"PDT",-420},
-                {"PET",-300},
-                {"PETST",720},
-                {"PETT",720},
-                {"PGT",600},
-                {"PHOT",780},
-                {"PHT",480},
-                {"PKT",300},
-                {"PMDT",-120},
-                {"PMST",-180},
-                {"PONT",660},
-                {"PST",-480},
-                {"PT",-480},
-                {"PWT",540},
-                {"PYST",-180},
-                {"PYT",-240},
-                {"Q",-240},
-                {"R",-300},
-                {"RET",240},
-                {"S",-360},
-                {"SAMT",240},
-                {"SAST",120},
-                {"SBT",660},
-                {"SCT",240},
-                {"SGT",480},
-                {"SRT",-180},
-                {"SST",-660},
-                {"T",-420},
-                {"TAHT",-600},
-                {"TFT",300},
-                {"TJT",300},
-                {"TKT",780},
-                {"TLT",540},
-                {"TMT",300},
-                {"TVT",720},
-                {"U",-480},
-                {"ULAT",480},
-                {"UTC",0},
-                {"UYST",-120},
-                {"UYT",-180},
-                {"UZT",300},
-                {"V",-540},
-                {"VET",-210},
-                {"VLAST",660},
-                {"VLAT",660},
-                {"VUT",660},
-                {"W",-600},
-                {"WAST",120},
-                {"WAT",60},
-                {"WEST",60},
-                {"WESZ",60},
-                {"WET",0},
-                {"WEZ",0},
-                {"WFT",720},
-                {"WGST",-120},
-                {"WGT",-180},
-                {"WIB",420},
-                {"WIT",540},
-                {"WITA",480},
-                {"WST",780},
-                {"WT",0},
-                {"X",-660},
-                {"Y",-720},
-                {"YAKST",600},
-                {"YAKT",600},
-                {"YAPT",600},
-                {"YEKST",360},
-                {"YEKT",360},
-                {"Z",0}
-            };
+                get
+                {
+                    if(timeZones == null)
+                    {
+                        timeZones = BuildTimeZones();
+
+                        return timeZones;
+                    }
+                    else
+                    {
+                        return timeZones;
+                    }
+                }
+            }
+   
+            public static Dictionary<string, ChronoxTimeZone> BuildTimeZones()
+            {
+                var lines = File.ReadAllLines(TimeZoneFilePath);
+
+                var newLines = new Dictionary<string,ChronoxTimeZone>();
+
+                foreach(var line in lines)
+                {
+                    var parts = line.Split('|');
+
+                    var abbre = parts[0].Trim();
+
+                    var offset = parts[1].Trim();
+
+                    var name = parts[2].Trim();
+
+                    var utc = parts[3].Trim();
+
+                    var span = TimeSpan.FromMinutes(int.Parse(offset));
+
+                    var timeZone = new ChronoxTimeZone
+                    {
+                        Abbreviation = abbre,
+                        Offset = span,
+                        StandardName = name,
+                        UtcOffset = utc,
+                    };
+
+                    newLines.Add(abbre, timeZone);
+                }
+
+                return newLines;
+            }
         }
     }
 }

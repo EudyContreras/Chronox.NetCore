@@ -119,14 +119,16 @@ namespace Chronox
 
             var scanResults = PerformExpressionScanAndReplace(processed);
 
-            if (referenceDate != DateTime.MinValue)
+            if (referenceDate == DateTime.MinValue)
             {
-                Settings.ReferencDate = referenceDate;
+                referenceDate = DateTime.Now;
             }
+
+            Settings.ReferenceDate = referenceDate;
 
             foreach (var parser in Settings.Parsers())
             {
-                var results = parser.Execute(scanResults.Key, Settings.ReferencDate, Settings);
+                var results = parser.Execute(scanResults.Key, Settings.ReferenceDate, Settings);
 
                 allResults.AddRange(results);
             }

@@ -2,12 +2,10 @@
 {
     public enum TimeRelation
     {
-        Present,
+        Present = 0,
 
-        Future,
+        Future = 1,
 
-        Past,
-
-        Default = -1
+        Past = -1,
     }
 }

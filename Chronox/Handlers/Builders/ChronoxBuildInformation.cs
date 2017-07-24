@@ -101,7 +101,7 @@ namespace Chronox.Wrappers
         {
             this.Settings = settings;
             this.ProcessedString = text;
-            this.CurrentDate = settings.ReferencDate;
+            this.CurrentDate = settings.ReferenceDate;
 
             this.NumericWords = new Queue<int>();
             this.NumericValues = new Queue<int>();

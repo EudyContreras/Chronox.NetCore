@@ -67,18 +67,18 @@ namespace Chronox.Parsers.English
             switch (sequence.SequenceType)
             {
                 case SequenceType.DateTime:
-                    helperA = (helperA == null) ? new DateTimeHelper(this) : helperA;
+                    helperA = helperA ?? new DateTimeHelper(this);
 
                     result = (sequenceControll && result == null) ? new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, text) : result;
                     break;
                 case SequenceType.TimeRange:
-                    helperB = (helperB == null) ? new TimeRangeHelper() : helperB;
+                    helperB = helperB ?? new TimeRangeHelper();
                     break;
                 case SequenceType.TimeSpan:
-                    helperC = (helperC == null) ? new TimeSpanHelper() : helperC;
+                    helperC = helperC ?? new TimeSpanHelper();
                     break;
                 case SequenceType.TimeSet:
-                    helperD = (helperD == null) ? new TimeSetHelper() : helperD;
+                    helperD = helperD ?? new TimeSetHelper();
                     break;
             }
 
@@ -109,7 +109,7 @@ namespace Chronox.Parsers.English
 
         private ChronoxDateTimeExtraction HandleDateTimeExtraction(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxDateTimeExtraction result, List<GroupWrapper> groups, ref DateTime dateTime)
         {
-            var now = settings.ReferencDate;
+            var now = settings.ReferenceDate;
 
             result = ComputeInstructions(groups, ref dateTime, result, information, settings, helperA); 
 
@@ -158,11 +158,11 @@ namespace Chronox.Parsers.English
                     }
                     else if(capture is Capture)
                     {
-                        var captureWrapper = new GroupWrapper((Capture)capture);
-
-                        captureWrapper.Name = group.Name;
-                        captureWrapper.Group = group;
-
+                        var captureWrapper = new GroupWrapper((Capture)capture)
+                        {
+                            Name = group.Name,
+                            Group = group
+                        };
                         matches.Add(captureWrapper);
                     }
                 }

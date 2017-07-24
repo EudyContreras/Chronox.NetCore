@@ -27,32 +27,36 @@ namespace Chronox
 
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
 
-        public string[] Languages { get; set; }
+        public TimeParseType TimeParsing { get; set; } = TimeParseType.MilitaryTime;
 
-        private int year;
+        public DateParseType DateParsing { get; set; } = DateParseType.Standard;
 
-        private int month;
+        public string[] Languages { get; set; } = { "English" };
 
-        private int day;
+        private int year = int.MinValue;
 
-        private int hour;
+        private int month = int.MinValue;
 
-        private int minute;
+        private int day = int.MinValue;
 
-        private int second;
+        private int hour = 00;
 
-        private string timeZone;
+        private int minute = 00;
 
-        public ChronoxPreferences(ChronoxSettings settings)
+        private int second = 00;
+
+        private string timeZone = "UTC";
+
+        public ChronoxPreferences(){}
+
+
+        public string[] PrefferedLanguages
         {
-            year = settings.ReferencDate.Year;
-            month = settings.ReferencDate.Month;
-            day = settings.ReferencDate.Day;
-            hour = (int)RangeConstants.MORNING_RANGE.Start;
-            minute = 00;
-            second = 00;
-            timeZone = TimeZoneInfo.Local.DisplayName;
-            StartOfWeek = DayOfWeek.Monday;
+            get { return Languages; }
+            set
+            {
+                Languages = value;
+            }
         }
 
         public int PreferedYear

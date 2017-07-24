@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox.Handlers.Models
 {
-    public class Glossary
+    public class Glossary : IEquatable<Glossary> , IComparable<Glossary>
     {
         public string Language { get; set; } = "English";
 
@@ -13,7 +13,13 @@ namespace Chronox.Handlers.Models
 
         public string PreferedEndianFormat { get; set; } = "M.D.Y";
 
-        public List<string> Ignored { get; set; }
+        public List<string> DateTimeIgnored { get; set; }
+
+        public List<string> TimeRangeIgnored { get; set; }
+
+        public List<string> TimeSpanIgnored { get; set; }
+
+        public List<string> TimeSetIgnored { get; set; }
 
         public List<string> SupportedDateTimeFormats { get; set; }
 
@@ -24,6 +30,16 @@ namespace Chronox.Handlers.Models
         public List<string> SupportedTimeSetFormats { get; set; }
 
         public List<Section> Section { get; set; }
+
+        public int CompareTo(Glossary other)
+        {
+            return string.Compare(Language, other.Language, true);
+        }
+
+        public bool Equals(Glossary other)
+        {
+            return Language.Equals(other.Language, StringComparison.OrdinalIgnoreCase);
+        }
 
         public override string ToString()
         {

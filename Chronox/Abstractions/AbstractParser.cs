@@ -10,6 +10,7 @@ using Chronox.Handlers;
 using Chronox.Constants;
 using Chronox.Interfaces;
 using Enumerations;
+using Chronox.Utilities.Extenssions;
 
 namespace Chronox.Abstractions
 {
@@ -95,23 +96,16 @@ namespace Chronox.Abstractions
         }
 
         private List<IChronoxExtraction> Execute(string text, DateTime referenceDate, ChronoxSettings settings, IEnumerable<PatternSequence> sequences,  HashSet<IChronoxExtraction> results, IChronoxExtraction last, ExtractionResultType type, ChronoxBuildInformation information, int passCount)
-        {        
+        {
             var parts = information.ProcessedString.Split(' ');
 
-            var matchesFound = FindAllMatches(settings, sequences, information, parts);
+            var perfectMatch = GetPerfectMatch(settings, sequences, information, parts);
 
-            var perfectMatch = MatchWrapper.Null;
-
-            if (matchesFound.Count > 0)
-            {
-                perfectMatch = OrganizeMatches(matchesFound);
-            }
+            var chronoxResult = new ChronoxParsedResult();
 
             if (perfectMatch != null)
             {
-                var chronoxResult = new ChronoxParsedResult();
-
-                if(last != null)
+                if (last != null)
                 {
                     chronoxResult.Result = last;
                 }
@@ -119,7 +113,7 @@ namespace Chronox.Abstractions
                 {
                     chronoxResult.Result = chronoxResult.Initialize(settings.Preferences.ParsingMode);
 
-                    if(type == ExtractionResultType.General)
+                    if (type == ExtractionResultType.General)
                     {
                         chronoxResult.Result = DetermineResultType(type, chronoxResult.Result, perfectMatch);
                     }
@@ -132,6 +126,7 @@ namespace Chronox.Abstractions
                 switch (perfectMatch.Sequence.SequenceType)
                 {
                     case SequenceType.DateTime:
+
                         return HandleDateTimeMatch(text, referenceDate, settings, sequences, results, type, information, passCount, perfectMatch, chronoxResult, ref result);
                     case SequenceType.TimeRange:
                         break;
@@ -144,6 +139,20 @@ namespace Chronox.Abstractions
                 }
             }
             return results.ToList();
+        }
+
+        private MatchWrapper GetPerfectMatch(ChronoxSettings settings, IEnumerable<PatternSequence> sequences, ChronoxBuildInformation information, string[] parts)
+        {
+            var matchesFound = FindAllMatches(settings, sequences, information, parts);
+
+            var perfectMatch = MatchWrapper.Null;
+
+            if (matchesFound.Count > 0)
+            {
+                perfectMatch = OrganizeMatches(matchesFound);
+            }
+
+            return perfectMatch;
         }
 
         private List<IChronoxExtraction> HandleDateTimeMatch(string text, DateTime referenceDate, ChronoxSettings settings, IEnumerable<PatternSequence> sequences, HashSet<IChronoxExtraction> results, ExtractionResultType type, ChronoxBuildInformation information, int passCount, MatchWrapper perfectMatch, ChronoxParsedResult chronoxResult, ref IChronoxExtraction result)

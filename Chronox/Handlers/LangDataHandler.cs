@@ -10,11 +10,14 @@ using System.Text;
 
 namespace Chronox.Handlers
 {
-    public class FileHandler
+    public class LangDataHandler
     {
         private const string Language = "language";
-        private const string Ignored = "ignored";
         private const string AssumeSpace = "assumespace";
+        private const string DateTimeIgnored = "datetimeignored";
+        private const string TimeRangeIgnored = "timerangeignored";
+        private const string TimeSpanIgnored = "timespanignored";
+        private const string TimeSetIgnored = "timesetignored";
         private const string PreferedEndianFormat = "preferedendianformat";
         private const string SupportedDateTimeFormats = "supporteddatetimeformats";
         private const string SupportedTimeRangeFormats = "supportedtimerangeformats";
@@ -144,6 +147,43 @@ namespace Chronox.Handlers
             File.WriteAllLines(@"Languages\Files\Template.json", newLines);
         }
 
+
+        private void RemoveComments(List<string> rawLines, List<string> lines)
+        {
+            foreach (var line in rawLines)
+            {
+                if (EmptyLine(line)) continue;
+
+                if (line.Contains("//*") && line.Contains("*//"))
+                {
+                    var parts = line.Split("//*");
+
+                    if (parts.Length > 1)
+                    {
+                        if (!line.StartsWith("//*"))
+                        {
+                            lines.Add(parts[0]);
+                        }
+                    }
+                }
+                else
+                {
+                    lines.Add(line);
+                }
+
+            }
+
+            foreach (var line in lines)
+            {
+                if (EmptyLine(line)) continue;
+
+                if (line.Contains("//*") || line.Contains("*//"))
+                {
+                    throw new Exception("Please review the comments written and make sure the follow the right format");
+                }
+            }
+        }
+
         private List<string> ReadFile(string filePath)
         {
             return File.ReadLines(filePath).ToList();
@@ -189,15 +229,7 @@ namespace Chronox.Handlers
                             {
                                 glossary.Language = value;
                             }
-                            break;
-                        case Ignored:
-
-                            if (value != null)
-                            {
-                                glossary.Ignored = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
-                            }
-
-                            break;
+                            break;                        
                         case AssumeSpace:
 
                             if (value != null)
@@ -210,6 +242,34 @@ namespace Chronox.Handlers
                             if (value != null)
                             {
                                 glossary.PreferedEndianFormat = value.ToUpper();
+                            }
+                            break;
+                        case DateTimeIgnored:
+
+                            if (value != null)
+                            {
+                                glossary.DateTimeIgnored = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
+                            }
+                            break;
+                        case TimeRangeIgnored:
+
+                            if (value != null)
+                            {
+                                glossary.TimeRangeIgnored = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
+                            }
+                            break;
+                        case TimeSpanIgnored:
+
+                            if (value != null)
+                            {
+                                glossary.TimeSpanIgnored = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
+                            }
+                            break;
+                        case TimeSetIgnored:
+
+                            if (value != null)
+                            {
+                                glossary.TimeSetIgnored = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
                             }
                             break;
                         case SupportedDateTimeFormats:
@@ -246,38 +306,6 @@ namespace Chronox.Handlers
             return glossary;
         }
 
-        private static void RemoveComments(List<string> rawLines, List<string> lines)
-        {
-            foreach (var line in rawLines)
-            {
-                if (line.Contains("//*") && line.Contains("*//"))
-                {
-                    var parts = line.Split("//*");
-
-                    if (parts.Length > 1)
-                    {
-                        if (!line.StartsWith("//*"))
-                        {
-                            lines.Add(parts[0]);
-                        }
-                    }
-                }
-                else
-                {
-                    lines.Add(line);
-                }
-
-            }
-
-            foreach(var line in lines)
-            {
-                if (line.Contains("//*") || line.Contains("*//"))
-                {
-                    throw new Exception("Please review the comments written and make sure the follow the right format");
-                }
-            }
-        }
-
         private List<string> ExtractFormats(List<string> lines, string endFormat, int index)
         {
             var formats = lines.Skip(index + 1).Select(s => s.ToLower()).ToList();
@@ -292,9 +320,7 @@ namespace Chronox.Handlers
                 }
                 if (EmptyLine(format)) continue;
 
-                var dateTimeFormat = format.ToUpper().Split("//*")[0].Trim();
-
-                dateTimeFormats.Add(dateTimeFormat);
+                dateTimeFormats.Add(format.ToUpper().Trim());
             }
 
             return dateTimeFormats;
@@ -306,10 +332,10 @@ namespace Chronox.Handlers
             {
                 if(string.Compare(propertyName, attribute, true) == 0)
                 {
-                    var section = new Section();
-
-                    section.Label = propertyName;
-
+                    var section = new Section()
+                    {
+                        Label = propertyName
+                    };
                     if (value != null)
                     {
                         section.Type = value;
@@ -345,8 +371,10 @@ namespace Chronox.Handlers
                 switch (key)
                 {
                     case Key:
-                        property = new Property();
-                        property.Key = val;
+                        property = new Property()
+                        {
+                            Key = val
+                        };
                         break;
                     case Value:
                         property.Value = val;

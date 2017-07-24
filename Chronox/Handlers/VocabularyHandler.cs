@@ -23,7 +23,7 @@ namespace Chronox.Handlers
     {
         private static VocabularyHandler instance;
 
-        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.FilePathJson, Definitions.DefaultLanguage);
+        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.TextLangDataPath, Definitions.DefaultLanguage);
 
         public Glossary Vocabulary { get; private set; }
 
@@ -51,13 +51,13 @@ namespace Chronox.Handlers
 
         internal SequenceHandler SequenceHandler { get; private set; }
 
-        private ChronoxSettings settings { get; set; }
+        private ChronoxSettings Settings { get; set; }
 
-        private VocabularyHandler(ChronoxSettings settings, string directory, string language)
+        private VocabularyHandler(ChronoxSettings settings, string directory, params string[] languages)
         {
-            this.settings = settings;
+            this.Settings = settings;
 
-            Vocabulary = !string.IsNullOrEmpty(language) ? Load(directory,language) : DefaultLanguage(settings).Vocabulary;
+            Vocabulary = Load(directory, languages);
 
             VocabularyBank = new GlossaryBank();
 
@@ -104,7 +104,7 @@ namespace Chronox.Handlers
 
         }
 
-        public static VocabularyHandler GetInstance(ChronoxSettings settings, string directory, string language)
+        public static VocabularyHandler GetInstance(ChronoxSettings settings, string directory, params string[] language)
         {
             if (instance == null)
             {
@@ -115,52 +115,58 @@ namespace Chronox.Handlers
 
         public void DestroyInstance() => instance = null;
 
-        private Glossary Load(string directory, string language)
+        private Glossary Load(string directory, string[] languages)
         {
-            var fileName = new StringBuilder(language.FirstLetterToUpper(true));
+            var glossaries = new HashSet<Glossary>();
 
-            var path = Path.Combine(directory, fileName.Append(".json").ToString());
+            foreach(var language in languages)
+            {
+                var fileName = new StringBuilder(language.FirstLetterToUpper(true));
 
-            if (File.Exists(path))
-            {
-                return LoadJsonFile(path);
-            }
-            else
-            {
-                path = Path.Combine(Definitions.FilePathJson, fileName.ToString());
+                var langFileHandler = new LangDataHandler();
+
+                var path = Path.Combine(directory, fileName.Append(".txt").ToString());
 
                 if (File.Exists(path))
                 {
-                    return LoadJsonFile(path);
+                    glossaries.Add(langFileHandler.CreateGlossary(path));
                 }
                 else
                 {
-                    var langFileHandler = new FileHandler();
-
-                    path = Path.Combine(directory, fileName.Replace(".json",string.Empty).Append(".txt").ToString());
+                    path = Path.Combine(Definitions.TextLangDataPath, fileName.ToString());
 
                     if (File.Exists(path))
                     {
-                        return langFileHandler.CreateGlossary(path);
+                        glossaries.Add(langFileHandler.CreateGlossary(path));
                     }
                     else
                     {
-                        path = Path.Combine(Definitions.FilePathTxt, fileName.ToString());
+                        path = Path.Combine(directory, fileName.Replace(".txt", string.Empty).Append(".json").ToString());
 
                         if (File.Exists(path))
                         {
-                            return langFileHandler.CreateGlossary(path);
+                            glossaries.Add(LoadJsonFile(path));
                         }
-                    }                  
+                        else
+                        {
+                            path = Path.Combine(Definitions.JsonLangDataPath, fileName.ToString());
+
+                            if (File.Exists(path))
+                            {
+                                glossaries.Add(LoadJsonFile(path));
+                            }
+                        }
+                    }
                 }
+
+                fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".txt");
+
+                path = Path.Combine(Definitions.TextLangDataPath, fileName.ToString());
+
+                glossaries.Add(langFileHandler.CreateGlossary(path));
             }
 
-
-            fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".json");
-
-            path = Path.Combine(Definitions.FilePathJson, fileName.ToString());
-
-            return LoadJsonFile(path);
+            return MergeGlossaries(glossaries.ToArray());
         }
 
         private static Glossary LoadJsonFile(string path)
@@ -186,7 +192,54 @@ namespace Chronox.Handlers
 
         public Glossary MergeGlossaries(params Glossary[] glossaries)
         {
-            throw new NotImplementedException();
+            if(glossaries.Length > 1)
+            {
+                var mergedGlossary = new Glossary();
+
+                mergedGlossary.Language = string.Join("|", glossaries.Select(g => g.Language));
+
+                mergedGlossary.DateTimeIgnored = glossaries.SelectMany(g => g.DateTimeIgnored).ToList();
+                mergedGlossary.TimeRangeIgnored = glossaries.SelectMany(g => g.TimeRangeIgnored).ToList();
+                mergedGlossary.TimeSpanIgnored = glossaries.SelectMany(g => g.TimeSpanIgnored).ToList();
+                mergedGlossary.TimeSetIgnored = glossaries.SelectMany(g => g.TimeSetIgnored).ToList();
+
+                mergedGlossary.SupportedDateTimeFormats = glossaries.SelectMany(g => g.SupportedDateTimeFormats).ToList();
+                mergedGlossary.SupportedTimeRangeFormats = glossaries.SelectMany(g => g.SupportedTimeRangeFormats).ToList();
+                mergedGlossary.SupportedTimeSpanFormats = glossaries.SelectMany(g => g.SupportedTimeSpanFormats).ToList();
+                mergedGlossary.SupportedTimeSetFormats = glossaries.SelectMany(g => g.SupportedTimeSetFormats).ToList();
+
+                mergedGlossary.Section = glossaries[0].Section;
+
+                foreach (var section in mergedGlossary.Section)
+                {
+                    foreach (var property in section.Properties)
+                    {
+                        if (section.Label.CompareTo(Definitions.Property.Holidays) == 0)
+                        {
+
+                        }
+                        else
+                        {
+                            var properties = glossaries
+                                .SelectMany(g => g.Section)
+                                .Where(g => g.Label.CompareTo(section.Label) == 0)
+                                .SelectMany(g => g.Properties)
+                                .Where(g => g.Key.CompareTo(property.Key) == 0);
+
+                            property.Pattern = string.Join("|", properties.Select(p => p.Pattern));
+
+                            property.Variations = properties.SelectMany(g => g.Variations).ToList();
+                        }
+
+                    }
+                }
+
+                return mergedGlossary;
+            }
+            else
+            {
+                return glossaries[0];
+            }
         }
 
         private void CreateVocabulary()
@@ -427,16 +480,16 @@ namespace Chronox.Handlers
 
             AllRegexSequences = new List<PatternSequence>();
 
-            DateTimeRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesDateTimeCombinations, PatternLibrary.Patterns);
+            DateTimeRegexSequences = SequenceHandler.BuildPatternSequences(Settings, SequenceLibrary.SequencesDateTimeCombinations, PatternLibrary.Patterns);
             DateTimeRegexSequences.ForEach(s => s.ComputeRelevance(DateTimeRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
-            DurationRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesDurationCombinations, PatternLibrary.Patterns);        
+            DurationRegexSequences = SequenceHandler.BuildPatternSequences(Settings, SequenceLibrary.SequencesDurationCombinations, PatternLibrary.Patterns);        
             DurationRegexSequences.ForEach(s => s.ComputeRelevance(DurationRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
-            RepeaterRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesRepeaterCombinations, PatternLibrary.Patterns);
+            RepeaterRegexSequences = SequenceHandler.BuildPatternSequences(Settings, SequenceLibrary.SequencesRepeaterCombinations, PatternLibrary.Patterns);
             RepeaterRegexSequences.ForEach(s => s.ComputeRelevance(RepeaterRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
-            RangedRegexSequences = SequenceHandler.BuildPatternSequences(settings, SequenceLibrary.SequencesRangeCombinations, PatternLibrary.Patterns);
+            RangedRegexSequences = SequenceHandler.BuildPatternSequences(Settings, SequenceLibrary.SequencesRangeCombinations, PatternLibrary.Patterns);
             RangedRegexSequences.ForEach(s => s.ComputeRelevance(RangedRegexSequences.OrderByDescending(p => s.PatternCount).FirstOrDefault().PatternCount));
 
             AllRegexSequences.AddRange(DateTimeRegexSequences);
