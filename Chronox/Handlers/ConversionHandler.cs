@@ -1,5 +1,4 @@
 ﻿using Chronox.Constants;
-using Chronox.Helpers.Offsets;
 using Enumerations;
 using System;
 using System.Collections.Generic;
@@ -291,7 +290,7 @@ namespace Chronox.Helpers.Interpreters
             return Enumerations.TimePeriod.Default;
         }
 
-        public static DateArithmeticOperation ArithmeticOperation(ChronoxSettings settings, string input)
+        public static ArithmeticOperation ArithmeticOperation(ChronoxSettings settings, string input)
         {
             var key = string.Empty;
 
@@ -302,7 +301,7 @@ namespace Chronox.Helpers.Interpreters
                 return Definitions.Converters.ARITHMETIC_OPERATION[key];
             }
 
-            return Enumerations.DateArithmeticOperation.Default;
+            return Enumerations.ArithmeticOperation.Default;
         }
 
         public static DateCasualExpression CasualExpression(ChronoxSettings settings, string input)

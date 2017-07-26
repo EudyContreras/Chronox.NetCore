@@ -24,6 +24,28 @@ namespace Tests
          * - expressions such as in 4 months if no day specified the dayofweek will be left the same
          * */
 
+
+        /*Ways to express Time Zones
+
+        /* 
+         * - 10:15 pm GMT+0000 (GMT)
+         * - 10:15 pm GMT+0900 (JST)
+         * - 10:15 pm +0500
+         * - 10:15 pm +05:00
+         * - 10:15 pm UTC-05:00
+         * - 10:15 pm EST
+         */
+
+        /*
+        Console.WriteLine("Count: " + Definitions.Converters.TIMEZONE_OFFSETS.Count);
+        Console.WriteLine("Local TimeZone ID: "+ TimeZoneInfo.Local.Id);
+        Console.WriteLine("Local TimeZone Name: " +TimeZoneInfo.Local.DisplayName);
+        Console.WriteLine("Local Date UTC Offset: "+TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
+        Console.WriteLine("Local Date: " + DateTime.Now);
+        Console.WriteLine("New York Time: " +ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["EDT"].Offset));
+        Console.WriteLine("Australia Time: " + ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["AEST"].Offset));
+        */
+
         private static string[] ProblematicNeedsFixing =
         {
 

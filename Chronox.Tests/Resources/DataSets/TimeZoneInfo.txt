@@ -203,6 +203,7 @@ TVT  |  720  |  Tuvalu Time  |  UTC+12
 U  |  -480  |  Uniform Time Zone  |  UTC-8
 ULAST  |  540  |  Ulaanbaatar Summer Time  |  UTC+9
 ULAT  |  480  |  Ulaanbaatar Time  |  UTC+8
+UTC  |  0  |  Coordinated Universal Time  |  UTC+0
 UYST  |  -120  |  Uruguay Summer Time  |  UTC-2
 UYT  |  -180  |  Uruguay Time  |  UTC-3
 UZT  |  300  |  Uzbekistan Time  |  UTC+5

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Enumerations
 {
-    public enum DateArithmeticOperation
+    public enum ArithmeticOperation
     {
         Add,
 

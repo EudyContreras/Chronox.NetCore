@@ -1,6 +1,5 @@
 ﻿using Chronox.Components;
 using Chronox.Helpers;
-using Chronox.Helpers.Offsets;
 using Chronox.Utilities.Extenssions;
 using Chronox.Wrappers;
 using Enumerations;
@@ -354,10 +353,10 @@ namespace Chronox.Constants
                 {"pm", TimeMeridiam.PM },
             };
 
-            public static readonly IReadOnlyDictionary<string, DateArithmeticOperation> ARITHMETIC_OPERATION = new Dictionary<string, DateArithmeticOperation>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IReadOnlyDictionary<string, ArithmeticOperation> ARITHMETIC_OPERATION = new Dictionary<string, ArithmeticOperation>(StringComparer.OrdinalIgnoreCase)
             {
-                {"-",DateArithmeticOperation.Substract},
-                {"+", DateArithmeticOperation.Add }
+                {"-",ArithmeticOperation.Substract},
+                {"+", ArithmeticOperation.Add }
             };
 
             public static readonly IReadOnlyDictionary<string, DateTimeExpression> DATE_TIME_EXPRESSION = new Dictionary<string, DateTimeExpression>(StringComparer.OrdinalIgnoreCase)
@@ -637,25 +636,6 @@ namespace Chronox.Constants
                 {"last", int.MaxValue }
             };
 
-            /*Ways to express Time Zones
-            /* 
-             * - 10:15 pm GMT+0000 (GMT)
-             * - 10:15 pm GMT+0900 (JST)
-             * - 10:15 pm +0500
-             * - 10:15 pm +05:00
-             * - 10:15 pm UTC-05:00
-             * - 10:15 pm EST
-             */
-
-            /*
-            Console.WriteLine("Count: " + Definitions.Converters.TIMEZONE_OFFSETS.Count);
-            Console.WriteLine("Local TimeZone ID: "+ TimeZoneInfo.Local.Id);
-            Console.WriteLine("Local TimeZone Name: " +TimeZoneInfo.Local.DisplayName);
-            Console.WriteLine("Local Date UTC Offset: "+TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
-            Console.WriteLine("Local Date: " + DateTime.Now);
-            Console.WriteLine("New York Time: " +ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["EDT"].Offset));
-            Console.WriteLine("Australia Time: " + ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["AEST"].Offset));
-            */
             public static IReadOnlyDictionary<string, ChronoxTimeZone> TIMEZONE_OFFSETS
             {
                 get

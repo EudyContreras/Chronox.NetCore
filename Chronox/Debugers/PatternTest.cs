@@ -14,7 +14,7 @@ namespace Tests
     {
         public Dictionary<string, PatternRegex> Patterns = new Dictionary<string, PatternRegex>();
 
-        public ChronoxSettings settings = ChronoxSettings.Standard;
+        public ChronoxSettings settings = new ChronoxSettings();
 
         public PatternTest()
         {

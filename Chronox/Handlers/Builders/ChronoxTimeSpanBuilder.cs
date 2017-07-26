@@ -64,7 +64,7 @@ namespace Chronox
             {
                 if(now.Day != date.Day || now.Month != date.Month || now.Year != date.Year)
                 {
-                    impliedValues.Add(DateTimeUnit.Hour, settings.Preferences.PreferedHour);
+                    impliedValues.Add(DateTimeUnit.Hour, settings.PreferedHour);
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace Chronox
             {
                 if (now.Day != date.Day || now.Month != date.Month || now.Year != date.Year)
                 {
-                    impliedValues.Add(DateTimeUnit.Minute, settings.Preferences.PreferedMinute);
+                    impliedValues.Add(DateTimeUnit.Minute, settings.PreferedMinute);
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace Chronox
             {
                 if (now.Day != date.Day || now.Month != date.Month || now.Year != date.Year)
                 {
-                    impliedValues.Add(DateTimeUnit.Second, settings.Preferences.PreferedSecond);
+                    impliedValues.Add(DateTimeUnit.Second, settings.PreferedSecond);
                 }
                 else
                 {

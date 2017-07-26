@@ -23,13 +23,19 @@ namespace Chronox.Debugers
         static void Main(string[] args)
         {
 
-            var settings = new ChronoxSettings(new ChronoxPreferences
+            var settings = new ChronoxSettings
             {
                 PrefferedLanguages = new string[]{ "English"}
-            });
+            };
 
             var detectionTest = new DetectionTest(settings);
 
+            detectionTest.TestDateTimeParsing();
+            detectionTest.TestDateTimeParsing();
+            detectionTest.TestDateTimeParsing();
+            detectionTest.TestDateTimeParsing();
+            detectionTest.TestDateTimeParsing();
+            detectionTest.TestDateTimeParsing();
             detectionTest.TestDateTimeParsing();
 
             Console.ReadKey();

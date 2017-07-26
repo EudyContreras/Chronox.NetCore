@@ -33,9 +33,9 @@ namespace Chronox.Handlers
 
         internal PatternRegex TimeZonePattern { get; set; }
 
-        internal PatternRegex separator { get; set; }
+        internal PatternRegex Separator { get; set; }
 
-        internal PatternRegex optionalSeparator { get; set; }
+        internal PatternRegex OptionalSeparator { get; set; }
 
 
         public SequenceHandler(VocabularyHandler languageHandler)
@@ -45,9 +45,9 @@ namespace Chronox.Handlers
 
         internal void ExtractStandAlonePatterns()
         {
-            separator = PatternLibrary.HelperPatterns[Definitions.Patterns.SpaceSeparator];
+            Separator = PatternLibrary.HelperPatterns[Definitions.Patterns.SpaceSeparator];
 
-            optionalSeparator = PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalSpace];
+            OptionalSeparator = PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalSpace];
 
             DatePatternBigEndian = CreateDatePattern(DateTimeEndian.Big);
 
@@ -134,11 +134,11 @@ namespace Chronox.Handlers
                     {
                         if(pattern.Label == Definitions.Patterns.Time || pattern.Label == Definitions.Patterns.HourDiscrete)
                         {
-                            regexSequence.Patterns.Add(optionalSeparator);
+                            regexSequence.Patterns.Add(OptionalSeparator);
                         }
                         else
                         {
-                            regexSequence.Patterns.Add(separator);
+                            regexSequence.Patterns.Add(Separator);
                         }
 
                         regexSequence.PatternCount += 1;
@@ -150,20 +150,20 @@ namespace Chronox.Handlers
                     {
                         if (pattern.Label == Definitions.Patterns.Time || pattern.Label == Definitions.Patterns.HourDiscrete)
                         {
-                            builder.Append(optionalSeparator.Value);
+                            builder.Append(OptionalSeparator.Value);
                         }
                         else
                         {
-                            builder.Append(separator.Value);
+                            builder.Append(Separator.Value);
                         }
                     }
                 }
 
                 var result = builder.ToString();
 
-                if (result.EndsWith(separator.Value))
+                if (result.EndsWith(Separator.Value))
                 {
-                    result = result.ReplaceLast(separator.Value, string.Empty);
+                    result = result.ReplaceLast(Separator.Value, string.Empty);
                 }
 
                 if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.SpaceSeparator)
@@ -331,7 +331,7 @@ namespace Chronox.Handlers
 
             var labeledZoneAbbreviation = PatternHandler.LabelWrapp(zoneAbbreviation.Label, zoneAbbreviation.Value);
 
-            var groups = PatternHandler.OrOptionalGroupWrapp(string.Concat(labeledZoneCode, optionalSeparator, labeledZoneOffset), labeledZoneAbbreviation);
+            var groups = PatternHandler.OrOptionalGroupWrapp(string.Concat(labeledZoneCode, OptionalSeparator, labeledZoneOffset), labeledZoneAbbreviation);
 
             return new PatternRegex(Definitions.Patterns.TimeZone, PatternHandler.LabelWrapp(Definitions.Patterns.TimeZone,groups));
         }

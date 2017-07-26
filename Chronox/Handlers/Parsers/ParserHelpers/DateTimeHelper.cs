@@ -12,7 +12,7 @@ using Enumerations;
 using Chronox.Helpers.Interpreters;
 using Chronox.Helpers;
 using Chronox.Utilities.Extenssions;
-using Chronox.Abstractions;
+
 using Chronox.Parsers.General.ParserHelpers;
 using Chronox.Interfaces;
 using Chronox.Parsers.English;
@@ -317,9 +317,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                 if (dayOfWeekExpression != null && !dayOfWeekExpression.GroupUsed)
                 {
-                    var dayOfWeek = ChronoxDateTimeUtility.DayOfWeekShift(ConversionHandler.DayOfWeek(information.Settings, dayOfWeekExpression.Value.Trim()), information.Settings.Preferences.GetWeekStartOffset());
+                    var dayOfWeek = ChronoxDateTimeUtility.DayOfWeekShift(ConversionHandler.DayOfWeek(information.Settings, dayOfWeekExpression.Value.Trim()), information.Settings.GetWeekStartOffset());
 
-                    var today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+                    var today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.GetWeekStartOffset());
 
                     var grabberExpression = foundGroups.Find(g => g.Name == Definitions.Property.GrabberExpressions);
 
@@ -357,9 +357,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                 if (dayOfWeekExpression != null && !dayOfWeekExpression.GroupUsed)
                 {
-                    var dayOfWeek = ChronoxDateTimeUtility.DayOfWeekShift(ConversionHandler.DayOfWeek(information.Settings, dayOfWeekExpression.Value.Trim()), information.Settings.Preferences.GetWeekStartOffset());
+                    var dayOfWeek = ChronoxDateTimeUtility.DayOfWeekShift(ConversionHandler.DayOfWeek(information.Settings, dayOfWeekExpression.Value.Trim()), information.Settings.GetWeekStartOffset());
 
-                    var today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+                    var today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.GetWeekStartOffset());
 
                     var grabberExpression = foundGroups.Find(g => g.Name == Definitions.Property.GrabberExpressions);
 
@@ -626,7 +626,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     break;
                 case DateTimeUnit.Week:
 
-                    dateTime = dateTime.SetWeekDay(ChronoxDateTimeUtility.GetDayOfWeek(information.Settings.Preferences.GetWeekStartOffset()));
+                    dateTime = dateTime.SetWeekDay(ChronoxDateTimeUtility.GetDayOfWeek(information.Settings.GetWeekStartOffset()));
                     dateTime = dateTime.AddWeeks(offset);
 
                     result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
@@ -724,7 +724,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     if (grabber && !information.HasDayOfWeek)
                     {
-                        dateTime = dateTime.SetWeekDay(ChronoxDateTimeUtility.GetDayOfWeek(information.Settings.Preferences.GetWeekStartOffset()));
+                        dateTime = dateTime.SetWeekDay(ChronoxDateTimeUtility.GetDayOfWeek(information.Settings.GetWeekStartOffset()));
 
                         dateTime = dateTime.AddWeeks(offset);
                     }
@@ -990,9 +990,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
         public void ProcessDayOfWeek(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int dayOfWeek)
         {
-            dayOfWeek = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+            dayOfWeek = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, information.Settings.GetWeekStartOffset());
 
-            var today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+            var today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.GetWeekStartOffset());
 
             var grabberOffset = information.GrabberOffsets.Count > 0 ? information.GrabberOffsets.Dequeue() : 0;
 
@@ -1007,7 +1007,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             if (information.GrabberOffsets.Count <= 0 && information.FloatingConjointer.Count > 0)
             {
-                information.FloatingDayOfWeek.Enqueue(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset()));
+                information.FloatingDayOfWeek.Enqueue(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset()));
             }
             else
             {
@@ -1017,9 +1017,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                 {
                     if (foundGroups.Any(g => g.Name == Definitions.Property.DateTimeUnits || parser.IsDateUnit(g.Name)))
                     {
-                        //information.FloatingDayOfWeek.Enqueue(DateTimeUtility.DayOfWeekShift(dayOfWeek, -information.settings.Preferences.GetWeekStartOffset()));
+                        //information.FloatingDayOfWeek.Enqueue(DateTimeUtility.DayOfWeekShift(dayOfWeek, -information.settings.GetWeekStartOffset()));
 
-                        information.PreferedDayOfWeek = ChronoxDateTimeUtility.GetDayOfWeek(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset()));
+                        information.PreferedDayOfWeek = ChronoxDateTimeUtility.GetDayOfWeek(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset()));
                     }
                     else
                     {
@@ -1054,7 +1054,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                                 {
                                     HandleDateTimeUnits(result, foundGroups, ref dateTime, information, DateTimeUnit.Week, offset, true);
 
-                                    today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+                                    today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.GetWeekStartOffset());
                                 }
                             }
                             else
@@ -1063,7 +1063,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                                 {
                                     HandleDateTimeUnits(result, foundGroups, ref dateTime, information, DateTimeUnit.Week, offset, true);
 
-                                    today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+                                    today = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.GetWeekStartOffset());
                                 }
                             }
                         }
@@ -1079,7 +1079,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
                 else if(foundGroups.Any(g => g.Name == Definitions.Property.GrabberExpressions))
                 {
-                    information.FloatingDayOfWeek.Enqueue(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset()));
+                    information.FloatingDayOfWeek.Enqueue(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset()));
                 }
             }
 
@@ -1113,7 +1113,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             if(monthExpression != null)
             {
-                var normalDay = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset());
+                var normalDay = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset());
 
                 var month = ConversionHandler.Month(information.Settings, monthExpression.Value.Trim());
 
@@ -1149,7 +1149,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             {   
                 if(dateTimeUnitExpression != null)
                 {
-                    var normalDay = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset());
+                    var normalDay = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset());
 
                     var dateTimeUnit = ConversionHandler.DateTimeUnit(information.Settings, dateTimeUnitExpression.Value.Trim());
 
@@ -1302,7 +1302,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
                 else if(current < dayOfWeek)
                 {
-                    dateTime = dateTime.GetPreviousWeekday(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset()));
+                    dateTime = dateTime.GetPreviousWeekday(ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset()));
                 }
                 else
                 {
@@ -1340,7 +1340,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
         public void ProcessDayOfWeekCount(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int dayOfWeek)
         {
-            var current = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.Preferences.GetWeekStartOffset());
+            var current = ChronoxDateTimeUtility.DayOfWeekShift(dateTime.DayOfWeek, information.Settings.GetWeekStartOffset());
 
             var offset = 0;
 
@@ -1389,7 +1389,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     }
                 }
 
-                var normalizedDay = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.Preferences.GetWeekStartOffset());
+                var normalizedDay = ChronoxDateTimeUtility.DayOfWeekShift(dayOfWeek, -information.Settings.GetWeekStartOffset());
 
                 if (current < dayOfWeek)
                 {
@@ -1792,7 +1792,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                         if(offset != int.MinValue)
                         {
-                            if (arithmeticOperator == DateArithmeticOperation.Substract)
+                            if (arithmeticOperator == ArithmeticOperation.Substract)
                             {
                                 offset = -offset;
                             }

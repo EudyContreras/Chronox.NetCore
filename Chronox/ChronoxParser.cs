@@ -1,6 +1,8 @@
 ﻿using Chronox.Interfaces;
 using Chronox.Parsers;
-using Chronox.Processors;
+using Chronox.Parsers.English;
+using Chronox.Scanners;
+using Chronox.Utilities.Extenssions;
 using Chronox.Wrappers;
 using Enumerations;
 using System;
@@ -16,13 +18,18 @@ namespace Chronox
 
         private static IChronox Instance = null;
 
+        private List<IChronoxScanner> Scanners = null;
+
         public ChronoxSettings Settings { get; set; }
 
-        private static ChronoxSettings StandardSettings = ChronoxSettings.Standard;
+        private MasterParser MasterParser = new MasterParser();
+
+        private static ChronoxSettings StandardSettings = new ChronoxSettings();
 
         private ChronoxParser(ChronoxSettings settings)
         {
-            Settings = settings ?? ChronoxSettings.Standard;
+            Settings = settings ?? StandardSettings;
+            Scanners = StandardScanners().ToList();
         }
 
         public static IChronox GetInstance() => GetInstance(StandardSettings);
@@ -115,7 +122,7 @@ namespace Chronox
         {
             var allResults = new List<IChronoxExtraction>();
 
-            var processed = PreProcessExpression(ProcessorType.PreProcessor, input);
+            var processed = PreProcessExpression(Settings, input);
 
             var scanResults = PerformExpressionScanAndReplace(processed);
 
@@ -126,14 +133,7 @@ namespace Chronox
 
             Settings.ReferenceDate = referenceDate;
 
-            foreach (var parser in Settings.Parsers())
-            {
-                var results = parser.Execute(scanResults.Key, Settings.ReferenceDate, Settings);
-
-                allResults.AddRange(results);
-            }
-
-            allResults = PostProcessResults(allResults, scanResults.Key, Settings);
+            allResults.AddRange(MasterParser.ComputeResult(scanResults.Key, Settings.ReferenceDate, Settings));
 
             allResults.Sort();
 
@@ -172,7 +172,7 @@ namespace Chronox
 
         IReadOnlyList<ChronoxDateTimeExtraction> IChronox.ParseDateTime(DateTime referenceDate, string input)
         {
-            Settings.Preferences.ParsingMode = ExtractionResultType.DateTime;
+            Settings.ParsingMode = ExtractionResultType.DateTime;
 
             return Parse(referenceDate, input)?.Results.Cast<ChronoxDateTimeExtraction>().ToList();
         }
@@ -183,14 +183,14 @@ namespace Chronox
 
         IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(DateTime referenceDate, string input)
         {
-            Settings.Preferences.ParsingMode = ExtractionResultType.TimeRange;
+            Settings.ParsingMode = ExtractionResultType.TimeRange;
 
             return Parse(referenceDate, input)?.Results.Cast<ChronoxTimeRangeExtraction>().ToList();
         }
 
         IReadOnlyList<ChronoxTimeSpanExtraction> IChronox.ParseTimeSpan(string input)
         {
-            Settings.Preferences.ParsingMode = ExtractionResultType.TimeSpan;
+            Settings.ParsingMode = ExtractionResultType.TimeSpan;
 
             return Parse(DateTime.MinValue, input)?.Results.Cast<ChronoxTimeSpanExtraction>().ToList();
         }
@@ -198,32 +198,87 @@ namespace Chronox
 
         IReadOnlyList<ChronoxTimeSetExtraction> IChronox.ParseTimeSet(string input)
         {
-            Settings.Preferences.ParsingMode = ExtractionResultType.TimeSet;
+            Settings.ParsingMode = ExtractionResultType.TimeSet;
 
             return Parse(DateTime.MinValue, input)?.Results.Cast<ChronoxTimeSetExtraction>().ToList();
         }
 
-
-        private string PreProcessExpression(ProcessorType type, string input)
+        private string PreProcessExpression(ChronoxSettings settings, string expression)
         {
-            if (Settings.Processors(type).Any())
+            switch (settings.ParsingMode)
             {
-                foreach (var processor in Settings.Processors(type))
-                {
-                    input = processor.PreProcess(Settings, input);
-                }
+                case ExtractionResultType.General:
+
+                    expression = CleanExpression(expression, settings);
+
+                    break;
+                case ExtractionResultType.TimeSpan:
+
+                    expression = expression.RemoveWords(settings.Language.Vocabulary.TimeSpanIgnored);
+
+                    break;
+                case ExtractionResultType.DateTime:
+
+                    expression = expression.RemoveWords(settings.Language.Vocabulary.DateTimeIgnored);
+
+                    break;
+                case ExtractionResultType.TimeSet:
+
+                    expression = expression.RemoveWords(settings.Language.Vocabulary.TimeSetIgnored);
+
+                    break;
+                case ExtractionResultType.TimeRange:
+
+                    expression = expression.RemoveWords(settings.Language.Vocabulary.TimeRangeIgnored);
+
+                    break;
+                default:
+
+                    expression = CleanExpression(expression, settings);
+
+                    break;
             }
-            return input;
+
+            expression = expression.PadPunctuationExact(0, 1);
+
+            expression = expression.Replace("  ", " ", false);
+
+            expression = expression.Pad(0, 1);
+
+            return expression;
         }
 
+        private string CleanExpression(string expression, ChronoxSettings settings)
+        {
+            expression = expression.RemoveWords(settings.Language.Vocabulary.DateTimeIgnored);
 
-        private PairWrapper<string, List<ScanWrapper>> PerformExpressionScanAndReplace(string input)
+            expression = expression.RemoveWords(settings.Language.Vocabulary.TimeRangeIgnored);
+
+            expression = expression.RemoveWords(settings.Language.Vocabulary.TimeSpanIgnored);
+
+            expression = expression.RemoveWords(settings.Language.Vocabulary.TimeSetIgnored);
+
+            return expression;
+        }
+
+        private IReadOnlyList<IChronoxScanner> StandardScanners()
+        {
+            var scanners = new List<IChronoxScanner>
+            {
+                new HolidayScanner(),
+                new NumberScanner(),
+                new CardinalScanner()
+            };
+            return scanners;
+        }
+
+        private KeyValuePair<string, List<ScanWrapper>> PerformExpressionScanAndReplace(string input)
         {
             var results = new List<ScanWrapper>();
 
             var expression = input;
 
-            foreach (var scanner in Settings.Scanners())
+            foreach (var scanner in Scanners)
             {
                 var result = scanner.Scan(Settings, expression);
 
@@ -235,20 +290,7 @@ namespace Chronox
                 }
             }
 
-            return new PairWrapper<string, List<ScanWrapper>>(expression, results);
-        }
-
-
-        private List<IChronoxExtraction> PostProcessResults(List<IChronoxExtraction> results, string input, ChronoxSettings settings)
-        {
-            if (!settings.Processors(ProcessorType.PostProcessor).Any()) return results;
-
-            foreach (var processor in settings.Processors(ProcessorType.PostProcessor))
-            {
-                results = processor.PostProcess(settings, results, input);
-            }
-
-            return results;
+            return new KeyValuePair<string, List<ScanWrapper>>(expression, results);
         }
     }
 }

@@ -6,18 +6,14 @@ namespace Chronox.Components
 {
     public class ChronoxDateTime
     {
-        public ChronoxParser Parser { get; private set; }
+        public ChronoxTime Time { get; private set; }
         
-        public DateTime? Date { get; private set; }
+        public ChronoxDate Date { get; private set; }
 
-        public ChronoxDateTime(ChronoxParser parser, DateTime date)
+        public ChronoxDateTime(ChronoxDate date, ChronoxTime time)
         {
-            Parser = parser;
-
-            if(date != DateTime.MinValue)
-            {
-                Date = date;
-            }
+            Date = date;
+            Time = time;
         }
 
         public override string ToString()
