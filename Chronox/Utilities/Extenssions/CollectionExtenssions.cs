@@ -21,7 +21,7 @@ namespace Chronox.Utilities.Extenssions
         {
             foreach (var entry in dictionary)
             {
-                var value = entry.Value == null ? default(int) : entry.Value;
+                var value = entry.Value ?? default(int);
 
                 source.Add(entry.Key, entry.Value.Value);
             }

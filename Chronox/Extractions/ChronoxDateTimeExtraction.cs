@@ -24,11 +24,13 @@ namespace Chronox
 
         public bool ValidDate { get; set; }
 
+        public TimeSpan TimeOffset { get; set; }
+
         public DateTime ReferenceDate { get; set; }
 
-        public ChronoxDateTime DateTime { get; set; }
+        public ChronoxTimeZone TimeZone { get; set; }
 
-        public ChronoxDateTimeBuilder Builder { get; set; }
+        internal ChronoxDateTimeBuilder Builder { get; set; }
 
         internal static ChronoxDateTimeExtraction EmptyExtraction { get; set; } = null;
 
@@ -44,7 +46,15 @@ namespace Chronox
             this.Extraction = extraction;
             this.DatelessString = text.RemoveSubstrings(extraction);
             this.ReferenceDate = referenceDate;
-            this.Builder = new ChronoxDateTimeBuilder();
+            this.Builder = new ChronoxDateTimeBuilder(this);
+        }
+
+        public ChronoxDateTime DateTime
+        {
+            get
+            {
+                return Builder.DateTime;
+            }
         }
 
         public int CompareTo(ChronoxDateTimeExtraction other)

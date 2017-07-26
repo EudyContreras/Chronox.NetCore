@@ -9,12 +9,12 @@ using Chronox.Helpers.Patterns;
 using Chronox.Constants.Banks;
 using Chronox.Utilities.Extenssions;
 using Enumerations;
+using System.IO;
 
 namespace Chronox.Handlers
 {
     public class SequenceHandler
-    {
-     
+    {     
         internal VocabularyHandler LanguageHandler { get; private set; }
 
         internal PatternRegex TimePattern { get; set; }
@@ -36,7 +36,6 @@ namespace Chronox.Handlers
         internal PatternRegex Separator { get; set; }
 
         internal PatternRegex OptionalSeparator { get; set; }
-
 
         public SequenceHandler(VocabularyHandler languageHandler)
         {   
@@ -93,7 +92,7 @@ namespace Chronox.Handlers
         }
 
 
-        public List<PatternSequence> BuildPatternSequences(ChronoxSettings settings, List<Sequence> sequences, Dictionary<string,PatternRegex> patterns)
+        public List<PatternSequence> BuildPatternSequences(ChronoxSettings settings, HashSet<Sequence> sequences, Dictionary<string,PatternRegex> patterns)
         {
             var regexSequences = new List<PatternSequence>();
 
@@ -132,7 +131,7 @@ namespace Chronox.Handlers
 
                     if (NotSeparator(pattern.Label))
                     {
-                        if(pattern.Label == Definitions.Patterns.Time || pattern.Label == Definitions.Patterns.HourDiscrete)
+                        if(OptinalSpaceQualified(pattern))
                         {
                             regexSequence.Patterns.Add(OptionalSeparator);
                         }
@@ -148,7 +147,7 @@ namespace Chronox.Handlers
 
                     if (NotSeparator(pattern.Label))
                     {
-                        if (pattern.Label == Definitions.Patterns.Time || pattern.Label == Definitions.Patterns.HourDiscrete)
+                        if (OptinalSpaceQualified(pattern))
                         {
                             builder.Append(OptionalSeparator.Value);
                         }
@@ -172,6 +171,7 @@ namespace Chronox.Handlers
                 }
 
                 regexSequence.CombinedPattern = result;
+                regexSequence.AbbreviatedSequence = sequence.AbbreviatedSequence;
                 regexSequence.RegexMatcher = regexSequence.InitRegexMatcher(LanguageHandler);
 
                 regexSequences.Add(regexSequence);
@@ -180,6 +180,12 @@ namespace Chronox.Handlers
             }
 
             return regexSequences;
+        }
+
+        private bool OptinalSpaceQualified(PatternRegex pattern)
+        {
+            return pattern.Label == Definitions.Patterns.Time
+                || pattern.Label == Definitions.Patterns.HourDiscrete;
         }
 
         private bool IdentifyAndAssign(string property, ref PatternRegex pattern)
@@ -373,38 +379,37 @@ namespace Chronox.Handlers
         {
             foreach (var format in userSequences)
             {
-                var parts = format.Split(':');
+                var properties = format.Split('|');
 
-                if (parts.Length > 1)
+                var normalProperties = new List<string>();
+
+                var last = string.Empty;
+
+                for (var i = 0; i < properties.Length; i++)
                 {
-                    var properties = parts[1].RemoveSubstrings("(", ")").Split('|');
+                    var key = properties[i];
 
-                    var normalProperties = new List<string>();
+                    var property = Definitions.Converters.PROPERTIES[key];
 
-                    var last = string.Empty;
+                    normalProperties.Add(property);
 
-                    for (var i = 0; i < properties.Length; i++)
+                    if (!glossary.AssumeSpace)
                     {
-                        var property = Definitions.Converters.PROPERTIES[properties[i]];
-
-                        normalProperties.Add(property);
-
-                        if (glossary.AssumeSpace)
+                        if (i < properties.Length - 1 && property != Definitions.Patterns.SpaceSeparator)
                         {
-                            if (i < properties.Length - 1 && property != Definitions.Patterns.SpaceSeparator)
+                            if (properties[i + 1] != Definitions.Converters.PROPERTIES.FirstOrDefault(e => e.Value == Definitions.Patterns.SpaceSeparator).Key)
                             {
-                                if (properties[i + 1] != Definitions.Converters.PROPERTIES.FirstOrDefault(e => e.Value == Definitions.Patterns.SpaceSeparator).Key)
-                                {
-                                    normalProperties.Add(Definitions.Patterns.SpaceSeparator);
-                                }
+                                normalProperties.Add(Definitions.Patterns.SpaceSeparator);
                             }
                         }
                     }
-
-                    var sequence = new Sequence(type, normalProperties.ToArray());
-
-                    AddSequence(sequence);
                 }
+
+                var sequence = new Sequence(type, normalProperties.ToArray());
+
+                sequence.AbbreviatedSequence = format;
+
+                AddSequence(sequence);
             }
         }
 

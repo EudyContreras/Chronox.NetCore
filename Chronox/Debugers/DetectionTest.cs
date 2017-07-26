@@ -680,7 +680,7 @@ namespace Tests
 
                 var result = chronox.ParseDateTime(Reference, text);
 
-                var date = result?[0].Builder.DateTime();
+                var date = result?[0].DateTime.ToDateTime();
 
                 AreEqual(expression, TestData[expression].ToString(), date.ToString(), ref allPassed);
             }
@@ -699,7 +699,7 @@ namespace Tests
             {
                 var result = chronox.ParseDateTime(Reference, expression);
 
-                var date = result?[0].Builder.DateTime();
+                var date = result?[0].DateTime.ToDateTime();
 
                 Console.WriteLine($"{expression} | {date}");
                 Console.WriteLine();
@@ -710,11 +710,11 @@ namespace Tests
         {
             var chronox = ChronoxParser.GetInstance(settings);
 
-            var result = chronox.ParseDateTime(Reference, expression);
+            var result = chronox.ParseDateTime(expression);
 
-            var date = result?[0].Builder.DateTime();
+            var date = result?[0].DateTime.ToDateTime();
 
-            Console.WriteLine($"{expression} | {date}");
+            Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeZone}");
             Console.WriteLine();
         }
 

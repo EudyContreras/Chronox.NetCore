@@ -216,68 +216,165 @@ namespace Chronox.Constants
         {
             private static IReadOnlyDictionary<string, ChronoxTimeZone> timeZones = null;
 
-            public static readonly IReadOnlyDictionary<string, string> PROPERTIES = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            private static IReadOnlyDictionary<string, string> abbreviations = null;
+
+            private static IReadOnlyDictionary<string, string> properties = null;
+
+            public static IReadOnlyDictionary<string, string> PROPERTIES
             {
-                {"C.E",    Property.CasualExpressions},
-                {"G.E",    Property.GrabberExpressions},
-                {"D.O",    Property.DayOffset},
-                {"T.E",    Property.TimeExpressions},
-                {"T.F",    Property.TimeFractions},
-                {"T.C",    Property.TimeConjointer},
-                {"I.E",    Property.InterpretedExpression },
-                {"T.M",    Property.GrabberExpressions},
-                {"R.I",    Property.RangeIndicator},
-                {"R.S",    Property.RangeSeparator},
-                {"N.V",    Property.NumericValue},
-                {"N.M.C",  Property.NumericMagnitudeCardinal},
-                {"N.M.O",  Property.NumericMagnitudeOrdinal},
-                {"N.W",    Property.NumericWord},
-                {"N.W.C",  Property.NumericWordCardinal},
-                {"N.W.O",  Property.NumericWordOrdinal},
-                {"T.O.D",  Property.TimeOfDay},
-                {"D.O.W",  Property.DaysOfWeek},
-                {"S.O.Y",  Property.SeasonOfYear},
-                {"M.O.Y",  Property.MonthsOfYear},
-                {"C.Y",    Property.MonthsOfYear},
-                {"R.E.I",  Property.RepeaterIndicators},
-                {"D.E.I",  Property.RepeaterIndicators},
-                {"R.E",    Property.RepeaterExpressions},
-                {"D.E",    Property.DurationExpressions},
-                {"P.T",    Property.Proximity},
-                {"T.U",    Property.DateTimeUnits},
-                {"T.P",    Property.TimePeriods },
-                {"D.V",    Property.DecadeValues },
-                {"A.O",    Property.ArithmeticOperator},
-                {"L.O",    Property.LogicalOperator},
-                {"D.D",    Patterns.Date},
-                {"D.T",    Patterns.Time},
-                {"D.Y",    Patterns.Year},
-                {"Y",      Patterns.YearDiscrete},
-                {"M",      Patterns.MonthDiscrete},
-                {"D",      Patterns.DayDiscrete},
-                {"H.D",    Patterns.HourDiscrete},
-                {"D.D.B",  Patterns.DateBigEndian},
-                {"D.D.L",  Patterns.DateLittleEndian},
-                {"D.D.M",  Patterns.DateMiddleEndian},
-                {"M.D",    Patterns.MinuteDiscrete},
-                {"S.D",    Patterns.SecondDiscrete},
-                {"W.S",    Patterns.SpaceSeparator},
-                {"D.W.T",  Property.DaysOfWeek},
-                {"D.U.B",  Property.DateUnits },
-                {"T.U.B",  Property.TimeUnits },
-                {"Y.U",    Property.YearUnit },
-                {"M.U",    Property.MonthUnit },
-                {"W.U",    Property.WeekUnit },
-                {"D.U",    Property.DayUnit },
-                {"H.U",    Property.HourUnit },
-                {"M.I.U",  Property.MinuteUnit },
-                {"S.U",    Property.SecondUnit },
-                {"D.T.S",  Patterns.TimeSeparator},
-                {"D.D.S",  Patterns.DateSeparator},
-                {"N.M.2.D",Patterns.NumberMax2Digits},
-                {"N.M.4.D",Patterns.NumberMax4Digits},
-                {"N.M.5.D",Patterns.NumberMax5Digits},
-            };
+                get
+                {
+                    if(properties == null)
+                    {
+                        properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            {"C.E",    Property.CasualExpressions},
+                            {"G.E",    Property.GrabberExpressions},
+                            {"D.O",    Property.DayOffset},
+                            {"T.E",    Property.TimeExpressions},
+                            {"T.F",    Property.TimeFractions},
+                            {"T.C",    Property.TimeConjointer},
+                            {"I.E",    Property.InterpretedExpression },
+                            {"R.I",    Property.RangeIndicator},
+                            {"R.S",    Property.RangeSeparator},
+                            {"N.V",    Property.NumericValue},
+                            {"N.M.C",  Property.NumericMagnitudeCardinal},
+                            {"N.M.O",  Property.NumericMagnitudeOrdinal},
+                            {"N.W",    Property.NumericWord},
+                            {"N.W.C",  Property.NumericWordCardinal},
+                            {"N.W.O",  Property.NumericWordOrdinal},
+                            {"T.O.D",  Property.TimeOfDay},
+                            {"D.O.W",  Property.DaysOfWeek},
+                            {"S.O.Y",  Property.SeasonOfYear},
+                            {"M.O.Y",  Property.MonthsOfYear},
+                            {"R.E.I",  Property.RepeaterIndicators},
+                            {"D.E.I",  Property.DurationIndicators},
+                            {"R.E",    Property.RepeaterExpressions},
+                            {"D.E",    Property.DurationExpressions},
+                            {"P.T",    Property.Proximity},
+                            {"D.T.U",  Property.DateTimeUnits},
+                            {"T.P",    Property.TimePeriods },
+                            {"D.V",    Property.DecadeValues },
+                            {"A.O",    Property.ArithmeticOperator},
+                            {"L.O",    Property.LogicalOperator},
+                            {"D.D",    Patterns.Date},
+                            {"D.T",    Patterns.Time},
+                            {"D.Y",    Patterns.Year},
+                            {"Y",      Patterns.YearDiscrete},
+                            {"M",      Patterns.MonthDiscrete},
+                            {"D",      Patterns.DayDiscrete},
+                            {"H.D",    Patterns.HourDiscrete},
+                            {"D.D.B",  Patterns.DateBigEndian},
+                            {"D.D.L",  Patterns.DateLittleEndian},
+                            {"D.D.M",  Patterns.DateMiddleEndian},
+                            {"M.D",    Patterns.MinuteDiscrete},
+                            {"S.D",    Patterns.SecondDiscrete},
+                            {"W.S",    Patterns.SpaceSeparator},
+                            {"D.W.T",  Property.DayOfWeekType},
+                            {"D.U.B",  Property.DateUnits },
+                            {"T.M",    Property.TimeMeridiam},
+                            {"T.Z",    Patterns.TimeZone },
+                            {"T.U.B",  Property.TimeUnits },
+                            {"Y.U",    Property.YearUnit },
+                            {"M.U",    Property.MonthUnit },
+                            {"W.U",    Property.WeekUnit },
+                            {"D.U",    Property.DayUnit },
+                            {"H.U",    Property.HourUnit },
+                            {"M.I.U",  Property.MinuteUnit },
+                            {"S.U",    Property.SecondUnit },
+                            {"D.T.S",  Patterns.TimeSeparator},
+                            {"D.D.S",  Patterns.DateSeparator},
+                            {"N.M.2.D",Patterns.NumberMax2Digits},
+                            {"N.M.4.D",Patterns.NumberMax4Digits},
+                            {"N.M.5.D",Patterns.NumberMax5Digits},
+                        };
+
+                        return properties;
+                    }
+                    else
+                    {
+                        return properties;
+                    }
+                }
+            }
+
+            public static IReadOnlyDictionary<string, string> ABBREVIATIONS
+            {
+                get
+                {
+                    if (abbreviations == null)
+                    {
+                        abbreviations = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            {Property.CasualExpressions,        "C.E"},
+                            {Property.GrabberExpressions,       "G.E"},
+                            {Property.DayOffset,                "D.O"},
+                            {Property.TimeExpressions,          "T.E"},
+                            {Property.TimeFractions,            "T.F"},
+                            {Property.TimeConjointer,           "T.C"},
+                            {Property.InterpretedExpression ,   "I.E"},
+                            {Property.RangeIndicator,           "R.I"},
+                            {Property.RangeSeparator,           "R.S"},
+                            {Property.NumericValue,             "N.V"},
+                            {Property.NumericMagnitudeCardinal, "N.M.C"},
+                            {Property.NumericMagnitudeOrdinal,  "N.M.O"},
+                            {Property.NumericWord,              "N.W"},
+                            {Property.NumericWordCardinal,      "N.W.C"},
+                            {Property.NumericWordOrdinal,       "N.W.O"},
+                            {Property.TimeOfDay,                "T.O.D"},
+                            {Property.DaysOfWeek,               "D.O.W"},
+                            {Property.SeasonOfYear,             "S.O.Y"},
+                            {Property.MonthsOfYear,             "M.O.Y"},
+                            {Property.RepeaterIndicators,       "R.E.I"},
+                            {Property.DurationIndicators,       "D.E.I"},
+                            {Property.RepeaterExpressions,      "R.E"},
+                            {Property.DurationExpressions,      "D.E"},
+                            {Property.Proximity,                "P.T"},
+                            {Property.DateTimeUnits,            "D.T.U"},
+                            {Property.TimePeriods ,             "T.P"},
+                            {Property.DecadeValues ,            "D.V"},
+                            {Property.ArithmeticOperator,       "A.O"},
+                            {Property.LogicalOperator,          "L.O"},
+                            {Patterns.Date,                     "D.D"},
+                            {Patterns.Time,                     "D.T"},
+                            {Patterns.Year,                     "D.Y"},
+                            {Patterns.YearDiscrete,             "Y"},
+                            {Patterns.MonthDiscrete,            "M"},
+                            {Patterns.DayDiscrete,              "D"},
+                            {Patterns.HourDiscrete,             "H.D"},
+                            {Patterns.DateBigEndian,            "D.D.B"},
+                            {Patterns.DateLittleEndian,         "D.D.L"},
+                            {Patterns.DateMiddleEndian,         "D.D.M"},
+                            {Patterns.MinuteDiscrete,           "M.D"},
+                            {Patterns.SecondDiscrete,           "S.D"},
+                            {Patterns.SpaceSeparator,           "W.S"},
+                            {Property.DayOfWeekType,            "D.W.T"},
+                            {Property.DateUnits ,               "D.U.B"},
+                            {Property.TimeMeridiam,             "T.M" },
+                            {Patterns.TimeZone,                 "T.Z" },
+                            {Property.TimeUnits ,               "T.U.B"},
+                            {Property.YearUnit ,                "Y.U"},
+                            {Property.MonthUnit ,               "M.U"},
+                            {Property.WeekUnit ,                "W.U"},
+                            {Property.DayUnit ,                 "D.U"},
+                            {Property.HourUnit ,                "H.U"},
+                            {Property.MinuteUnit ,              "M.I.U"},
+                            {Property.SecondUnit ,              "S.U"},
+                            {Patterns.TimeSeparator,            "D.T.S"},
+                            {Patterns.DateSeparator,            "D.D.S"},
+                            {Patterns.NumberMax2Digits,         "N.M.2.D"},
+                            {Patterns.NumberMax4Digits,         "N.M.4.D"},
+                            {Patterns.NumberMax5Digits,         "N.M.5.D"}
+                        };
+
+                        return abbreviations;
+                    }
+                    else
+                    {
+                        return abbreviations;
+                    }
+                }
+            }
 
             public static readonly IReadOnlyDictionary<string, RangeWrapper> TIME_OF_DAY = new Dictionary<string, RangeWrapper>(StringComparer.OrdinalIgnoreCase)
             {
@@ -641,8 +738,37 @@ namespace Chronox.Constants
                 get
                 {
                     if(timeZones == null)
-                    {
-                        timeZones = BuildTimeZones();
+                    {                    
+                        var lines = File.ReadAllLines(TimeZoneFilePath);
+
+                        var newLines = new Dictionary<string, ChronoxTimeZone>();
+
+                        foreach (var line in lines)
+                        {
+                            var parts = line.Split('|');
+
+                            var abbre = parts[0].Trim();
+
+                            var offset = parts[1].Trim();
+
+                            var name = parts[2].Trim();
+
+                            var utc = parts[3].Trim();
+
+                            var span = TimeSpan.FromMinutes(int.Parse(offset));
+
+                            var timeZone = new ChronoxTimeZone
+                            {
+                                Abbreviation = abbre,
+                                Offset = span,
+                                StandardName = name,
+                                UtcOffset = utc,
+                            };
+
+                            newLines.Add(abbre, timeZone);
+
+                            timeZones = newLines;
+                        }
 
                         return timeZones;
                     }
@@ -651,40 +777,6 @@ namespace Chronox.Constants
                         return timeZones;
                     }
                 }
-            }
-   
-            public static Dictionary<string, ChronoxTimeZone> BuildTimeZones()
-            {
-                var lines = File.ReadAllLines(TimeZoneFilePath);
-
-                var newLines = new Dictionary<string,ChronoxTimeZone>();
-
-                foreach(var line in lines)
-                {
-                    var parts = line.Split('|');
-
-                    var abbre = parts[0].Trim();
-
-                    var offset = parts[1].Trim();
-
-                    var name = parts[2].Trim();
-
-                    var utc = parts[3].Trim();
-
-                    var span = TimeSpan.FromMinutes(int.Parse(offset));
-
-                    var timeZone = new ChronoxTimeZone
-                    {
-                        Abbreviation = abbre,
-                        Offset = span,
-                        StandardName = name,
-                        UtcOffset = utc,
-                    };
-
-                    newLines.Add(abbre, timeZone);
-                }
-
-                return newLines;
             }
         }
     }

@@ -73,18 +73,18 @@ namespace Chronox.Handlers
 
             Holidays = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-            SequenceLibrary.SequencesDateTimeCombinations.AddRange(SequenceBank.DateTimeSequences.Distinct());
+            SequenceLibrary.SequencesDateTimeCombinations.AddRange(SequenceBank.DateTimeSequences.ToArray());
 
-            SequenceLibrary.SequencesRepeaterCombinations.AddRange(SequenceBank.RepeaterSequences.Distinct());
+            SequenceLibrary.SequencesRepeaterCombinations.AddRange(SequenceBank.RepeaterSequences.ToArray());
 
-            SequenceLibrary.SequencesDurationCombinations.AddRange(SequenceBank.DurationSequences.Distinct());
+            SequenceLibrary.SequencesDurationCombinations.AddRange(SequenceBank.DurationSequences.ToArray());
 
-            SequenceLibrary.SequencesRangeCombinations.AddRange(SequenceBank.TimeRangeSequences.Distinct());
+            SequenceLibrary.SequencesRangeCombinations.AddRange(SequenceBank.TimeRangeSequences.ToArray());
 
-            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.DateTimeSequences.Distinct());
-            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.DurationSequences.Distinct());
-            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.RepeaterSequences.Distinct());
-            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.TimeRangeSequences.Distinct());
+            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.DateTimeSequences.ToArray());
+            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.DurationSequences.ToArray());
+            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.RepeaterSequences.ToArray());
+            SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.TimeRangeSequences.ToArray());
 
             /*
             SequenceRepresentations = SequenceLibrary.SequencesDateTimeCombinations
@@ -99,6 +99,8 @@ namespace Chronox.Handlers
             CreateVocabulary();
 
             CreatePatterns();
+
+            ExtractSequences();
 
             CreateSequences();
 
@@ -472,8 +474,10 @@ namespace Chronox.Handlers
             PatternLibrary.Patterns.Add(label, new PatternRegex(label, combined));
         }
 
-        private void CreateSequences()
+        private void ExtractSequences()
         {
+            //WriteSequenceCodes(SequenceBank.DateTimeSequences.ToList(), "Sequences.txt");
+
             SequenceHandler.ExtractStandAlonePatterns();
 
             SequenceHandler.ExtractPatternSequences(Vocabulary, Vocabulary.SupportedDateTimeFormats, SequenceType.DateTime);
@@ -484,6 +488,10 @@ namespace Chronox.Handlers
 
             SequenceHandler.ExtractPatternSequences(Vocabulary, Vocabulary.SupportedTimeSetFormats, SequenceType.TimeSet);
 
+        }
+
+        private void CreateSequences()
+        {
             AllRegexSequences = new List<PatternSequence>();
 
             DateTimeRegexSequences = SequenceHandler.BuildPatternSequences(Settings, SequenceLibrary.SequencesDateTimeCombinations, PatternLibrary.Patterns);
@@ -502,6 +510,13 @@ namespace Chronox.Handlers
             AllRegexSequences.AddRange(DurationRegexSequences);
             AllRegexSequences.AddRange(RepeaterRegexSequences);
             AllRegexSequences.AddRange(RangedRegexSequences);
+        }
+
+        internal void WriteSequenceCodes(List<Sequence> sequences, string filePath)
+        {
+            var abbreSequences = sequences.Select(s => s.AbbreviatedSequence).ToList();
+
+            File.WriteAllLines(filePath, abbreSequences);
         }
 
         public bool IsDateUnit(string key)

@@ -12,10 +12,11 @@ namespace Chronox.Wrappers
 {
     public class PatternSequence
     {
-
         public readonly List<PatternRegex> Patterns = new List<PatternRegex>();
 
         public Regex RegexMatcher { get; set; }
+
+        public string AbbreviatedSequence { get; internal set; }
 
         public string CombinedPattern { get; set; }
 
@@ -51,7 +52,7 @@ namespace Chronox.Wrappers
 
         public bool ContainsProperty(string propertyName)
         {
-            return Patterns.Any(p => string.Compare(p.Label, propertyName, true) == 0);
+            return Patterns.Exists(p => string.Compare(p.Label, propertyName, true) == 0);
         }
     }
 }

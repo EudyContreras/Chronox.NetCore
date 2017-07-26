@@ -8,15 +8,15 @@ namespace Chronox.Constants.Banks
 {
     public class SequenceBank
     {
-        public readonly List<Sequence> SequencesAllCombinations = new List<Sequence>();
+        public readonly HashSet<Sequence> SequencesAllCombinations = new HashSet<Sequence>();
 
-        public readonly List<Sequence> SequencesDateTimeCombinations = new List<Sequence>();
+        public readonly HashSet<Sequence> SequencesDateTimeCombinations = new HashSet<Sequence>(Sequence.Comapararer);
 
-        public readonly List<Sequence> SequencesRangeCombinations = new List<Sequence>();
+        public readonly HashSet<Sequence> SequencesRangeCombinations = new HashSet<Sequence>();
 
-        public readonly List<Sequence> SequencesDurationCombinations = new List<Sequence>();
+        public readonly HashSet<Sequence> SequencesDurationCombinations = new HashSet<Sequence>();
 
-        public readonly List<Sequence> SequencesRepeaterCombinations = new List<Sequence>();
+        public readonly HashSet<Sequence> SequencesRepeaterCombinations = new HashSet<Sequence>();
 
         public static readonly IEnumerable<Sequence> DateTimeSequences = new List<Sequence>()
         {
@@ -739,7 +739,6 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "23-10-2017",
                     Definitions.Patterns.DateLittleEndian
                 ),
-                    
         };
 
         public static readonly IEnumerable<Sequence> RepeaterSequences = new List<Sequence>()

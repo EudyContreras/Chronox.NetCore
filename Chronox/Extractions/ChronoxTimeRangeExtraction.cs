@@ -38,7 +38,7 @@ namespace Chronox
             this.Original = text;
             this.Extraction = extraction;
             this.ReferenceDate = referenceDate;
-            this.Start = new ChronoxDateTimeBuilder();
+           // this.Start = new ChronoxDateTimeBuilder(this);
         }
 
         public int CompareTo(ChronoxTimeRangeExtraction other)

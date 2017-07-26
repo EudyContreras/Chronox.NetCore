@@ -1,24 +1,24 @@
 ﻿sectionTypes: 
 
+	n/a   
 	combined
 	combinedReversed	
 	combinedOptional
-	n/a   
 
 propertyTypes:
 
+	n/a
 	group
 	groupOptional
 	optional
 	filler
-	interpreted
-	n/a
+	interpreted	
 
 supporteSectionCodes:
 
    [Code]	    [StrictRepresentation]		    [ExampleVariations]
 	
-	C.E 		//: casualExpressions 
+	C.E 		//: casualExpressions			
 	G.E 		//: grabberExpressions			//: this|next|last
 	D.O 		//: dayOffsets					//: tomorrow|today|yesterday
 	T.E 		//: timeExpressions				//: noon|midnight|
@@ -30,7 +30,7 @@ supporteSectionCodes:
 	R.I 		//: rangeIndicators				//: from
 	R.S 		//: rangeSeparators				//: to|-
 	N.V 		//: numericValues				//: 0|1|2|3|4
-	N.W 		//: numericWords				//: 21s|twenty one|twenty first
+	N.W 		//: numericWords				//: 21st|twenty one|twenty first
 	N.W.O 		//: numericWordsOrdinal			//: 21st|twenty first
 	N.W.C 		//: numericWordsCardinal		//: twenty one|twenty-one
 	N.M.C 		//: numericMagnitudeCardinal	//: hundred|thousand
@@ -46,8 +46,8 @@ supporteSectionCodes:
 	M.O.Y 		//: monthsOfYear				//: jan|feb|april
 	T.P 		//: timePeriods					//: decade|century|milleniumn
 	D.T.U 		//: dateTimeUnits				//: minute|hour|year|week
-	T.U 		//: timeUnits					//: minute|hour|second
-	D.U 		//: dateUnits					//: month|day|year|week
+	T.U.B 		//: timeUnits					//: minute|hour|second
+	D.U.B		//: dateUnits					//: month|day|year|week
 	D.V 		//: decadeValues				//: nineties|senventies
 	D.D.B 		//: discreteDateBigEndian		//: YYYY|MM|DD
 	D.D.L 		//: discreteDateLittleEndian	//: DD|MM|YYYY
@@ -73,3 +73,138 @@ supporteSectionCodes:
 	Y 			//: yearDiscrete				//: 2010
 	M 			//: monthDiscrete				//: 10
 	D			//: dayDiscrete					//: 24
+
+Default DateTime Sequences
+
+	D.Y
+	D.U
+	T.E
+	D.T|T.M|T.Z
+	D.T|T.M|G.E|D.O.W
+	D.T|T.M|D.O
+	D.T|T.M|D.O.W
+	T.F|T.C
+	M.D|T.C|H.D|T.M
+	T.F|T.C|H.D|T.M
+	N.W.C|N.W.C|T.M
+	N.W.C|T.M
+	D.W.T
+	G.E|D.W.T
+	D.W.T|G.E
+	D.T|T.M|T.O.D
+	D.T|T.M|D.O.W|T.O.D
+	G.E|D.O.W|N.W|T.O.D
+	D.O.W|D.T|T.M|T.O.D
+	G.E|D.O.W|D.T|T.M|T.O.D
+	D.O.W|D.T|T.M
+	G.E|D.O.W|D.T|T.M
+	D.O
+	D.O|T.E
+	T.O.D|D.O
+	D.O|T.O.D
+	G.E|D.T.U
+	G.E|D.O.W
+	G.E|D.O.W|N.W.O
+	D.O.W|N.W.O
+	M.O.Y
+	M.O.Y|N.W
+	M.O.Y|N.W|T.O.D
+	G.E|M.O.Y
+	G.E|S.O.Y
+	T.O.D
+	G.E|T.O.D
+	I.E
+	N.M.5.D|D.T.U|T.C
+	N.M.5.D|D.T.U|L.O|N.M.5.D|D.T.U|T.C
+	N.M.5.D|D.T.U|N.M.5.D|D.T.U|L.O|N.M.5.D|D.T.U|T.C
+	N.M.5.D|D.T.U|L.O|N.M.5.D|D.T.U|L.O|N.M.5.D|D.T.U|T.C
+	N.W.O|D.U.B|M.O.Y
+	N.W.O|D.U.B|G.E|D.U.B
+	N.W.O|D.U.B|D.U.B
+	N.W.O|D.U.B|G.E|D.Y
+	D.O|D.T|T.M
+	G.E|W.U|D.O.W
+	G.E|W.U|D.O.W|T.O.D
+	D.O.W|G.E|W.U
+	D.U|T.C|D.O.W
+	D.U|T.C|G.E|D.O.W
+	D.U.B|T.C|G.E|D.U.B
+	N.W.O|D.U.B|G.E|D.U.B
+	N.W.O|D.U.B|G.E|D.U.B|D.T|T.M
+	N.W.O|D.U.B|G.E|D.U.B|T.E
+	N.W.O|D.O.W|D.U.B
+	N.W.O|D.O.W|G.E|D.U.B
+	N.W.O|D.O.W|G.E|D.U.B|D.T|T.M
+	N.W.O|D.O.W|G.E|D.U.B|T.E
+	N.W.O|D.O.W|M.O.Y
+	N.W.O|D.O.W|G.E|M.O.Y
+	D.U.B|N.W.O|M.O.Y
+	D.U.B|N.W.O|G.E|M.O.Y
+	D.O.W|G.E|D.T.U
+	D.O.W|G.E|D.T.U|D.Y
+	D.O.W|G.E|D.T.U|D.Y|D.T
+	D.O.W|G.E|D.T.U|D.Y|D.T
+	D.O.W|M.O.Y|N.W
+	D.O.W|M.O.Y|N.M.2.D
+	D.O.W|M.O.Y|N.M.2.D|D.Y
+	D.O.W|M.O.Y|N.W|D.Y
+	M.O.Y|N.M.2.D
+	M.O.Y|N.M.2.D|T.O.D
+	N.M.2.D|M.O.Y
+	N.M.2.D|M.O.Y|T.O.D
+	N.W|M.O.Y
+	N.W|M.O.Y|T.O.D
+	M.O.Y|N.M.2.D|D.Y
+	N.M.2.D|M.O.Y|D.Y
+	M.O.Y|D.Y
+	M.O.Y|N.W
+	N.W|M.O.Y
+	M.O.Y|N.W|D.Y
+	N.W|M.O.Y|D.Y
+	D.O.W|N.W|M.O.Y|D.T.U|D.Y|D.T|T.M
+	D.O.W|N.W|M.O.Y|D.Y|D.T|T.M
+	D.O.W|N.W|M.O.Y|D.Y
+	D.O.W|N.M.2.D|M.O.Y|D.Y
+	N.W|M.O.Y|D.Y|D.T|T.M
+	M.O.Y|N.W|D.Y|D.T|T.M
+	N.M.2.D|M.O.Y|D.Y|D.T|T.M
+	N.M.2.D|M.O.Y|D.Y
+	N.W|M.O.Y|Y.U|D.Y
+	N.M.2.D|M.O.Y|Y.U|D.Y
+	N.W|M.O.Y|D.Y|D.T|T.M|T.O.D
+	M.O.Y|N.W|D.Y|D.T|T.M|T.O.D
+	N.W|M.O.Y|Y.U|D.Y|D.T|T.M
+	N.M.2.D|M.O.Y|Y.U|D.Y|D.T|T.M
+	N.M.5.D|D.T.U
+	N.M.5.D|D.T.U|T.C|D.O
+	N.M.5.D|D.T.U|T.C
+	N.W.C|D.T.U|T.C
+	N.W.C|D.T.U|T.C|D.O.W
+	D.O.W|N.W.C|D.T.U|T.C
+	N.W.C|D.T.U|T.C|D.O.W|D.T
+	N.M.5.D|D.T.U|T.C|G.E|D.T.U
+	N.M.5.D|D.T.U|T.C|D.O.W
+	D.O.W|N.M.5.D|D.T.U|T.C
+	N.W.O|D.O.W|N.M.5.D|M.U
+	N.W.O|D.O.W|N.M.5.D|Y.U
+	N.M.5.D|D.U.B|N.W.O|D.O.W
+	D.T.U|T.C|G.E
+	D.O.W|T.C|G.E
+	N.W.O|D.T.U|G.E|M.O.Y
+	N.W.O|D.T.U|G.E|M.O.Y|D.T|T.M
+	N.M.5.D|D.T.U|T.C|D.O.W|D.T|T.M
+	D.O.W|N.M.5.D|D.T.U|T.C|D.T|T.M
+	N.M.5.D|T.U.B|T.C|T.E
+	N.M.5.D|T.U.B|T.C|D.O
+	N.M.5.D|T.U.B|T.C|D.O.W
+	N.M.5.D|D.O.W|T.C
+	D.O.W|G.E
+	G.E|D.O.W|T.O.D
+	D.T.U|G.E
+	N.W|M.O.Y
+	N.M.5.D|D.T.U|T.C
+	I.E|D.T|T.M
+	D.D.B|D.T|T.M
+	D.D.L|D.T|T.M
+	D.D.B
+	D.D.L

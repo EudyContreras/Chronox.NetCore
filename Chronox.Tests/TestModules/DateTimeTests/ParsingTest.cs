@@ -630,7 +630,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[0]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[0]].ToString(), date.ToString());
         }
@@ -643,7 +643,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[1]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[1]].ToString(), date.ToString());
         }
@@ -656,7 +656,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[2]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[2]].ToString(), date.ToString());
         }
@@ -669,7 +669,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[3]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[3]].ToString(), date.ToString());
         }
@@ -682,7 +682,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[4]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[4]].ToString(), date.ToString());
         }
@@ -695,7 +695,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[5]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[5]].ToString(), date.ToString());
         }
@@ -708,7 +708,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[6]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[6]].ToString(), date.ToString());
         }
@@ -721,7 +721,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[7]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[7]].ToString(), date.ToString());
         }
@@ -734,7 +734,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[8]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[8]].ToString(), date.ToString());
         }
@@ -747,7 +747,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[9]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[9]].ToString(), date.ToString());
         }
@@ -760,7 +760,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[10]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[10]].ToString(), date.ToString());
         }
@@ -773,7 +773,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[11]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[11]].ToString(), date.ToString());
         }
@@ -786,7 +786,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[12]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[12]].ToString(), date.ToString());
         }
@@ -799,7 +799,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[13]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[13]].ToString(), date.ToString());
         }
@@ -812,7 +812,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[14]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[14]].ToString(), date.ToString());
         }
@@ -825,7 +825,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[15]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[15]].ToString(), date.ToString());
         }
@@ -838,7 +838,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[16]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[16]].ToString(), date.ToString());
         }
@@ -851,7 +851,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[17]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[17]].ToString(), date.ToString());
         }
@@ -864,7 +864,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[18]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[18]].ToString(), date.ToString());
         }
@@ -877,7 +877,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[19]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[19]].ToString(), date.ToString());
         }
@@ -890,7 +890,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[20]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[20]].ToString(), date.ToString());
         }
@@ -903,7 +903,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[21]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[21]].ToString(), date.ToString());
         }
@@ -916,7 +916,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[22]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[22]].ToString(), date.ToString());
         }
@@ -929,7 +929,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[23]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[23]].ToString(), date.ToString());
         }
@@ -942,7 +942,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[24]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[24]].ToString(), date.ToString());
         }
@@ -955,7 +955,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[25]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[25]].ToString(), date.ToString());
         }
@@ -968,7 +968,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[26]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[26]].ToString(), date.ToString());
         }
@@ -981,7 +981,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[27]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[27]].ToString(), date.ToString());
         }
@@ -994,7 +994,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[28]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[28]].ToString(), date.ToString());
         }
@@ -1007,7 +1007,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[29]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[29]].ToString(), date.ToString());
         }
@@ -1020,7 +1020,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[30]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[30]].ToString(), date.ToString());
         }
@@ -1033,7 +1033,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[31]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[31]].ToString(), date.ToString());
         }
@@ -1046,7 +1046,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[32]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[32]].ToString(), date.ToString());
         }
@@ -1059,7 +1059,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[33]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[33]].ToString(), date.ToString());
         }
@@ -1072,7 +1072,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[34]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[34]].ToString(), date.ToString());
         }
@@ -1085,7 +1085,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[35]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[35]].ToString(), date.ToString());
         }
@@ -1098,7 +1098,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[36]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[36]].ToString(), date.ToString());
         }
@@ -1111,7 +1111,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[37]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[37]].ToString(), date.ToString());
         }
@@ -1124,7 +1124,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[38]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[38]].ToString(), date.ToString());
         }
@@ -1137,7 +1137,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[39]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[39]].ToString(), date.ToString());
         }
@@ -1150,7 +1150,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[40]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[40]].ToString(), date.ToString());
         }
@@ -1163,7 +1163,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[41]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[41]].ToString(), date.ToString());
         }
@@ -1176,7 +1176,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[42]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[42]].ToString(), date.ToString());
         }
@@ -1189,7 +1189,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[43]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[43]].ToString(), date.ToString());
         }
@@ -1202,7 +1202,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[44]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[44]].ToString(), date.ToString());
         }
@@ -1215,7 +1215,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[45]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[45]].ToString(), date.ToString());
         }
@@ -1228,7 +1228,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[46]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[46]].ToString(), date.ToString());
         }
@@ -1241,7 +1241,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[47]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[47]].ToString(), date.ToString());
         }
@@ -1254,7 +1254,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[48]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[48]].ToString(), date.ToString());
         }
@@ -1267,7 +1267,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[49]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[49]].ToString(), date.ToString());
         }
@@ -1280,7 +1280,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[50]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[50]].ToString(), date.ToString());
         }
@@ -1293,7 +1293,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[51]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[51]].ToString(), date.ToString());
         }
@@ -1306,7 +1306,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[52]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[52]].ToString(), date.ToString());
         }
@@ -1319,7 +1319,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[53]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[53]].ToString(), date.ToString());
         }
@@ -1332,7 +1332,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[54]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[54]].ToString(), date.ToString());
         }
@@ -1345,7 +1345,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[55]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[55]].ToString(), date.ToString());
         }
@@ -1358,7 +1358,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[56]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[56]].ToString(), date.ToString());
         }
@@ -1371,7 +1371,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[57]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[57]].ToString(), date.ToString());
         }
@@ -1384,7 +1384,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[58]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[58]].ToString(), date.ToString());
         }
@@ -1397,7 +1397,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[59]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[59]].ToString(), date.ToString());
         }
@@ -1410,7 +1410,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[60]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[60]].ToString(), date.ToString());
         }
@@ -1423,7 +1423,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[61]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[61]].ToString(), date.ToString());
         }
@@ -1436,7 +1436,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[62]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[62]].ToString(), date.ToString());
         }
@@ -1449,7 +1449,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[63]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[63]].ToString(), date.ToString());
         }
@@ -1462,7 +1462,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[64]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[64]].ToString(), date.ToString());
         }
@@ -1475,7 +1475,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[65]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[65]].ToString(), date.ToString());
         }
@@ -1488,7 +1488,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[66]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[66]].ToString(), date.ToString());
         }
@@ -1501,7 +1501,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[67]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[67]].ToString(), date.ToString());
         }
@@ -1514,7 +1514,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[68]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[68]].ToString(), date.ToString());
         }
@@ -1527,7 +1527,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[69]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[69]].ToString(), date.ToString());
         }
@@ -1540,7 +1540,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[70]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[70]].ToString(), date.ToString());
         }
@@ -1553,7 +1553,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[71]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[71]].ToString(), date.ToString());
         }
@@ -1566,7 +1566,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[72]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[72]].ToString(), date.ToString());
         }
@@ -1579,7 +1579,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[73]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[73]].ToString(), date.ToString());
         }
@@ -1592,7 +1592,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[74]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[74]].ToString(), date.ToString());
         }
@@ -1605,7 +1605,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[75]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[75]].ToString(), date.ToString());
         }
@@ -1618,7 +1618,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[76]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[76]].ToString(), date.ToString());
         }
@@ -1631,7 +1631,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[77]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[77]].ToString(), date.ToString());
         }
@@ -1644,7 +1644,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[78]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[78]].ToString(), date.ToString());
         }
@@ -1657,7 +1657,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[79]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[79]].ToString(), date.ToString());
         }
@@ -1670,7 +1670,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[80]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[80]].ToString(), date.ToString());
         }
@@ -1683,7 +1683,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[81]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[81]].ToString(), date.ToString());
         }
@@ -1696,7 +1696,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[82]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[82]].ToString(), date.ToString());
         }
@@ -1709,7 +1709,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[83]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[83]].ToString(), date.ToString());
         }
@@ -1722,7 +1722,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[84]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[84]].ToString(), date.ToString());
         }
@@ -1735,7 +1735,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[85]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[85]].ToString(), date.ToString());
         }
@@ -1748,7 +1748,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[86]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[86]].ToString(), date.ToString());
         }
@@ -1761,7 +1761,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[87]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[87]].ToString(), date.ToString());
         }
@@ -1774,7 +1774,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[88]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[88]].ToString(), date.ToString());
         }
@@ -1787,7 +1787,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[89]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[89]].ToString(), date.ToString());
         }
@@ -1800,7 +1800,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[90]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[90]].ToString(), date.ToString());
         }
@@ -1813,7 +1813,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[91]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[91]].ToString(), date.ToString());
         }
@@ -1826,7 +1826,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[92]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[92]].ToString(), date.ToString());
         }
@@ -1839,7 +1839,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[93]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[93]].ToString(), date.ToString());
         }
@@ -1852,7 +1852,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[94]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[94]].ToString(), date.ToString());
         }
@@ -1865,7 +1865,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[95]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[95]].ToString(), date.ToString());
         }
@@ -1878,7 +1878,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[96]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[96]].ToString(), date.ToString());
         }
@@ -1891,7 +1891,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[97]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[97]].ToString(), date.ToString());
         }
@@ -1904,7 +1904,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[98]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[98]].ToString(), date.ToString());
         }
@@ -1917,7 +1917,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[99]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[99]].ToString(), date.ToString());
         }
@@ -1930,7 +1930,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[100]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[100]].ToString(), date.ToString());
         }
@@ -1943,7 +1943,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[101]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[101]].ToString(), date.ToString());
         }
@@ -1956,7 +1956,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[102]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[102]].ToString(), date.ToString());
         }
@@ -1969,7 +1969,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[103]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[103]].ToString(), date.ToString());
         }
@@ -1982,7 +1982,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[104]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[104]].ToString(), date.ToString());
         }
@@ -1995,7 +1995,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[105]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[105]].ToString(), date.ToString());
         }
@@ -2008,7 +2008,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[106]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[106]].ToString(), date.ToString());
         }
@@ -2021,7 +2021,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[107]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[107]].ToString(), date.ToString());
         }
@@ -2034,7 +2034,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[108]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[108]].ToString(), date.ToString());
         }
@@ -2047,7 +2047,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[109]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[109]].ToString(), date.ToString());
         }
@@ -2060,7 +2060,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[110]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[110]].ToString(), date.ToString());
         }
@@ -2073,7 +2073,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[111]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[111]].ToString(), date.ToString());
         }
@@ -2086,7 +2086,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[112]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[112]].ToString(), date.ToString());
         }
@@ -2099,7 +2099,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[113]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[113]].ToString(), date.ToString());
         }
@@ -2112,7 +2112,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[114]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[114]].ToString(), date.ToString());
         }
@@ -2125,7 +2125,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[115]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[115]].ToString(), date.ToString());
         }
@@ -2138,7 +2138,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[116]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[116]].ToString(), date.ToString());
         }
@@ -2151,7 +2151,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[117]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[117]].ToString(), date.ToString());
         }
@@ -2164,7 +2164,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[118]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[118]].ToString(), date.ToString());
         }
@@ -2177,7 +2177,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[119]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[119]].ToString(), date.ToString());
         }
@@ -2190,7 +2190,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[120]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[120]].ToString(), date.ToString());
         }
@@ -2203,7 +2203,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[121]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[121]].ToString(), date.ToString());
         }
@@ -2216,7 +2216,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[122]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[122]].ToString(), date.ToString());
         }
@@ -2229,7 +2229,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[123]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[123]].ToString(), date.ToString());
         }
@@ -2242,7 +2242,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[124]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[124]].ToString(), date.ToString());
         }
@@ -2255,7 +2255,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[125]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[125]].ToString(), date.ToString());
         }
@@ -2268,7 +2268,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[126]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[126]].ToString(), date.ToString());
         }
@@ -2281,7 +2281,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[127]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[127]].ToString(), date.ToString());
         }
@@ -2294,7 +2294,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[128]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[128]].ToString(), date.ToString());
         }
@@ -2307,7 +2307,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[129]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[129]].ToString(), date.ToString());
         }
@@ -2320,7 +2320,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[130]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[130]].ToString(), date.ToString());
         }
@@ -2333,7 +2333,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[131]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[131]].ToString(), date.ToString());
         }
@@ -2346,7 +2346,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[132]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[132]].ToString(), date.ToString());
         }
@@ -2359,7 +2359,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[133]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[133]].ToString(), date.ToString());
         }
@@ -2372,7 +2372,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[134]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[134]].ToString(), date.ToString());
         }
@@ -2385,7 +2385,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[135]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[135]].ToString(), date.ToString());
         }
@@ -2398,7 +2398,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[136]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[136]].ToString(), date.ToString());
         }
@@ -2411,7 +2411,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[137]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[137]].ToString(), date.ToString());
         }
@@ -2424,7 +2424,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[138]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[138]].ToString(), date.ToString());
         }
@@ -2437,7 +2437,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[139]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[139]].ToString(), date.ToString());
         }
@@ -2450,7 +2450,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[140]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[140]].ToString(), date.ToString());
         }
@@ -2463,7 +2463,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[141]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[141]].ToString(), date.ToString());
         }
@@ -2476,7 +2476,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[142]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[142]].ToString(), date.ToString());
         }
@@ -2489,7 +2489,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[143]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[143]].ToString(), date.ToString());
         }
@@ -2502,7 +2502,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[144]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[144]].ToString(), date.ToString());
         }
@@ -2515,7 +2515,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[145]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[145]].ToString(), date.ToString());
         }
@@ -2528,7 +2528,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[146]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[146]].ToString(), date.ToString());
         }
@@ -2541,7 +2541,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[147]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[147]].ToString(), date.ToString());
         }
@@ -2554,7 +2554,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[148]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[148]].ToString(), date.ToString());
         }
@@ -2567,7 +2567,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[149]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[149]].ToString(), date.ToString());
         }
@@ -2580,7 +2580,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[150]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[150]].ToString(), date.ToString());
         }
@@ -2593,7 +2593,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[151]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[151]].ToString(), date.ToString());
         }
@@ -2606,7 +2606,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[152]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[152]].ToString(), date.ToString());
         }
@@ -2619,7 +2619,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[153]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[153]].ToString(), date.ToString());
         }
@@ -2632,7 +2632,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[154]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[154]].ToString(), date.ToString());
         }
@@ -2645,7 +2645,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[155]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[155]].ToString(), date.ToString());
         }
@@ -2658,7 +2658,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[156]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[156]].ToString(), date.ToString());
         }
@@ -2671,7 +2671,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[157]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[157]].ToString(), date.ToString());
         }
@@ -2684,7 +2684,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[158]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[158]].ToString(), date.ToString());
         }
@@ -2697,7 +2697,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[159]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[159]].ToString(), date.ToString());
         }
@@ -2710,7 +2710,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[160]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[160]].ToString(), date.ToString());
         }
@@ -2723,7 +2723,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[161]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[161]].ToString(), date.ToString());
         }
@@ -2736,7 +2736,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[162]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[162]].ToString(), date.ToString());
         }
@@ -2749,7 +2749,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[163]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[163]].ToString(), date.ToString());
         }
@@ -2762,7 +2762,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[164]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[164]].ToString(), date.ToString());
         }
@@ -2775,7 +2775,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[165]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[165]].ToString(), date.ToString());
         }
@@ -2788,7 +2788,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[166]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[166]].ToString(), date.ToString());
         }
@@ -2801,7 +2801,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[167]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[167]].ToString(), date.ToString());
         }
@@ -2814,7 +2814,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[168]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[168]].ToString(), date.ToString());
         }
@@ -2827,7 +2827,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[169]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[169]].ToString(), date.ToString());
         }
@@ -2840,7 +2840,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[170]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[170]].ToString(), date.ToString());
         }
@@ -2853,7 +2853,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[171]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[171]].ToString(), date.ToString());
         }
@@ -2866,7 +2866,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[172]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[172]].ToString(), date.ToString());
         }
@@ -2879,7 +2879,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[173]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[173]].ToString(), date.ToString());
         }
@@ -2892,7 +2892,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[174]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[174]].ToString(), date.ToString());
         }
@@ -2905,7 +2905,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[175]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[175]].ToString(), date.ToString());
         }
@@ -2918,7 +2918,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[176]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[176]].ToString(), date.ToString());
         }
@@ -2931,7 +2931,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[177]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[177]].ToString(), date.ToString());
         }
@@ -2944,7 +2944,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[178]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[178]].ToString(), date.ToString());
         }
@@ -2957,7 +2957,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[179]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[179]].ToString(), date.ToString());
         }
@@ -2970,7 +2970,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[180]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[180]].ToString(), date.ToString());
         }
@@ -2983,7 +2983,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[181]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[181]].ToString(), date.ToString());
         }
@@ -2996,7 +2996,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[182]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[182]].ToString(), date.ToString());
         }
@@ -3009,7 +3009,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[183]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[183]].ToString(), date.ToString());
         }
@@ -3022,7 +3022,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[184]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[184]].ToString(), date.ToString());
         }
@@ -3035,7 +3035,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[185]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[185]].ToString(), date.ToString());
         }
@@ -3048,7 +3048,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[186]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[186]].ToString(), date.ToString());
         }
@@ -3061,7 +3061,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[187]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[187]].ToString(), date.ToString());
         }
@@ -3074,7 +3074,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[188]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[188]].ToString(), date.ToString());
         }
@@ -3087,7 +3087,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[189]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[189]].ToString(), date.ToString());
         }
@@ -3100,7 +3100,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[190]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[190]].ToString(), date.ToString());
         }
@@ -3113,7 +3113,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[191]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[191]].ToString(), date.ToString());
         }
@@ -3126,7 +3126,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[192]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[192]].ToString(), date.ToString());
         }
@@ -3139,7 +3139,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[193]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[193]].ToString(), date.ToString());
         }
@@ -3152,7 +3152,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[194]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[194]].ToString(), date.ToString());
         }
@@ -3165,7 +3165,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[195]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[195]].ToString(), date.ToString());
         }
@@ -3178,7 +3178,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[196]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[196]].ToString(), date.ToString());
         }
@@ -3191,7 +3191,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[197]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[197]].ToString(), date.ToString());
         }
@@ -3204,7 +3204,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[198]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[198]].ToString(), date.ToString());
         }
@@ -3217,7 +3217,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[199]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[199]].ToString(), date.ToString());
         }
@@ -3230,7 +3230,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[200]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[200]].ToString(), date.ToString());
         }
@@ -3243,7 +3243,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[201]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[201]].ToString(), date.ToString());
         }
@@ -3256,7 +3256,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[202]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[202]].ToString(), date.ToString());
         }
@@ -3269,7 +3269,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[203]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[203]].ToString(), date.ToString());
         }
@@ -3282,7 +3282,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[204]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[204]].ToString(), date.ToString());
         }
@@ -3295,7 +3295,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[205]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[205]].ToString(), date.ToString());
         }
@@ -3308,7 +3308,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[206]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[206]].ToString(), date.ToString());
         }
@@ -3321,7 +3321,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[207]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[207]].ToString(), date.ToString());
         }
@@ -3334,7 +3334,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[208]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[208]].ToString(), date.ToString());
         }
@@ -3347,7 +3347,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[209]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[209]].ToString(), date.ToString());
         }
@@ -3360,7 +3360,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[210]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[210]].ToString(), date.ToString());
         }
@@ -3373,7 +3373,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[211]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[211]].ToString(), date.ToString());
         }
@@ -3386,7 +3386,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[212]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[212]].ToString(), date.ToString());
         }
@@ -3399,7 +3399,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[213]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[213]].ToString(), date.ToString());
         }
@@ -3412,7 +3412,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[214]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[214]].ToString(), date.ToString());
         }
@@ -3425,7 +3425,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[215]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[215]].ToString(), date.ToString());
         }
@@ -3438,7 +3438,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[216]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[216]].ToString(), date.ToString());
         }
@@ -3451,7 +3451,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[217]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[217]].ToString(), date.ToString());
         }
@@ -3464,7 +3464,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[218]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[218]].ToString(), date.ToString());
         }
@@ -3477,7 +3477,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[219]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[219]].ToString(), date.ToString());
         }
@@ -3490,7 +3490,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[220]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[220]].ToString(), date.ToString());
         }
@@ -3503,7 +3503,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[221]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[221]].ToString(), date.ToString());
         }
@@ -3516,7 +3516,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[222]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[222]].ToString(), date.ToString());
         }
@@ -3529,7 +3529,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[223]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[223]].ToString(), date.ToString());
         }
@@ -3542,7 +3542,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[224]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[224]].ToString(), date.ToString());
         }
@@ -3555,7 +3555,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[225]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[225]].ToString(), date.ToString());
         }
@@ -3568,7 +3568,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[226]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[226]].ToString(), date.ToString());
         }
@@ -3581,7 +3581,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[227]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[227]].ToString(), date.ToString());
         }
@@ -3594,7 +3594,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[228]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[228]].ToString(), date.ToString());
         }
@@ -3607,7 +3607,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[229]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[229]].ToString(), date.ToString());
         }
@@ -3620,7 +3620,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[230]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[230]].ToString(), date.ToString());
         }
@@ -3633,7 +3633,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[231]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[231]].ToString(), date.ToString());
         }
@@ -3646,7 +3646,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[232]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[232]].ToString(), date.ToString());
         }
@@ -3659,7 +3659,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[233]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[233]].ToString(), date.ToString());
         }
@@ -3672,7 +3672,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[234]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[234]].ToString(), date.ToString());
         }
@@ -3685,7 +3685,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[235]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[235]].ToString(), date.ToString());
         }
@@ -3698,7 +3698,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[236]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[236]].ToString(), date.ToString());
         }
@@ -3711,7 +3711,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[237]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[237]].ToString(), date.ToString());
         }
@@ -3724,7 +3724,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[238]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[238]].ToString(), date.ToString());
         }
@@ -3737,7 +3737,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[239]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[239]].ToString(), date.ToString());
         }
@@ -3750,7 +3750,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[240]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[240]].ToString(), date.ToString());
         }
@@ -3763,7 +3763,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[241]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[241]].ToString(), date.ToString());
         }
@@ -3776,7 +3776,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[242]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[242]].ToString(), date.ToString());
         }
@@ -3789,7 +3789,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[243]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[243]].ToString(), date.ToString());
         }
@@ -3802,7 +3802,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[244]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[244]].ToString(), date.ToString());
         }
@@ -3815,7 +3815,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[245]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[245]].ToString(), date.ToString());
         }
@@ -3828,7 +3828,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[246]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[246]].ToString(), date.ToString());
         }
@@ -3841,7 +3841,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[247]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[247]].ToString(), date.ToString());
         }
@@ -3854,7 +3854,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[248]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[248]].ToString(), date.ToString());
         }
@@ -3867,7 +3867,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[249]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[249]].ToString(), date.ToString());
         }
@@ -3880,7 +3880,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[250]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[250]].ToString(), date.ToString());
         }
@@ -3893,7 +3893,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[251]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[251]].ToString(), date.ToString());
         }
@@ -3906,7 +3906,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[252]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[252]].ToString(), date.ToString());
         }
@@ -3919,7 +3919,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[253]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[253]].ToString(), date.ToString());
         }
@@ -3932,7 +3932,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[254]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[254]].ToString(), date.ToString());
         }
@@ -3945,7 +3945,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[255]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[255]].ToString(), date.ToString());
         }
@@ -3958,7 +3958,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[256]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[256]].ToString(), date.ToString());
         }
@@ -3971,7 +3971,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[257]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[257]].ToString(), date.ToString());
         }
@@ -3984,7 +3984,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[258]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[258]].ToString(), date.ToString());
         }
@@ -3997,7 +3997,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[259]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[259]].ToString(), date.ToString());
         }
@@ -4010,7 +4010,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[260]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[260]].ToString(), date.ToString());
         }
@@ -4023,7 +4023,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[261]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[261]].ToString(), date.ToString());
         }
@@ -4036,7 +4036,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[262]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[262]].ToString(), date.ToString());
         }
@@ -4049,7 +4049,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[263]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[263]].ToString(), date.ToString());
         }
@@ -4062,7 +4062,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[264]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[264]].ToString(), date.ToString());
         }
@@ -4075,7 +4075,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[265]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[265]].ToString(), date.ToString());
         }
@@ -4088,7 +4088,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[266]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[266]].ToString(), date.ToString());
         }
@@ -4101,7 +4101,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[267]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[267]].ToString(), date.ToString());
         }
@@ -4114,7 +4114,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[268]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[268]].ToString(), date.ToString());
         }
@@ -4127,7 +4127,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[269]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[269]].ToString(), date.ToString());
         }
@@ -4140,7 +4140,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[270]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[270]].ToString(), date.ToString());
         }
@@ -4153,7 +4153,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[271]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[271]].ToString(), date.ToString());
         }
@@ -4166,7 +4166,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[272]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[272]].ToString(), date.ToString());
         }
@@ -4179,7 +4179,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[273]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[273]].ToString(), date.ToString());
         }
@@ -4192,7 +4192,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[274]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[274]].ToString(), date.ToString());
         }
@@ -4205,7 +4205,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[275]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[275]].ToString(), date.ToString());
         }
@@ -4218,7 +4218,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[276]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[276]].ToString(), date.ToString());
         }
@@ -4231,7 +4231,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[277]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[277]].ToString(), date.ToString());
         }
@@ -4244,7 +4244,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[278]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[278]].ToString(), date.ToString());
         }
@@ -4257,7 +4257,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[279]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[279]].ToString(), date.ToString());
         }
@@ -4270,7 +4270,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[280]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[280]].ToString(), date.ToString());
         }
@@ -4283,7 +4283,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[281]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[281]].ToString(), date.ToString());
         }
@@ -4296,7 +4296,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[282]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[282]].ToString(), date.ToString());
         }
@@ -4309,7 +4309,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[283]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[283]].ToString(), date.ToString());
         }
@@ -4322,7 +4322,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[284]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[284]].ToString(), date.ToString());
         }
@@ -4335,7 +4335,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[285]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[285]].ToString(), date.ToString());
         }
@@ -4348,7 +4348,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[286]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[286]].ToString(), date.ToString());
         }
@@ -4361,7 +4361,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[287]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[287]].ToString(), date.ToString());
         }
@@ -4374,7 +4374,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[288]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[288]].ToString(), date.ToString());
         }
@@ -4387,7 +4387,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[289]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[289]].ToString(), date.ToString());
         }
@@ -4400,7 +4400,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[290]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[290]].ToString(), date.ToString());
         }
@@ -4413,7 +4413,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[291]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[291]].ToString(), date.ToString());
         }
@@ -4426,7 +4426,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[292]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[292]].ToString(), date.ToString());
         }
@@ -4439,7 +4439,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[293]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[293]].ToString(), date.ToString());
         }
@@ -4452,7 +4452,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[294]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[294]].ToString(), date.ToString());
         }
@@ -4465,7 +4465,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[295]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[295]].ToString(), date.ToString());
         }
@@ -4478,7 +4478,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[296]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[296]].ToString(), date.ToString());
         }
@@ -4491,7 +4491,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[297]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[297]].ToString(), date.ToString());
         }
@@ -4504,7 +4504,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[298]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[298]].ToString(), date.ToString());
         }
@@ -4517,7 +4517,7 @@ namespace Chronox.Tests
 
             var result = Chronox.ParseDateTime(Reference, Expressions[299]);
 
-            var date = result[0].Builder.DateTime();
+            var date = result[0].DateTime.ToDateTime();
 
             Assert.AreEqual(TestData[Expressions[299]].ToString(), date.ToString());
         }

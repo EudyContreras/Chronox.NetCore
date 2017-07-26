@@ -2,8 +2,6 @@
 
 assumeSpace: true
 
-preferedEndianFormat: M.D.Y
-
 dateTimeIgnored: the, of, at, on, in, oclock, o'clock, during
 
 timeRangeIgnored: 
@@ -14,8 +12,7 @@ timeSetIgnored:
 
 supportedDateTimeFormats:
 
-	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M				
-	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M				
+	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M
 
 supportedTimeRangeFormats:
 

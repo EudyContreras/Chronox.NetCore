@@ -16,11 +16,7 @@ namespace Chronox
     public class ChronoxParser : IChronox
     {
 
-        private static IChronox Instance = null;
-
         private List<IChronoxScanner> Scanners = null;
-
-        public ChronoxSettings Settings { get; set; }
 
         private MasterParser MasterParser = new MasterParser();
 
@@ -32,8 +28,9 @@ namespace Chronox
             Scanners = StandardScanners().ToList();
         }
 
-        public static IChronox GetInstance() => GetInstance(StandardSettings);
+        private static IChronox Instance = null;
 
+        public static IChronox GetInstance() => GetInstance(StandardSettings);
 
         public static IChronox GetInstance(ChronoxSettings settings)
         {
@@ -51,6 +48,23 @@ namespace Chronox
                 }
 
                 return Instance;
+            }
+        }
+
+        private ChronoxSettings settings = new ChronoxSettings("English");
+
+        public ChronoxSettings Settings
+        {
+            get
+            {
+                return settings;
+            }
+            set
+            {
+                if(value != null)
+                {
+                    settings = value;
+                }
             }
         }
 
@@ -289,7 +303,6 @@ namespace Chronox
                     results.Add(result);
                 }
             }
-
             return new KeyValuePair<string, List<ScanWrapper>>(expression, results);
         }
     }

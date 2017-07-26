@@ -13,5 +13,10 @@ namespace Chronox.Components
         public string Abbreviation { get; set; }
 
         public string StandardName { get; set; } = string.Empty;
+
+        public override string ToString()
+        {
+            return $"{StandardName}  {Offset}";
+        }
     }
 }

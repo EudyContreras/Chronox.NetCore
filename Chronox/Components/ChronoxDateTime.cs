@@ -16,6 +16,11 @@ namespace Chronox.Components
             Time = time;
         }
 
+        public DateTime ToDateTime()
+        {
+            return new DateTime(Date.Year, Date.Month, Date.Day, Time.Hours, Time.Minutes, Time.Seconds);
+        }
+
         public override string ToString()
         {
             return Date.ToString();

@@ -11,20 +11,29 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
+    /*
+     * Copyright (c) 2014, Wanasit Tanakitrungruang
+     * 
+     * This concept of the code written on this class 
+     * was adapted from code written by Wanasit Tanakitrungruang
+     * in a project of similar nature and credits and tributes go
+     * to the original author of the code.
+     */
+
     public class ChronoxDateTimeBuilder
     {
-
-        public TimeSpan TimeOffset { get; set; }
-
-        public ChronoxTimeZone TimeZone { get; set; }
-
         private ChronoxDateTimeExtraction ParentExtraction { get; set; }
 
         private readonly Dictionary<DateTimeUnit, int> knownValues = new Dictionary<DateTimeUnit, int>();
 
         private readonly Dictionary<DateTimeUnit, int> impliedValues = new Dictionary<DateTimeUnit, int>();
 
-        public DateTime DateTime() => Merge(Date(), Time());
+        public ChronoxDateTimeBuilder(ChronoxDateTimeExtraction extraction)
+        {
+            this.ParentExtraction = extraction;
+        }
+
+        public ChronoxDateTime DateTime => new ChronoxDateTime(Date(), Time());
 
         internal void ImplyDefault(ChronoxSettings settings)
         {
@@ -107,9 +116,6 @@ namespace Chronox
             return date;
         }
 
-        private DateTime Merge(ChronoxDate date, ChronoxTime time) => new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, time.Seconds);
-        
-
         public ChronoxTime Time()
         {
             var timeValues = new Dictionary<DateTimeUnit, int>();
@@ -125,6 +131,31 @@ namespace Chronox
 
             return time;
         }
+
+        public TimeSpan TimeOffset
+        {
+            get
+            {
+                return ParentExtraction.TimeOffset;
+            }
+            set
+            {
+                ParentExtraction.TimeOffset = value;
+            }
+        }
+
+        public ChronoxTimeZone TimeZone
+        {
+            get
+            {
+                return ParentExtraction.TimeZone;
+            }
+            set
+            {
+                ParentExtraction.TimeZone = value;
+            }
+        }
+
 
         internal int GetValue(DateTimeUnit unit)
         {

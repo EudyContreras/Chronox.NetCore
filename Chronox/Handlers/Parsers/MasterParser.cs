@@ -12,7 +12,6 @@ using Enumerations;
 using Chronox.Helpers.Interpreters;
 using Chronox.Helpers;
 using Chronox.Utilities.Extenssions;
-
 using Chronox.Parsers.General.ParserHelpers;
 using Chronox.Interfaces;
 
@@ -197,6 +196,8 @@ namespace Chronox.Parsers.English
             return results.ToList();
         }
 
+        //Find a way to minimize amount of checks and reduce loop count!
+
         private List<MatchWrapper> FindAllMatches(ChronoxSettings settings, IEnumerable<PatternSequence> sequences, ChronoxBuildInformation information, string[] parts)
         {
             var matchesFound = new List<MatchWrapper>();
@@ -212,6 +213,7 @@ namespace Chronox.Parsers.English
                     matchesFound.Add(new MatchWrapper(sequence, match));
                 }
             }
+
             return matchesFound;
         }
 
@@ -244,7 +246,6 @@ namespace Chronox.Parsers.English
             return perfectMatch;
         }
 
-        //Create algorithm for preselecting and ordering the sequences that are most likely to match base on a score or something
         private List<PatternSequence> PreselectSequences(List<PatternSequence> sequences)
         {
             var regexes = sequences.OrderByDescending(s => s.Relevance).ToList();

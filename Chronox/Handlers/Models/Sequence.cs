@@ -1,4 +1,5 @@
-﻿using Enumerations;
+﻿using Chronox.Constants;
+using Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,19 @@ namespace Chronox.Handlers.Models
 {
     public class Sequence : IEquatable<Sequence>, IComparable<Sequence>, IEqualityComparer<Sequence>
     {
-        public string DateSequence { get; set; }
-
         public string Representation { get; set; }
+
+        public string AbbreviatedSequence { get; set; }
 
         public decimal FrequencyScore { get; set; }
 
         public SequenceType SequenceType { get; private set; }
 
+        public static Sequence Comapararer = new Sequence();
+
         public List<string> DateProperties { get;set; }
+
+        public Sequence() { }
 
         public Sequence(SequenceType type, params string[] properties) : this(type, null, properties) { }
 
@@ -27,33 +32,40 @@ namespace Chronox.Handlers.Models
             SequenceType = type;
             FrequencyScore = frequencyScore;
             Representation = representation;
+            AbbreviatedSequence = ToAbbreviatedSequence(properties);
             DateProperties = new List<string>(properties);
+        }
+
+        private string ToAbbreviatedSequence(string[] properties)
+        {
+            var builder = new List<string>();
+
+            foreach(var property in properties)
+            {
+                builder.Add(Definitions.Converters.ABBREVIATIONS[property]);
+            }
+
+            return string.Join("|", builder);
         }
 
         public int CompareTo(Sequence other)
         {
-            var sourceSequnce = string.Join("|", DateProperties);
-
-            var otherSequence = string.Join("|", other.DateProperties);
-
-            return sourceSequnce.CompareTo(otherSequence);
+            return string.Compare(AbbreviatedSequence, other.AbbreviatedSequence, true);
         }
 
         public bool Equals(Sequence other)
         {
-            return CompareTo(other) == 0;
+            return AbbreviatedSequence.Equals(other.AbbreviatedSequence, StringComparison.OrdinalIgnoreCase);
         }
 
         public bool Equals(Sequence x, Sequence y)
         {
-            return x.Equals(y);
+            return x.AbbreviatedSequence.Equals(y.AbbreviatedSequence, StringComparison.OrdinalIgnoreCase);
         }
 
         public int GetHashCode(Sequence obj)
         {
-            var sourceSequnce = string.Join("|", DateProperties);
-
-            return sourceSequnce.GetHashCode();
+            return obj.AbbreviatedSequence.GetHashCode();
         }
     }
 }

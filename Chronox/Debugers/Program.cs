@@ -31,12 +31,8 @@ namespace Chronox.Debugers
             var detectionTest = new DetectionTest(settings);
 
             detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
+
+            detectionTest.PerformTest("Book me a flight for friday at 10pm ANAT please");
 
             Console.ReadKey();
         }
