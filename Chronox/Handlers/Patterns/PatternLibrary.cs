@@ -16,9 +16,9 @@ namespace Chronox.Helpers.Patterns
 
         internal static readonly IDictionary<string,PatternRegex> HelperPatterns = new Dictionary<string,PatternRegex>(StringComparer.OrdinalIgnoreCase)
         {
-           { Definitions.Patterns.OptionalSpace,  new PatternRegex(Definitions.Patterns.OptionalSpace, "\\s*\\,?\\s*") },
+           { Definitions.Patterns.OptionalSpace, new PatternRegex(Definitions.Patterns.OptionalSpace, "\\s*\\,?\\s*") },
 
-           { Definitions.Patterns.SpaceSeparator,  new PatternRegex(Definitions.Patterns.SpaceSeparator, "\\s*\\,?\\s") },
+           { Definitions.Patterns.SpaceSeparator, new PatternRegex(Definitions.Patterns.SpaceSeparator, "\\s*\\,?\\s") },
 
            { Definitions.Patterns.TimeSeparator, new PatternRegex(Definitions.Patterns.TimeSeparator,  "(\\.|\\:|\\：)?")},
 
@@ -32,7 +32,7 @@ namespace Chronox.Helpers.Patterns
 
            { Definitions.Patterns.WordStart, new PatternRegex(Definitions.Patterns.WordStart, "(?<=\\W|^)" )},
 
-           { Definitions.Patterns.WordEnd,  new PatternRegex(Definitions.Patterns.WordEnd, "(?=\\W|$)" )}
+           { Definitions.Patterns.WordEnd, new PatternRegex(Definitions.Patterns.WordEnd, "(?=\\W|$)" )}
         };
 
         internal static readonly IDictionary<string, PatternRegex> CommonDatePatterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase)
@@ -60,13 +60,22 @@ namespace Chronox.Helpers.Patterns
 
            { Definitions.Patterns.Millis, new PatternRegex(Definitions.Patterns.Millis, "((?:\\.|\\:|\\：)([0-9]{1,4}))?")},
 
-           { Definitions.Patterns.ZoneOffset, new PatternRegex(Definitions.Patterns.ZoneOffset,"(?:Z|([+-]\\d{2}):?(\\d{2})?)?")},
+        };
 
+        internal static readonly IDictionary<string, PatternRegex> CommonTimeZonePatterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase)
+        {
+            { Definitions.Patterns.TimeZone, new PatternRegex(Definitions.Patterns.TimeZone,"((\b([A-Z]{1,4})\b)|(GMT|UTC)?(\\s*)?(?:Z|[+-](?:2[0-3]|[01][0-9]):?[0-5][0-9]))")},
+
+            { Definitions.Patterns.TimeZoneCode, new PatternRegex(Definitions.Patterns.TimeZoneCode,"(GMT|UTC)?")},
+
+            { Definitions.Patterns.TimeZoneOffset, new PatternRegex(Definitions.Patterns.TimeZoneOffset,"(?:Z|[+-](?:2[0-3]|[01][0-9]):?[0-5][0-9])")},
+
+            { Definitions.Patterns.TimeZoneAbbreviation, new PatternRegex(Definitions.Patterns.TimeZoneAbbreviation,"([A-Z]{1,5})")},
         };
 
         internal static readonly IDictionary<string,PatternRegex> CommonYearPatterns = new Dictionary<string,PatternRegex>(StringComparer.OrdinalIgnoreCase)
         {
            { Definitions.Patterns.Year, new PatternRegex(Definitions.Patterns.Year, "([0-9]{4}(s)?|'[0-9]{2}(s)?)") },
-        };    
+        };
     }
 }

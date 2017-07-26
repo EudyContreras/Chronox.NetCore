@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox.Components
 {
-    internal class ChronoxTimeZone
+    public class ChronoxTimeZone
     {
         public TimeSpan Offset { get; set; }
 

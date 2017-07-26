@@ -32,7 +32,6 @@ namespace Chronox.Constants
             public const string Minute = "minute";
             public const string Second = "second";
 
-
             public const string Half = "half";
             public const string Quater = "quater";
             public const string Dozen = "dozen";
@@ -101,47 +100,47 @@ namespace Chronox.Constants
 
             public static readonly IReadOnlyDictionary<string, string> Dynamic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
-                {LogicalOperator,"logicalOperator"},
-                {ArithmeticOperator,"arithmeticOperator"},
-                {CasualExpressions,"casualExpressions"},
-                {GrabberExpressions,"grabberExpressions"},
-                {TimeExpressions,"timeExpressions"},
-                {TimeFractions,"timeFractions"},
-                {TimeConjointer,"timeConjointer"},
-                {InterpretedExpression,"interpretedExpressions"},
-                {RangeIndicator,"rangeIndicators"},
-                {RangeSeparator,"rangeSeparators"},
-                {DecadeValues,"decadeValues"},
-                {TimePeriods,"timePeriods"},
-                {DayOffset,"dayOffsets"},
-                {Holidays,"holidays"},
-                {TimeOfDay,"timesOfDay"},
-                {DaysOfWeek,"daysOfWeek"},
-                {SeasonOfYear,"seasonsOfYear"},
-                {MonthsOfYear,"monthsOfYear"},
-                {DateTimeUnits,"dateTimeUnits"},
-                {NumericValue,"numericValues"},
-                {NumericWord,"numericWords"},
-                {NumericWordOrdinal,"numericWordsOrdinal"},
-                {NumericWordCardinal,"numericWordsCardinal"},
-                {TimeMeridiam,"timeMeridiam"},
-                {DateUnits,"dateUnit"},
-                {TimeUnits,"timeUnit"},
-                {YearUnit,"yearUnit"},
-                {MonthUnit,"monthUnit"},
-                {WeekUnit,"weekUnit"},
-                {DayUnit,"dayUnit"},
-                {HourUnit,"hourUnit"},
-                {MinuteUnit,"minuteUnit"},
-                {SecondUnit,"secondUnit"},
-                {Proximity,"proximity"},
-                {RepeaterExpressions,"repeaterExpressions"},
-                {DurationExpressions,"durationExpressions"},
-                {RepeaterIndicators,"repeaterIndicators"},
-                {DurationIndicators,"durationIndicators"},
-                {NumericMagnitudeCardinal,"numericMagnitudeCardinal"},
-                {NumericMagnitudeOrdinal,"numericMagnitudeOrdinal"},
-                {DayOfWeekType,"dayOfWeekType"},
+                {LogicalOperator,LogicalOperator},
+                {ArithmeticOperator,ArithmeticOperator},
+                {CasualExpressions,CasualExpressions},
+                {GrabberExpressions,GrabberExpressions},
+                {TimeExpressions,TimeExpressions},
+                {TimeFractions,TimeFractions},
+                {TimeConjointer,TimeConjointer},
+                {InterpretedExpression,InterpretedExpression},
+                {RangeIndicator,RangeIndicator},
+                {RangeSeparator,RangeSeparator},
+                {DecadeValues,DecadeValues},
+                {TimePeriods,TimePeriods},
+                {DayOffset,DayOffset},
+                {Holidays,Holidays},
+                {TimeOfDay,TimeOfDay},
+                {DaysOfWeek,DaysOfWeek},
+                {SeasonOfYear,SeasonOfYear},
+                {MonthsOfYear,MonthsOfYear},
+                {DateTimeUnits,DateTimeUnits },
+                {NumericValue,NumericValue},
+                {NumericWord,NumericWord},
+                {NumericWordOrdinal,NumericWordOrdinal},
+                {NumericWordCardinal,NumericWordCardinal},
+                {TimeMeridiam,TimeMeridiam},
+                {DateUnits,DateUnits},
+                {TimeUnits,TimeUnits},
+                {YearUnit,YearUnit},
+                {MonthUnit,MonthUnit},
+                {WeekUnit,WeekUnit},
+                {DayUnit,DayUnit},
+                {HourUnit,HourUnit},
+                {MinuteUnit,MinuteUnit},
+                {SecondUnit,SecondUnit},
+                {Proximity,Proximity},
+                {RepeaterExpressions,RepeaterExpressions},
+                {DurationExpressions,DurationExpressions},
+                {RepeaterIndicators,RepeaterIndicators},
+                {DurationIndicators,DurationIndicators},
+                {NumericMagnitudeCardinal,NumericMagnitudeCardinal},
+                {NumericMagnitudeOrdinal,NumericMagnitudeOrdinal},
+                {DayOfWeekType,DayOfWeekType},
             };
         }
 
@@ -169,41 +168,48 @@ namespace Chronox.Constants
             public const string Hour = "dependentHour";
             public const string Minute = "dependentMinute";
             public const string Second = "dependentSecond";
+            public const string Millis = "dependentMilliseconds";
             public const string HourDiscrete = "discreteHour";
             public const string MinuteDiscrete = "discreteMinute";
             public const string SecondDiscrete = "discreteSecond";
-            public const string Millis = "dependentMilliseconds";
-            public const string ZoneOffset = "discreteZone";
+            public const string TimeZone = "timeZone";
+            public const string TimeZoneOffset = "timeZoneOffset";
+            public const string TimeZoneAbbreviation = "timeZoneAbreviation";
+            public const string TimeZoneCode = "timeZoneCode";
 
             public static readonly IReadOnlyDictionary<string, string> Static = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
-                {DateBigEndian,"discreteDateBigEndian"},
-                {DateLittleEndian,"discreteDateLittleEndian"},
-                {DateMiddleEndian,"discreteDateMediumEndian"},
-                {SpaceSeparator,"whiteSpace"},
-                {OptionalSpace,"optionalSpace"},
-                {SpaceRemover,"whiteSpaceRemover"},
-                {TimeSeparator,"discreteTimeSeparator"},
-                {DateSeparator,"discreteDateSeparator"},
-                {NumberMax2Digits,"numberMax2Digits"},
-                {NumberMax4Digits,"numberMax4Digits"},
-                {NumberMax5Digits,"numberMax5Digits"},
-                {WordStart,"wordStart"},
-                {WordEnd,"wordEnd"},
-                {Date,"discreteDate"},
-                {Time,"discreteTime"},
-                {Year,"dependentYear"},
-                {YearDiscrete,"discreteYear"},
-                {MonthDiscrete,"discreteMonth"},
-                {DayDiscrete,"discreteDay"},
-                {Hour,"dependentHour"},
-                {Minute,"dependentMinute"},
-                {Second,"dependentSecond"},
-                {HourDiscrete,"discreteHour"},
-                {MinuteDiscrete,"discreteMinute"},
-                {SecondDiscrete,"discreteSecond"},
-                {Millis,"dependentMilliseconds"},
-                {ZoneOffset, "discreteZone"},
+                {DateBigEndian,DateBigEndian},
+                {DateLittleEndian,DateLittleEndian},
+                {DateMiddleEndian,DateMiddleEndian},
+                {SpaceSeparator,SpaceSeparator},
+                {OptionalSpace,OptionalSpace},
+                {SpaceRemover,SpaceRemover},
+                {TimeSeparator,TimeSeparator},
+                {DateSeparator,DateSeparator},
+                {NumberMax2Digits,NumberMax2Digits},
+                {NumberMax4Digits,NumberMax4Digits},
+                {NumberMax5Digits,NumberMax5Digits},
+                {WordStart,WordStart},
+                {WordEnd,WordEnd},
+                {Date,Date},
+                {Time,Time},
+                {Year,Year},
+                {YearDiscrete,YearDiscrete},
+                {MonthDiscrete,MonthDiscrete},
+                {DayDiscrete,DayDiscrete},
+                {Hour,Hour},
+                {Minute,Minute},
+                {Second,Second},
+                {HourDiscrete,HourDiscrete},
+                {MinuteDiscrete,MinuteDiscrete},
+                {SecondDiscrete,SecondDiscrete},
+                {Millis,Millis},
+                {TimeZone, TimeZone},
+                {TimeZoneOffset, TimeZoneOffset},
+                {TimeZoneAbbreviation, TimeZoneAbbreviation},
+                {TimeZoneCode, TimeZoneCode},
+
             };
         }
 
@@ -269,9 +275,9 @@ namespace Chronox.Constants
                 {"S.U",    Property.SecondUnit },
                 {"D.T.S",  Patterns.TimeSeparator},
                 {"D.D.S",  Patterns.DateSeparator},
-                {"N.M.2.D", Patterns.NumberMax2Digits},
-                {"N.M.4.D", Patterns.NumberMax4Digits},
-                {"N.M.5.D", Patterns.NumberMax5Digits},
+                {"N.M.2.D",Patterns.NumberMax2Digits},
+                {"N.M.4.D",Patterns.NumberMax4Digits},
+                {"N.M.5.D",Patterns.NumberMax5Digits},
             };
 
             public static readonly IReadOnlyDictionary<string, RangeWrapper> TIME_OF_DAY = new Dictionary<string, RangeWrapper>(StringComparer.OrdinalIgnoreCase)
@@ -631,6 +637,25 @@ namespace Chronox.Constants
                 {"last", int.MaxValue }
             };
 
+            /*Ways to express Time Zones
+            /* 
+             * - 10:15 pm GMT+0000 (GMT)
+             * - 10:15 pm GMT+0900 (JST)
+             * - 10:15 pm +0500
+             * - 10:15 pm +05:00
+             * - 10:15 pm UTC-05:00
+             * - 10:15 pm EST
+             */
+
+            /*
+            Console.WriteLine("Count: " + Definitions.Converters.TIMEZONE_OFFSETS.Count);
+            Console.WriteLine("Local TimeZone ID: "+ TimeZoneInfo.Local.Id);
+            Console.WriteLine("Local TimeZone Name: " +TimeZoneInfo.Local.DisplayName);
+            Console.WriteLine("Local Date UTC Offset: "+TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
+            Console.WriteLine("Local Date: " + DateTime.Now);
+            Console.WriteLine("New York Time: " +ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["EDT"].Offset));
+            Console.WriteLine("Australia Time: " + ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["AEST"].Offset));
+            */
             public static IReadOnlyDictionary<string, ChronoxTimeZone> TIMEZONE_OFFSETS
             {
                 get

@@ -24,6 +24,8 @@
 
         Meridiam,
 
+        TimeZone,
+
         Default = -1
 
     }

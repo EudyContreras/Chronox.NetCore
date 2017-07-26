@@ -31,7 +31,7 @@ namespace Chronox
 
         public DateParseType DateParsing { get; set; } = DateParseType.Standard;
 
-        public string[] Languages { get; set; } = { "English" };
+        private string[] Languages { get; set; } = { "English" };
 
         private int year = int.MinValue;
 
@@ -48,7 +48,6 @@ namespace Chronox
         private string timeZone = "UTC";
 
         public ChronoxPreferences(){}
-
 
         public string[] PrefferedLanguages
         {

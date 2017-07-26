@@ -31,7 +31,8 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
                     Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.TimeMeridiam,
+                    Definitions.Patterns.TimeZone
                 ),
             new Sequence(SequenceType.DateTime, "10pm next tuesday",
                     Definitions.Patterns.Time,
@@ -161,9 +162,14 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "november",
                     Definitions.Property.MonthsOfYear
                 ),
-             new Sequence(SequenceType.DateTime, "november 16th",
+            new Sequence(SequenceType.DateTime, "november 16th",
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.NumericWord
+                ),
+            new Sequence(SequenceType.DateTime, "november 16th in the morning",
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.NumericWord,
+                    Definitions.Property.TimeOfDay
                 ),
             new Sequence(SequenceType.DateTime, "this november | last december",
                     Definitions.Property.GrabberExpressions,
@@ -329,7 +335,6 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.DaysOfWeek,
                     Definitions.Property.MonthsOfYear
                 ),
-
             new Sequence(SequenceType.DateTime, "second friday of next october",
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DaysOfWeek,
@@ -398,13 +403,28 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.MonthsOfYear,
                     Definitions.Patterns.NumberMax2Digits
                 ),
+            new Sequence(SequenceType.DateTime, "december 31 in the day",
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Patterns.NumberMax2Digits,
+                    Definitions.Property.TimeOfDay
+                ),
             new Sequence(SequenceType.DateTime, "31 december",
                     Definitions.Patterns.NumberMax2Digits,
                     Definitions.Property.MonthsOfYear
                 ),
+            new Sequence(SequenceType.DateTime, "31 december in the day",
+                    Definitions.Patterns.NumberMax2Digits,
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.TimeOfDay
+                ),
             new Sequence(SequenceType.DateTime, "31st of december",
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear
+                ),
+            new Sequence(SequenceType.DateTime, "31st of december",
+                    Definitions.Property.NumericWord,
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.TimeOfDay
                 ),
             new Sequence(SequenceType.DateTime, "december 31, 2017",
                     Definitions.Property.MonthsOfYear,

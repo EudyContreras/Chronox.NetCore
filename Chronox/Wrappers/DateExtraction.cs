@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chronox.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Chronox.Wrappers
 {
     public struct DateExtraction
     {
-        public DateTime Date { get; set; }
+        public ChronoxDateTime DateTime { get; set; }
 
         public int StartIndex { get; set; }
 

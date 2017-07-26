@@ -31,6 +31,13 @@ namespace Chronox.Handlers
 
         internal PatternRegex SecondsDiscretePattern { get; set; }
 
+        internal PatternRegex TimeZonePattern { get; set; }
+
+        internal PatternRegex separator { get; set; }
+
+        internal PatternRegex optionalSeparator { get; set; }
+
+
         public SequenceHandler(VocabularyHandler languageHandler)
         {   
             LanguageHandler = languageHandler;
@@ -38,6 +45,10 @@ namespace Chronox.Handlers
 
         internal void ExtractStandAlonePatterns()
         {
+            separator = PatternLibrary.HelperPatterns[Definitions.Patterns.SpaceSeparator];
+
+            optionalSeparator = PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalSpace];
+
             DatePatternBigEndian = CreateDatePattern(DateTimeEndian.Big);
 
             DatePatternMediumEndian = CreateDatePattern(DateTimeEndian.Middle);
@@ -49,6 +60,8 @@ namespace Chronox.Handlers
             MinutesDiscretePattern = CreateMinutesPattern();
 
             SecondsDiscretePattern = CreateSecondsPattern();
+
+            TimeZonePattern = CreateTimeZonePattern();
 
             TimePattern = CreateTimePattern();
         }
@@ -83,10 +96,6 @@ namespace Chronox.Handlers
         public List<PatternSequence> BuildPatternSequences(ChronoxSettings settings, List<Sequence> sequences, Dictionary<string,PatternRegex> patterns)
         {
             var regexSequences = new List<PatternSequence>();
-
-            var separator = PatternLibrary.HelperPatterns[Definitions.Patterns.SpaceSeparator];
-
-            var optionalSeparator = PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalSpace];
 
             foreach (var sequence in sequences)
             {
@@ -180,6 +189,10 @@ namespace Chronox.Handlers
             if (string.Compare(property, Definitions.Patterns.Time, true) == 0)
             {
                 pattern = TimePattern;
+            }
+            else if (string.Compare(property, Definitions.Patterns.TimeZone, true) == 0)
+            {
+                pattern = TimeZonePattern;
             }
             else if (string.Compare(property, Definitions.Patterns.DateBigEndian, true) == 0)
             {
@@ -289,8 +302,6 @@ namespace Chronox.Handlers
 
             var millis = PatternLibrary.CommonTimePatterns[Definitions.Patterns.Millis];
 
-            var zone = PatternLibrary.CommonTimePatterns[Definitions.Patterns.ZoneOffset];
-
             var labeledHour = PatternHandler.LabelWrapp(hours.Label, hours.Value);
 
             var labeledMinute = PatternHandler.LabelWrapp(minutes.Label, minutes.Value);
@@ -299,9 +310,30 @@ namespace Chronox.Handlers
 
             var labeledMillis = PatternHandler.LabelWrapp(millis.Label, millis.Value);
 
-            var labeledZone = PatternHandler.LabelWrapp(zone.Label, zone.Value);
+            var groups = PatternHandler.OptionalGroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
 
-            return new PatternRegex(Definitions.Patterns.Time, PatternHandler.GroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis)));
+            var pattern = new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
+
+            return pattern;
+        }
+
+        private PatternRegex CreateTimeZonePattern()
+        {
+            var zoneCode = PatternLibrary.CommonTimeZonePatterns[Definitions.Patterns.TimeZoneCode];
+
+            var zoneOffset = PatternLibrary.CommonTimeZonePatterns[Definitions.Patterns.TimeZoneOffset];
+
+            var zoneAbbreviation = PatternLibrary.CommonTimeZonePatterns[Definitions.Patterns.TimeZoneAbbreviation];
+
+            var labeledZoneCode = PatternHandler.LabelWrapp(zoneCode.Label, zoneCode.Value);
+
+            var labeledZoneOffset = PatternHandler.LabelWrapp(zoneOffset.Label, zoneOffset.Value);
+
+            var labeledZoneAbbreviation = PatternHandler.LabelWrapp(zoneAbbreviation.Label, zoneAbbreviation.Value);
+
+            var groups = PatternHandler.OrOptionalGroupWrapp(string.Concat(labeledZoneCode, optionalSeparator, labeledZoneOffset), labeledZoneAbbreviation);
+
+            return new PatternRegex(Definitions.Patterns.TimeZone, PatternHandler.LabelWrapp(Definitions.Patterns.TimeZone,groups));
         }
 
         private PatternRegex CreateHoursPattern()

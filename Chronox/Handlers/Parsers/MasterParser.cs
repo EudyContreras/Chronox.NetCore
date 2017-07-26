@@ -113,8 +113,8 @@ namespace Chronox.Parsers.English
 
             result = ComputeInstructions(groups, ref dateTime, result, information, settings, helperA); 
 
-            result.GetCurrent().NormalizeDateValues(now, dateTime, information.Settings);
-            result.GetCurrent().NormalizeTimeValues(now, dateTime, information.Settings);
+            result.Builder.NormalizeDateValues(now, dateTime, information.Settings);
+            result.Builder.NormalizeTimeValues(now, dateTime, information.Settings);
 
             information.DateTime = dateTime;
 
@@ -257,6 +257,10 @@ namespace Chronox.Parsers.English
                 else if (group.Name == Definitions.Patterns.DateLittleEndian)
                 {
                     helper.ProcessDateLittleEndian(result, foundGroups, ref dateTime, information, group);
+                }
+                else if (group.Name == Definitions.Patterns.TimeZone)
+                {
+                    helper.ProcessTimeZoneInformation(result, foundGroups, ref dateTime, information, group);
                 }
                 else if (group.Name == Definitions.Property.DateTimeUnits || IsDateUnit(group.Name)|| IsTimeUnit(group.Name))
                 {

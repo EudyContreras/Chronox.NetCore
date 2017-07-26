@@ -15,7 +15,7 @@ namespace Tests
         ChronoxSettings settings;
 
         /*Things to note
-         * - if no time specify any date which differes in month or day or year will be set at 12am
+         * - if no time specify any date which differs in month, day or year will be set at 12am
          * - if a month is specified without any specified day the day will be set to the first
          * - if a proceding or preciding week is specified wihout any specified day the day will be set to monday both for previous or following weeks
          * - time expressions are constant: noon = 12:00pm morning = 6:00am etc
@@ -658,7 +658,7 @@ namespace Tests
 
                 var result = chronox.ParseDateTime(Reference, text);
 
-                var date = result[0].GetCurrent().DateTime();
+                var date = result?[0].Builder.DateTime();
 
                 AreEqual(expression, TestData[expression].ToString(), date.ToString(), ref allPassed);
             }
@@ -677,11 +677,23 @@ namespace Tests
             {
                 var result = chronox.ParseDateTime(Reference, expression);
 
-                var date = result?[0].GetCurrent().DateTime();
+                var date = result?[0].Builder.DateTime();
 
                 Console.WriteLine($"{expression} | {date}");
                 Console.WriteLine();
             }
+        }
+
+        public void PerformTest(string expression)
+        {
+            var chronox = ChronoxParser.GetInstance(settings);
+
+            var result = chronox.ParseDateTime(Reference, expression);
+
+            var date = result?[0].Builder.DateTime();
+
+            Console.WriteLine($"{expression} | {date}");
+            Console.WriteLine();
         }
 
         private void AreEqual(string expression, string expected, string actual, ref bool allPassed)

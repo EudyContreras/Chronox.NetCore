@@ -1,4 +1,5 @@
-﻿using Chronox.Utilities;
+﻿using Chronox.Components;
+using Chronox.Utilities;
 using Chronox.Utilities.Extenssions;
 using Chronox.Wrappers;
 using Enumerations;
@@ -13,9 +14,9 @@ namespace Chronox
     public class ChronoxDateTimeBuilder
     {
 
-        private ChronoxSettings settings;
+        public TimeSpan TimeOffset { get; set; }
 
-        public DateExtraction Wrapper { get; set; }
+        public ChronoxTimeZone TimeZone { get; set; }
 
         private ChronoxDateTimeExtraction ParentExtraction { get; set; }
 
@@ -25,12 +26,7 @@ namespace Chronox
 
         public DateTime DateTime() => Merge(Date(), Time());
 
-        public ChronoxDateTimeBuilder(ChronoxSettings settings)
-        {
-            this.settings = settings;
-        }
-
-        internal void ImplyDefault()
+        internal void ImplyDefault(ChronoxSettings settings)
         {
             var dateTime = settings.ReferenceDate;
 

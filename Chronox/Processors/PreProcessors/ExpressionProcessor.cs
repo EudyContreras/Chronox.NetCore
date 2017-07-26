@@ -44,7 +44,7 @@ namespace Chronox.Processors.PreProcessors
                     break;
             }
 
-            expression = expression.PadPunctuationExact(0, 1).ToLower();
+            expression = expression.PadPunctuationExact(0, 1);
 
             expression = expression.Replace("  ", " ", false);
 

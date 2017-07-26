@@ -80,6 +80,8 @@ namespace Chronox.Interfaces
 
         void ProcessDiscreteSeconds(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, string value);
 
+        void ProcessTimeZoneInformation(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, GroupWrapper GroupWrapper);
+
         void ProcessTimeFraction(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeFraction timeFraction);
 
         void ProcessTimeConjointer(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeConjointer value);

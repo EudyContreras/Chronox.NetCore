@@ -16,6 +16,7 @@ using Chronox.Abstractions;
 using Chronox.Parsers.General.ParserHelpers;
 using Chronox.Interfaces;
 using Chronox.Parsers.English;
+using Chronox.Components;
 
 namespace Chronox.Parsers.General.ParserHelpers
 {
@@ -81,11 +82,11 @@ namespace Chronox.Parsers.General.ParserHelpers
                     break;
             }
 
-            result.GetCurrent().AssignValue(DateTimeUnit.Day, dateTime.Day);
+            result.Builder.AssignValue(DateTimeUnit.Day, dateTime.Day);
 
-            result.GetCurrent().ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
+            result.Builder.ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
+            result.Builder.ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
+            result.Builder.ImplyValue(DateTimeUnit.Second, dateTime.Second);
 
             information.HasInterpretedExpression = true;
         }
@@ -206,26 +207,26 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             grabberOffset = grabberOffset == int.MinValue ? 0 : grabberOffset;
 
-            if (information.PreferedDayOfWeek != null && !result.GetCurrent().IsValueCertain(DateTimeUnit.Day))
+            if (information.PreferedDayOfWeek != null && !result.Builder.IsValueCertain(DateTimeUnit.Day))
             {
                 dateTime = dateTime.SetWeekDay(information.PreferedDayOfWeek.Value);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
+                result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
             }
 
             HandleDateTimeUnits(result, foundGroups, ref dateTime, information, timeUnit, grabberOffset, hasGrabber);
 
-            if (information.PreferedDayOfWeek != null && !result.GetCurrent().IsValueCertain(DateTimeUnit.Day) && !parser.IsTimeUnit(timeUnit))
+            if (information.PreferedDayOfWeek != null && !result.Builder.IsValueCertain(DateTimeUnit.Day) && !parser.IsTimeUnit(timeUnit))
             {
                 if (!hasGrabber && !DayHasChanged(timeUnit, grabberOffset))
                 {
                     dateTime = dateTime.SetWeekDay(information.PreferedDayOfWeek.Value);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                    result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
                 }
             }
 
@@ -286,9 +287,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     foundGroups.Find(g => g.Name == Definitions.Property.TimeExpressions).GroupUsed = true;
 
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Hour);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Minute);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Second);
+                    result.Builder.UnAssignValue(DateTimeUnit.Hour);
+                    result.Builder.UnAssignValue(DateTimeUnit.Minute);
+                    result.Builder.UnAssignValue(DateTimeUnit.Second);
                 }
 
                 var dayOffsetExpression = foundGroups.Find(g => g.Name == Definitions.Property.DayOffset);
@@ -306,9 +307,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                         ProcessTimeExpression(result, foundGroups, ref dateTime, information, new ChronoxTime(0, 0, 0));
                     }
 
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Hour);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Minute);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Second);
+                    result.Builder.UnAssignValue(DateTimeUnit.Hour);
+                    result.Builder.UnAssignValue(DateTimeUnit.Minute);
+                    result.Builder.UnAssignValue(DateTimeUnit.Second);
 
                 }
 
@@ -340,9 +341,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     information.PreferedDayOfWeek = dateTime.DayOfWeek;
 
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Hour);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Minute);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Second);
+                    result.Builder.UnAssignValue(DateTimeUnit.Hour);
+                    result.Builder.UnAssignValue(DateTimeUnit.Minute);
+                    result.Builder.UnAssignValue(DateTimeUnit.Second);
 
                     if (dateTime.HasDifferentDate(information.CurrentDate) && !information.HasInterpretedExpression && !information.HasTimeExpression)
                     {
@@ -379,9 +380,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     information.PreferedDayOfWeek = dateTime.DayOfWeek;
                 
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Hour);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Minute);
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Second);
+                    result.Builder.UnAssignValue(DateTimeUnit.Hour);
+                    result.Builder.UnAssignValue(DateTimeUnit.Minute);
+                    result.Builder.UnAssignValue(DateTimeUnit.Second);
 
                     if (dateTime.HasDifferentDate(information.CurrentDate) && !information.HasInterpretedExpression && !information.HasTimeExpression)
                     {
@@ -403,7 +404,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddMonths(value - 1);
 
-                    result.GetCurrent().AssignValue(DateTimeUnit.Month, dateTime.Month);
+                    result.Builder.AssignValue(DateTimeUnit.Month, dateTime.Month);
                     break;
                 case DateTimeUnit.Week:
                     if (information.ProcessedTimeUnit.Count > 0)
@@ -490,7 +491,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddWeeks(value - 1);
 
-                    result.GetCurrent().AssignValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.AssignValue(DateTimeUnit.Day, dateTime.Day);
 
                     break;
                 case DateTimeUnit.Day:
@@ -586,7 +587,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddDays(value - 1);
 
-                    result.GetCurrent().AssignValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.AssignValue(DateTimeUnit.Day, dateTime.Day);
 
                     break;
                 case DateTimeUnit.Hour:
@@ -612,8 +613,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                     dateTime = dateTime.SetMonth(1);
                     dateTime = dateTime.SetDay(1);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
 
                     break;
                 case DateTimeUnit.Month:
@@ -621,14 +622,14 @@ namespace Chronox.Parsers.General.ParserHelpers
                     dateTime = dateTime.AddMonths(offset);
                     dateTime = dateTime.SetDay(1);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
                     break;
                 case DateTimeUnit.Week:
 
                     dateTime = dateTime.SetWeekDay(ChronoxDateTimeUtility.GetDayOfWeek(information.Settings.Preferences.GetWeekStartOffset()));
                     dateTime = dateTime.AddWeeks(offset);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
 
                     break;
             }
@@ -650,8 +651,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                     dateTime = dateTime.SetMonth(1);
                     dateTime = dateTime.SetDay(1);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
 
                     break;
                 case DateTimeUnit.Month:
@@ -659,7 +660,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     dateTime = dateTime.AddMonths(offset);
                     dateTime = dateTime.SetDay(1);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
                     break;
             }
         }
@@ -759,9 +760,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddHours(offset);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
-                    result.GetCurrent().AssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                    result.Builder.ImplyValue(DateTimeUnit.Second, dateTime.Second);
+                    result.Builder.ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
+                    result.Builder.AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
                     break;
                 case DateTimeUnit.Minute:
@@ -778,9 +779,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.AddMinutes(offset);
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
-                    result.GetCurrent().AssignValue(DateTimeUnit.Minute, dateTime.Minute);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
+                    result.Builder.ImplyValue(DateTimeUnit.Second, dateTime.Second);
+                    result.Builder.AssignValue(DateTimeUnit.Minute, dateTime.Minute);
+                    result.Builder.ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
 
                     break;
                 case DateTimeUnit.Second:
@@ -794,20 +795,20 @@ namespace Chronox.Parsers.General.ParserHelpers
                             dateTime = dateTime.AddMinutes(offset);
                         }
 
-                        result.GetCurrent().ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
+                        result.Builder.ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
                     }
 
                     dateTime = dateTime.AddSeconds(offset);
 
-                    result.GetCurrent().AssignValue(DateTimeUnit.Second, dateTime.Second);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
+                    result.Builder.AssignValue(DateTimeUnit.Second, dateTime.Second);
+                    result.Builder.ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
 
                     break;
             }
            
-            result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
+            result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+            result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+            result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
 
             information.HasTimeUnit = true;
 
@@ -817,15 +818,15 @@ namespace Chronox.Parsers.General.ParserHelpers
         {
             dateTime = dateTime.AddDays(dayOffset);
 
-            result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
+            result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+            result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
         }     
 
         public void ProcessTimeOfDay(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, RangeWrapper timeOfDay)
         {
-            if (result.GetCurrent().IsValueCertain(DateTimeUnit.Hour))
+            if (result.Builder.IsValueCertain(DateTimeUnit.Hour))
             {
-                if (!result.GetCurrent().IsValueCertain(DateTimeUnit.Meridiam))
+                if (!result.Builder.IsValueCertain(DateTimeUnit.Meridiam))
                 {
                     if (RangeConstants.PM_RANGE.Contains(timeOfDay))
                     {
@@ -839,17 +840,17 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                 information.FloatingDayOfWeek.Clear();
 
-                result.GetCurrent().ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                result.Builder.ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
             }
             else
             {
                 dateTime = dateTime.SetHour((int)timeOfDay.Start);
 
-                result.GetCurrent().AssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                result.Builder.AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Minute, 0);
+                result.Builder.ImplyValue(DateTimeUnit.Minute, 0);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Second, 0);
+                result.Builder.ImplyValue(DateTimeUnit.Second, 0);
 
                 if (information.GrabberOffsets.Count <= 0)
                 {
@@ -909,9 +910,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
             }
 
-            result.GetCurrent().AssignValue(DateTimeUnit.Month, dateTime.Month);
-            result.GetCurrent().AssignValue(DateTimeUnit.Year, dateTime.Year);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+            result.Builder.AssignValue(DateTimeUnit.Month, dateTime.Month);
+            result.Builder.AssignValue(DateTimeUnit.Year, dateTime.Year);
+            result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
 
             if (information.NumericValues.Count > 0)
             {
@@ -925,7 +926,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
             dateTime = dateTime.SetDay(dayOfMonth);
 
-            result.GetCurrent().AssignValue(DateTimeUnit.Day, dateTime.Day);
+            result.Builder.AssignValue(DateTimeUnit.Day, dateTime.Day);
         }
 
         public void ProcessDayOfWeekType(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DayOfWeekType dayOfWeekType)
@@ -1140,9 +1141,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                     dateTime = dateTime.AddWeeks(count);
                 }
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
+                result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
             }
             else
             {   
@@ -1258,9 +1259,9 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     }
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                    result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
 
                     information.HasDayOfWeek = true;
                 }
@@ -1333,8 +1334,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
             }
 
-            result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
-            result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
+            result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+            result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
         }
 
         public void ProcessDayOfWeekCount(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int dayOfWeek)
@@ -1402,7 +1403,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                 for (var i = 0; i < numericOffset; i++)
                 {
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Day);
+                    result.Builder.UnAssignValue(DateTimeUnit.Day);
 
                     //HandleDayOfWeek(result, foundGroups, ref dateTime, information, dayOfWeek, current, offset);
 
@@ -1418,9 +1419,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                     }
                 }
 
-                result.GetCurrent().AssignValue(DateTimeUnit.Day, dateTime.Day);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Year, dateTime.Year);
+                result.Builder.AssignValue(DateTimeUnit.Day, dateTime.Day);
+                result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
             }
         }
 
@@ -1456,38 +1457,38 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
             }
 
-            if (!result.GetCurrent().ContainsValue(DateTimeUnit.Day))
+            if (!result.Builder.ContainsValue(DateTimeUnit.Day))
             {
                 dateTime = dateTime.SetDay(1);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
             }
 
-            if (!result.GetCurrent().ContainsValue(DateTimeUnit.Month))
+            if (!result.Builder.ContainsValue(DateTimeUnit.Month))
             {
                 dateTime = dateTime.SetMonth(1);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
             }
 
             dateTime = dateTime.SetYear(year);
 
-            result.GetCurrent().ReAssignValue(DateTimeUnit.Year, dateTime.Year);
+            result.Builder.ReAssignValue(DateTimeUnit.Year, dateTime.Year);
         }
 
         public void ProcessTimeExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, ChronoxTime time)
         {
             var midnight = time.Hours == 0;
 
-            if (!result.GetCurrent().IsValueCertain(DateTimeUnit.Hour))
+            if (!result.Builder.IsValueCertain(DateTimeUnit.Hour))
             {
                 dateTime = dateTime.SetHour(time.Hours);
                 dateTime = dateTime.SetMinutes(time.Minutes);
                 dateTime = dateTime.SetSeconds(time.Seconds);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
-                result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
+                result.Builder.ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
+                result.Builder.ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
+                result.Builder.ImplyValue(DateTimeUnit.Second, dateTime.Second);
 
                 information.HasTimeExpression = true;
             }
@@ -1496,7 +1497,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 dateTime = dateTime.AddDays(1);
 
-                result.GetCurrent().ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
             }
         }
 
@@ -1515,22 +1516,22 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 dateTime = dateTime.SetHour(hours);
 
-                result.GetCurrent().AssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                result.Builder.AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
                 DetermineTimeMeridiam(foundGroups, result, meridiam, information, ref dateTime);
 
                 dateTime = dateTime.SetMinutes(0);
                 dateTime = dateTime.SetSeconds(0);
 
-                result.GetCurrent().AssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                result.Builder.AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
-                if (!result.GetCurrent().IsValueCertain(DateTimeUnit.Minute))
+                if (!result.Builder.IsValueCertain(DateTimeUnit.Minute))
                 {
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
+                    result.Builder.ImplyValue(DateTimeUnit.Minute, dateTime.Minute);
                 }
-                if (!result.GetCurrent().IsValueCertain(DateTimeUnit.Second))
+                if (!result.Builder.IsValueCertain(DateTimeUnit.Second))
                 {
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Second, dateTime.Second);
+                    result.Builder.ImplyValue(DateTimeUnit.Second, dateTime.Second);
                 }
             }
         }
@@ -1579,7 +1580,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     dateTime = dateTime.SetMinutes(minutes);
                     dateTime = dateTime.SetSeconds(0);
 
-                    result.GetCurrent().ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
+                    result.Builder.ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
                 }
             }           
         }
@@ -1594,7 +1595,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                 {
                     dateTime = dateTime.SetSeconds(seconds);
 
-                    result.GetCurrent().ReAssignValue(DateTimeUnit.Second, dateTime.Second);
+                    result.Builder.ReAssignValue(DateTimeUnit.Second, dateTime.Second);
                 }
             }
         }
@@ -1616,7 +1617,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                 DetermineTimeMeridiam(foundGroups,result, meridiam, information, ref dateTime);
 
-                result.GetCurrent().AssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                result.Builder.AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
                 information.FloatingHours.Enqueue(hours);
             }
@@ -1631,7 +1632,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                 dateTime = dateTime.SetMinutes(0);
                 dateTime = dateTime.SetSeconds(0);
 
-                result.GetCurrent().ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
+                result.Builder.ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
 
                 information.FloatingMinutes.Enqueue(minutes);
             }
@@ -1645,7 +1646,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 dateTime = dateTime.SetSeconds(0);
 
-                result.GetCurrent().ReAssignValue(DateTimeUnit.Second, dateTime.Second);
+                result.Builder.ReAssignValue(DateTimeUnit.Second, dateTime.Second);
 
                 information.FloatingSeconds.Enqueue(seconds);
             }
@@ -1695,8 +1696,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                     {
                         dateTime = dateTime.AddMinutes(-floatingMinutes);
 
-                        result.GetCurrent().ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
-                        result.GetCurrent().ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                        result.Builder.ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
+                        result.Builder.ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
                     }
                     break;
                 case TimeConjointer.Past:
@@ -1714,8 +1715,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                     {
                         dateTime = dateTime.AddMinutes(floatingMinutes);
 
-                        result.GetCurrent().ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
-                        result.GetCurrent().ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
+                        result.Builder.ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
+                        result.Builder.ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
                     }
                     break;
                 case TimeConjointer.FromNow:
@@ -1737,6 +1738,81 @@ namespace Chronox.Parsers.General.ParserHelpers
         public void ProcessDay(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, string value)
         {
             ProcessDayOfMonth(result, foundGroups, ref dateTime, information, int.Parse(value.Trim()));
+        }
+
+        public void ProcessTimeZoneInformation(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, GroupWrapper GroupWrapper)
+        {
+            var value = GroupWrapper.Value;
+
+            var zoneCode = information.LatestMatch.Match.Groups[Definitions.Patterns.TimeZoneCode];
+            var zoneOffset = information.LatestMatch.Match.Groups[Definitions.Patterns.TimeZoneOffset];
+            var zoneAbbreviation = information.LatestMatch.Match.Groups[Definitions.Patterns.TimeZoneAbbreviation];
+
+            if(zoneAbbreviation.Length > 0)
+            {
+                if(Definitions.Converters.TIMEZONE_OFFSETS.TryGetValue(zoneAbbreviation.Value, out ChronoxTimeZone timeZone))
+                {
+                    result.Builder.TimeZone = timeZone;
+                    result.Builder.TimeOffset = timeZone.Offset;
+                }
+            }
+            else
+            {
+                if(zoneOffset.Length > 0)
+                {
+                    if(zoneOffset.Value.StartsWith("-") || zoneOffset.Value.StartsWith("+"))
+                    {
+                        var arithmeticOperator = ConversionHandler.ArithmeticOperation(information.Settings, zoneOffset.Value[0].ToString());
+
+                        var offset = int.MinValue;
+
+                        if (zoneOffset.Value.Contains(":"))
+                        {
+                            var time = zoneOffset.Value.RemoveSubstrings("-", "+").Split(":");
+
+                            var hours = time[0];
+
+                            var minutes = time[1];
+
+                            offset = int.Parse(hours) * 60 + int.Parse(minutes);
+                        }
+                        else
+                        {
+                            if(zoneOffset.Value.Length >= 5)
+                            {
+                                var time = zoneOffset.Value.RemoveSubstrings("-", "+");
+
+                                var hours = new string(time.Take(2).ToArray());
+
+                                var minutes = new string(time.Skip(2).ToArray());
+
+                                offset = int.Parse(hours) * 60 + int.Parse(minutes);
+                            }
+                        }
+
+                        if(offset != int.MinValue)
+                        {
+                            if (arithmeticOperator == DateArithmeticOperation.Substract)
+                            {
+                                offset = -offset;
+                            }
+
+                            result.Builder.TimeOffset = TimeSpan.FromMinutes(offset);
+                        }                    
+                    }
+                    else
+                    {
+                        if(zoneOffset.Value == "Z")
+                        {
+                            if (Definitions.Converters.TIMEZONE_OFFSETS.TryGetValue(zoneOffset.Value, out ChronoxTimeZone timeZone))
+                            {
+                                result.Builder.TimeZone = timeZone;
+                                result.Builder.TimeOffset = timeZone.Offset;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public void ProcessDateBigEndian(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, GroupWrapper GroupWrapper)
@@ -1790,9 +1866,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             }
             if (month.Length > 0)
             {
-                var monthOfYear = 0;
-
-                if(int.TryParse(month.Value.Trim(), out monthOfYear))
+                if (int.TryParse(month.Value.Trim(), out int monthOfYear))
                 {
                     if (monthOfYear > 0 && monthOfYear <= 12)
                     {
@@ -1802,7 +1876,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     }
                     else
                     {
-                        if(monthOfYear > 12)
+                        if (monthOfYear > 12)
                         {
                             ProcessDay(result, foundGroups, ref dateTime, information, month.Value.Trim());
 
@@ -1811,7 +1885,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                             middleEndian = true;
                         }
                     }
-                }              
+                }
             }
             if (day.Length > 0)
             {
@@ -1874,7 +1948,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     dateTime = dateTime.SetHour(information.NumericValues.Peek());
 
-                    result.GetCurrent().ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
+                    result.Builder.ImplyValue(DateTimeUnit.Hour, dateTime.Hour);
 
                     if(meridiam == null || meridiam.Group.Length <= 0)
                     {
@@ -1921,21 +1995,21 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 if(information.FloatingTimeUnits.Count > 0)
                 {
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Day);
+                    result.Builder.UnAssignValue(DateTimeUnit.Day);
 
                     ProcessDateTimeUnit(result, foundGroups, ref dateTime, information, information.FloatingTimeUnits.Dequeue());
                 }
 
                 if(information.FloatingDayOfWeek.Count > 0 && information.GrabberOffsets.Count > 0)
                 {
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Day);
+                    result.Builder.UnAssignValue(DateTimeUnit.Day);
 
                     ProcessDayOfWeek(result, foundGroups, ref dateTime, information, information.FloatingDayOfWeek.Dequeue());
                 }
 
                 if(information.FloatingTimeOfDay.Count > 0 && information.GrabberOffsets.Count > 0)
                 {
-                    result.GetCurrent().UnAssignValue(DateTimeUnit.Day);
+                    result.Builder.UnAssignValue(DateTimeUnit.Day);
 
                     ProcessDayOfWeek(result, foundGroups, ref dateTime, information, dateTime.Day + information.GrabberOffsets.Peek());
                 }
@@ -1944,7 +2018,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 if (information.FloatingDayOfWeek.Count > 0 && information.NumericOrdinals.Count <= 0)
                 {
-                    if (!result.GetCurrent().IsValueCertain(DateTimeUnit.Day))
+                    if (!result.Builder.IsValueCertain(DateTimeUnit.Day))
                     {
                         ProcessDayOfWeek(result, foundGroups, ref dateTime, information, information.FloatingDayOfWeek.Dequeue());
                     }
@@ -2166,9 +2240,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                 dateTime = dateTime.AddHours(offset);
             }
 
-            //result.GetCurrent().ReAssignValue(DateTimeUnit.Second, dateTime.Second);
-            //result.GetCurrent().ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
-            result.GetCurrent().ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
+            //result.Builder.ReAssignValue(DateTimeUnit.Second, dateTime.Second);
+            //result.Builder.ReAssignValue(DateTimeUnit.Minute, dateTime.Minute);
+            result.Builder.ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
             foundGroups.Find(g => g.Name == Definitions.Property.TimeExpressions).GroupUsed = true;
         }
@@ -2243,11 +2317,11 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     if (certain)
                     {
-                        result.GetCurrent().AssignValue(DateTimeUnit.Meridiam, 0);
+                        result.Builder.AssignValue(DateTimeUnit.Meridiam, 0);
                     }
                     else
                     {
-                        result.GetCurrent().ImplyValue(DateTimeUnit.Meridiam, 0);
+                        result.Builder.ImplyValue(DateTimeUnit.Meridiam, 0);
                     }
 
                     dateTime = dateTime.SetHour(dateTime.Hour == 12 ? 0 : dateTime.Hour);
@@ -2257,11 +2331,11 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     if (certain)
                     {
-                        result.GetCurrent().AssignValue(DateTimeUnit.Meridiam, 1);
+                        result.Builder.AssignValue(DateTimeUnit.Meridiam, 1);
                     }
                     else
                     {
-                        result.GetCurrent().ImplyValue(DateTimeUnit.Meridiam, 1);
+                        result.Builder.ImplyValue(DateTimeUnit.Meridiam, 1);
                     }
 
                     dateTime = dateTime.SetHour(dateTime.Hour != 12 ? dateTime.Hour + 12 : dateTime.Hour);
@@ -2269,7 +2343,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                     break;
             }
 
-            result.GetCurrent().ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
+            result.Builder.ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
         }
 
         public void BreakExecution(List<GroupWrapper> foundGroups, ChronoxDateTimeExtraction result, bool returnNull)

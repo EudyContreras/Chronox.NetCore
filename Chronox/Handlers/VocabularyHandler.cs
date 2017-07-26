@@ -159,11 +159,14 @@ namespace Chronox.Handlers
                     }
                 }
 
-                fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".txt");
+                if(glossaries.Count <= 0)
+                {
+                    fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".txt");
 
-                path = Path.Combine(Definitions.TextLangDataPath, fileName.ToString());
+                    path = Path.Combine(Definitions.TextLangDataPath, fileName.ToString());
 
-                glossaries.Add(langFileHandler.CreateGlossary(path));
+                    glossaries.Add(langFileHandler.CreateGlossary(path));
+                }
             }
 
             return MergeGlossaries(glossaries.ToArray());
@@ -198,39 +201,42 @@ namespace Chronox.Handlers
 
                 mergedGlossary.Language = string.Join("|", glossaries.Select(g => g.Language));
 
-                mergedGlossary.DateTimeIgnored = glossaries.SelectMany(g => g.DateTimeIgnored).ToList();
-                mergedGlossary.TimeRangeIgnored = glossaries.SelectMany(g => g.TimeRangeIgnored).ToList();
-                mergedGlossary.TimeSpanIgnored = glossaries.SelectMany(g => g.TimeSpanIgnored).ToList();
-                mergedGlossary.TimeSetIgnored = glossaries.SelectMany(g => g.TimeSetIgnored).ToList();
+                mergedGlossary.DateTimeIgnored = new HashSet<string>(glossaries.SelectMany(g => g.DateTimeIgnored),StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.TimeRangeIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeRangeIgnored), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.TimeSpanIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeSpanIgnored), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.TimeSetIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeSetIgnored), StringComparer.OrdinalIgnoreCase).ToList();
 
-                mergedGlossary.SupportedDateTimeFormats = glossaries.SelectMany(g => g.SupportedDateTimeFormats).ToList();
-                mergedGlossary.SupportedTimeRangeFormats = glossaries.SelectMany(g => g.SupportedTimeRangeFormats).ToList();
-                mergedGlossary.SupportedTimeSpanFormats = glossaries.SelectMany(g => g.SupportedTimeSpanFormats).ToList();
-                mergedGlossary.SupportedTimeSetFormats = glossaries.SelectMany(g => g.SupportedTimeSetFormats).ToList();
+                mergedGlossary.SupportedDateTimeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedDateTimeFormats), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.SupportedTimeRangeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeRangeFormats), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.SupportedTimeSpanFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSpanFormats), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.SupportedTimeSetFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSetFormats), StringComparer.OrdinalIgnoreCase).ToList();
 
                 mergedGlossary.Section = glossaries[0].Section;
 
                 foreach (var section in mergedGlossary.Section)
                 {
-                    foreach (var property in section.Properties)
+                    if (section.Label.CompareTo(Definitions.Property.Holidays) == 0)
                     {
-                        if (section.Label.CompareTo(Definitions.Property.Holidays) == 0)
-                        {
-
-                        }
-                        else
+                        section.Properties = new HashSet<Property>(glossaries
+                            .SelectMany(g => g.Section)
+                            .Where(g => g.Label.CompareTo(section.Label) == 0)
+                            .SelectMany(g => g.Properties), Property.Comparer)
+                            .ToList();
+                    }
+                    else
+                    {
+                        foreach (var property in section.Properties)
                         {
                             var properties = glossaries
-                                .SelectMany(g => g.Section)
-                                .Where(g => g.Label.CompareTo(section.Label) == 0)
-                                .SelectMany(g => g.Properties)
-                                .Where(g => g.Key.CompareTo(property.Key) == 0);
+                                   .SelectMany(g => g.Section)
+                                   .Where(g => g.Label.CompareTo(section.Label) == 0)
+                                   .SelectMany(g => g.Properties)
+                                   .Where(g => g.Key.CompareTo(property.Key) == 0);
 
                             property.Pattern = string.Join("|", properties.Select(p => p.Pattern));
 
                             property.Variations = properties.SelectMany(g => g.Variations).ToList();
                         }
-
                     }
                 }
 

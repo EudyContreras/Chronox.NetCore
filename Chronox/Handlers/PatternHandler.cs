@@ -121,6 +121,11 @@ namespace Chronox.Handlers
             return $"({value})";
         }
 
+        public static string OrGroupWrapp(params string[] values)
+        {
+            return $"({string.Join("|",values)})";
+        }
+
         public static string CaptureWrapp(string value)
         {
             return $"[{value}]";
@@ -129,6 +134,11 @@ namespace Chronox.Handlers
         public static string OptionalGroupWrapp(string value)
         {
             return $"(?:({value}))?";
+        }
+
+        public static string OrOptionalGroupWrapp(params string[] values)
+        {
+            return $"(?:({string.Join("|",values)}))?";
         }
 
         public static string OptionalWrapp(string value)

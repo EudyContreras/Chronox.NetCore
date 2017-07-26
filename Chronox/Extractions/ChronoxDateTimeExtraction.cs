@@ -1,4 +1,5 @@
-﻿using Chronox.Interfaces;
+﻿using Chronox.Components;
+using Chronox.Interfaces;
 using Chronox.Utilities.Extenssions;
 using Enumerations;
 using System;
@@ -11,16 +12,23 @@ namespace Chronox
 {
     public class ChronoxDateTimeExtraction : IChronoxExtraction, IComparable<ChronoxDateTimeExtraction>
     {
+        public string Original { get; set; }
 
-        public int Index { get; set; }
+        public int StartIndex { get; set; }
+
+        public int EndIndex { get; set; }
+
+        public string DatelessString { get; set; }
 
         public string Extraction { get; set; }
 
-        public string Original { get; set; }
+        public bool ValidDate { get; set; }
 
         public DateTime ReferenceDate { get; set; }
 
-        private ChronoxDateTimeBuilder DateTime { get; set; }
+        public ChronoxDateTime DateTime { get; set; }
+
+        public ChronoxDateTimeBuilder Builder { get; set; }
 
         internal static ChronoxDateTimeExtraction EmptyExtraction { get; set; } = null;
 
@@ -30,26 +38,23 @@ namespace Chronox
 
         public ChronoxDateTimeExtraction(ChronoxSettings settings, DateTime referenceDate, int index, string extraction, string text) : this()
         {
-            this.Index = index;
+            this.StartIndex = index;
+            this.EndIndex = index + extraction.Length;
             this.Original = text;
             this.Extraction = extraction;
+            this.DatelessString = text.RemoveSubstrings(extraction);
             this.ReferenceDate = referenceDate;
-            this.DateTime = new ChronoxDateTimeBuilder(settings);
+            this.Builder = new ChronoxDateTimeBuilder();
         }
 
         public int CompareTo(ChronoxDateTimeExtraction other)
         {
-            return this.Index - other.Index;
+            return this.StartIndex - other.StartIndex;
         }
 
         public override string ToString()
         {
             return Extraction;
-        }
-
-        internal ChronoxDateTimeBuilder GetCurrent()
-        {
-            return DateTime;
         }
     }
 }

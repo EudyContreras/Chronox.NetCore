@@ -154,6 +154,11 @@ namespace Chronox.Handlers
             {
                 if (EmptyLine(line)) continue;
 
+                if (line.Contains("//*") && !line.Contains("*//"))
+                {
+                    throw new Exception("Please review the comments written and make sure they follow the right format");
+                }
+
                 if (line.Contains("//*") && line.Contains("*//"))
                 {
                     var parts = line.Split("//*");
@@ -169,17 +174,6 @@ namespace Chronox.Handlers
                 else
                 {
                     lines.Add(line);
-                }
-
-            }
-
-            foreach (var line in lines)
-            {
-                if (EmptyLine(line)) continue;
-
-                if (line.Contains("//*") || line.Contains("*//"))
-                {
-                    throw new Exception("Please review the comments written and make sure the follow the right format");
                 }
             }
         }

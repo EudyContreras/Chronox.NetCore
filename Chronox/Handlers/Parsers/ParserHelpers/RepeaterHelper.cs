@@ -211,5 +211,10 @@ namespace Chronox.Parsers.General.ParserHelpers
         {
             throw new NotImplementedException();
         }
+
+        public void ProcessTimeZoneInformation(ChronoxTimeSetExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, GroupWrapper GroupWrapper)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

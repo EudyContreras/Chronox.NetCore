@@ -80,7 +80,7 @@ namespace Chronox
 
         private VocabularyHandler SetLanguagePreferences(ChronoxPreferences preferences)
         {
-            return VocabularyHandler.GetInstance(this, Definitions.TextLangDataPath, preferences.Languages[0]);
+            return VocabularyHandler.GetInstance(this, Definitions.TextLangDataPath, preferences.PrefferedLanguages);
         }
 
         public static ChronoxSettings Standard
