@@ -14,10 +14,8 @@ using System.IO;
 namespace Chronox.Handlers
 {
     public class SequenceHandler
-    {     
+    {
         internal VocabularyHandler LanguageHandler { get; private set; }
-
-        internal PatternRegex TimePattern { get; set; }
 
         internal PatternRegex DatePatternBigEndian { get; set; }
 
@@ -31,11 +29,13 @@ namespace Chronox.Handlers
 
         internal PatternRegex SecondsDiscretePattern { get; set; }
 
+        internal PatternRegex OptionalSeparator { get; set; }
+
         internal PatternRegex TimeZonePattern { get; set; }
 
-        internal PatternRegex Separator { get; set; }
+        internal PatternRegex TimePattern { get; set; }
 
-        internal PatternRegex OptionalSeparator { get; set; }
+        internal PatternRegex Separator { get; set; }
 
         public SequenceHandler(VocabularyHandler languageHandler)
         {   
@@ -90,7 +90,6 @@ namespace Chronox.Handlers
                 }
             }
         }
-
 
         public List<PatternSequence> BuildPatternSequences(ChronoxSettings settings, HashSet<Sequence> sequences, Dictionary<string,PatternRegex> patterns)
         {
@@ -184,8 +183,7 @@ namespace Chronox.Handlers
 
         private bool OptinalSpaceQualified(PatternRegex pattern)
         {
-            return pattern.Label == Definitions.Patterns.Time
-                || pattern.Label == Definitions.Patterns.HourDiscrete;
+            return pattern.Label == Definitions.Patterns.Time || pattern.Label == Definitions.Patterns.HourDiscrete;
         }
 
         private bool IdentifyAndAssign(string property, ref PatternRegex pattern)
@@ -212,15 +210,15 @@ namespace Chronox.Handlers
             {
                 pattern = DatePatternLittleEndian;
             }
-            else if (string.Compare(property, Definitions.Patterns.HourDiscrete) == 0)
+            else if (string.Compare(property, Definitions.Patterns.HourDiscrete, true) == 0)
             {
                 pattern = HoursDiscretePattern;
             }
-            else if (string.Compare(property, Definitions.Patterns.MinuteDiscrete) == 0)
+            else if (string.Compare(property, Definitions.Patterns.MinuteDiscrete, true) == 0)
             {
                 pattern = MinutesDiscretePattern;
             }
-            else if (string.Compare(property, Definitions.Patterns.SecondDiscrete) == 0)
+            else if (string.Compare(property, Definitions.Patterns.SecondDiscrete, true) == 0)
             {
                 pattern = SecondsDiscretePattern;
             }
@@ -316,9 +314,9 @@ namespace Chronox.Handlers
 
             var labeledMillis = PatternHandler.LabelWrapp(millis.Label, millis.Value);
 
-            var groups = PatternHandler.OptionalGroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
+            var groups = PatternHandler.GroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
 
-            var pattern = new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
+            var pattern = new PatternRegex(Definitions.Patterns.Time, groups);
 
             return pattern;
         }

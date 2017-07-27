@@ -14,8 +14,7 @@ namespace Chronox.Constants
 {
     internal static class Definitions
     {
-        public const string TextLangDataPath = @"Resources\Languages\DataSets\TextFiles";
-        public const string JsonLangDataPath = @"Resources\Languages\DataSets\JsonFiles";
+        public const string LangDataPath = @"Resources\Languages\DataSets";
         public const string TimeZoneFilePath = @"Resources\DataSets\TimeZoneInfo.txt";
         public const string FilePathDataSets = @"Resources\DataSets";
 

@@ -69,9 +69,9 @@ namespace Chronox
         {
             PrefferedLanguages = languages;
 
-            this.Language = VocabularyHandler.GetInstance(this, Definitions.TextLangDataPath, PrefferedLanguages);
+            this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
         }
-       
+
         public int SearchPassCount
         {
             get
@@ -80,7 +80,7 @@ namespace Chronox
             }
             internal set
             {
-                if(searchPassCount >= 1)
+                if (searchPassCount >= 1)
                 {
                     searchPassCount = value;
                 }
@@ -111,7 +111,7 @@ namespace Chronox
             get { return Languages; }
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     Languages = value;
                 }

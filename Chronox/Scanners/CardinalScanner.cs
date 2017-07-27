@@ -102,7 +102,7 @@ namespace Chronox.Scanners
                     {
                         if (number.Length > 0)
                         {
-                            var endIndex = expression.LastIndexOf(part);
+                            var endIndex = string.IsNullOrEmpty(part) ? expression.Length - 1 : expression.IndexOf(part);
 
                             var cardinal = number.ToString().ReplaceLast(" and ", " ").Replace(" - ", "-").Trim(); //Make language independent
 

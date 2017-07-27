@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Chronox
 {
-    public class ChronoxDateTimeExtraction : IChronoxExtraction, IComparable<ChronoxDateTimeExtraction>
+    public class ChronoxDateTimeExtraction : IChronoxExtraction
     {
         public string Original { get; set; }
 
@@ -57,14 +57,29 @@ namespace Chronox
             }
         }
 
-        public int CompareTo(ChronoxDateTimeExtraction other)
+        public int CompareTo(IChronoxExtraction other)
         {
-            return this.StartIndex - other.StartIndex;
+            return this.StartIndex - ((ChronoxDateTimeExtraction)other).StartIndex;
+        }
+
+        public bool Equals(IChronoxExtraction x, IChronoxExtraction y)
+        {
+            return ((ChronoxDateTimeExtraction)x).StartIndex.Equals(((ChronoxDateTimeExtraction)y).StartIndex);
+        }
+
+        public int GetHashCode(IChronoxExtraction obj)
+        {
+            return ((ChronoxDateTimeExtraction)obj).StartIndex.GetHashCode();
+        }
+
+        public bool Equals(IChronoxExtraction other)
+        {
+            return StartIndex.Equals(((ChronoxDateTimeExtraction)other).StartIndex);
         }
 
         public override string ToString()
         {
             return Extraction;
-        }
+        }   
     }
 }

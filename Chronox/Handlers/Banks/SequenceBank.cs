@@ -31,8 +31,7 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
                     Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam,
-                    Definitions.Patterns.TimeZone
+                    Definitions.Property.TimeMeridiam
                 ),
             new Sequence(SequenceType.DateTime, "10pm next tuesday",
                     Definitions.Patterns.Time,
@@ -55,6 +54,13 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "10 to 8 | 10 past 8",
+                    Definitions.Patterns.MinuteDiscrete,
+                    Definitions.Property.TimeConjointer,
+                    Definitions.Patterns.HourDiscrete,
+                    Definitions.Property.TimeMeridiam
+                ),
+            new Sequence(SequenceType.DateTime, "tomorrow 10 to 8 | tomorrow 10 past 8",
+                    Definitions.Property.DayOffset,
                     Definitions.Patterns.MinuteDiscrete,
                     Definitions.Property.TimeConjointer,
                     Definitions.Patterns.HourDiscrete,

@@ -23,7 +23,7 @@ namespace Chronox.Components
 
         public override string ToString()
         {
-            return Date.ToString();
+            return $"{ Date.ToString()} {Time.ToString()}";
         }
     }
 }

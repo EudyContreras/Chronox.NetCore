@@ -23,7 +23,7 @@ namespace Chronox.Handlers
     {
         private static VocabularyHandler instance;
 
-        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.TextLangDataPath, Definitions.DefaultLanguage);
+        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.LangDataPath, Definitions.DefaultLanguage);
 
         public Glossary Vocabulary { get; private set; }
 
@@ -57,8 +57,6 @@ namespace Chronox.Handlers
         {
             this.Settings = settings;
 
-            Vocabulary = Load(directory, languages);
-
             VocabularyBank = new GlossaryBank();
 
             PatternHandler = new PatternHandler();
@@ -72,6 +70,8 @@ namespace Chronox.Handlers
             DateTimeRegexSequences = new List<PatternSequence>();
 
             Holidays = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            Vocabulary = Load(directory, languages);
 
             SequenceLibrary.SequencesDateTimeCombinations.AddRange(SequenceBank.DateTimeSequences.ToArray());
 
@@ -135,37 +135,19 @@ namespace Chronox.Handlers
                 }
                 else
                 {
-                    path = Path.Combine(Definitions.TextLangDataPath, fileName.ToString());
+                    path = Path.Combine(Definitions.LangDataPath, fileName.ToString());
 
                     if (File.Exists(path))
                     {
                         glossaries.Add(langFileHandler.CreateGlossary(path));
-                    }
-                    else
-                    {
-                        path = Path.Combine(directory, fileName.Replace(".txt", string.Empty).Append(".json").ToString());
-
-                        if (File.Exists(path))
-                        {
-                            glossaries.Add(LoadJsonFile(path));
-                        }
-                        else
-                        {
-                            path = Path.Combine(Definitions.JsonLangDataPath, fileName.ToString());
-
-                            if (File.Exists(path))
-                            {
-                                glossaries.Add(LoadJsonFile(path));
-                            }
-                        }
-                    }
+                    }                
                 }
 
                 if(glossaries.Count <= 0)
                 {
                     fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".txt");
 
-                    path = Path.Combine(Definitions.TextLangDataPath, fileName.ToString());
+                    path = Path.Combine(Definitions.LangDataPath, fileName.ToString());
 
                     glossaries.Add(langFileHandler.CreateGlossary(path));
                 }
@@ -197,6 +179,20 @@ namespace Chronox.Handlers
 
         public Glossary MergeGlossaries(params Glossary[] glossaries)
         {
+            foreach(var glossary in glossaries)
+            {
+                foreach (var section in glossary.Section)
+                {
+                    foreach (var property in section.Properties)
+                    {
+                        if (string.IsNullOrEmpty(property.Pattern) || string.IsNullOrWhiteSpace(property.Pattern))
+                        {
+                            property.Pattern = PatternHandler.ComputePattern(property.Variations);
+                        }
+                    }
+                }
+            }
+
             if(glossaries.Length > 1)
             {
                 var mergedGlossary = new Glossary();
@@ -410,17 +406,6 @@ namespace Chronox.Handlers
 
         private void CreatePatterns()
         {
-            foreach(var section in Vocabulary.Section)
-            {
-                foreach(var property in section.Properties)
-                {
-                    if(string.IsNullOrEmpty(property.Pattern) || string.IsNullOrWhiteSpace(property.Pattern))
-                    {
-                        property.Pattern = PatternHandler.ComputePattern(property.Variations);
-                    }
-                }
-            }
-
             CreatePattern(Definitions.Property.LogicalOperator);
             CreatePattern(Definitions.Property.CasualExpressions);
             CreatePattern(Definitions.Property.GrabberExpressions);

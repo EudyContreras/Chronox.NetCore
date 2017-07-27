@@ -54,7 +54,7 @@ supporteSectionCodes:
 	D.D.M 		//: discreteDateMiddleEndian	//: MM|DD|YYYY
 	D.T 		//: discreteTime				//: 10:33pm|10Pm|10:33
 	D.Y 		//: discreteYear				//: 2017|97|'98
-	W.S 		//: whiteSpace 
+	W.S 		//: whiteSpace					//:
 	L.O 		//: logicalOperator				//: and|or
 	D.T.S 		//: discreteTimeSeparator		//: .|:
 	D.D.S 		//: discreteDateSeparator		//: /|-|.

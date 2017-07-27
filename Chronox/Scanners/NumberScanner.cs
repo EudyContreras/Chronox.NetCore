@@ -37,7 +37,6 @@ namespace Chronox.Scanners
                     }
                 }
             }
-
             return result;
         }
     }

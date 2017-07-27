@@ -11,7 +11,6 @@ namespace Chronox.Helpers.Patterns
 {
     public class PatternLibrary
     {
-
         internal readonly Dictionary<string, PatternRegex> Patterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase);
 
         internal static readonly IDictionary<string,PatternRegex> HelperPatterns = new Dictionary<string,PatternRegex>(StringComparer.OrdinalIgnoreCase)
@@ -59,7 +58,6 @@ namespace Chronox.Helpers.Patterns
            { Definitions.Patterns.SecondDiscrete, new PatternRegex(Definitions.Patterns.SecondDiscrete, "([0-9]{1,2})")},
 
            { Definitions.Patterns.Millis, new PatternRegex(Definitions.Patterns.Millis, "((?:\\.|\\:|\\：)([0-9]{1,4}))?")},
-
         };
 
         internal static readonly IDictionary<string, PatternRegex> CommonTimeZonePatterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase)
@@ -70,7 +68,7 @@ namespace Chronox.Helpers.Patterns
 
             { Definitions.Patterns.TimeZoneOffset, new PatternRegex(Definitions.Patterns.TimeZoneOffset,"(?:Z|[+-](?:2[0-3]|[01][0-9]):?[0-5][0-9])")},
 
-            { Definitions.Patterns.TimeZoneAbbreviation, new PatternRegex(Definitions.Patterns.TimeZoneAbbreviation,"([A-Z]{1,5})")},
+            { Definitions.Patterns.TimeZoneAbbreviation, new PatternRegex(Definitions.Patterns.TimeZoneAbbreviation, $"({string.Join("|",Definitions.Converters.TIMEZONE_OFFSETS.Keys)})")},
         };
 
         internal static readonly IDictionary<string,PatternRegex> CommonYearPatterns = new Dictionary<string,PatternRegex>(StringComparer.OrdinalIgnoreCase)

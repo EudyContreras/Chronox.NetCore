@@ -34,7 +34,7 @@ namespace Chronox
 
         public static IChronox GetInstance(ChronoxSettings settings)
         {
-            if(Instance == null)
+            if (Instance == null)
             {
                 Instance = new ChronoxParser(settings);
 
@@ -61,7 +61,7 @@ namespace Chronox
             }
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     settings = value;
                 }
@@ -70,7 +70,7 @@ namespace Chronox
 
 
         public static ResultWrapper Parse(string input) => Parse(DateTime.MinValue, input);
-        
+
 
         public static ResultWrapper Parse(DateTime referenceDate, string input) => Parse(StandardSettings, referenceDate, input);
 
@@ -79,7 +79,7 @@ namespace Chronox
 
 
         public static ResultWrapper Parse(ChronoxSettings settings, DateTime referenceDate, string input) => GetInstance(settings).Parse(referenceDate, input);
-        
+
 
         public static bool TryParse(string input, out ResultWrapper result) => TryParse(DateTime.MinValue, input, out result);
 
@@ -91,9 +91,9 @@ namespace Chronox
 
 
         public static bool TryParse(ChronoxSettings settings, DateTime referenceDate, string input, out ResultWrapper result) => GetInstance(settings).TryParse(referenceDate, input, out result);
-        
 
-        public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(string input) => ParseDateTime(DateTime.MinValue, input); 
+
+        public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(string input) => ParseDateTime(DateTime.MinValue, input);
 
 
         public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(DateTime referenceDate, string input) => ParseDateTime(StandardSettings, referenceDate, input);
@@ -103,7 +103,7 @@ namespace Chronox
 
 
         public static IReadOnlyList<ChronoxDateTimeExtraction> ParseDateTime(ChronoxSettings settings, DateTime referenceDate, string input) => GetInstance(settings).ParseDateTime(referenceDate, input);
-       
+
 
         public static IReadOnlyList<ChronoxTimeRangeExtraction> ParseTimeRange(string input) => ParseTimeRange(DateTime.MinValue, input);
 
@@ -115,13 +115,13 @@ namespace Chronox
 
 
         public static IReadOnlyList<ChronoxTimeRangeExtraction> ParseTimeRange(ChronoxSettings settings, DateTime referenceDate, string input) => GetInstance(settings).ParseTimeRange(referenceDate, input);
-        
+
 
         public static IReadOnlyList<ChronoxTimeSpanExtraction> ParseTimeSpan(string input) => ParseTimeSpan(StandardSettings, input);
 
 
         public static IReadOnlyList<ChronoxTimeSpanExtraction> ParseTimeSpan(ChronoxSettings settings, string input) => GetInstance(settings).ParseTimeSpan(input);
-        
+
 
         public static IReadOnlyList<ChronoxTimeSetExtraction> ParseTimeSet(string input) => ParseTimeSet(StandardSettings, input);
 
@@ -149,7 +149,7 @@ namespace Chronox
 
             allResults.AddRange(MasterParser.ComputeResult(scanResults.Key, Settings.ReferenceDate, Settings));
 
-            allResults.Sort();
+            //allResults.Sort();
 
             if (allResults.Count > 0)
             {
@@ -190,7 +190,7 @@ namespace Chronox
 
             return Parse(referenceDate, input)?.Results.Cast<ChronoxDateTimeExtraction>().ToList();
         }
-   
+
 
         IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(string input) => ParseTimeRange(DateTime.MinValue, input);
 
@@ -253,7 +253,7 @@ namespace Chronox
                     break;
             }
 
-            expression = expression.PadPunctuationExact(0, 1);
+            expression = expression.PadPunctuationExact(0, 1, ',');
 
             expression = expression.Replace("  ", " ", false);
 
@@ -265,11 +265,8 @@ namespace Chronox
         private string CleanExpression(string expression, ChronoxSettings settings)
         {
             expression = expression.RemoveWords(settings.Language.Vocabulary.DateTimeIgnored);
-
             expression = expression.RemoveWords(settings.Language.Vocabulary.TimeRangeIgnored);
-
             expression = expression.RemoveWords(settings.Language.Vocabulary.TimeSpanIgnored);
-
             expression = expression.RemoveWords(settings.Language.Vocabulary.TimeSetIgnored);
 
             return expression;

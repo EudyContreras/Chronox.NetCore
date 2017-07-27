@@ -714,7 +714,21 @@ namespace Tests
 
             var date = result?[0].DateTime.ToDateTime();
 
-            Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeZone}");
+            if(result?[0] != null)
+            {
+                if(result[0].TimeZone != null)
+                {
+                    Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeZone}");
+                }
+                else if(result[0].TimeOffset != null)
+                {
+                    Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeOffset}");
+                }
+                else
+                {
+                    Console.WriteLine($"{expression} | {date}");
+                }
+            }
             Console.WriteLine();
         }
 

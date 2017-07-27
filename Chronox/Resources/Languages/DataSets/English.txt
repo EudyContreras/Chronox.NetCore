@@ -147,8 +147,8 @@ dayOffsets: combined
 	key: tomorrow
 	value: 1
 	type: group
-	pattern: tom(?:orrow)
-	variations:  tomorrow, tom
+	pattern: tom(?:orrow)|tommorow
+	variations:  tomorrow, tom, tommorow
 
 	key: yesterday
 	value: -1

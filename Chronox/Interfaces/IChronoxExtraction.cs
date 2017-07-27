@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chronox.Interfaces
 {
-    public interface IChronoxExtraction
+    public interface IChronoxExtraction : IComparable<IChronoxExtraction>, IEquatable<IChronoxExtraction>, IEqualityComparer<IChronoxExtraction>
     {
         ExtractionResultType ResultType { get; }
 
