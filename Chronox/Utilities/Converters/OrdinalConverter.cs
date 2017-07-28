@@ -110,9 +110,10 @@ namespace Chronox.Converters
 
         public static HashSet<string> CombinedNames()
         {
-            var combined = new HashSet<string>(Simple.Keys.ToArray());
-
-            combined.Add(Definitions.General.Hundred);
+            var combined = new HashSet<string>(Simple.Keys.ToArray())
+            {
+                Definitions.General.Hundred
+            };
             combined.AddRange(Magnitude.Keys.ToArray());
 
             return combined;
@@ -120,9 +121,10 @@ namespace Chronox.Converters
 
         public static HashSet<string> CombinedNamesOrdinal()
         {
-            var combined = new HashSet<string>(SimpleOrdinal.Keys.ToArray());
-
-            combined.Add(string.Join(Definitions.General.Hundred,Suffixes[0]));
+            var combined = new HashSet<string>(SimpleOrdinal.Keys.ToArray())
+            {
+                string.Join(Definitions.General.Hundred, Suffixes[0])
+            };
             combined.AddRange(MagnitudeOrdinal.Keys.ToArray());
 
             return combined;
@@ -310,9 +312,7 @@ namespace Chronox.Converters
                 {
                     var parsed = cardinalNumber.Replace(suffix, string.Empty, true);
 
-                    var result = 0M;
-
-                    if (decimal.TryParse(parsed, out result))
+                    if (decimal.TryParse(parsed, out decimal result))
                     {
                         return new NumberWrapper(result, NumberType.Ordinal);
                     }
@@ -344,9 +344,8 @@ namespace Chronox.Converters
 
             foreach (var part in parts)
             {
-                var current = 0L;
 
-                if (Simple.TryGetValue(part, out current))
+                if (Simple.TryGetValue(part, out long current))
                 {
                     smallValue += current;
 
@@ -357,7 +356,7 @@ namespace Chronox.Converters
                 }
                 else if (SimpleOrdinal.TryGetValue(part, out current))
                 {
-                    if (string.Compare(lastPart,Units[1]) == 0)
+                    if (string.Compare(lastPart, Units[1]) == 0)
                     {
                         return PortionConverter.WordsToNumber(cardinalNumber);
                     }

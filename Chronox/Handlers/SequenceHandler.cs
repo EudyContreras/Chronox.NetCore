@@ -163,8 +163,16 @@ namespace Chronox.Handlers
                 {
                     result = result.ReplaceLast(Separator.Value, string.Empty);
                 }
+                else if (result.EndsWith(OptionalSeparator.Value))
+                {
+                    result = result.ReplaceLast(OptionalSeparator.Value, string.Empty);
+                }
 
                 if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.SpaceSeparator)
+                {
+                    regexSequence.Patterns.RemoveAt(regexSequence.Patterns.Count - 1);
+                }
+                else if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.OptionalSpace)
                 {
                     regexSequence.Patterns.RemoveAt(regexSequence.Patterns.Count - 1);
                 }
@@ -318,7 +326,14 @@ namespace Chronox.Handlers
 
             var labeledMillis = PatternHandler.LabelWrapp(millis.Label, millis.Value);
 
-            var groups = PatternHandler.GroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
+            var oclockSuffixes = LanguageHandler.Vocabulary.Sections
+                .Find(s => s.Label == Definitions.Property.CasualExpressions)
+                .Properties.Find(p => p.Key == Definitions.Converters.CASUAL_EXPRESSION.FirstOrDefault(e => e.Value == DateCasualExpression.Oclock).Key)
+                .Variations;
+
+            var pattern = PatternHandler.OptionalWrapp(LanguageHandler.PatternHandler.ComputePattern(oclockSuffixes));
+
+            var groups = PatternHandler.GroupWrapp(string.Concat(labeledHour,OptionalSeparator.Value, pattern, labeledMinute, labeledSecond, labeledMillis));
 
             return new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
         }
@@ -348,11 +363,14 @@ namespace Chronox.Handlers
 
             var labeledHours = PatternHandler.LabelWrapp(hours.Label, hours.Value);
 
-            var oclockSuffixes = LanguageHandler.VocabularyBank.GetDictionary(Definitions.Property.CasualExpressions).Where(e => Definitions.Converters.CASUAL_EXPRESSION[e.Value] == DateCasualExpression.Oclock).Select(e => e.Key).ToList();
+            var oclockSuffixes = LanguageHandler.Vocabulary.Sections
+                       .Find(s => s.Label == Definitions.Property.CasualExpressions)
+                       .Properties.Find(p => p.Key == Definitions.Converters.CASUAL_EXPRESSION.FirstOrDefault(e => e.Value == DateCasualExpression.Oclock).Key)
+                       .Variations;
 
             var pattern = PatternHandler.OptionalWrapp(LanguageHandler.PatternHandler.ComputePattern(oclockSuffixes));
 
-            var hourPattern = string.Concat(labeledHours,PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalSpace], pattern);
+            var hourPattern = string.Concat(labeledHours,OptionalSeparator.Value, pattern);
 
             return new PatternRegex(Definitions.Patterns.HourDiscrete, hourPattern);
         }

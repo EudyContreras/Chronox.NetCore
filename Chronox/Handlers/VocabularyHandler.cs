@@ -181,7 +181,7 @@ namespace Chronox.Handlers
         {
             foreach(var glossary in glossaries)
             {
-                foreach (var section in glossary.Section)
+                foreach (var section in glossary.Sections)
                 {
                     foreach (var property in section.Properties)
                     {
@@ -209,14 +209,14 @@ namespace Chronox.Handlers
                 mergedGlossary.SupportedTimeSpanFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSpanFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeSetFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSetFormats), StringComparer.OrdinalIgnoreCase).ToList();
 
-                mergedGlossary.Section = glossaries[0].Section;
+                mergedGlossary.Sections = glossaries[0].Sections;
 
-                foreach (var section in mergedGlossary.Section)
+                foreach (var section in mergedGlossary.Sections)
                 {
                     if (section.Label.CompareTo(Definitions.Property.Holidays) == 0)
                     {
                         section.Properties = new HashSet<Property>(glossaries
-                            .SelectMany(g => g.Section)
+                            .SelectMany(g => g.Sections)
                             .Where(g => g.Label.CompareTo(section.Label) == 0)
                             .SelectMany(g => g.Properties), Property.Comparer)
                             .ToList();
@@ -226,7 +226,7 @@ namespace Chronox.Handlers
                         foreach (var property in section.Properties)
                         {
                             var properties = glossaries
-                                   .SelectMany(g => g.Section)
+                                   .SelectMany(g => g.Sections)
                                    .Where(g => g.Label.CompareTo(section.Label) == 0)
                                    .SelectMany(g => g.Properties)
                                    .Where(g => g.Key.CompareTo(property.Key) == 0);
@@ -291,11 +291,11 @@ namespace Chronox.Handlers
 
         private void PopulateGlossary(string label)
         {
-            var section = Vocabulary.Section.Find(s => string.Compare(s.Label, label, true) == 0);
+            var section = Vocabulary.Sections.Find(s => string.Compare(s.Label, label, true) == 0);
 
             if(section == null)
             {
-                var dateTimeUnit = Vocabulary.Section.Find(s => string.Compare(s.Label, Definitions.Property.DateTimeUnits) == 0); 
+                var dateTimeUnit = Vocabulary.Sections.Find(s => string.Compare(s.Label, Definitions.Property.DateTimeUnits) == 0); 
 
                 switch (label)
                 {
@@ -309,7 +309,7 @@ namespace Chronox.Handlers
                             Properties = dateTimeUnit.Properties.Where(p => IsDateUnit(p.Key)).ToList()                            
                         };
 
-                        Vocabulary.Section.Add(section);
+                        Vocabulary.Sections.Add(section);
 
                         break;
                     case Definitions.Property.TimeUnits:
@@ -322,7 +322,7 @@ namespace Chronox.Handlers
                             Properties = dateTimeUnit.Properties.Where(p => IsTimeUnit(p.Key)).ToList()
                         };
 
-                        Vocabulary.Section.Add(section);
+                        Vocabulary.Sections.Add(section);
 
                         break;
                     default:
@@ -331,7 +331,7 @@ namespace Chronox.Handlers
 
                         if(section != null)
                         {
-                            Vocabulary.Section.Add(section);
+                            Vocabulary.Sections.Add(section);
                         }
 
                         break;

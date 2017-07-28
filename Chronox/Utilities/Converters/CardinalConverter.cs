@@ -62,9 +62,10 @@ namespace Chronox.Converters
 
         public static HashSet<string> CombinedNames()
         {
-            var combined = new HashSet<string>(Simple.Keys.ToArray());
-
-            combined.Add(Definitions.General.Hundred);
+            var combined = new HashSet<string>(Simple.Keys.ToArray())
+            {
+                Definitions.General.Hundred
+            };
             combined.AddRange(Magnitude.Keys.ToArray());
 
             return combined;
@@ -228,18 +229,17 @@ namespace Chronox.Converters
 
             foreach (var part in parts)
             {
-                var current = 0L;
 
-                if (Simple.TryGetValue(part, out current))
+                if (Simple.TryGetValue(part, out long current))
                 {
-                    if(last > 0 && last <= 9)
+                    if (last > 0 && last <= 9)
                     {
                         integerPart = last;
 
                     }
                     smallValue += current;
 
-                    if(integerPart != decimal.MinValue)
+                    if (integerPart != decimal.MinValue)
                     {
                         fractionalPart += current;
                     }
@@ -260,7 +260,7 @@ namespace Chronox.Converters
                         fractionalPart *= 100M;
                     }
                 }
-                else if(part == Definitions.General.Point)
+                else if (part == Definitions.General.Point)
                 {
                     integerPart = (bigValue + smallValue);
                 }

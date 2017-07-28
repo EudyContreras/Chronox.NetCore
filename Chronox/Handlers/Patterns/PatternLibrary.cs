@@ -21,7 +21,7 @@ namespace Chronox.Helpers.Patterns
 
            { Definitions.Patterns.TimeSeparator, new PatternRegex(Definitions.Patterns.TimeSeparator,  "(\\.|\\:|\\：)?")},
 
-           { Definitions.Patterns.DateSeparator, new PatternRegex(Definitions.Patterns.DateSeparator,  "(\\/|\\-|\\.|\\s*)?")},
+           { Definitions.Patterns.DateSeparator, new PatternRegex(Definitions.Patterns.DateSeparator,  "(\\/|\\-|\\s*)?")},
 
            { Definitions.Patterns.NumberMax2Digits, new PatternRegex(Definitions.Patterns.NumberMax2Digits, "([0-9]{1,2})")},
 

@@ -209,7 +209,7 @@ namespace Chronox.Parsers.English
                 }
                 else
                 {
-                    return Compute(text, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
+                    return Compute(information.ProcessedString, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
                 }
             }
             return Adjusted(results.ToList());
@@ -240,7 +240,6 @@ namespace Chronox.Parsers.English
 
             return missing;
         }
-
 
         //Find a way to minimize amount of checks and reduce loop count!
 

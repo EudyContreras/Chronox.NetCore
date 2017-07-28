@@ -18,6 +18,9 @@ namespace Chronox.Handlers
         private const string TimeRangeIgnored = "timerangeignored";
         private const string TimeSpanIgnored = "timespanignored";
         private const string TimeSetIgnored = "timesetignored";
+        private const string CommonPunctuation = "commonpunctuation";
+        private const string CommonDateSeparators = "commondateseparators";
+        private const string CommonTimeSeparators = "commontimeseparators";
         private const string PreferedEndianFormat = "preferedendianformat";
         private const string SupportedDateTimeFormats = "supporteddatetimeformats";
         private const string SupportedTimeRangeFormats = "supportedtimerangeformats";
@@ -211,7 +214,7 @@ namespace Chronox.Handlers
 
                 var attribute = parts[0].Trim().ToLower();
 
-                var value = parts.Length > 1 ? parts[1].Trim().ToLower() : null;
+                var value = CreateValue(parts);
 
                 if (!EmptyLine(attribute))
                 {
@@ -229,6 +232,27 @@ namespace Chronox.Handlers
                             if (value != null)
                             {
                                 glossary.AssumeSpace = bool.Parse(value);
+                            }
+                            break;
+                        case CommonPunctuation:
+
+                            if (value != null)
+                            {
+                                glossary.CommonPunctuation = CollectWrappedSymbols(value);
+                            }
+                            break;
+                        case CommonDateSeparators:
+
+                            if (value != null)
+                            {
+                                glossary.CommonDateSeparators = CollectWrappedSymbols(value);
+                            }
+                            break;
+                        case CommonTimeSeparators:
+
+                            if (value != null)
+                            {
+                                glossary.CommonTimeSeparators = CollectWrappedSymbols(value);
                             }
                             break;
                         case PreferedEndianFormat:
@@ -295,9 +319,41 @@ namespace Chronox.Handlers
                 }
             }
 
-            glossary.Section = sections;
+            glossary.Sections = sections;
 
             return glossary;
+        }
+
+        private List<string> CollectWrappedSymbols(string value)
+        {
+            var symbols = new List<string>();
+
+            for(int i = 0; i<value.Length; i++)
+            {
+                if(value[i] == '[')
+                {
+                    symbols.Add(value[i + 1].ToString());
+                }
+            }
+
+            return symbols;
+        }
+
+        private string CreateValue(string[] parts)
+        {
+            if(parts.Length > 1)
+            {
+                if (parts.Length == 2)
+                {
+                    return parts[1].Trim().ToLower();
+                }
+                else
+                {
+                    return string.Join(":", parts.Skip(1)).Trim().ToLower();
+                }
+            }
+
+            return null;
         }
 
         private List<string> ExtractFormats(List<string> lines, string endFormat, int index)

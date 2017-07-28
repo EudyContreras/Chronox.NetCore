@@ -2,7 +2,11 @@
 
 assumeSpace: true
 
-preferedEndianFormat: M.D.Y
+commonPunctuation: [,], [.], [?], [!]			//* Soon to be supported! *//
+
+commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
+
+commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
 
 dateTimeIgnored: 
 
@@ -22,35 +26,23 @@ supportedTimeSetFormats:
 
 casualExpressions: n/a
 
-	key: on
-	value: n/a
-	type: optional
-	pattern: on|at
-	variations:  on, at
-
 	key: oclock
 	value: n/a
 	type: optional
-	pattern: o'clock|oclock
-	variations:  o'clock, oclock
+	pattern: 
+	variations:  en punto
 
 	key: in
 	value: n/a
 	type: optional
-	pattern: on|in(?:\s*aproximately|within)?|from\s*now|before
-	variations:  in approximately, in within, in, before
+	pattern: en
+	variations:  en,
 
 	key: during
 	value: n/a
 	type: optional
-	pattern: during|while|along|throughout|over|amid
-	variations:  during, while, along, throughout, over, amid
-
-	key: of
-	value: n/a
-	type: optional
-	pattern: of
-	variations:  of
+	pattern: 
+	variations:  durante, mientrastanto, 
 
 	<----------------->
 

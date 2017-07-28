@@ -123,9 +123,10 @@ namespace Chronox.Converters
 
         public static HashSet<string> CombinedNames()
         {
-            var combined = new HashSet<string>(Simple.Keys.ToArray());
-
-            combined.Add(Definitions.General.Hundred);
+            var combined = new HashSet<string>(Simple.Keys.ToArray())
+            {
+                Definitions.General.Hundred
+            };
             combined.AddRange(Magnitude.Keys.ToArray());
 
             return combined;
@@ -133,9 +134,10 @@ namespace Chronox.Converters
 
         public static HashSet<string> CombinedNamesOrdinal()
         {
-            var combined = new HashSet<string>(SimpleOrdinal.Keys.ToArray());
-
-            combined.Add(string.Join(Definitions.General.Hundred,Suffixes[0]));
+            var combined = new HashSet<string>(SimpleOrdinal.Keys.ToArray())
+            {
+                string.Join(Definitions.General.Hundred, Suffixes[0])
+            };
             combined.AddRange(MagnitudeOrdinal.Keys.ToArray());
 
             return combined;
@@ -156,9 +158,7 @@ namespace Chronox.Converters
                 {
                     var parsed = cardinalNumber.Replace(suffix, string.Empty, true);
 
-                    var result = 0M;
-
-                    if (decimal.TryParse(parsed, out result))
+                    if (decimal.TryParse(parsed, out decimal result))
                     {
                         return new NumberWrapper(result, NumberType.Ordinal);
                     }
@@ -190,9 +190,8 @@ namespace Chronox.Converters
 
             foreach (var part in parts)
             {
-                var current = 0M;
 
-                if (Simple.TryGetValue(part, out current))
+                if (Simple.TryGetValue(part, out decimal current))
                 {
                     smallValue += current;
 
@@ -201,15 +200,15 @@ namespace Chronox.Converters
                         fractionalPart += current;
                     }
                 }
-                else if(SimpleOrdinal.TryGetValue(part, out current))
+                else if (SimpleOrdinal.TryGetValue(part, out current))
                 {
-                    var cu = (1.0M/current); 
+                    var cu = (1.0M / current);
 
                     smallValue *= cu;
 
                     if (integerPart != decimal.MinValue)
                     {
-                        fractionalPart *= (1.0M/current);
+                        fractionalPart *= (1.0M / current);
                     }
                 }
                 else if (part == Definitions.General.Hundred)
@@ -221,13 +220,13 @@ namespace Chronox.Converters
                         fractionalPart *= 100M;
                     }
                 }
-                else if(part == string.Concat(Definitions.General.Hundred, Suffixes[0]))
+                else if (part == string.Concat(Definitions.General.Hundred, Suffixes[0]))
                 {
-                    smallValue *= (1/100M);
+                    smallValue *= (1 / 100M);
 
                     if (integerPart != decimal.MinValue)
                     {
-                        fractionalPart *= (1/100M);
+                        fractionalPart *= (1 / 100M);
                     }
 
                 }
@@ -254,11 +253,11 @@ namespace Chronox.Converters
                     }
                     else if (MagnitudeOrdinal.TryGetValue(part, out current))
                     {
-                        bigValue *= (1/(smallValue * current));
+                        bigValue *= (1 / (smallValue * current));
 
                         if (integerPart != decimal.MinValue)
                         {
-                            fractionalPart *= (1/(smallValue * current));
+                            fractionalPart *= (1 / (smallValue * current));
                         }
 
                         smallValue = 0M;

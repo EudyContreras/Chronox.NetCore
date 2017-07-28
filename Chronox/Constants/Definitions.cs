@@ -489,12 +489,9 @@ namespace Chronox.Constants
 
             public static readonly IDictionary<string, DateCasualExpression> CASUAL_EXPRESSION = new Dictionary<string, DateCasualExpression>(StringComparer.OrdinalIgnoreCase)
             {        
-                {"on",DateCasualExpression.On },
                 {"oclock",DateCasualExpression.Oclock },
                 {"in",DateCasualExpression.In },
-                {"of", DateCasualExpression.Of },
                 {"during",DateCasualExpression.During },
-                {"and",DateCasualExpression.And }
             };
 
             public static readonly IReadOnlyDictionary<string, LogicalOperator> LOGICAL_OPERATOR = new Dictionary<string, LogicalOperator>(StringComparer.OrdinalIgnoreCase)

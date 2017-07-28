@@ -71,7 +71,12 @@ namespace Chronox.Utilities.Extenssions
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static List<ContainsWrapper> Contains (this string source, params string[] targets)
+        /// 
+        public static List<ContainsWrapper> Contains(this string source, params string[] targets) => Contains(source, targets, true);
+
+        public static List<ContainsWrapper> Contains(this string source, IEnumerable<string> targets) => Contains(source, targets, true);
+
+        private static List<ContainsWrapper> Contains (this string source, IEnumerable<string> targets, bool priv)
         {
             var results = new List<ContainsWrapper>();
 
@@ -528,6 +533,38 @@ namespace Chronox.Utilities.Extenssions
             return result.ToString();
         }
 
+
+        /// <summary>
+        /// Extension method which replaces common terminal punctuation with spaces 
+        /// the specified string
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string MaskPunctuation(this string source, params char[] punctuation)
+        {
+            var result = new StringBuilder();
+
+            for (var i = 0; i < source.Length; i++)
+            {
+                bool skip = false;
+
+                foreach (var combo in punctuation)
+                {
+                    if (source[i] == combo && source[i + (i < source.Length - 1 ? 1 : 0)] == ' ')
+                    {
+                        skip = true;
+
+                        result.Append(" ");
+                        break;
+                    }
+                }
+                if (!skip)
+                {
+                    result.Append(source[i]);
+                }
+            }
+            return result.ToString();
+        }
         /// <summary>
         /// Extension method which removes padded punctuation from 
         /// the specified string
@@ -676,12 +713,10 @@ namespace Chronox.Utilities.Extenssions
         /// <param name="source"></param>
         /// <param name="wordsToRemove"></param>
         /// <returns></returns>
-        public static string RemoveSubstrings(this string source, List<string> wordsToRemove)
+        public static string RemoveSubstrings(this string source, IEnumerable<string> wordsToRemove)
         {
-            for (var i = 0; i < wordsToRemove.Count; i++)
+            foreach(var part in wordsToRemove)
             {
-                var part = wordsToRemove[i];
-
                 source = Replace(source, part, string.Empty,true);
             }
 

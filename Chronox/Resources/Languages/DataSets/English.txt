@@ -2,7 +2,13 @@
 
 assumeSpace: true
 
-dateTimeIgnored: the, of, at, on, in, oclock, o'clock, during
+commonPunctuation: [,], [.], [?], [!]			//* Soon to be supported! *//
+
+commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
+
+commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
+
+dateTimeIgnored: the, of, at, on, in, during
 
 timeRangeIgnored: 
 
@@ -12,6 +18,11 @@ timeSetIgnored:
 
 supportedDateTimeFormats:
 
+	D.O.W
+	D.O.W|D.T|T.M
+	D.O.W|D.T|T.M|T.Z
+	D.O.W|D.T|T.M|T.O.D
+	D.O.W|D.T|T.M|T.O.D|T.Z
 	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M
 
 supportedTimeRangeFormats:
@@ -22,12 +33,6 @@ supportedTimeSetFormats:
 
 casualExpressions: n/a
 
-	key: on
-	value: n/a
-	type: optional
-	pattern: on|at
-	variations:  on, at
-
 	key: oclock
 	value: n/a
 	type: optional
@@ -37,20 +42,14 @@ casualExpressions: n/a
 	key: in
 	value: n/a
 	type: optional
-	pattern: on|in(?:\s*aproximately|within)?|from\s*now|before
-	variations:  in approximately, in within, in, before
+	pattern: in
+	variations:  in
 
 	key: during
 	value: n/a
 	type: optional
-	pattern: during|while|along|throughout|over|amid
-	variations:  during, while, along, throughout, over, amid
-
-	key: of
-	value: n/a
-	type: optional
-	pattern: of
-	variations:  of
+	pattern: 
+	variations:  during, while, along, throughout, over, amid, meanwhile
 
 	<----------------->
 

@@ -15,7 +15,7 @@ namespace Chronox.Scanners
         {
             var numbers = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue);
 
-            var resultWrapper = expression.Contains(numbers.Keys.ToArray());
+            var resultWrapper = expression.Contains(numbers.Keys);
 
             var result = new ScanWrapper();
 

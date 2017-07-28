@@ -25,9 +25,9 @@ namespace Chronox.Scanners
 
             var grabberExpression = option.Language.VocabularyBank.GetDictionary(Definitions.Property.GrabberExpressions);
 
-            var containsWrapper = expression.Contains(timeExpressions.Keys.ToArray());
+            var containsWrapper = expression.Contains(timeExpressions.Keys);
 
-            containsWrapper.AddRange(expression.Contains(grabberExpression.Keys.ToArray()));
+            containsWrapper.AddRange(expression.Contains(grabberExpression.Keys));
 
             var masks = new List<string>();
 

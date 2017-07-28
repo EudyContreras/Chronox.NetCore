@@ -16,7 +16,7 @@ namespace Chronox.Handlers
         {
             var patternBuilder = new StringBuilder();
 
-            var section = glossary.Section.Find(s => string.Compare(s.Label, label, true) == 0);
+            var section = glossary.Sections.Find(s => string.Compare(s.Label, label, true) == 0);
 
             var patterns = section.Properties.Select(p => p.Pattern).ToList();
 

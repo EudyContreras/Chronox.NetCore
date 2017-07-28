@@ -13,6 +13,12 @@ namespace Chronox.Handlers.Models
 
         public string PreferedEndianFormat { get; set; } = "M.D.Y";
 
+        public List<string> CommonPunctuation { get; set; }
+
+        public List<string> CommonDateSeparators { get; set; }
+
+        public List<string> CommonTimeSeparators { get; set; }
+
         public List<string> DateTimeIgnored { get; set; }
 
         public List<string> TimeRangeIgnored { get; set; }
@@ -29,7 +35,7 @@ namespace Chronox.Handlers.Models
 
         public List<string> SupportedTimeSetFormats { get; set; }
 
-        public List<Section> Section { get; set; }
+        public List<Section> Sections { get; set; }
 
         public int CompareTo(Glossary other)
         {

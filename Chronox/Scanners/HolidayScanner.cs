@@ -15,7 +15,7 @@ namespace Chronox.Scanners
         {
             var holidays = option.Language.VocabularyBank.GetDictionary(Definitions.Property.Holidays);
 
-            var resultWrapper = expression.Contains(holidays.Keys.ToArray());
+            var resultWrapper = expression.Contains(holidays.Keys);
 
             var result = new ScanWrapper();
 
