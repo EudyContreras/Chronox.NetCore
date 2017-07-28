@@ -949,8 +949,8 @@ numericWords: combinedReversed
 	key: one
 	value: 1
 	type: group
-	pattern: one|first|1st|an|a
-	variations:  one, first, 1st, an, a
+	pattern: one|first|1st
+	variations:  one, first, 1st
 
 	key: two
 	value: 2
@@ -1145,8 +1145,8 @@ numericWordsCardinal: combinedReversed
 	key: one
 	value: 1
 	type: group
-	pattern: one|an|a
-	variations:  one, an, a
+	pattern: one
+	variations:  one
 
 	key: two
 	value: 2

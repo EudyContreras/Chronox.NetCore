@@ -857,6 +857,11 @@ namespace Chronox.Parsers.General.ParserHelpers
                     information.FloatingTimeOfDay.Enqueue(timeOfDay);
                 }
             }         
+
+            if(information.GrabberOffsets.Count > 0 && information.CurrentGroup.Equals(foundGroups[foundGroups.Count - 1]))
+            {
+                ProcessDayOffset(result, foundGroups, ref dateTime, information, information.GrabberOffsets.Dequeue());
+            }
         }
 
         public void ProcessMonthOfYear(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int monthOfYear)

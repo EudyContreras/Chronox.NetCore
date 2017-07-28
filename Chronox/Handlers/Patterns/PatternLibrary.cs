@@ -62,8 +62,6 @@ namespace Chronox.Helpers.Patterns
 
         internal static readonly IDictionary<string, PatternRegex> CommonTimeZonePatterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase)
         {
-            { Definitions.Patterns.TimeZone, new PatternRegex(Definitions.Patterns.TimeZone,"((\b([A-Z]{1,4})\b)|(GMT|UTC)?(\\s*)?(?:Z|[+-](?:2[0-3]|[01][0-9]):?[0-5][0-9]))")},
-
             { Definitions.Patterns.TimeZoneCode, new PatternRegex(Definitions.Patterns.TimeZoneCode,"(GMT|UTC)?")},
 
             { Definitions.Patterns.TimeZoneOffset, new PatternRegex(Definitions.Patterns.TimeZoneOffset,"(?:Z|[+-](?:2[0-3]|[01][0-9]):?[0-5][0-9])")},

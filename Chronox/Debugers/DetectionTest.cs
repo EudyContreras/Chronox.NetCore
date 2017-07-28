@@ -728,8 +728,9 @@ namespace Tests
                 {
                     Console.WriteLine($"{expression} | {date}");
                 }
-            }
-            Console.WriteLine();
+
+                Console.WriteLine();
+            }           
         }
 
         private void AreEqual(string expression, string expected, string actual, ref bool allPassed)

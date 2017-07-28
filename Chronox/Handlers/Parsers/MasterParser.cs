@@ -263,6 +263,7 @@ namespace Chronox.Parsers.English
                             matchesFound.Add(new MatchWrapper(sequence, match));
                         }
                     }
+                    
                     else
                     {
                         matchesFound.Add(new MatchWrapper(sequence, match));

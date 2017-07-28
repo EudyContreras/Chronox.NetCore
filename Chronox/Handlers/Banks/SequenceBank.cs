@@ -31,11 +31,21 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
                     Definitions.Patterns.Time,
+                    Definitions.Property.TimeMeridiam
+                ),
+            new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
+                    Definitions.Patterns.Time,
+                    Definitions.Property.TimeMeridiam,
+                    Definitions.Property.TimeOfDay
+                ),
+            new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
+                    Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam,
                     Definitions.Patterns.TimeZone
                 ),
             new Sequence(SequenceType.DateTime, "4 in the morning",
                     Definitions.Patterns.Time,
+                    Definitions.Property.TimeMeridiam,
                     Definitions.Property.TimeOfDay,
                     Definitions.Patterns.TimeZone
                 ),
@@ -98,11 +108,6 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.DayOfWeekType,
                     Definitions.Property.GrabberExpressions
                 ),
-            new Sequence(SequenceType.DateTime, "6 in the morning | 8pm in the evening",
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam,
-                    Definitions.Property.TimeOfDay
-                ),
             new Sequence(SequenceType.DateTime, "6 tuesday morning | 8pm on monday evening",
                     Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam,
@@ -116,28 +121,24 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.TimeOfDay
                 ),
             new Sequence(SequenceType.DateTime, "sat 7 in the evening | monday 10:30 in the morning",
+                    Definitions.Property.DaysOfWeek
+                ),
+            new Sequence(SequenceType.DateTime, "sat 7 in the evening | monday 10:30 in the morning",
                     Definitions.Property.DaysOfWeek,
                     Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam,
-                    Definitions.Property.TimeOfDay
+                    Definitions.Patterns.TimeZone
+                ),
+            new Sequence(SequenceType.DateTime, "sat 7 in the evening | monday 10:30 in the morning",
+                    Definitions.Property.DaysOfWeek,
+                    Definitions.Patterns.Time,
+                    Definitions.Property.TimeMeridiam,
+                    Definitions.Property.TimeOfDay,
+                    Definitions.Patterns.TimeZone
                 ),
             new Sequence(SequenceType.DateTime, "next sat 7 in the evening | last monday 10:30 in the morning",
                     Definitions.Property.GrabberExpressions,
-                    Definitions.Property.DaysOfWeek,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam,
-                    Definitions.Property.TimeOfDay
-                ),
-            new Sequence(SequenceType.DateTime, "sat 7am | saturday at 20:40.0000",
-                    Definitions.Property.DaysOfWeek,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
-                ),
-            new Sequence(SequenceType.DateTime, "this sat 7am | next saturday at 20:40.0000",
-                    Definitions.Property.GrabberExpressions,
-                    Definitions.Property.DaysOfWeek,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.DaysOfWeek
                 ),
             new Sequence(SequenceType.DateTime, "yesterday | tomorrow | today | day after tomorrow | etc",
                     Definitions.Property.DayOffset
@@ -157,10 +158,6 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "last week | next month | this year",
                     Definitions.Property.GrabberExpressions,
                     Definitions.Property.DateTimeUnits
-                ),
-            new Sequence(SequenceType.DateTime, "thursday | this thursday | next thrurday | last thursday ",
-                    Definitions.Property.GrabberExpressions,
-                    Definitions.Property.DaysOfWeek
                 ),
             new Sequence(SequenceType.DateTime, "next monday the third",
                     Definitions.Property.GrabberExpressions,
@@ -257,11 +254,6 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.GrabberExpressions,
                     Definitions.Patterns.Year
                 ),
-            new Sequence(SequenceType.DateTime, "yesterday at 4:00 | tomorrow at 10pm",
-                    Definitions.Property.DayOffset,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
-                ),
             new Sequence(SequenceType.DateTime, "last week on tuesday | next week on monday",
                     Definitions.Property.GrabberExpressions,
                     Definitions.Property.WeekUnit,
@@ -305,9 +297,7 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DateUnits,
                     Definitions.Property.GrabberExpressions,
-                    Definitions.Property.DateUnits,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.DateUnits
                 ),
             new Sequence(SequenceType.DateTime, "last day of the following month at noon",
                     Definitions.Property.NumericWordOrdinal,
@@ -331,9 +321,7 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DaysOfWeek,
                     Definitions.Property.GrabberExpressions,
-                    Definitions.Property.DateUnits,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.DateUnits
                 ),
             new Sequence(SequenceType.DateTime, "last monday of the previous month at midnight",
                     Definitions.Property.NumericWordOrdinal,
@@ -475,17 +463,13 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.DateTimeUnits,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "monday the 3rd of June 2017 at 20pm",
                     Definitions.Property.DaysOfWeek,
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "monday the 3rd of June 2017",
                     Definitions.Property.DaysOfWeek,
@@ -502,23 +486,17 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "the 3rd of June 2017 at 10pm",
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "june third 2017 at 10pm",
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.NumericWord,                 
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "the 3 of June 2017 at 10pm",
                     Definitions.Patterns.NumberMax2Digits,
                     Definitions.Property.MonthsOfYear,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "the 3 of June 2017",
                     Definitions.Patterns.NumberMax2Digits,
@@ -540,34 +518,24 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "fourteenth of june 2010 at eleven o'clock in the evening",
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam,
-                    Definitions.Property.TimeOfDay
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "may seventh '97 at three in the morning",
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.NumericWord,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam,
-                    Definitions.Property.TimeOfDay
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "the thirty first of december of the year 2017 at 12 am",
                     Definitions.Property.NumericWord,
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.YearUnit,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "the 31 of december of the year 2017 at 10:31 pm",
                     Definitions.Patterns.NumberMax2Digits,
                     Definitions.Property.MonthsOfYear,
                     Definitions.Property.YearUnit,
-                    Definitions.Patterns.Year,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.Year
                 ),
             new Sequence(SequenceType.DateTime, "4 weeks | 3 hours",
                     Definitions.Patterns.NumberMax5Digits,
@@ -665,25 +633,19 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.NumericWordOrdinal,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.GrabberExpressions,
-                    Definitions.Property.MonthsOfYear,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.MonthsOfYear
                 ),
              new Sequence(SequenceType.DateTime, "4 months ago on saturday at 6pm", //Is that valid?
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
                     Definitions.Property.TimeConjointer,
-                    Definitions.Property.DaysOfWeek,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.DaysOfWeek
                 ),
              new Sequence(SequenceType.DateTime, "saturday 4 months ago at 6pm", //Is that valid?
                     Definitions.Property.DaysOfWeek,
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits,
-                    Definitions.Property.TimeConjointer,                   
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "2 hours before noon",
                     Definitions.Patterns.NumberMax5Digits,
@@ -731,19 +693,13 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.TimeConjointer
                 ),
             new Sequence(SequenceType.DateTime, "tonight at 10pm",
-                    Definitions.Property.InterpretedExpression,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.InterpretedExpression
                 ),
             new Sequence(SequenceType.DateTime, "2017-10-23 at 10:pm",
-                    Definitions.Patterns.DateBigEndian,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.DateBigEndian
                 ),
             new Sequence(SequenceType.DateTime, "10-23-2017 at 10:pm",
-                    Definitions.Patterns.DateLittleEndian,
-                    Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Patterns.DateLittleEndian
                 ),
             new Sequence(SequenceType.DateTime, "2017-10-23",
                     Definitions.Patterns.DateBigEndian

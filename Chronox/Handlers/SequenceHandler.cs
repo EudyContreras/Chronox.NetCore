@@ -183,7 +183,11 @@ namespace Chronox.Handlers
 
         private bool OptinalSpaceQualified(PatternRegex pattern)
         {
-            return pattern.Label == Definitions.Patterns.Time || pattern.Label == Definitions.Patterns.HourDiscrete;
+            return pattern.Label == Definitions.Patterns.Time
+                || pattern.Label == Definitions.Patterns.HourDiscrete
+                || pattern.Label == Definitions.Property.DayOffset               
+                || pattern.Label == Definitions.Patterns.DateBigEndian
+                || pattern.Label == Definitions.Patterns.DateLittleEndian;
         }
 
         private bool IdentifyAndAssign(string property, ref PatternRegex pattern)
@@ -314,11 +318,9 @@ namespace Chronox.Handlers
 
             var labeledMillis = PatternHandler.LabelWrapp(millis.Label, millis.Value);
 
-            var groups = PatternHandler.OptionalGroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
+            var groups = PatternHandler.GroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
 
-            var pattern = new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
-
-            return pattern;
+            return new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
         }
 
         private PatternRegex CreateTimeZonePattern()
@@ -335,11 +337,9 @@ namespace Chronox.Handlers
 
             var labeledZoneAbbreviation = PatternHandler.LabelWrapp(zoneAbbreviation.Label, zoneAbbreviation.Value);
 
-            var groups = PatternHandler.OrOptionalGroupWrapp(string.Concat(labeledZoneCode, OptionalSeparator, labeledZoneOffset), labeledZoneAbbreviation);
+            var groups = PatternHandler.OptionalOrGroupWrapp(string.Concat(labeledZoneCode, OptionalSeparator, labeledZoneOffset), labeledZoneAbbreviation);
 
-            var patterns = new PatternRegex(Definitions.Patterns.TimeZone, PatternHandler.LabelWrapp(Definitions.Patterns.TimeZone,groups));
-
-            return patterns;
+            return new PatternRegex(Definitions.Patterns.TimeZone, PatternHandler.LabelWrapp(Definitions.Patterns.TimeZone,groups));
         }
 
         private PatternRegex CreateHoursPattern()
@@ -405,10 +405,10 @@ namespace Chronox.Handlers
                     }
                 }
 
-                var sequence = new Sequence(type, normalProperties.ToArray());
-
-                sequence.AbbreviatedSequence = format;
-
+                var sequence = new Sequence(type, normalProperties.ToArray())
+                {
+                    AbbreviatedSequence = format
+                };
                 AddSequence(sequence);
             }
         }
