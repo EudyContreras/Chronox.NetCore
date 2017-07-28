@@ -14,15 +14,13 @@ namespace Chronox
     {
         public string Original { get; set; }
 
-        public int StartIndex { get; set; }
-
-        public int EndIndex { get; set; }
-
-        public string DatelessString { get; set; }
+        public string ProcessedString { get; set; }
 
         public string Extraction { get; set; }
 
-        public bool ValidDate { get; set; }
+        public int StartIndex { get; set; }
+
+        public int EndIndex { get; set; }
 
         public TimeSpan TimeOffset { get; set; }
 
@@ -44,7 +42,7 @@ namespace Chronox
             this.EndIndex = index + extraction.Length;
             this.Original = text;
             this.Extraction = extraction;
-            this.DatelessString = text.RemoveSubstrings(extraction);
+            this.ProcessedString = text.RemoveSubstrings(extraction);
             this.ReferenceDate = referenceDate;
             this.Builder = new ChronoxDateTimeBuilder(this);
         }
@@ -59,22 +57,22 @@ namespace Chronox
 
         public int CompareTo(IChronoxExtraction other)
         {
-            return this.StartIndex - ((ChronoxDateTimeExtraction)other).StartIndex;
+            return this.StartIndex - other.StartIndex;
         }
 
         public bool Equals(IChronoxExtraction x, IChronoxExtraction y)
         {
-            return ((ChronoxDateTimeExtraction)x).StartIndex.Equals(((ChronoxDateTimeExtraction)y).StartIndex);
+            return x.StartIndex.Equals(y.StartIndex);
         }
 
         public int GetHashCode(IChronoxExtraction obj)
         {
-            return ((ChronoxDateTimeExtraction)obj).StartIndex.GetHashCode();
+            return obj.StartIndex.GetHashCode();
         }
 
         public bool Equals(IChronoxExtraction other)
         {
-            return StartIndex.Equals(((ChronoxDateTimeExtraction)other).StartIndex);
+            return StartIndex.Equals(other.StartIndex);
         }
 
         public override string ToString()

@@ -61,6 +61,8 @@ namespace Chronox.Wrappers
 
         public string ProcessedString { get; set; }
 
+        public string OriginalString { get; set; }
+
         public bool HasOrdinalNumber = false;
 
         public bool HasCasualExpression = false;
@@ -100,6 +102,7 @@ namespace Chronox.Wrappers
         public ChronoxBuildInformation(string text, ChronoxSettings settings)
         {
             this.Settings = settings;
+            this.OriginalString = text;
             this.ProcessedString = text;
             this.CurrentDate = settings.ReferenceDate;
 

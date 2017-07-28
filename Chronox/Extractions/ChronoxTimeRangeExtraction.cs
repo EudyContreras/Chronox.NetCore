@@ -11,12 +11,15 @@ namespace Chronox
 {
     public class ChronoxTimeRangeExtraction : IChronoxExtraction
     {
+        public string Original { get; set; }
 
-        public int Index { get; set; }
+        public string ProcessedString { get; set; }
 
         public string Extraction { get; set; }
 
-        public string Original { get; set; }
+        public int StartIndex { get; set; }
+
+        public int EndIndex { get; set; }
 
         public DateTime ReferenceDate { get; set; }
 
@@ -34,7 +37,7 @@ namespace Chronox
 
         public ChronoxTimeRangeExtraction(ChronoxSettings settings, DateTime referenceDate, int index, string extraction, string text) : this()
         {
-            this.Index = index;
+            this.StartIndex = index;
             this.Original = text;
             this.Extraction = extraction;
             this.ReferenceDate = referenceDate;
@@ -43,7 +46,7 @@ namespace Chronox
 
         public int CompareTo(ChronoxTimeRangeExtraction other)
         {
-            return this.Index - other.Index;
+            return this.StartIndex - other.StartIndex;
         }
 
         public override string ToString()

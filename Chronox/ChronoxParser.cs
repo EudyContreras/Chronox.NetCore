@@ -149,8 +149,6 @@ namespace Chronox
 
             allResults.AddRange(MasterParser.ComputeResult(scanResults.Key, Settings.ReferenceDate, Settings));
 
-            //allResults.Sort();
-
             if (allResults.Count > 0)
             {
                 return new ResultWrapper(this, allResults);

@@ -314,9 +314,9 @@ namespace Chronox.Handlers
 
             var labeledMillis = PatternHandler.LabelWrapp(millis.Label, millis.Value);
 
-            var groups = PatternHandler.GroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
+            var groups = PatternHandler.OptionalGroupWrapp(string.Concat(labeledHour, labeledMinute, labeledSecond, labeledMillis));
 
-            var pattern = new PatternRegex(Definitions.Patterns.Time, groups);
+            var pattern = new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
 
             return pattern;
         }
@@ -337,7 +337,9 @@ namespace Chronox.Handlers
 
             var groups = PatternHandler.OrOptionalGroupWrapp(string.Concat(labeledZoneCode, OptionalSeparator, labeledZoneOffset), labeledZoneAbbreviation);
 
-            return new PatternRegex(Definitions.Patterns.TimeZone, PatternHandler.LabelWrapp(Definitions.Patterns.TimeZone,groups));
+            var patterns = new PatternRegex(Definitions.Patterns.TimeZone, PatternHandler.LabelWrapp(Definitions.Patterns.TimeZone,groups));
+
+            return patterns;
         }
 
         private PatternRegex CreateHoursPattern()

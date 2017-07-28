@@ -8,9 +8,18 @@ namespace Chronox
 {
     public class ChronoxTimeSpanExtraction : IChronoxExtraction
     {
-        public ExtractionResultType ResultType => ExtractionResultType.TimeSpan;
+
+        public string Original { get; set; }
+
+        public string ProcessedString { get; set; }
 
         public string Extraction { get; set; }
+
+        public int StartIndex { get; set; }
+
+        public int EndIndex { get; set; }
+
+        public ExtractionResultType ResultType => ExtractionResultType.TimeSpan;
 
         internal static ChronoxTimeSpanExtraction EmptyExtraction { get; set; } = null;
 

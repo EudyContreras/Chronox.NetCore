@@ -9,6 +9,14 @@ namespace Chronox.Interfaces
     {
         ExtractionResultType ResultType { get; }
 
+        string ProcessedString { get; set; }
+
+        string Original { get; set; }
+
         string Extraction { get; set; }
+
+        int StartIndex { get; set; }
+
+        int EndIndex { get; set; }
     }
 }

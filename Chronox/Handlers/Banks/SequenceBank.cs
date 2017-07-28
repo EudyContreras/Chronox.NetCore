@@ -31,7 +31,13 @@ namespace Chronox.Constants.Banks
                 ),
             new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
                     Definitions.Patterns.Time,
-                    Definitions.Property.TimeMeridiam
+                    Definitions.Property.TimeMeridiam,
+                    Definitions.Patterns.TimeZone
+                ),
+            new Sequence(SequenceType.DateTime, "4 in the morning",
+                    Definitions.Patterns.Time,
+                    Definitions.Property.TimeOfDay,
+                    Definitions.Patterns.TimeZone
                 ),
             new Sequence(SequenceType.DateTime, "10pm next tuesday",
                     Definitions.Patterns.Time,

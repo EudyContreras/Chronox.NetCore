@@ -212,7 +212,19 @@ namespace Chronox.Parsers.English
                     return Compute(text, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
                 }
             }
-            return results.ToList();
+            return Adjusted(results.ToList());
+        }
+
+        private List<IChronoxExtraction> Adjusted(List<IChronoxExtraction> results)
+        {
+            foreach(var result in results)
+            {
+                result.StartIndex = result.Original.IndexOf(result.Extraction);
+                result.EndIndex = result.StartIndex + result.Extraction.Length - 1;
+                result.ProcessedString = result.Original.RemoveSubstrings(result.Extraction);
+            }
+
+            return results;
         }
 
         private bool EmptySpace(string text)
@@ -327,7 +339,7 @@ namespace Chronox.Parsers.English
                     case ExtractionResultType.TimeSpan:
                         break;
                     case ExtractionResultType.DateTime:
-                        result = new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, text);
+                        result = new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, information.OriginalString);
                         break;
                     case ExtractionResultType.TimeSet:
                         break;

@@ -143,7 +143,7 @@ namespace Chronox.Handlers
 
         public static string OptionalWrapp(string value)
         {
-            return $"(?:{value})?";
+            return $"({value})?";
         }
 
         internal static bool MissingLabel(string value)
