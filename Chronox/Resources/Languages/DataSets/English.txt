@@ -8,6 +8,8 @@ commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
 
 commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
 
+ordinalSuffixes: st, nd, rd, th
+
 dateTimeIgnored: the, of, at, on, in, during
 
 timeRangeIgnored: 
@@ -124,8 +126,8 @@ grabberExpressions: combinedOptional
 	key: next
 	value: 1
 	type: group
-	pattern: next|following|upcoming|precedent|on|forthcoming|after|future
-	variations:  next, following, upcoming, on, precedent, forthcoming, after, future
+	pattern: next|following|upcoming|precedent|forthcoming|after|future
+	variations:  next, following, upcoming, precedent, forthcoming, after, future
 
 	key: last
 	value: -1

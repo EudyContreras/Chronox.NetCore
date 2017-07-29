@@ -72,15 +72,38 @@ namespace Chronox.Utilities.Extenssions
         /// <param name="target"></param>
         /// <returns></returns>
         /// 
-        public static List<ContainsWrapper> Contains(this string source, params string[] targets) => Contains(source, targets, true);
+        public static List<ContainsWrapper> Contains(this string source, params string[] targets) => Contains(source, targets, null);
 
-        public static List<ContainsWrapper> Contains(this string source, IEnumerable<string> targets) => Contains(source, targets, true);
+        public static List<ContainsWrapper> Contains(this string source, IEnumerable<string> targets) => Contains(source, targets, null);
 
-        private static List<ContainsWrapper> Contains (this string source, IEnumerable<string> targets, bool priv)
+        public static List<ContainsWrapper> Contains(this string source, string target, params string[] ignore) => Contains(source, new string[] { target }, ignore);
+
+        public static List<ContainsWrapper> Contains(this string source, string target, IEnumerable<string> ignore) => Contains(source, new string[] { target }, ignore);
+
+        public static List<ContainsWrapper> Contains(this string source, IEnumerable<string> targets, params string[] ignore) => Contains(source, targets, ignore?.ToList());
+
+        public static List<ContainsWrapper> Contains (this string source, IEnumerable<string> targets, IEnumerable<string> ignore)
         {
             var results = new List<ContainsWrapper>();
 
+            var toIgnore = new List<ContainsWrapper>();
+
             var sourceLength = source.Length;
+
+            var ignoring = false;
+
+            if(ignore != null)
+            {
+               if(ignore.Any())
+                {
+                    toIgnore = Contains(source, ignore, null);
+
+                    if (toIgnore.Count > 0)
+                    {
+                        ignoring = true;
+                    }
+                }
+            }
 
             foreach (var target in targets)
             {
@@ -90,8 +113,25 @@ namespace Chronox.Utilities.Extenssions
 
                 var startIndex = 0;
 
+                var lastSkipped = false;
+
                 for (var i = 0; i < sourceLength; i++)
                 {
+                    if (ignoring)
+                    {
+                        if(toIgnore.Exists(e => ContainsWrapper.Intercepts(i, e.Position)))
+                        {
+                            lastSkipped = true;
+
+                            continue;
+                        }
+                        if (lastSkipped)
+                        {
+                            lastSkipped = false;
+
+                            continue;
+                        }
+                    }
                     if (char.ToLower(source[i]) == char.ToLower(target[counter]))
                     {
                         if (counter <= 0)
@@ -130,7 +170,7 @@ namespace Chronox.Utilities.Extenssions
                     {
                         if (i < sourceLength - 1)
                         {
-                            if (source[i + 1] == ' ')
+                            if (source[i + 1] == ' ' || char.IsPunctuation(source[i + 1]))
                             {
                                 var current = new ContainsWrapper(true, target, startIndex, i);
 
@@ -471,6 +511,9 @@ namespace Chronox.Utilities.Extenssions
             return result.ToString();
         }
 
+        public static bool IsPunctuation(this char character, params char[] punctuation) => punctuation.Any(c => c == character);
+        
+
         public static string PadPunctuationExact(this string source, int padLeft, int padRigth, params char[] punctuation)
         {
             var result = new StringBuilder();
@@ -499,7 +542,6 @@ namespace Chronox.Utilities.Extenssions
                     result.Append(Spaces(padRigth));
                 }
             }
-
             return result.ToString();
         }
 
@@ -670,6 +712,76 @@ namespace Chronox.Utilities.Extenssions
                 }
             }
             return cleanSource.ToString().Trim();
+        }
+
+        /// <summary>
+        /// Extension for replacing the specified words in a string 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="wordsToReplace"></param>
+        /// <returns></returns>
+        public static string ReplaceWords(this string source, string replacement, string wordsToReplace, bool ignoreCase) => (wordsToReplace == null || wordsToReplace.Length <= 0) ? source : ReplaceWords(source, replacement, new List<string> { wordsToReplace }, ignoreCase);
+
+        /// <summary>
+        /// Extension for replacing the specified words in a string 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="wordsToReplace"></param>
+        /// <returns></returns>
+        public static string ReplaceWords(this string source, string replacement, List<string> wordsToReplace, bool ignoreCase) => (wordsToReplace == null || wordsToReplace.Count <= 0) ? source : ReplaceWords(source, replacement, new HashSet<string>(wordsToReplace), ignoreCase);
+
+        /// <summary>
+        /// Extension for replacing the specified words in a string 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="wordsToRemove"></param>
+        /// <returns></returns>
+        public static string ReplaceWords(this string source, string replacement, HashSet<string> wordsToReplace, bool ignoreCase)
+        {
+            var cleanSource = source;
+
+            if (wordsToReplace == null || wordsToReplace.Count <= 0) return string.Join(" ", source);
+
+            foreach(var word in wordsToReplace)
+            {
+                if (cleanSource.Contains(word))
+                {
+                    var start = cleanSource.IndexOf(word) - 1;
+                    var end = start + word.Length + 1;
+
+                    if(start == -1 || end == cleanSource.Length)
+                    {
+                        if(start == -1)
+                        {
+                            if (cleanSource[end] == ' ' || char.IsPunctuation(cleanSource[end]))
+                            {
+                                cleanSource = cleanSource.Replace(word, replacement, ignoreCase);
+                            }
+                        }
+                        else
+                        {
+                            if (cleanSource[start] == ' ')
+                            {
+                                cleanSource = cleanSource.Replace(word, replacement, ignoreCase);
+                            }
+                        }
+                    }
+                    else if(start == -1 && end == cleanSource.Length)
+                    {
+                        cleanSource = cleanSource.Replace(word, replacement, ignoreCase);
+                    }
+                    else
+                    {
+                        if (cleanSource[start] == ' ' && (cleanSource[end] == ' ' || char.IsPunctuation(cleanSource[end])))
+                        {
+                            cleanSource = cleanSource.Replace(word, replacement, ignoreCase);
+                        }
+                    }
+                }
+            }
+            
+
+            return cleanSource;
         }
 
         public static string RemoveTerminalCharacter(this string source, char characterToRemove)

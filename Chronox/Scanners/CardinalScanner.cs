@@ -19,7 +19,7 @@ namespace Chronox.Scanners
 
             var number = new StringBuilder();
 
-            var expression = input.PadPunctuationExact(1, 1, '-');
+            var expression = input.PadPunctuationExact(1, 1, '-').Pad(0,1);
 
             var timeExpressions = option.Language.VocabularyBank.GetDictionary(Definitions.Property.InterpretedExpression);
 
@@ -37,7 +37,7 @@ namespace Chronox.Scanners
             {
                 var mask = (wrapper.StartIndex + masker + wrapper.EndIndex).ToString();
 
-                expression = expression.Replace(wrapper.Text, mask, true);
+                expression = expression.ReplaceWords(mask,wrapper.Text, true);
 
                 masks.Add(mask);
             }
@@ -102,7 +102,7 @@ namespace Chronox.Scanners
                     {
                         if (number.Length > 0)
                         {
-                            var endIndex = string.IsNullOrEmpty(part) ? expression.Length - 1 : expression.IndexOf(part);
+                            var endIndex = string.IsNullOrEmpty(part) ? expression.Length - 1 : expression.IndexOf(part, startIndex >= 0 ? startIndex : 0);
 
                             var cardinal = number.ToString().ReplaceLast(" and ", " ").Replace(" - ", "-").Trim(); //Make language independent
 

@@ -136,9 +136,11 @@ namespace Chronox
         {
             var allResults = new List<IChronoxExtraction>();
 
-            var processed = PreProcessExpression(Settings, input);
+            var scanResults = PerformExpressionScanAndReplace(input);
 
-            var scanResults = PerformExpressionScanAndReplace(processed);
+            var information = new ChronoxBuildInformation(this, scanResults.Key, scanResults.Key, settings);
+
+            var preProcessed = PreProcessExpression(settings, scanResults.Key);
 
             if (referenceDate == DateTime.MinValue)
             {
@@ -147,7 +149,7 @@ namespace Chronox
 
             Settings.ReferenceDate = referenceDate;
 
-            allResults.AddRange(MasterParser.ComputeResult(scanResults.Key, Settings.ReferenceDate, Settings));
+            allResults.AddRange(MasterParser.ComputeResult(information.ProcessedString = preProcessed, Settings.ReferenceDate, Settings,information));
 
             if (allResults.Count > 0)
             {
@@ -217,7 +219,7 @@ namespace Chronox
 
         private string PreProcessExpression(ChronoxSettings settings, string expression)
         {
-            expression = expression.PadPunctuationExact(1, 1, ',');
+            expression = expression.PadPunctuationExact(0, 1, ',');
 
             switch (settings.ParsingMode)
             {
@@ -270,65 +272,9 @@ namespace Chronox
             return expression;
         }
 
-        private KeyValuePair<string, IEnumerable<ContainsWrapper>> PostProcessExpression(ChronoxSettings settings, string input)
-        {
-            var scanResult = new ScanWrapper();
 
-            var number = new StringBuilder();
+        public IEnumerable<IChronoxScanner> ChronoxScanners() => Scanners;
 
-            var wordsToMask = new List<string>();
-
-            var expression = input.MaskPunctuation(',', '.');
-
-            switch (settings.ParsingMode)
-            {
-                case ExtractionResultType.General:
-
-                    CollectAll(wordsToMask, settings);
-
-                    break;
-                case ExtractionResultType.TimeSpan:
-
-                    wordsToMask.AddRange(settings.Language.Vocabulary.TimeSpanIgnored);
-
-                    break;
-                case ExtractionResultType.DateTime:
-
-                    wordsToMask.AddRange(settings.Language.Vocabulary.DateTimeIgnored);
-
-                    break;
-                case ExtractionResultType.TimeSet:
-
-                    wordsToMask.AddRange(settings.Language.Vocabulary.TimeSetIgnored);
-
-                    break;
-                case ExtractionResultType.TimeRange:
-
-                    wordsToMask.AddRange(settings.Language.Vocabulary.TimeRangeIgnored);
-
-                    break;
-                default:
-
-                    CollectAll(wordsToMask, settings);
-
-                    break;
-            }
-
-            var containsWrapper = expression.Contains(wordsToMask);
-
-            expression = expression.RemoveSubstrings(containsWrapper.Select(w => w.Text)).Replace("  ", " ", false).Pad(0, 1);
-
-            return new KeyValuePair<string, IEnumerable<ContainsWrapper>>(expression, containsWrapper);
-        }
-
-
-        private void CollectAll(List<string> words, ChronoxSettings settings)
-        {
-            words.AddRange(settings.Language.Vocabulary.DateTimeIgnored);
-            words.AddRange(settings.Language.Vocabulary.TimeRangeIgnored);
-            words.AddRange(settings.Language.Vocabulary.TimeSpanIgnored);
-            words.AddRange(settings.Language.Vocabulary.TimeSetIgnored); ;
-        }
 
         private IReadOnlyList<IChronoxScanner> StandardScanners()
         {
@@ -340,6 +286,12 @@ namespace Chronox
             };
             return scanners;
         }
+
+        public void AddScanner(params IChronoxScanner[] scanner) => Scanners.AddRange(scanner);
+
+
+        public void RemoveScanner(IChronoxScanner scanner) => Scanners.Remove(scanner);
+
 
         private KeyValuePair<string, List<ScanWrapper>> PerformExpressionScanAndReplace(string input)
         {

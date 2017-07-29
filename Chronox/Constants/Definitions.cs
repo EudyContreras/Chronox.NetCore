@@ -155,6 +155,7 @@ namespace Chronox.Constants
             public const string NumberMax2Digits = "numberMax2Digits";
             public const string NumberMax4Digits = "numberMax4Digits";
             public const string NumberMax5Digits = "numberMax5Digits";
+            public const string NumberRangedOrdinal = "numberRangedOrdinal";
             public const string WordStart = "wordStart";
             public const string WordEnd = "wordEnd";
             public const string Date = "discreteDate";

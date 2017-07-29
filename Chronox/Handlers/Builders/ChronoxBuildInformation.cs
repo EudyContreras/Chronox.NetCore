@@ -9,7 +9,9 @@ namespace Chronox.Wrappers
 {
     public class ChronoxBuildInformation
     {
-        private string TagName = "DateTimevalue";
+        private const string TagName = "ChronoxValue";
+
+        public ChronoxParser Parser { get; private set; }
 
         public DateTime DateTime { get; internal set; }
 
@@ -20,6 +22,8 @@ namespace Chronox.Wrappers
         public MatchWrapper LatestMatch { get; set; }
 
         public GroupWrapper CurrentGroup { get; set; }
+
+        public List<string> SearchBreakers { get; set; }   
 
         public Queue<int> GrabberOffsets { get; private set; }
 
@@ -63,6 +67,8 @@ namespace Chronox.Wrappers
 
         public string OriginalString { get; set; }
 
+        public string NormalizedString { get; set; }
+
         public bool HasOrdinalNumber = false;
 
         public bool HasCasualExpression = false;
@@ -99,13 +105,16 @@ namespace Chronox.Wrappers
 
         public bool ProcessTime = false;
 
-        public ChronoxBuildInformation(string text, ChronoxSettings settings)
+        public ChronoxBuildInformation(ChronoxParser parser, string original, string normalize, ChronoxSettings settings)
         {
+            this.Parser = parser;
             this.Settings = settings;
-            this.OriginalString = text;
-            this.ProcessedString = text;
+            this.OriginalString = original;
+            this.NormalizedString = normalize;
+            this.ProcessedString = normalize;
             this.CurrentDate = settings.ReferenceDate;
 
+            this.SearchBreakers = new List<string>();
             this.NumericWords = new Queue<int>();
             this.NumericValues = new Queue<int>();
             this.FloatingHours = new Queue<int>();
@@ -171,6 +180,7 @@ namespace Chronox.Wrappers
             this.FloatingTimeUnits.Clear();
             this.FloatingGrabbers.Clear();
             this.FloatingTimeOfDay.Clear();
+            this.SearchBreakers.Clear();
         }
 
         internal void PerformPass(string value)

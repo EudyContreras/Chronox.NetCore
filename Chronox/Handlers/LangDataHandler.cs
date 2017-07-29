@@ -18,10 +18,10 @@ namespace Chronox.Handlers
         private const string TimeRangeIgnored = "timerangeignored";
         private const string TimeSpanIgnored = "timespanignored";
         private const string TimeSetIgnored = "timesetignored";
+        private const string OrdinalSuffixes = "ordinalsuffixes";
         private const string CommonPunctuation = "commonpunctuation";
         private const string CommonDateSeparators = "commondateseparators";
         private const string CommonTimeSeparators = "commontimeseparators";
-        private const string PreferedEndianFormat = "preferedendianformat";
         private const string SupportedDateTimeFormats = "supporteddatetimeformats";
         private const string SupportedTimeRangeFormats = "supportedtimerangeformats";
         private const string SupportedTimeSpanFormats = "supportedtimespanformats";
@@ -155,8 +155,6 @@ namespace Chronox.Handlers
         {
             foreach (var line in rawLines)
             {
-                if (EmptyLine(line)) continue;
-
                 if (line.Contains("//*") && !line.Contains("*//"))
                 {
                     throw new Exception("Please review the comments written and make sure they follow the right format");
@@ -183,7 +181,7 @@ namespace Chronox.Handlers
 
         private List<string> ReadFile(string filePath)
         {
-            return File.ReadLines(filePath).ToList();
+            return File.ReadLines(filePath).ToList().Where(l => !EmptyLine(l)).ToList();
         }
 
         public Glossary CreateGlossary(string directory, string langName)
@@ -255,11 +253,11 @@ namespace Chronox.Handlers
                                 glossary.CommonTimeSeparators = CollectWrappedSymbols(value);
                             }
                             break;
-                        case PreferedEndianFormat:
+                        case OrdinalSuffixes:
 
                             if (value != null)
                             {
-                                glossary.PreferedEndianFormat = value.ToUpper();
+                                glossary.OrdinalSuffixes = value.Split(',').Where(v => !EmptyLine(v)).Select(v => v.Trim()).ToList();
                             }
                             break;
                         case DateTimeIgnored:
@@ -368,8 +366,6 @@ namespace Chronox.Handlers
                 {
                     break;
                 }
-                if (EmptyLine(format)) continue;
-
                 dateTimeFormats.Add(format.ToUpper().Trim());
             }
 

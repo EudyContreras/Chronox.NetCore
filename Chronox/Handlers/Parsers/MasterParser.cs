@@ -27,15 +27,13 @@ namespace Chronox.Parsers.English
 
         private IChronoxParseHelper<ChronoxTimeSetExtraction> helperD = null;
 
-        public List<IChronoxExtraction> ComputeResult(string text, DateTime referenceDate, ChronoxSettings settings)
+        public List<IChronoxExtraction> ComputeResult(string text, DateTime referenceDate, ChronoxSettings settings, ChronoxBuildInformation information)
         {
             var results = new HashSet<IChronoxExtraction>();
 
-            var information = new ChronoxBuildInformation(text, settings);
-
             var sequences = new List<PatternSequence>();
 
-            return SelectSequences(text, referenceDate, settings, results, information, out sequences);
+            return SelectSequences(information.ProcessedString, referenceDate, settings, results, information, out sequences);
         }
 
         private List<IChronoxExtraction> SelectSequences(string text, DateTime referenceDate, ChronoxSettings settings, HashSet<IChronoxExtraction> results, ChronoxBuildInformation information, out List<PatternSequence> sequences)
@@ -109,7 +107,6 @@ namespace Chronox.Parsers.English
 
             var perfectMatch = GetPerfectMatch(settings, sequences, information, parts);
 
-            //if(perfectMatch.Sequence.)
             var chronoxResult = new ChronoxResult();
 
             if (perfectMatch != null)
@@ -147,7 +144,7 @@ namespace Chronox.Parsers.English
                         break;
                 }
             }
-            return results.ToList();
+            return Adjusted(settings, information, results.ToList());
         }
 
         private MatchWrapper GetPerfectMatch(ChronoxSettings settings, IEnumerable<PatternSequence> sequences, ChronoxBuildInformation information, string[] parts)
@@ -212,19 +209,103 @@ namespace Chronox.Parsers.English
                     return Compute(information.ProcessedString, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
                 }
             }
-            return Adjusted(results.ToList());
+            return Adjusted(settings, information, results.ToList());
         }
 
-        private List<IChronoxExtraction> Adjusted(List<IChronoxExtraction> results)
+        private List<IChronoxExtraction> Adjusted(ChronoxSettings settings, ChronoxBuildInformation information, List<IChronoxExtraction> results)
         {
-            foreach(var result in results)
+            var ignoredWords = GetIgnoredWords(settings);
+
+            for(var i = 0; i < results.Count; i++)
             {
-                result.StartIndex = result.Original.IndexOf(result.Extraction);
-                result.EndIndex = result.StartIndex + result.Extraction.Length - 1;
-                result.ProcessedString = result.Original.RemoveSubstrings(result.Extraction);
+                var result = results[i];
+
+                var resultWrappers = information.NormalizedString.Contains(result.Extraction.Trim(), ignoredWords);
+
+                if(resultWrappers.Count > 0)
+                {
+                    var resultInfo = resultWrappers[0];
+
+                    result.StartIndex = resultInfo.StartIndex;
+
+                    result.EndIndex = resultInfo.EndIndex;
+
+                    result.ProcessedString = result.Original.Remove(resultInfo.StartIndex, (resultInfo.EndIndex - resultInfo.StartIndex) + 1);
+
+                }
+                else
+                {
+                    //How to deal with this!!
+
+                    /*Right now once a string comes in the string 
+                     * is scanned for numbers in word representations
+                     * this words are then replace with their number
+                     * counterparts so that the parsing of these possible
+                     * high numbers can work. This process leads to the
+                     * end extraction being different to the original
+                     * one. This results in extraction indexes and a return
+                     * source string that does not much the original input.
+                     * this may result in other complications acrossed programs
+                     * that need detail information about the extraction.
+                     * of course this can be fix by only supporting limited
+                     * numeric words in exchange for a more consistent extraction
+                     * information mechanic.
+                     * A tradeoff needs to be made!
+                     **/     
+                }
             }
 
             return results;
+        }
+
+        private List<string> GetIgnoredWords(ChronoxSettings settings)
+        {
+            var ignoredWords = new List<string>();
+
+            switch (settings.ParsingMode)
+            {
+                case ExtractionResultType.General:
+
+                    CollectAll(ignoredWords, settings);
+
+                    break;
+                case ExtractionResultType.TimeSpan:
+
+                    ignoredWords = settings.Language.Vocabulary.TimeSpanIgnored;
+
+                    break;
+                case ExtractionResultType.DateTime:
+
+                    ignoredWords = settings.Language.Vocabulary.DateTimeIgnored;
+
+                    break;
+                case ExtractionResultType.TimeSet:
+
+                    ignoredWords = settings.Language.Vocabulary.TimeSetIgnored;
+
+                    break;
+                case ExtractionResultType.TimeRange:
+
+                    ignoredWords = settings.Language.Vocabulary.TimeRangeIgnored;
+
+                    break;
+                default:
+
+                    CollectAll(ignoredWords, settings);
+
+                    break;
+            }
+
+            return ignoredWords;
+        }
+
+
+        private void CollectAll(List<string> words, ChronoxSettings settings)
+        {
+            words.AddRange(settings.Language.Vocabulary.DateTimeIgnored);
+            words.AddRange(settings.Language.Vocabulary.TimeRangeIgnored);
+            words.AddRange(settings.Language.Vocabulary.TimeSpanIgnored);
+            words.AddRange(settings.Language.Vocabulary.TimeSetIgnored); ;
         }
 
         private bool EmptySpace(string text)

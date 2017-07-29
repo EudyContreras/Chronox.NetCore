@@ -10,6 +10,12 @@ using System.Text;
 
 namespace Chronox.Converters
 {
+    /*Add future support for:
+     * Expression: 1K = 1000
+     * Expression: 1m = 1000000
+     * Expression: 3B = 1000000000
+     * Expression: nineteen hundred = 1900
+     */
     public class CardinalConverter
     {
         private static readonly List<string> Numbers = new List<string>();
@@ -71,18 +77,20 @@ namespace Chronox.Converters
             return combined;
         }
 
+        public static string DecimalToWords(decimal number) => DecimalToWords(number, true, true);
+
         /// <summary>
         /// Converts a decimal number to its cardinal representation
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static string DecimalToWords(decimal number)
+        public static string DecimalToWords(decimal number, bool includePoint, bool useDash)
         {
             if (number == 0M)
                 return UnitsText[0];
 
             if (number < 0M)
-                return Definitions.General.Minus.Pad(0,1) + DecimalToWords(Math.Abs(number));
+                return Definitions.General.Minus.Pad(0,1) + DecimalToWords(Math.Abs(number), includePoint, useDash);
 
             if (number > Magnitude[Definitions.General.Quintillion])
             {
@@ -99,14 +107,25 @@ namespace Chronox.Converters
 
             if (decPortion > 0)
             {
-                words +=Definitions.General.Point.Pad(1,1);
-                words += NumberToWords(decPortion);
+
+                if (includePoint)
+                {
+                    words += Definitions.General.Point.Pad(1, 1);
+                }
+                else
+                {
+                    words += " ";
+                }
+
+                words += NumberToWords(decPortion, useDash);
             }
 
             return words.Trim();
         }
 
-        public static string NumberToWords(long number) => ConvertNumberToWords(number).Trim();
+        public static string NumberToWords(long number) => ConvertNumberToWords(number, true).Trim();
+
+        public static string NumberToWords(long number, bool useDash) => ConvertNumberToWords(number, useDash).Trim();
 
         /// <summary>
         /// Converts the given number to its word representation
@@ -114,13 +133,13 @@ namespace Chronox.Converters
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        private static string ConvertNumberToWords(long number)
+        private static string ConvertNumberToWords(long number, bool useDash)
         {
             if (number == 0L)
                 return UnitsText[0];
 
             if (number < 0L)
-                return Definitions.General.Minus.Pad(0,1) + ConvertNumberToWords(Math.Abs(number));
+                return Definitions.General.Minus.Pad(0,1) + ConvertNumberToWords(Math.Abs(number),useDash);
 
             if (number > Magnitude[Definitions.General.Quintillion])
             {
@@ -131,43 +150,43 @@ namespace Chronox.Converters
 
             if ((number / 1000000000000000000L) > 0L)
             {
-                words += ConvertNumberToWords(number / 1000000000000000000L) + Definitions.General.Quintillion.Pad(0,1);
+                words += ConvertNumberToWords(number / 1000000000000000000L,useDash) + Definitions.General.Quintillion.Pad(0,1);
                 number %= 1000000000000000000L;
             }
 
             if ((number / 1000000000000000L) > 0L)
             {
-                words += ConvertNumberToWords(number / 1000000000000000L) + Definitions.General.Quadrillion.Pad(0,1);
+                words += ConvertNumberToWords(number / 1000000000000000L,useDash) + Definitions.General.Quadrillion.Pad(0,1);
                 number %= 1000000000000000L;
             }
 
             if ((number / 1000000000000L) > 0L)
             {
-                words += ConvertNumberToWords(number / 1000000000000L) + Definitions.General.Trillion.Pad(0,1);
+                words += ConvertNumberToWords(number / 1000000000000L,useDash) + Definitions.General.Trillion.Pad(0,1);
                 number %= 1000000000000L;
             }
 
             if ((number / 1000000000L) > 0L)
             {
-                words += ConvertNumberToWords(number / 1000000000L) + Definitions.General.Billion.Pad(0,1);
+                words += ConvertNumberToWords(number / 1000000000L,useDash) + Definitions.General.Billion.Pad(0,1);
                 number %= 1000000000L;
             }
 
             if ((number / 1000000L) > 0L)
             {
-                words += ConvertNumberToWords(number / 1000000L) + Definitions.General.Million.Pad(0,1);
+                words += ConvertNumberToWords(number / 1000000L,useDash) + Definitions.General.Million.Pad(0,1);
                 number %= 1000000L;
             }
 
             if ((number / 1000L) > 0L)
             {
-                words += ConvertNumberToWords(number / 1000L) + Definitions.General.Thousand.Pad(0,1);
+                words += ConvertNumberToWords(number / 1000L,useDash) + Definitions.General.Thousand.Pad(0,1);
                 number %= 1000L;
             }
 
             if ((number / 100L) > 0L)
             {
-                words += ConvertNumberToWords(number / 100L) + Definitions.General.Hundred.Pad(0,1);
+                words += ConvertNumberToWords(number / 100L,useDash) + Definitions.General.Hundred.Pad(0,1);
                 number %= 100L;
             }
 
@@ -184,7 +203,14 @@ namespace Chronox.Converters
 
                     if ((number % 10L) > 0L)
                     {
-                        words += "-" + UnitsText[number % 10] + " ";
+                        if (useDash)
+                        {
+                            words += "-" + UnitsText[number % 10] + " ";
+                        }
+                        else
+                        {
+                            words += " " + UnitsText[number % 10] + " ";
+                        }
                     }
                     else
                     {

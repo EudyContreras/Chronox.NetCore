@@ -8,15 +8,17 @@ namespace Chronox.Constants.Banks
 {
     public class SequenceBank
     {
-        public readonly HashSet<Sequence> SequencesAllCombinations = new HashSet<Sequence>();
+        public static readonly IEqualityComparer<Sequence> Comparer = Sequence.Comapararer;
 
-        public readonly HashSet<Sequence> SequencesDateTimeCombinations = new HashSet<Sequence>(Sequence.Comapararer);
+        public readonly HashSet<Sequence> SequencesAllCombinations = new HashSet<Sequence>(Comparer);
 
-        public readonly HashSet<Sequence> SequencesRangeCombinations = new HashSet<Sequence>();
+        public readonly HashSet<Sequence> SequencesDateTimeCombinations = new HashSet<Sequence>(Comparer);
 
-        public readonly HashSet<Sequence> SequencesDurationCombinations = new HashSet<Sequence>();
+        public readonly HashSet<Sequence> SequencesRangeCombinations = new HashSet<Sequence>(Comparer);
 
-        public readonly HashSet<Sequence> SequencesRepeaterCombinations = new HashSet<Sequence>();
+        public readonly HashSet<Sequence> SequencesDurationCombinations = new HashSet<Sequence>(Comparer);
+
+        public readonly HashSet<Sequence> SequencesRepeaterCombinations = new HashSet<Sequence>(Comparer);
 
         public static readonly IEnumerable<Sequence> DateTimeSequences = new List<Sequence>()
         {

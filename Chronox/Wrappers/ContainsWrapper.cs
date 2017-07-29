@@ -40,6 +40,11 @@ namespace Chronox.Wrappers
             }
         }
 
+        public static bool Intercepts(int index, IndexWrapper wrapper)
+        {
+            return index >= wrapper.StartIndex && index <= wrapper.EndIndex;
+        }
+
         public bool Intercepts(IndexWrapper other)
         {
             if(other.StartIndex>= Position.StartIndex && other.EndIndex <= Position.EndIndex)

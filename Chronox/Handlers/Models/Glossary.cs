@@ -7,35 +7,35 @@ namespace Chronox.Handlers.Models
 {
     public class Glossary : IEquatable<Glossary> , IComparable<Glossary>, IEqualityComparer<Glossary>
     {
-        public string Language { get; set; } = "English";
+        public string Language { get; internal set; } = "English";
 
-        public bool AssumeSpace { get; set; } = true;
+        public bool AssumeSpace { get; internal set; } = true;
 
-        public string PreferedEndianFormat { get; set; } = "M.D.Y";
+        public List<string> CommonPunctuation { get; internal set; }
 
-        public List<string> CommonPunctuation { get; set; }
+        public List<string> CommonDateSeparators { get; internal set; }
 
-        public List<string> CommonDateSeparators { get; set; }
+        public List<string> CommonTimeSeparators { get; internal set; }
 
-        public List<string> CommonTimeSeparators { get; set; }
+        public List<string> DateTimeIgnored { get; internal set; }
 
-        public List<string> DateTimeIgnored { get; set; }
+        public List<string> TimeRangeIgnored { get; internal set; }
 
-        public List<string> TimeRangeIgnored { get; set; }
+        public List<string> TimeSpanIgnored { get; internal set; }
 
-        public List<string> TimeSpanIgnored { get; set; }
+        public List<string> TimeSetIgnored { get; internal set; }
 
-        public List<string> TimeSetIgnored { get; set; }
+        public List<string> OrdinalSuffixes { get; internal set; }
 
-        public List<string> SupportedDateTimeFormats { get; set; }
+        public List<string> SupportedDateTimeFormats { get; internal set; }
 
-        public List<string> SupportedTimeRangeFormats { get; set; }
+        public List<string> SupportedTimeRangeFormats { get; internal set; }
 
-        public List<string> SupportedTimeSpanFormats { get; set; }
+        public List<string> SupportedTimeSpanFormats { get; internal set; }
 
-        public List<string> SupportedTimeSetFormats { get; set; }
+        public List<string> SupportedTimeSetFormats { get; internal set; }
 
-        public List<Section> Sections { get; set; }
+        public List<Section> Sections { get; internal set; }
 
         public int CompareTo(Glossary other)
         {

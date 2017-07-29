@@ -8,6 +8,8 @@ commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
 
 commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
 
+ordinalSuffixes: 
+
 dateTimeIgnored: 
 
 timeRangeIgnored: 
