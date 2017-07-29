@@ -11,9 +11,13 @@ namespace Chronox.Scanners
 {
     public class CasualScanner : IChronoxScanner
     {
+        public string ScannerTag()
+        {
+            return GetType().Name;
+        }
         public ScanWrapper Scan(ChronoxSettings option, string expression)
         {
-           return new ScanWrapper();
+           return new ScanWrapper(this);
         }
     }
 }

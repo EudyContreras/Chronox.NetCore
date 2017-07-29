@@ -23,6 +23,8 @@ namespace Chronox.Wrappers
 
         public GroupWrapper CurrentGroup { get; set; }
 
+        public List<ScanWrapper> ScanWrappers { get; set; }
+
         public List<string> SearchBreakers { get; set; }   
 
         public Queue<int> GrabberOffsets { get; private set; }
@@ -105,10 +107,11 @@ namespace Chronox.Wrappers
 
         public bool ProcessTime = false;
 
-        public ChronoxBuildInformation(ChronoxParser parser, string original, string normalize, ChronoxSettings settings)
+        public ChronoxBuildInformation(ChronoxParser parser, List<ScanWrapper> results, string original, string normalize, ChronoxSettings settings)
         {
             this.Parser = parser;
             this.Settings = settings;
+            this.ScanWrappers = results;
             this.OriginalString = original;
             this.NormalizedString = normalize;
             this.ProcessedString = normalize;

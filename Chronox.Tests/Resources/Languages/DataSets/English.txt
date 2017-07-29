@@ -1,10 +1,16 @@
-﻿language: Spanish
+﻿language: English
 
 assumeSpace: true
 
-preferedEndianFormat: M.D.Y
+commonPunctuation: [,], [.], [?], [!]			//* Soon to be supported! *//
 
-dateTimeIgnored: 
+commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
+
+commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
+
+ordinalSuffixes: st, nd, rd, th
+
+dateTimeIgnored: the, of, at, on, in, during
 
 timeRangeIgnored: 
 
@@ -12,7 +18,18 @@ timeSpanIgnored:
 
 timeSetIgnored: 
 
-supportedDateTimeFormats:			
+supportedDateTimeFormats:
+
+	D.O.W
+	D.O.W|D.T|T.M
+	D.O.W|D.T|T.M|T.Z
+	D.O.W|D.T|T.M|T.O.D
+	D.O.W|D.T|T.M|T.O.D|T.Z
+	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M
+
+	G.E|D.O.W|D.T|T.M
+	G.E|D.O.W|D.T|T.M|T.Z
+	M.O.Y|N.M.2.D 
 
 supportedTimeRangeFormats:
 
@@ -21,12 +38,6 @@ supportedTimespanFormats:
 supportedTimeSetFormats:
 
 casualExpressions: n/a
-
-	key: on
-	value: n/a
-	type: optional
-	pattern: on|at
-	variations:  on, at
 
 	key: oclock
 	value: n/a
@@ -37,20 +48,14 @@ casualExpressions: n/a
 	key: in
 	value: n/a
 	type: optional
-	pattern: on|in(?:\s*aproximately|within)?|from\s*now|before
-	variations:  in approximately, in within, in, before
+	pattern: in
+	variations:  in
 
 	key: during
 	value: n/a
 	type: optional
-	pattern: during|while|along|throughout|over|amid
-	variations:  during, while, along, throughout, over, amid
-
-	key: of
-	value: n/a
-	type: optional
-	pattern: of
-	variations:  of
+	pattern: 
+	variations:  during, while, along, throughout, over, amid, meanwhile
 
 	<----------------->
 
@@ -59,20 +64,20 @@ interpretedExpressions: combined
 	key: tonight
 	value: n/a
 	type: interpreted
-	pattern: esta\s*noche
-	variations: esta noche
+	pattern: tonight
+	variations: tonight
 
 	key: last night
 	value: n/a
 	type: interpreted
-	pattern: anoche
-	variations: anoche
+	pattern: last(?:\s*|-)night
+	variations: last night
 
 	key: now
 	value: n/a
 	type: interpreted
-	pattern: ahora(\s*mismo)?|en\s*este\s*(instante|momento)
-	variations: ahora, ahora mismo, en este instante, en este momento
+	pattern: (right\s*)?now|(at\s*)?this\s*(second|instant|moment)
+	variations: now, this second, this instant, at this moment, right now
 
 	<----------------->
 
@@ -81,14 +86,14 @@ logicalOperator: combinedOptional
 	key: and
 	value: n/a
 	type: group
-	pattern: y
-	variations:  y
+	pattern: and
+	variations:  and
 
 	key: or
 	value: n/a
 	type: group
-	pattern: o
-	variations:  o
+	pattern: or
+	variations:  or
 
 	<----------------->
 
@@ -97,20 +102,20 @@ arithmeticOperator: combinedOptional
 	key: -
 	value: n/a
 	type: group
-	pattern: \-|menos|substraer|negativo
-	variations:  -, menos, substraer, negativo
+	pattern: \-|minus|substract|negative|negate|less
+	variations:  -, minus, substract, negative, negate, less
 
 	key: and
 	value: n/a
 	type: optional
-	pattern: y|o
-	variations:  y, o
+	pattern: and|or
+	variations:  and, or
 
 	key: +
 	value: n/a
 	type: group
-	pattern: \+|mas|anadir|agregar
-	variations:  +, mas, anadir, agregar
+	pattern: \+|plus|more|add|aggregate
+	variations:  +, plus, more, add, aggregate
 
 	<----------------->
 
@@ -119,20 +124,20 @@ grabberExpressions: combinedOptional
 	key: this
 	value: 0
 	type: group
-	pattern: este|esta|presente|corriente
-	variations: este, esta, presente, corriente
+	pattern: this\s*one|this|current|present|within
+	variations:  this one, this, current, present, within
 
 	key: next
 	value: 1
 	type: group
-	pattern: proximo|proxima|siguiente|precedente
-	variations: proximo, proxima, siguiente, precedente
+	pattern: next|following|upcoming|precedent|forthcoming|after|future
+	variations:  next, following, upcoming, precedent, forthcoming, after, future
 
 	key: last
 	value: -1
 	type: group
-	pattern: ultimo|pasado|anterior|antecedente|antes\s*de
-	variations:  ultimo, pasado, anterior, antecedente, antes de
+	pattern: last|past|previous|preciding|gone|antecedent|prior|foregoing|before
+	variations:  last, past, previous, preciding, gone, antecedent, prior, foregoing, before
 
 	<----------------->
 
@@ -141,32 +146,32 @@ dayOffsets: combined
 	key: today
 	value: 0
 	type: group
-	pattern: hoy
-	variations:  hoy
+	pattern: today
+	variations:  today
 
 	key: tomorrow
 	value: 1
 	type: group
-	pattern: mañana
-	variations: mañana
+	pattern: tom(?:orrow)|tommorow
+	variations:  tomorrow, tom, tommorow
 
 	key: yesterday
 	value: -1
 	type: group
-	pattern: ayer
-	variations:  ayer
+	pattern: yesterday
+	variations:  yesterday
 
 	key: day after tomorrow
 	value: 2
 	type: group
-	pattern: pasado\s*mañana|despues\s*de\s*mañana
-	variations:  pasado mañana, despues de mañana
+	pattern: day\s*after\s*tomorrow|post(?:\s*|-)?tomorrow
+	variations:  day after tomorrow, post-tomorrow
 
 	key: day before yesterday
 	value: -2
 	type: group
-	pattern: anteayer|antes\s*de\s*ayer
-	variations:  anteayear, antes de ayer
+	pattern: day\s*before\s*yesterday|pre(?:\s*|-)?yesterday
+	variations:  day before yesterday, pre-yesterday
 
 	<----------------->
 
@@ -175,14 +180,14 @@ timeExpressions: combined
 	key: midday
 	value: 12:00
 	type: group
-	pattern: mediodia|medio\s*dia
-	variations:  mediodia, medio dia
+	pattern: noon|midday
+	variations:  noon, midday
 
 	key: midnight
 	value: 24:00
 	type: group
-	pattern: medianoche|media\s*noche
-	variations:  medianoche, media noche
+	pattern: midnight
+	variations:  midnight
 
 	<----------------->
 
@@ -191,14 +196,14 @@ julianDay: n/a
 	key: sunrise
 	value: n/a
 	type: group
-	pattern: amanecer
-	variations:  amanecer
+	pattern: sunrise
+	variations:  sunrise
 
 	key: sunset
 	value: n/a
 	type: group
-	pattern: atardecer
-	variations:  atardecer
+	pattern: sunset
+	variations:  sunset
 
 	<----------------->
 
@@ -207,14 +212,14 @@ timeFractions: combined
 	key: half
 	value: 0.50
 	type: group
-	pattern: media|medio|mitad
-	variations:  media, medio, mitad
+	pattern: half
+	variations:  half
 
 	key: quater
 	value: 0.25
 	type: group
-	pattern: quarto|quarta|cuarto|cuarta
-	variations:  quarto, quarta, cuarto, cuarta
+	pattern: quater
+	variations:  quater
 
 	<----------------->
 
@@ -223,32 +228,32 @@ timeConjointer: combinedOptional
 	key: to
 	value: n/a
 	type: group
-	pattern: para|a
-	variations:  para, a
+	pattern: to|before(\s*now)?
+	variations:  to, before, before now
 
 	key: past
 	value: n/a
 	type: group
-	pattern: pasado
-	variations:  pasado
+	pattern: past
+	variations:  past
 
 	key: ago
 	value: n/a
 	type: group
-	pattern: hace|antes\s*de\s*ahora
-	variations:  hace, antes de ahora
+	pattern: ago|before(\s*now)?
+	variations:  ago, before now, before
 
 	key: from now
 	value: n/a
 	type: group
-	pattern: desde\s*ahora|despues\s*de\s*ahora
-	variations:  desde ahora, despues de ahora
+	pattern: from\s*now|hence|after
+	variations:  from now, hence, after
 
 	key: from
 	value: n/a
 	type: group
-	pattern: de
-	variations:  de
+	pattern: from
+	variations:  from
 
 	<----------------->
 
@@ -274,13 +279,13 @@ proximity: combinedOptional
 	value: n/a
 	type: group
 	pattern:
-	variations:  exactamente, exacto, exacta, precisamente, definitivamente, strictamente
+	variations:  exactly, exact, precisely, accurately, definitely, clearly, strictly, sharply, literally, surely, truly, positively, without doubt
 
 	key: approximate
 	value: n/a
 	type: group
 	pattern:
-	variations:  aproximadamente, aproximado, aproximada, mas o menos, al rededor, casi
+	variations:  approximate, approximately, roughly, about, around, nearly, more or less, circa, almost, close to, not far from, virtually, mostly
 
 	<----------------->
 
@@ -289,8 +294,8 @@ durationIndicators: n/a
 	key: for
 	value: n/a
 	type: groupOptional
-	pattern: por|para
-	variations:  por, para
+	pattern: for
+	variations:  for
 
 	<----------------->
 
@@ -299,20 +304,20 @@ durationExpressions: n/a
 	key: whole
 	value: n/a
 	type: group
-	pattern: enteramente|entera|toda|todo
-	variations:  todo, toda, entera, enteramente
+	pattern: all|whole|entire
+	variations:  all, whole, entire
 
 	key: half
 	value: n/a
 	type: group
-	pattern: mitad|medio|media
-	variations:  mitad, medio, media
+	pattern: half
+	variations:  half
 
 	key: quater
 	value: n/a
 	type: group
-	pattern: cuarto|cuarta
-	variations:  cuarto, cuarta
+	pattern: quater
+	variations:  quater
 
 	<----------------->
 
@@ -321,14 +326,14 @@ repeaterIndicators: combined
 	key: every
 	value: n/a
 	type: group
-	pattern: cada
-	variations:  cada
+	pattern: every
+	variations:  every, each
 
 	key: every other
 	value: n/a
 	type: group
-	pattern: cada\s*otr(o|a)
-	variations:  cada otro, cada otra
+	pattern: every\s*other
+	variations:  every other
 
 	<----------------->
 
@@ -949,8 +954,8 @@ numericWords: combinedReversed
 	key: one
 	value: 1
 	type: group
-	pattern: one|first|1st|an|a
-	variations:  one, first, 1st, an, a
+	pattern: one|first|1st
+	variations:  one, first, 1st
 
 	key: two
 	value: 2
@@ -1145,8 +1150,8 @@ numericWordsCardinal: combinedReversed
 	key: one
 	value: 1
 	type: group
-	pattern: one|an|a
-	variations:  one, an, a
+	pattern: one
+	variations:  one
 
 	key: two
 	value: 2

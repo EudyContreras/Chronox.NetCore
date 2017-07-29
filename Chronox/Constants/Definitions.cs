@@ -147,8 +147,8 @@ namespace Chronox.Constants
             public const string DateBigEndian = "discreteDateBigEndian";
             public const string DateLittleEndian = "discreteDateLittleEndian";
             public const string DateMiddleEndian = "discreteDateMediumEndian";
-            public const string SpaceSeparator = "whiteSpace";
-            public const string OptionalSpace = "optionalSpace";
+            public const string ExpressionSeparator = "whiteSpace";
+            public const string OptionalExpressionSeparator = "optionalSpace";
             public const string SpaceRemover = "whiteSpaceRemover";
             public const string TimeSeparator = "discreteTimeSeparator";
             public const string DateSeparator = "discreteDateSeparator";
@@ -158,6 +158,8 @@ namespace Chronox.Constants
             public const string NumberRangedOrdinal = "numberRangedOrdinal";
             public const string WordStart = "wordStart";
             public const string WordEnd = "wordEnd";
+            public const string Space = "space";
+            public const string Comma = "comma";
             public const string Date = "discreteDate";
             public const string Time = "discreteTime";
             public const string Year = "dependentYear";
@@ -181,8 +183,8 @@ namespace Chronox.Constants
                 {DateBigEndian,DateBigEndian},
                 {DateLittleEndian,DateLittleEndian},
                 {DateMiddleEndian,DateMiddleEndian},
-                {SpaceSeparator,SpaceSeparator},
-                {OptionalSpace,OptionalSpace},
+                {ExpressionSeparator,ExpressionSeparator},
+                {OptionalExpressionSeparator,OptionalExpressionSeparator},
                 {SpaceRemover,SpaceRemover},
                 {TimeSeparator,TimeSeparator},
                 {DateSeparator,DateSeparator},
@@ -269,7 +271,7 @@ namespace Chronox.Constants
                             {"D.D.M",  Patterns.DateMiddleEndian},
                             {"M.D",    Patterns.MinuteDiscrete},
                             {"S.D",    Patterns.SecondDiscrete},
-                            {"W.S",    Patterns.SpaceSeparator},
+                            {"W.S",    Patterns.ExpressionSeparator},
                             {"D.W.T",  Property.DayOfWeekType},
                             {"D.U.B",  Property.DateUnits },
                             {"T.M",    Property.TimeMeridiam},
@@ -347,7 +349,7 @@ namespace Chronox.Constants
                             {Patterns.DateMiddleEndian,         "D.D.M"},
                             {Patterns.MinuteDiscrete,           "M.D"},
                             {Patterns.SecondDiscrete,           "S.D"},
-                            {Patterns.SpaceSeparator,           "W.S"},
+                            {Patterns.ExpressionSeparator,           "W.S"},
                             {Property.DayOfWeekType,            "D.W.T"},
                             {Property.DateUnits ,               "D.U.B"},
                             {Property.TimeMeridiam,             "T.M" },
@@ -643,6 +645,7 @@ namespace Chronox.Constants
                 {"twenty nine", 29},
                 {"thirty", 30},
                 {"thirty one", 31},
+                {"last", int.MaxValue }
             };
 
             public static readonly IReadOnlyDictionary<string, int> NUMBERS_WORDS_CARDINAL = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)

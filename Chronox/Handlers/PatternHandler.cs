@@ -7,6 +7,7 @@ using Chronox.Wrappers;
 using Chronox.Utilities.Extenssions;
 using Chronox.Handlers.Patterns;
 using Chronox.Handlers.Models;
+using Chronox.Helpers.Patterns;
 
 namespace Chronox.Handlers
 {
@@ -85,6 +86,10 @@ namespace Chronox.Handlers
                     break;
             }
 
+            if(section.Label == Definitions.Property.GrabberExpressions)
+            {
+                patternBuilder.Append(PatternLibrary.HelperPatterns[Definitions.Patterns.Space].Value);
+            }
             return patternBuilder.ToString();
         }
 

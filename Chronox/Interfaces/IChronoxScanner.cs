@@ -7,6 +7,8 @@ namespace Chronox.Interfaces
 {
     public interface IChronoxScanner
     {
+        string ScannerTag();
+
         ScanWrapper Scan(ChronoxSettings option, string expression);
     }
 }

@@ -13,13 +13,19 @@ namespace Chronox.Scanners
 {
     public class CardinalScanner : IChronoxScanner
     {
+
+        public string ScannerTag()
+        {
+            return GetType().Name;
+        }
+
         public ScanWrapper Scan(ChronoxSettings option, string input)
         {
-            var scanResult = new ScanWrapper();
+            var scanResult = new ScanWrapper(this);
 
             var number = new StringBuilder();
 
-            var expression = input.PadPunctuationExact(1, 1, '-').Pad(0,1);
+            var expression = input.Pad(0,1);
 
             var timeExpressions = option.Language.VocabularyBank.GetDictionary(Definitions.Property.InterpretedExpression);
 
@@ -59,96 +65,51 @@ namespace Chronox.Scanners
 
             var startIndex = -1;
 
-            foreach (var part in parts)
+            foreach (var section in parts)
             {
+                var part = section;
+
+                var foundDigit = false;
+
+                var sections = new string[] { };
+
                 var translation = string.Empty;
 
-                if (dictionaryCardinals.TryGetValue(part, out translation) || dictionaryDimensionsCardinal.TryGetValue(part, out translation))
+                if (part.Contains('-'))
                 {
-                    if (CardinalConverter.CombinedNames().Contains(translation))
-                    {
-                        number.Append(translation).Append(" ");
-
-                        if (startIndex == -1)
-                        {
-                            startIndex = expression.IndexOf(part);
-                        }
-                    }                    
+                    sections = part.Split('-');
                 }
-                else if(dictionaryOrdinals.TryGetValue(part, out translation) || dictionaryDimensionsOrdinal.TryGetValue(part, out translation))
+                
+                if (sections.Length > 1)
                 {
-                    if (OrdinalConverter.CombinedNamesOrdinal().Contains(translation))
+                    foreach (var sect in sections)
                     {
-                        number.Append(translation).Append(" ");
-
-                        if (startIndex == -1)
-                        {
-                            startIndex = expression.IndexOf(part);
-                        }
+                        translation = FindDigits(number, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, sect, true);
                     }
-                    else if (OrdinalConverter.CombinedNames().Contains(translation))
-                    {
-                        number.Append(translation).Append(" ");
 
-                        if (startIndex == -1)
-                        {
-                            startIndex = expression.IndexOf(part);
-                        }
-                    }
                 }
                 else
                 {
-                    if (ignored.Any(i => string.Compare(part, i, true) != 0) && string.Compare(part, "-", true) != 0)
+                    translation = FindDigits(number, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, part, false);
+                }
+
+                if (!foundDigit)
+                {
+                    if (ignored.Any(i => string.Compare(section, i, true) != 0))
                     {
                         if (number.Length > 0)
                         {
-                            var endIndex = string.IsNullOrEmpty(part) ? expression.Length - 1 : expression.IndexOf(part, startIndex >= 0 ? startIndex : 0);
-
-                            var cardinal = number.ToString().ReplaceLast(" and ", " ").Replace(" - ", "-").Trim(); //Make language independent
-
-                            var digit = CardinalConverter.WordsToNumber(cardinal);
-
-                            var wrapper = new ContainsWrapper(true, cardinal, startIndex, endIndex);
-
-                            scanResult.ResultWrappers.Add(wrapper);
-
-                            scanResult.ScannedExpression = expression;
-
-                            if(startIndex >= 0)
-                            {
-                                switch (digit.Type)
-                                {
-                                    case NumberType.Cardinal:
-                                        expression = expression.Replace(expression.Substring(startIndex, endIndex - startIndex), digit.Value.ToString().Normalize(0, 1, false), true);
-                                        expression = expression.Replace(" - ", "-", true);
-                                        scanResult.NormalizedExpression = expression;
-                                        break;
-                                    case NumberType.Ordinal:
-                                        expression = expression.Replace(expression.Substring(startIndex, endIndex - startIndex), OrdinalConverter.Ordinal(digit.Value).Normalize(0, 1, false), true);
-                                        expression = expression.Replace(" - ", "-", true);
-                                        scanResult.NormalizedExpression = expression;
-                                        break;
-                                    case NumberType.FractionedOrdinal:
-                                        scanResult.NormalizedExpression = expression.Replace(expression.Substring(startIndex, endIndex - startIndex), OrdinalConverter.Ordinal(digit.Value).Normalize(0, 1, false), true);
-                                        scanResult.NormalizedExpression = scanResult.NormalizedExpression.Replace(" - ", "-", true);
-                                        expression = scanResult.NormalizedExpression;
-                                        break;
-                                }
-
-                                startIndex = -1;
-                            }
-                            else
-                            {
-                                expression = expression.Replace(" - ", "-", true);
-                                scanResult.NormalizedExpression = expression;
-                            }
+                            CreateResult(scanResult, number, ref expression, ref startIndex, section);
 
                             number.Clear();
                         }
                     }
                     else
                     {
-                        number.Append(part).Append(" ");
+                        if(number.Length > 0)
+                        {
+                            number.Append(section).Append(" ");
+                        }
                     }
                 }
             }
@@ -172,6 +133,112 @@ namespace Chronox.Scanners
             }
 
             return scanResult;
+        }
+
+        private void CreateResult(ScanWrapper scanResult, StringBuilder number, ref string expression, ref int startIndex, string section)
+        {
+            var endIndex = startIndex + (number.ToString().Trim().Length - 1);
+
+            var cardinal = number.ToString().ReplaceLast(" and ", " ").ReplaceLast("-",string.Empty).Trim(); //Make language independent
+
+            var digit = CardinalConverter.WordsToNumber(cardinal);
+
+            var replacement = string.Empty;
+
+            var wrapper = new ReplaceWrapper(ScannerTag(), cardinal, startIndex, endIndex);
+
+            scanResult.ResultWrappers.Add(wrapper);
+
+            scanResult.ScannedExpression = expression;
+
+            if (startIndex >= 0)
+            {
+                
+                switch (digit.Type)
+                {
+                    case NumberType.Cardinal:
+                        replacement = digit.Value.ToString();
+                        expression = expression.Replace(cardinal, replacement, true);
+                        scanResult.NormalizedExpression = expression;
+                        break;
+                    case NumberType.Ordinal:
+                        replacement = OrdinalConverter.Ordinal(digit.Value);
+                        expression = expression.Replace(cardinal, replacement, true);
+                        scanResult.NormalizedExpression = expression;
+                        break;
+                    case NumberType.FractionedOrdinal:
+                        replacement = OrdinalConverter.Ordinal(digit.Value);
+                        expression = expression.Replace(cardinal, replacement, true);
+                        scanResult.NormalizedExpression = expression;
+                        break;
+                }
+
+                wrapper.TextReplacement = replacement;
+
+                wrapper.ReplacementPosition.StartIndex = wrapper.OriginalPosition.StartIndex;
+
+                wrapper.ReplacementPosition.EndIndex = wrapper.ReplacementPosition.StartIndex + replacement.Length;
+
+                startIndex = -1;
+            }
+            else
+            {
+                scanResult.NormalizedExpression = expression;
+            }
+        }
+
+        private static string FindDigits(StringBuilder number, string expression, Dictionary<string, string> dictionaryCardinals, Dictionary<string, string> dictionaryOrdinals, Dictionary<string, string> dictionaryDimensionsCardinal, Dictionary<string, string> dictionaryDimensionsOrdinal, ref int startIndex, ref bool foundDigit, string sect, bool dashDivided)
+        {
+            var translation = string.Empty ;
+
+            if (dictionaryCardinals.TryGetValue(sect, out translation) || dictionaryDimensionsCardinal.TryGetValue(sect, out translation))
+            {
+                if (CardinalConverter.CombinedNames().Contains(translation))
+                {
+                    foundDigit = true;
+
+                    number.Append(translation);
+
+                    if (dashDivided)
+                    {
+                        number.Append("-");
+                    }
+                    else
+                    {
+                        number.Append(" ");
+                    }
+
+                    if (startIndex == -1)
+                    {
+                        startIndex = expression.IndexOf(translation);
+                    }
+                }
+            }
+            else if (dictionaryOrdinals.TryGetValue(sect, out translation) || dictionaryDimensionsOrdinal.TryGetValue(sect, out translation))
+            {
+                if (OrdinalConverter.CombinedNamesOrdinal().Contains(translation) || OrdinalConverter.CombinedNames().Contains(translation))
+                {
+                    number.Append(translation);
+
+                    if (dashDivided)
+                    {
+                        number.Append("-");
+                    }
+                    else
+                    {
+                        number.Append(" ");
+                    }
+
+                    foundDigit = true;
+
+                    if (startIndex == -1)
+                    {
+                        startIndex = expression.IndexOf(translation);
+                    }
+                }
+            }
+
+            return translation;
         }
     }
 }

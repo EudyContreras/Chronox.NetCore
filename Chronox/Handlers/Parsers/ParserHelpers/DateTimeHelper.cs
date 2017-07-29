@@ -907,11 +907,44 @@ namespace Chronox.Parsers.General.ParserHelpers
             }
             else
             {
-                dateTime = dateTime.SetMonth(monthOfYear);     
-                
-                if(dateTime.Month != information.CurrentDate.Month)
+                if (information.NumericValues.Count > 0)
                 {
-                    dateTime = dateTime.SetDay(1);
+                    if (information.NumericValues.Peek() == int.MaxValue)
+                    {
+                        information.NumericValues.Dequeue();
+
+                        if (dateTime.Month > monthOfYear)
+                        {
+                            dateTime = dateTime.SetMonth(1);
+                            dateTime = dateTime.SetDay(1);
+                            dateTime = dateTime.AddMonths(monthOfYear - 1);
+                        }
+                        else
+                        {
+                            dateTime = dateTime.SetMonth(1);
+                            dateTime = dateTime.AddYears(-1);
+                            dateTime = dateTime.SetDay(1);
+                            dateTime = dateTime.AddMonths(monthOfYear - 1);
+                        }
+                    }
+                    else
+                    {
+                        dateTime = dateTime.SetMonth(monthOfYear);
+
+                        if (dateTime.Month != information.CurrentDate.Month)
+                        {
+                            dateTime = dateTime.SetDay(1);
+                        }
+                    }
+                }
+                else
+                {
+                    dateTime = dateTime.SetMonth(monthOfYear);
+
+                    if (dateTime.Month != information.CurrentDate.Month)
+                    {
+                        dateTime = dateTime.SetDay(1);
+                    }
                 }
             }
 

@@ -172,7 +172,10 @@ namespace Chronox.Utilities.Extenssions
                         {
                             if (source[i + 1] == ' ' || char.IsPunctuation(source[i + 1]))
                             {
-                                var current = new ContainsWrapper(true, target, startIndex, i);
+                                var current = new ContainsWrapper(true, target, startIndex, i)
+                                {
+                                    Length = (i - startIndex) + 1
+                                };
 
                                 var previous = results.Find(r => r.Intercepts(current.Position));
 
@@ -197,7 +200,10 @@ namespace Chronox.Utilities.Extenssions
                         }
                         else
                         {
-                            var current = new ContainsWrapper(true, target, startIndex, i);
+                            var current = new ContainsWrapper(true, target, startIndex, i)
+                            {
+                                Length = (i - startIndex) + 1
+                            };
 
                             var previous = results.Find(r => r.Intercepts(current.Position));
 

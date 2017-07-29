@@ -10,6 +10,8 @@ namespace Chronox.Wrappers
     {
         public string Text { get; set; }
 
+        public int Length { get; set; }
+
         public bool Found { get; set; }
 
         public IndexWrapper Position { get; set; }
@@ -38,6 +40,11 @@ namespace Chronox.Wrappers
             {
                 return Position.EndIndex;
             }
+        }
+
+        public ReplaceWrapper ToReplaceWrapper(string tag)
+        {
+            return new ReplaceWrapper(tag, Text, StartIndex, EndIndex);
         }
 
         public static bool Intercepts(int index, IndexWrapper wrapper)

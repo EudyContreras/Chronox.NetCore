@@ -11,30 +11,37 @@ namespace Chronox.Scanners
 {
     public class NumberScanner : IChronoxScanner
     {
+        public string ScannerTag()
+        {
+            return GetType().Name;
+        }
         public ScanWrapper Scan(ChronoxSettings option, string expression)
         {
             var numbers = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericValue);
 
-            var resultWrapper = expression.Contains(numbers.Keys);
+            var resultWrapper = expression.Contains(numbers.Keys, Definitions.Converters.NUMBERS.Keys);
 
-            var result = new ScanWrapper();
+            var result = new ScanWrapper(this);
 
             if(resultWrapper.Count > 0)
             {
-                result.ResultWrappers = resultWrapper;
+                result.ResultWrappers = resultWrapper.Select(r => r.ToReplaceWrapper(ScannerTag())).ToList();
 
                 result.ScannedExpression = expression;
 
                 result.NormalizedExpression = expression;
 
-                foreach (var wrapper in resultWrapper)
+                foreach (var wrapper in result.ResultWrappers)
                 {
-                    if (wrapper.Found)
-                    {
-                        var value = Definitions.Converters.NUMBERS[numbers[wrapper.Text]];
+                    var value = Definitions.Converters.NUMBERS[numbers[wrapper.TextOriginal]].ToString();
 
-                        result.NormalizedExpression = result.NormalizedExpression.Replace(wrapper.Text, value.ToString(), true);
-                    }
+                    wrapper.TextReplacement = value;
+
+                    wrapper.ReplacementPosition.StartIndex = wrapper.OriginalPosition.StartIndex;
+
+                    wrapper.ReplacementPosition.EndIndex = wrapper.ReplacementPosition.StartIndex + value.Length;
+
+                    result.NormalizedExpression = result.NormalizedExpression.Replace(wrapper.TextOriginal, value, true);
                 }
             }
             return result;

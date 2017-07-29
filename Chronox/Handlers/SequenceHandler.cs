@@ -10,6 +10,7 @@ using Chronox.Constants.Banks;
 using Chronox.Utilities.Extenssions;
 using Enumerations;
 using System.IO;
+using static Chronox.Constants.Definitions;
 
 namespace Chronox.Handlers
 {
@@ -44,9 +45,9 @@ namespace Chronox.Handlers
 
         internal void ExtractStandAlonePatterns()
         {
-            Separator = PatternLibrary.HelperPatterns[Definitions.Patterns.SpaceSeparator];
+            Separator = PatternLibrary.HelperPatterns[Definitions.Patterns.ExpressionSeparator];
 
-            OptionalSeparator = PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalSpace];
+            OptionalSeparator = PatternLibrary.HelperPatterns[Definitions.Patterns.OptionalExpressionSeparator];
 
             DatePatternBigEndian = CreateDatePattern(DateTimeEndian.Big);
 
@@ -128,7 +129,7 @@ namespace Chronox.Handlers
 
                     regexSequence.Patterns.Add(pattern);      
 
-                    if (NotSeparator(pattern.Label))
+                    if (NotSeparator(pattern.Label) && !UnqualifiedPattern(pattern))
                     {
                         if(OptinalSpaceQualified(pattern))
                         {
@@ -144,7 +145,7 @@ namespace Chronox.Handlers
 
                     builder.Append(pattern.Value);
 
-                    if (NotSeparator(pattern.Label))
+                    if (NotSeparator(pattern.Label) && !UnqualifiedPattern(pattern))
                     {
                         if (OptinalSpaceQualified(pattern))
                         {
@@ -168,11 +169,11 @@ namespace Chronox.Handlers
                     result = result.ReplaceLast(OptionalSeparator.Value, string.Empty);
                 }
 
-                if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.SpaceSeparator)
+                if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.ExpressionSeparator)
                 {
                     regexSequence.Patterns.RemoveAt(regexSequence.Patterns.Count - 1);
                 }
-                else if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.OptionalSpace)
+                else if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.OptionalExpressionSeparator)
                 {
                     regexSequence.Patterns.RemoveAt(regexSequence.Patterns.Count - 1);
                 }
@@ -187,6 +188,11 @@ namespace Chronox.Handlers
             }
 
             return regexSequences;
+        }
+
+        private bool UnqualifiedPattern(PatternRegex pattern)
+        {
+            return pattern.Label == Definitions.Property.GrabberExpressions;
         }
 
         private bool OptinalSpaceQualified(PatternRegex pattern)
@@ -407,19 +413,24 @@ namespace Chronox.Handlers
                 {
                     var key = properties[i];
 
-                    var property = Definitions.Converters.PROPERTIES[key];
-
-                    normalProperties.Add(property);
-
-                    if (!glossary.AssumeSpace)
+                    if (Definitions.Converters.PROPERTIES.TryGetValue(key, out string property))
                     {
-                        if (i < properties.Length - 1 && property != Definitions.Patterns.SpaceSeparator)
+                        normalProperties.Add(property);
+
+                        if (!glossary.AssumeSpace)
                         {
-                            if (properties[i + 1] != Definitions.Converters.PROPERTIES.FirstOrDefault(e => e.Value == Definitions.Patterns.SpaceSeparator).Key)
+                            if (i < properties.Length - 1 && property != Definitions.Patterns.ExpressionSeparator)
                             {
-                                normalProperties.Add(Definitions.Patterns.SpaceSeparator);
+                                if (properties[i + 1] != Definitions.Converters.PROPERTIES.FirstOrDefault(e => e.Value == Definitions.Patterns.ExpressionSeparator).Key)
+                                {
+                                    normalProperties.Add(Definitions.Patterns.ExpressionSeparator);
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        throw new Exception($"No property with the given abbreviation was found! Abbreviation: {key}");
                     }
                 }
 
@@ -446,7 +457,7 @@ namespace Chronox.Handlers
 
         private bool NotSeparator(string label)
         {
-            if (string.Compare(label, Definitions.Patterns.SpaceSeparator, true) == 0 || string.Compare(label, Definitions.Patterns.OptionalSpace) == 0) return false;
+            if (string.Compare(label, Definitions.Patterns.ExpressionSeparator, true) == 0 || string.Compare(label, Definitions.Patterns.OptionalExpressionSeparator) == 0) return false;
 
             return true;
         }

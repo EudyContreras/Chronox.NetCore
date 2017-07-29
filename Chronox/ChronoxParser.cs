@@ -138,7 +138,7 @@ namespace Chronox
 
             var scanResults = PerformExpressionScanAndReplace(input);
 
-            var information = new ChronoxBuildInformation(this, scanResults.Key, scanResults.Key, settings);
+            var information = new ChronoxBuildInformation(this, scanResults.Value, input, scanResults.Key, settings);
 
             var preProcessed = PreProcessExpression(settings, scanResults.Key);
 
@@ -147,9 +147,9 @@ namespace Chronox
                 referenceDate = DateTime.Now;
             }
 
-            Settings.ReferenceDate = referenceDate;
+            settings.ReferenceDate = referenceDate;
 
-            allResults.AddRange(MasterParser.ComputeResult(information.ProcessedString = preProcessed, Settings.ReferenceDate, Settings,information));
+            allResults.AddRange(MasterParser.ComputeResult(information.ProcessedString = preProcessed, settings.ReferenceDate, settings,information));
 
             if (allResults.Count > 0)
             {
@@ -278,13 +278,12 @@ namespace Chronox
 
         private IReadOnlyList<IChronoxScanner> StandardScanners()
         {
-            var scanners = new List<IChronoxScanner>
+            return new List<IChronoxScanner>
             {
                 new HolidayScanner(),
                 new NumberScanner(),
                 new CardinalScanner()
             };
-            return scanners;
         }
 
         public void AddScanner(params IChronoxScanner[] scanner) => Scanners.AddRange(scanner);

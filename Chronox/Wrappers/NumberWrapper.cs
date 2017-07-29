@@ -16,5 +16,9 @@ namespace Chronox.Wrappers
             this.Value = value;
             this.Type = type;
         }
+
+        public NumberWrapper()
+        {
+        }
     }
 }

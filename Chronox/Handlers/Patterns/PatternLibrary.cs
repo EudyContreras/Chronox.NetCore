@@ -15,9 +15,9 @@ namespace Chronox.Helpers.Patterns
 
         internal static readonly IDictionary<string,PatternRegex> HelperPatterns = new Dictionary<string,PatternRegex>(StringComparer.OrdinalIgnoreCase)
         {
-           { Definitions.Patterns.OptionalSpace, new PatternRegex(Definitions.Patterns.OptionalSpace, "\\s*\\,?\\s*") },
+           { Definitions.Patterns.OptionalExpressionSeparator, new PatternRegex(Definitions.Patterns.OptionalExpressionSeparator, "\\,?\\s*") },
 
-           { Definitions.Patterns.SpaceSeparator, new PatternRegex(Definitions.Patterns.SpaceSeparator, "\\s*\\,?\\s") },
+           { Definitions.Patterns.ExpressionSeparator, new PatternRegex(Definitions.Patterns.ExpressionSeparator, "\\,?\\s") },
 
            { Definitions.Patterns.TimeSeparator, new PatternRegex(Definitions.Patterns.TimeSeparator,  "(\\.|\\:|\\：)?")},
 
@@ -33,7 +33,12 @@ namespace Chronox.Helpers.Patterns
 
            { Definitions.Patterns.WordStart, new PatternRegex(Definitions.Patterns.WordStart, "(?<=\\W|^)" )},
 
-           { Definitions.Patterns.WordEnd, new PatternRegex(Definitions.Patterns.WordEnd, "(?=\\W|$)" )}
+           { Definitions.Patterns.WordEnd, new PatternRegex(Definitions.Patterns.WordEnd, "(?=\\W|$)" )},
+
+           { Definitions.Patterns.Space, new PatternRegex(Definitions.Patterns.Space, "\\s*") },
+
+           { Definitions.Patterns.Comma, new PatternRegex(Definitions.Patterns.Comma, "\\,") }
+           
         };
 
         internal static readonly IDictionary<string, PatternRegex> CommonDatePatterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase)

@@ -11,30 +11,38 @@ namespace Chronox.Scanners
 {
     public class HolidayScanner : IChronoxScanner
     {
+        public string ScannerTag()
+        {
+            return GetType().Name;
+        }
+
         public ScanWrapper Scan(ChronoxSettings option, string expression)
         {
             var holidays = option.Language.VocabularyBank.GetDictionary(Definitions.Property.Holidays);
 
             var resultWrapper = expression.Contains(holidays.Keys);
 
-            var result = new ScanWrapper();
+            var result = new ScanWrapper(this);
 
             if(resultWrapper.Count > 0)
             {
-                result.ResultWrappers = resultWrapper;
+                result.ResultWrappers = resultWrapper.Select(r => r.ToReplaceWrapper(ScannerTag())).ToList();
 
                 result.ScannedExpression = expression;
 
                 result.NormalizedExpression = expression;
 
-                foreach (var wrapper in resultWrapper)
+                foreach (var wrapper in result.ResultWrappers)
                 {
-                    if (wrapper.Found)
-                    {
-                        var value = option.Language.Holidays[holidays[wrapper.Text]];
+                    var value = option.Language.Holidays[holidays[wrapper.TextOriginal]];
 
-                        result.NormalizedExpression = result.NormalizedExpression.Replace(wrapper.Text, value,true);
-                    }
+                    wrapper.TextReplacement = value;
+
+                    wrapper.ReplacementPosition.StartIndex = wrapper.OriginalPosition.StartIndex;
+
+                    wrapper.ReplacementPosition.EndIndex = wrapper.ReplacementPosition.StartIndex + value.Length;
+
+                    result.NormalizedExpression = result.NormalizedExpression.Replace(wrapper.TextOriginal, value, true);
                 }
             }
             return result;

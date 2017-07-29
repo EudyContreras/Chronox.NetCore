@@ -144,7 +144,7 @@ namespace Chronox.Parsers.English
                         break;
                 }
             }
-            return Adjusted(settings, information, results.ToList());
+            return AdjustResults(settings, information, results.ToList());
         }
 
         private MatchWrapper GetPerfectMatch(ChronoxSettings settings, IEnumerable<PatternSequence> sequences, ChronoxBuildInformation information, string[] parts)
@@ -209,52 +209,56 @@ namespace Chronox.Parsers.English
                     return Compute(information.ProcessedString, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
                 }
             }
-            return Adjusted(settings, information, results.ToList());
+            return AdjustResults(settings, information, results.ToList());
         }
 
-        private List<IChronoxExtraction> Adjusted(ChronoxSettings settings, ChronoxBuildInformation information, List<IChronoxExtraction> results)
+        private List<IChronoxExtraction> AdjustResults(ChronoxSettings settings, ChronoxBuildInformation information, List<IChronoxExtraction> results)
         {
             var ignoredWords = GetIgnoredWords(settings);
 
-            for(var i = 0; i < results.Count; i++)
-            {
-                var result = results[i];
+            var scanResults = information.ScanWrappers.SelectMany(s => s.ResultWrappers).ToArray();
 
-                var resultWrappers = information.NormalizedString.Contains(result.Extraction.Trim(), ignoredWords);
+            foreach (var result in results)
+            {
+                var resultWrappers = result.Original.Contains(result.Extraction.Trim(), ignoredWords);
 
                 if(resultWrappers.Count > 0)
                 {
-                    var resultInfo = resultWrappers[0];
+                    var wrapper = resultWrappers[0];
 
-                    result.StartIndex = resultInfo.StartIndex;
+                    result.Extraction = result.Original.Substring(wrapper.StartIndex, wrapper.Length);
 
-                    result.EndIndex = resultInfo.EndIndex;
+                    result.ProcessedString = result.Original.Remove(wrapper.StartIndex,wrapper.Length);
 
-                    result.ProcessedString = result.Original.Remove(resultInfo.StartIndex, (resultInfo.EndIndex - resultInfo.StartIndex) + 1);
+                    result.StartIndex = wrapper.StartIndex;
+
+                    result.EndIndex = wrapper.EndIndex;
 
                 }
                 else
                 {
-                    //How to deal with this!!
+                    foreach (var scan in scanResults)
+                    {
+                        if (result.Extraction.Contains(scan.TextReplacement))
+                        {
+                            var wrappers = result.Original.Contains(result.Extraction.Replace(scan.TextReplacement, scan.TextOriginal, true).Trim(), ignoredWords);
 
-                    /*Right now once a string comes in the string 
-                     * is scanned for numbers in word representations
-                     * this words are then replace with their number
-                     * counterparts so that the parsing of these possible
-                     * high numbers can work. This process leads to the
-                     * end extraction being different to the original
-                     * one. This results in extraction indexes and a return
-                     * source string that does not much the original input.
-                     * this may result in other complications acrossed programs
-                     * that need detail information about the extraction.
-                     * of course this can be fix by only supporting limited
-                     * numeric words in exchange for a more consistent extraction
-                     * information mechanic.
-                     * A tradeoff needs to be made!
-                     **/     
+                            if (wrappers.Count > 0)
+                            {
+                                var wrapper = wrappers[0];
+
+                                result.Extraction = result.Original.Substring(wrapper.StartIndex, wrapper.Length);
+
+                                result.ProcessedString = result.Original.Remove(wrapper.StartIndex, wrapper.Length);
+
+                                result.StartIndex = wrapper.StartIndex;
+
+                                result.EndIndex = wrapper.EndIndex;
+                            }
+                        }
+                    }
                 }
             }
-
             return results;
         }
 

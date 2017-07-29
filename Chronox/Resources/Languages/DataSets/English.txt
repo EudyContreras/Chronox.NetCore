@@ -27,6 +27,10 @@ supportedDateTimeFormats:
 	D.O.W|D.T|T.M|T.O.D|T.Z
 	G.E|D.T.U|N.W.O|M.O.Y|Y.U|Y|T.O.D|T.M
 
+	G.E|D.O.W|D.T|T.M
+	G.E|D.O.W|D.T|T.M|T.Z
+	M.O.Y|N.M.2.D 
+
 supportedTimeRangeFormats:
 
 supportedTimespanFormats:
