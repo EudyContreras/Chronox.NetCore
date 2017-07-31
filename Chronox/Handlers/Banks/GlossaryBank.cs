@@ -78,8 +78,6 @@ namespace Chronox.Handlers.Banks
 
         private Dictionary<string, string> NumericMagnitudesOrdinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-        private Dictionary<string, string> NumericWord= new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
         private Dictionary<string, string> NumericWordOrdinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         private Dictionary<string, string> NumericWordCardinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -155,8 +153,6 @@ namespace Chronox.Handlers.Banks
             if (dictionary.Equals(Definitions.Property.NumericMagnitudeCardinal)) return NumericMagnitudesCardinal;
 
             if (dictionary.Equals(Definitions.Property.NumericMagnitudeOrdinal)) return NumericMagnitudesOrdinal;
-
-            if (dictionary.Equals(Definitions.Property.NumericWord)) return NumericWord;
 
             if (dictionary.Equals(Definitions.Property.NumericWordOrdinal)) return NumericWordOrdinal;
 

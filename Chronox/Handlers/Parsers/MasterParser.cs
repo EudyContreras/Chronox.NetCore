@@ -144,7 +144,7 @@ namespace Chronox.Parsers.English
                         break;
                 }
             }
-            return AdjustResults(settings, information, results.ToList());
+            return AdjustResults(information.OriginalString, settings, information, results.ToList());
         }
 
         private MatchWrapper GetPerfectMatch(ChronoxSettings settings, IEnumerable<PatternSequence> sequences, ChronoxBuildInformation information, string[] parts)
@@ -209,10 +209,10 @@ namespace Chronox.Parsers.English
                     return Compute(information.ProcessedString, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
                 }
             }
-            return AdjustResults(settings, information, results.ToList());
+            return AdjustResults(information.OriginalString, settings, information, results.ToList());
         }
 
-        private List<IChronoxExtraction> AdjustResults(ChronoxSettings settings, ChronoxBuildInformation information, List<IChronoxExtraction> results)
+        private List<IChronoxExtraction> AdjustResults(string input, ChronoxSettings settings, ChronoxBuildInformation information, List<IChronoxExtraction> results)
         {
             var ignoredWords = GetIgnoredWords(settings);
 
@@ -569,49 +569,49 @@ namespace Chronox.Parsers.English
 
                 if (group.Name == Definitions.Property.CasualExpressions)
                 {
-                    var casualExpression = ConversionHandler.CasualExpression(settings, group.Value.Trim());
+                    var casualExpression = TranslationHandler.CasualExpression(settings, group.Value.Trim());
 
                     helper.ProcessCasualExpression(result, foundGroups, ref dateTime, information, casualExpression);
                 }
                 else if (group.Name == Definitions.Property.GrabberExpressions)
                 {
-                    var grabberExpression = ConversionHandler.GrabberExpression(settings, group.Value.Trim());
+                    var grabberExpression = TranslationHandler.GrabberExpression(settings, group.Value.Trim());
 
                     helper.ProcessGrabberExpression(result, foundGroups, ref dateTime, information, grabberExpression);
                 }
                 else if (group.Name == Definitions.Property.InterpretedExpression)
                 {
-                    var interpretedExpression = ConversionHandler.InterpretedExpression(settings, group.Value.Trim());
+                    var interpretedExpression = TranslationHandler.InterpretedExpression(settings, group.Value.Trim());
 
                     helper.ProcessInterpretedExpression(result, foundGroups, ref dateTime, information, interpretedExpression);
                 }
                 else if (group.Name == Definitions.Property.RepeaterIndicators)
                 {
-                    var repeaterIndicator = ConversionHandler.RepeaterIndicator(settings, group.Value.Trim());
+                    var repeaterIndicator = TranslationHandler.RepeaterIndicator(settings, group.Value.Trim());
 
                     helper.ProcessRepeaterIndicator(result, foundGroups, ref dateTime, information, repeaterIndicator);
                 }
                 else if (group.Name == Definitions.Property.RepeaterExpressions)
                 {
-                    var repeaterExpression = ConversionHandler.RepeaterExpression(settings, group.Value.Trim());
+                    var repeaterExpression = TranslationHandler.RepeaterExpression(settings, group.Value.Trim());
 
                     helper.ProcessRepeaterExpression(result, foundGroups, ref dateTime, information, repeaterExpression);
                 }
                 else if (group.Name == Definitions.Property.DurationIndicators)
                 {
-                    var durationIndicator = ConversionHandler.DurationIndicator(settings, group.Value.Trim());
+                    var durationIndicator = TranslationHandler.DurationIndicator(settings, group.Value.Trim());
 
                     helper.ProcessDurationIndicator(result, foundGroups, ref dateTime, information, durationIndicator);
                 }
                 else if (group.Name == Definitions.Property.DurationExpressions)
                 {
-                    var durationExpression = ConversionHandler.DurationExpression(settings, group.Value.Trim());
+                    var durationExpression = TranslationHandler.DurationExpression(settings, group.Value.Trim());
 
                     helper.ProcessDurationExpression(result, foundGroups, ref dateTime, information, durationExpression);
                 }
                 else if (group.Name == Definitions.Property.Proximity)
                 {
-                    var proximityType = ConversionHandler.ProximityType(settings, group.Value.Trim());
+                    var proximityType = TranslationHandler.ProximityType(settings, group.Value.Trim());
 
                     helper.ProcessProximityType(result, foundGroups, ref dateTime, information, proximityType);
                 }
@@ -645,91 +645,105 @@ namespace Chronox.Parsers.English
                 }
                 else if (group.Name == Definitions.Property.DateTimeUnits || IsDateUnit(group.Name) || IsTimeUnit(group.Name))
                 {
-                    var timeUnit = ConversionHandler.DateTimeUnit(settings, group.Value.Trim());
+                    var timeUnit = TranslationHandler.DateTimeUnit(settings, group.Value.Trim());
 
                     helper.ProcessDateTimeUnit(result, foundGroups, ref dateTime, information, timeUnit);
                 }
                 else if (group.Name == Definitions.Property.RangeIndicator || group.Name == Definitions.Property.RangeSeparator)
                 {
-                    var rangePointer = ConversionHandler.RangePointer(settings, group.Value.Trim());
+                    var rangePointer = TranslationHandler.RangePointer(settings, group.Value.Trim());
 
                     helper.ProcessRangePointer(result, foundGroups, ref dateTime, information, rangePointer);
                 }
                 else if (group.Name == Definitions.Property.SeasonOfYear)
                 {
-                    var seasonOfYear = ConversionHandler.DayOffset(settings, group.Value.Trim());
+                    var seasonOfYear = TranslationHandler.DayOffset(settings, group.Value.Trim());
 
                     helper.ProcessSeason(result, foundGroups, ref dateTime, information, seasonOfYear);
                 }
                 else if (group.Name == Definitions.Property.DayOfWeekType)
                 {
-                    var dayOfWeekType = ConversionHandler.DayOfWeekType(settings, group.Value.Trim());
+                    var dayOfWeekType = TranslationHandler.DayOfWeekType(settings, group.Value.Trim());
 
                     helper.ProcessDayOfWeekType(result, foundGroups, ref dateTime, information, dayOfWeekType);
                 }
                 else if (group.Name == Definitions.Property.DaysOfWeek)
                 {
-                    var dayOfWeek = ConversionHandler.DayOfWeek(settings, group.Value.Trim());
+                    var dayOfWeek = TranslationHandler.DayOfWeek(settings, group.Value.Trim());
 
                     helper.ProcessDayOfWeek(result, foundGroups, ref dateTime, information, dayOfWeek);
                 }
                 else if (group.Name == Definitions.Property.MonthsOfYear)
                 {
-                    var monthOfYear = ConversionHandler.Month(settings, group.Value.Trim());
+                    var monthOfYear = TranslationHandler.Month(settings, group.Value.Trim());
 
                     helper.ProcessMonthOfYear(result, foundGroups, ref dateTime, information, monthOfYear);
                 }
                 else if (group.Name == Definitions.Property.DayOffset)
                 {
-                    var dayOffset = ConversionHandler.DayOffset(settings, group.Value.Trim());
+                    var dayOffset = TranslationHandler.DayOffset(settings, group.Value.Trim());
 
                     helper.ProcessDayOffset(result, foundGroups, ref dateTime, information, dayOffset);
                 }
                 else if (group.Name == Definitions.Property.TimeOfDay)
                 {
-                    var timeOfDay = ConversionHandler.TimeOfDay(settings, group.Value.Trim());
+                    var timeOfDay = TranslationHandler.TimeOfDay(settings, group.Value.Trim());
 
                     helper.ProcessTimeOfDay(result, foundGroups, ref dateTime, information, timeOfDay);
                 }
                 else if (group.Name == Definitions.Property.TimeMeridiam)
                 {
-                    var timeMeridiam = ConversionHandler.TimeMeridiam(settings, group.Value.Trim());
+                    var timeMeridiam = TranslationHandler.TimeMeridiam(settings, group.Value.Trim());
 
                     helper.ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, timeMeridiam);
                 }
-                else if (group.Name == Definitions.Property.NumericWord)
+                else if (group.Name == Definitions.Property.Number)
                 {
-                    var numericWord = ConversionHandler.NumericWord(settings, group.Value.Trim());
+                    //var numericWord = ConversionHandler.NumericWord(settings, group.Value.Trim());
+                    var value = group.Value.RemoveSubstrings(settings.Language.Vocabulary.OrdinalSuffixes);
 
-                    helper.ProcessNumericWord(result, foundGroups, ref dateTime, information, numericWord);
+                    if(int.TryParse(value.Trim(), out int number))
+                    {
+                        helper.ProcessNumericWord(result, foundGroups, ref dateTime, information, number);
+                    }
+                    else
+                    {
+                        var numericValue = TranslationHandler.NumericWordOrdinal(settings, group.Value.Trim());
+
+                        helper.ProcessNumericWordOrdinal(result, foundGroups, ref dateTime, information, numericValue);
+                    }
+                    
                 }
-                else if (group.Name == Definitions.Property.NumericWordCardinal)
+                else if (group.Name == Definitions.Property.Ordinal)
                 {
-                    var numericWord = ConversionHandler.NumericWordCardinal(settings, group.Value.Trim());
+                    var value = group.Value.RemoveSubstrings(settings.Language.Vocabulary.OrdinalSuffixes);
 
-                    helper.ProcessNumericWordCardinal(result, foundGroups, ref dateTime, information, numericWord);
-                }
-                else if (group.Name == Definitions.Property.NumericWordOrdinal)
-                {
-                    var numericWord = ConversionHandler.NumericWordOrdinal(settings, group.Value.Trim());
+                    if (int.TryParse(value.Trim(), out int number))
+                    {
+                        helper.ProcessNumericWordOrdinal(result, foundGroups, ref dateTime, information, number);
+                    }
+                    else
+                    {
+                        var numericValue = TranslationHandler.NumericWordOrdinal(settings, group.Value.Trim());
 
-                    helper.ProcessNumericWordOrdinal(result, foundGroups, ref dateTime, information, numericWord);
+                        helper.ProcessNumericWordOrdinal(result, foundGroups, ref dateTime, information, numericValue);
+                    }
                 }
                 else if (group.Name == Definitions.Property.TimeExpressions)
                 {
-                    var timeExpression = ConversionHandler.TimeExpression(settings, group.Value.Trim());
+                    var timeExpression = TranslationHandler.TimeExpression(settings, group.Value.Trim());
 
                     helper.ProcessTimeExpression(result, foundGroups, ref dateTime, information, timeExpression);
                 }
                 else if (group.Name == Definitions.Property.TimeFractions)
                 {
-                    var timeFraction = ConversionHandler.Fraction(settings, group.Value.Trim());
+                    var timeFraction = TranslationHandler.Fraction(settings, group.Value.Trim());
 
                     helper.ProcessTimeFraction(result, foundGroups, ref dateTime, information, timeFraction);
                 }
                 else if (group.Name == Definitions.Property.TimeConjointer)
                 {
-                    var timeConjointer = ConversionHandler.TimeConjointer(settings, group.Value.Trim());
+                    var timeConjointer = TranslationHandler.TimeConjointer(settings, group.Value.Trim());
 
                     helper.ProcessTimeConjointer(result, foundGroups, ref dateTime, information, timeConjointer);
                 }

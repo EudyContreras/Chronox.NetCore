@@ -10,7 +10,6 @@ using Chronox.Constants.Banks;
 using Chronox.Utilities.Extenssions;
 using Enumerations;
 using System.IO;
-using static Chronox.Constants.Definitions;
 
 namespace Chronox.Handlers
 {
@@ -38,6 +37,10 @@ namespace Chronox.Handlers
 
         internal PatternRegex Separator { get; set; }
 
+        internal PatternRegex Ordinal { get; set; }
+        
+        internal PatternRegex Number { get; set; }
+
         public SequenceHandler(VocabularyHandler languageHandler)
         {   
             LanguageHandler = languageHandler;
@@ -64,6 +67,10 @@ namespace Chronox.Handlers
             TimeZonePattern = CreateTimeZonePattern();
 
             TimePattern = CreateTimePattern();
+
+            Ordinal = CreateOrdinalPattern();
+
+            Number = CreateNumberPattern();
         }
 
         public void AddSequence(SequenceType type, string label, params string[] properties) => AddSequence(type, label, null, properties);
@@ -211,6 +218,14 @@ namespace Chronox.Handlers
             if (string.Compare(property, Definitions.Patterns.Time, true) == 0)
             {
                 pattern = TimePattern;
+            }
+            else if (string.Compare(property, Definitions.Property.Number, true) == 0)
+            {
+                pattern = Number;
+            }
+            else if (string.Compare(property, Definitions.Property.Ordinal, true) == 0)
+            {
+                pattern = Ordinal;
             }
             else if (string.Compare(property, Definitions.Patterns.TimeZone, true) == 0)
             {
@@ -397,6 +412,38 @@ namespace Chronox.Handlers
             var labeledSeconds = PatternHandler.LabelWrapp(seconds.Label, seconds.Value);
 
             return new PatternRegex(Definitions.Patterns.SecondDiscrete, labeledSeconds);
+        }
+
+        private PatternRegex CreateNumberPattern()
+        {
+            var number = PatternLibrary.HelperPatterns[Definitions.Patterns.NumberMax4Digits];
+
+            var suffixes = PatternHandler.OptionalOrWrapp(LanguageHandler.Vocabulary.OrdinalSuffixes.ToArray());
+
+            var last = LanguageHandler.Vocabulary.Sections
+                       .Find(s => s.Label == Definitions.Property.NumericWordOrdinal)
+                       .Properties.Find(p => p.Key == Definitions.Converters.NUMBERS_WORDS_ORDINAL.FirstOrDefault(e => e.Value == int.MaxValue).Key)
+                       .Variations;
+
+            var labeledNumber = PatternHandler.LabelWrapp(Definitions.Property.Number, PatternHandler.OrWrapp(PatternHandler.GroupWrapp(string.Concat(number.Value,suffixes)),PatternHandler.OrGroupWrapp(last.ToArray())));
+
+            return new PatternRegex(Definitions.Property.Number, labeledNumber);
+        }
+
+        private PatternRegex CreateOrdinalPattern()
+        {
+            var ordinal = PatternLibrary.HelperPatterns[Definitions.Patterns.NumberMax4Digits];
+
+            var suffixes = PatternHandler.OrWrapp(LanguageHandler.Vocabulary.OrdinalSuffixes.ToArray());
+
+            var last = LanguageHandler.Vocabulary.Sections
+                .Find(s => s.Label == Definitions.Property.NumericWordOrdinal)
+                .Properties.Find(p => p.Key == Definitions.Converters.NUMBERS_WORDS_ORDINAL.FirstOrDefault(e => e.Value == int.MaxValue).Key)
+                .Variations;
+
+            var labeledOrdinal = PatternHandler.LabelWrapp(Definitions.Property.Ordinal, PatternHandler.OrWrapp(PatternHandler.GroupWrapp(string.Concat(ordinal.Value, suffixes)), PatternHandler.OrGroupWrapp(last.ToArray())));
+
+            return new PatternRegex(Definitions.Property.Ordinal, labeledOrdinal);
         }
 
         public void ExtractPatternSequences(Glossary glossary, List<string> userSequences, SequenceType type)

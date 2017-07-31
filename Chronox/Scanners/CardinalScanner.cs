@@ -25,6 +25,8 @@ namespace Chronox.Scanners
 
             var number = new StringBuilder();
 
+            var translated = new StringBuilder();
+
             var expression = input.Pad(0,1);
 
             var timeExpressions = option.Language.VocabularyBank.GetDictionary(Definitions.Property.InterpretedExpression);
@@ -84,13 +86,13 @@ namespace Chronox.Scanners
                 {
                     foreach (var sect in sections)
                     {
-                        translation = FindDigits(number, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, sect, true);
+                        translation = FindDigits(number, translated, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, sect, true);
                     }
 
                 }
                 else
                 {
-                    translation = FindDigits(number, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, part, false);
+                    translation = FindDigits(number, translated, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, part, false);
                 }
 
                 if (!foundDigit)
@@ -99,9 +101,10 @@ namespace Chronox.Scanners
                     {
                         if (number.Length > 0)
                         {
-                            CreateResult(scanResult, number, ref expression, ref startIndex, section);
+                            CreateResult(scanResult, number, translated, ref expression, ref startIndex, section,translation);
 
                             number.Clear();
+                            translated.Clear();
                         }
                     }
                     else
@@ -109,6 +112,7 @@ namespace Chronox.Scanners
                         if(number.Length > 0)
                         {
                             number.Append(section).Append(" ");
+                            translated.Append(section).Append(" ");
                         }
                     }
                 }
@@ -135,13 +139,15 @@ namespace Chronox.Scanners
             return scanResult;
         }
 
-        private void CreateResult(ScanWrapper scanResult, StringBuilder number, ref string expression, ref int startIndex, string section)
+        private void CreateResult(ScanWrapper scanResult, StringBuilder number, StringBuilder translated, ref string expression, ref int startIndex, string section, string translation)
         {
-            var endIndex = startIndex + (number.ToString().Trim().Length - 1);
-
             var cardinal = number.ToString().ReplaceLast(" and ", " ").ReplaceLast("-",string.Empty).Trim(); //Make language independent
 
-            var digit = CardinalConverter.WordsToNumber(cardinal);
+            var endIndex = startIndex + (cardinal.Length - 1);
+
+            var translatedCardinal = translated.ToString().ReplaceLast(" and ", " ").ReplaceLast("-", string.Empty).Trim(); //Make language independent
+
+            var digit = CardinalConverter.WordsToNumber(translatedCardinal);
 
             var replacement = string.Empty;
 
@@ -187,7 +193,7 @@ namespace Chronox.Scanners
             }
         }
 
-        private static string FindDigits(StringBuilder number, string expression, Dictionary<string, string> dictionaryCardinals, Dictionary<string, string> dictionaryOrdinals, Dictionary<string, string> dictionaryDimensionsCardinal, Dictionary<string, string> dictionaryDimensionsOrdinal, ref int startIndex, ref bool foundDigit, string sect, bool dashDivided)
+        private static string FindDigits(StringBuilder number, StringBuilder translated, string expression, Dictionary<string, string> dictionaryCardinals, Dictionary<string, string> dictionaryOrdinals, Dictionary<string, string> dictionaryDimensionsCardinal, Dictionary<string, string> dictionaryDimensionsOrdinal, ref int startIndex, ref bool foundDigit, string sect, bool dashDivided)
         {
             var translation = string.Empty ;
 
@@ -197,20 +203,23 @@ namespace Chronox.Scanners
                 {
                     foundDigit = true;
 
-                    number.Append(translation);
+                    number.Append(sect);
+                    translated.Append(translation);
 
                     if (dashDivided)
                     {
                         number.Append("-");
+                        translated.Append("-");
                     }
                     else
                     {
                         number.Append(" ");
+                        translated.Append(" ");
                     }
 
                     if (startIndex == -1)
                     {
-                        startIndex = expression.IndexOf(translation);
+                        startIndex = expression.IndexOf(sect);
                     }
                 }
             }
@@ -218,22 +227,23 @@ namespace Chronox.Scanners
             {
                 if (OrdinalConverter.CombinedNamesOrdinal().Contains(translation) || OrdinalConverter.CombinedNames().Contains(translation))
                 {
-                    number.Append(translation);
+                    number.Append(sect);
+                    translated.Append(translation);
 
                     if (dashDivided)
                     {
                         number.Append("-");
+                        translated.Append("-");
                     }
                     else
                     {
                         number.Append(" ");
+                        translated.Append(" ");
                     }
-
-                    foundDigit = true;
 
                     if (startIndex == -1)
                     {
-                        startIndex = expression.IndexOf(translation);
+                        startIndex = expression.IndexOf(sect);
                     }
                 }
             }

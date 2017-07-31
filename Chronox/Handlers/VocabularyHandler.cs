@@ -125,13 +125,11 @@ namespace Chronox.Handlers
             {
                 var fileName = new StringBuilder(language.FirstLetterToUpper(true));
 
-                var langFileHandler = new LangDataHandler();
-
                 var path = Path.Combine(directory, fileName.Append(".txt").ToString());
 
                 if (File.Exists(path))
                 {
-                    glossaries.Add(langFileHandler.CreateGlossary(path));
+                    glossaries.Add(LangDataHandler.CreateGlossary(path));
                 }
                 else
                 {
@@ -139,7 +137,7 @@ namespace Chronox.Handlers
 
                     if (File.Exists(path))
                     {
-                        glossaries.Add(langFileHandler.CreateGlossary(path));
+                        glossaries.Add(LangDataHandler.CreateGlossary(path));
                     }                
                 }
 
@@ -149,7 +147,7 @@ namespace Chronox.Handlers
 
                     path = Path.Combine(Definitions.LangDataPath, fileName.ToString());
 
-                    glossaries.Add(langFileHandler.CreateGlossary(path));
+                    glossaries.Add(LangDataHandler.CreateGlossary(path));
                 }
             }
 
@@ -203,6 +201,8 @@ namespace Chronox.Handlers
                 mergedGlossary.TimeRangeIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeRangeIgnored), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.TimeSpanIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeSpanIgnored), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.TimeSetIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeSetIgnored), StringComparer.OrdinalIgnoreCase).ToList();
+
+                mergedGlossary.OrdinalSuffixes = new HashSet<string>(glossaries.SelectMany(g => g.OrdinalSuffixes), StringComparer.OrdinalIgnoreCase).ToList();
 
                 mergedGlossary.SupportedDateTimeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedDateTimeFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeRangeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeRangeFormats), StringComparer.OrdinalIgnoreCase).ToList();
@@ -282,7 +282,6 @@ namespace Chronox.Handlers
             PopulateGlossary(Definitions.Property.NumericValue);
             PopulateGlossary(Definitions.Property.NumericMagnitudeCardinal);
             PopulateGlossary(Definitions.Property.NumericMagnitudeOrdinal);
-            PopulateGlossary(Definitions.Property.NumericWord);
             PopulateGlossary(Definitions.Property.NumericWordOrdinal);
             PopulateGlossary(Definitions.Property.NumericWordCardinal);
             PopulateGlossary(Definitions.Property.TimeMeridiam);
@@ -439,7 +438,6 @@ namespace Chronox.Handlers
             CreatePattern(Definitions.Property.NumericValue);
             CreatePattern(Definitions.Property.NumericMagnitudeCardinal);
             CreatePattern(Definitions.Property.NumericMagnitudeOrdinal);
-            CreatePattern(Definitions.Property.NumericWord);
             CreatePattern(Definitions.Property.NumericWordOrdinal);
             CreatePattern(Definitions.Property.NumericWordCardinal);
             CreatePattern(Definitions.Property.TimeMeridiam);

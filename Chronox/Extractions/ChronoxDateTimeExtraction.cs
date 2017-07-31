@@ -42,7 +42,6 @@ namespace Chronox
             this.EndIndex = index + extraction.Length;
             this.Original = text;
             this.Extraction = extraction;
-            this.ProcessedString = text.RemoveSubstrings(extraction);
             this.ReferenceDate = referenceDate;
             this.Builder = new ChronoxDateTimeBuilder(this);
         }

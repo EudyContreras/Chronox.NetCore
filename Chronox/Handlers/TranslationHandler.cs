@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Chronox.Helpers.Interpreters
 {
-    public class ConversionHandler
+    public class TranslationHandler
     {
         public static int DayOfWeek(ChronoxSettings settings, string dayOfWeek)
         {
@@ -50,20 +50,6 @@ namespace Chronox.Helpers.Interpreters
             }
 
             return int.MinValue;
-        }
-
-        public static int NumericWord(ChronoxSettings settings, string input)
-        {
-            var key = string.Empty;
-
-            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWord);
-
-            if (dictionary.TryGetValue(input, out key))
-            {
-                return Definitions.Converters.NUMBERS_WORDS[key];
-            }
-
-            return int.MinValue;            
         }
 
         public static int NumericWordOrdinal(ChronoxSettings settings, string input)

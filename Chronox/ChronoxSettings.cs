@@ -1,6 +1,7 @@
 ﻿using Chronox.Constants;
 using Chronox.Exceptions;
 using Chronox.Handlers;
+using Chronox.Handlers.Models;
 using Chronox.Interfaces;
 using Chronox.Parsers;
 using Chronox.Parsers.English;
@@ -25,7 +26,9 @@ namespace Chronox
 
         public DateTime ReferenceDate = DateTime.Now;
 
-        public VocabularyHandler Language { get; private set; }
+        internal VocabularyHandler Language { get; private set; }
+
+        public List<Sequence> ChronoxSequence { get; set; } = new List<Sequence>();
 
         public TimeRelationResolver TimeRelationResolver { get; set; } = TimeRelationResolver.Present;
 
@@ -35,15 +38,13 @@ namespace Chronox
 
         public ExtractionResultType ParsingMode { get; set; } = ExtractionResultType.DateTime;
 
+        public ExpressionRelaxLevel RelaxLevel { get; set; } = ExpressionRelaxLevel.Casual;
+
         public PrefferedEndian PrefferedEndian { get; set; } = PrefferedEndian.LittleEndian;
 
         public PrefferedHolder PrefferedDay { get; set; } = PrefferedHolder.Current;
 
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
-
-        public TimeParseType TimeParsing { get; set; } = TimeParseType.MilitaryTime;
-
-        public DateParseType DateParsing { get; set; } = DateParseType.Standard;
 
         private string[] Languages { get; set; } = { "English" };
 
@@ -63,11 +64,15 @@ namespace Chronox
 
         internal int GetWeekStartOffset() => (int)StartOfWeek;
 
-        public ChronoxSettings() : this(null) { }
+        public ChronoxSettings() : this(new string[] { }) { }
 
-        public ChronoxSettings(params string[] languages)
+        public ChronoxSettings(params string[] languages) : this(null,languages) { }
+
+        public ChronoxSettings(List<Sequence> chronoxSequences, params string[] languages)
         {
             PrefferedLanguages = languages;
+
+            ChronoxSequence = chronoxSequences;
 
             this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
         }

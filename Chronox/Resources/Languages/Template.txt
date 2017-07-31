@@ -1,12 +1,34 @@
-language: English
-
-ignored: 
+﻿language: English
 
 assumeSpace: true
 
-preferedEndianFormat: M.D.Y
+commonPunctuation: [,], [.], [?], [!]			//* Soon to be supported! *//
+
+commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
+
+commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
+
+ordinalSuffixes: 
+
+dateTimeIgnored: 
+
+timeRangeIgnored:
+
+timeSpanIgnored:
+
+timeSetIgnored:
 
 supportedDateTimeFormats:
+
+	D.O.W
+	D.O.W|D.T|T.M
+	D.O.W|D.T|T.M|T.Z
+	D.O.W|D.T|T.M|T.O.D
+	D.O.W|D.T|T.M|T.O.D|T.Z
+	G.E|D.T.U|N.O|M.O.Y|Y.U|Y|T.O.D|T.M
+	G.E|D.O.W|D.T|T.M
+	G.E|D.O.W|D.T|T.M|T.Z
+	M.O.Y|N
 
 supportedTimeRangeFormats:
 
@@ -15,12 +37,6 @@ supportedTimespanFormats:
 supportedTimeSetFormats:
 
 casualExpressions: n/a
-
-	key: on
-	value: n/a
-	type: optional
-	pattern:
-	variations:
 
 	key: oclock
 	value: n/a
@@ -35,12 +51,6 @@ casualExpressions: n/a
 	variations:
 
 	key: during
-	value: n/a
-	type: optional
-	pattern:
-	variations:
-
-	key: of
 	value: n/a
 	type: optional
 	pattern:
@@ -86,7 +96,7 @@ logicalOperator: combinedOptional
 
 	<----------------->
 
-arithmeticOperator: combined
+arithmeticOperator: combinedOptional
 
 	key: -
 	value: n/a
@@ -212,7 +222,7 @@ timeFractions: combined
 
 	<----------------->
 
-timeConjointer: combined
+timeConjointer: combinedOptional
 
 	key: to
 	value: n/a
@@ -932,202 +942,6 @@ numericMagnitudeOrdinal: combined
 
 	key: quintillionth
 	value: 1000000000000000000
-	type: group
-	pattern:
-	variations:
-
-	<----------------->
-
-numericWords: combinedReversed
-
-	key: one
-	value: 1
-	type: group
-	pattern:
-	variations:
-
-	key: two
-	value: 2
-	type: group
-	pattern:
-	variations:
-
-	key: three
-	value: 3
-	type: group
-	pattern:
-	variations:
-
-	key: four
-	value: 4
-	type: group
-	pattern:
-	variations:
-
-	key: five
-	value: 5
-	type: group
-	pattern:
-	variations:
-
-	key: six
-	value: 6
-	type: group
-	pattern:
-	variations:
-
-	key: seven
-	value: 7
-	type: group
-	pattern:
-	variations:
-
-	key: eight
-	value: 8
-	type: group
-	pattern:
-	variations:
-
-	key: nine
-	value: 9
-	type: group
-	pattern:
-	variations:
-
-	key: ten
-	value: 10
-	type: group
-	pattern:
-	variations:
-
-	key: eleven
-	value: 11
-	type: group
-	pattern:
-	variations:
-
-	key: twelve
-	value: 12
-	type: group
-	pattern:
-	variations:
-
-	key: thirteen
-	value: 13
-	type: group
-	pattern:
-	variations:
-
-	key: fourteen
-	value: 14
-	type: group
-	pattern:
-	variations:
-
-	key: fifteen
-	value: 15
-	type: group
-	pattern:
-	variations:
-
-	key: sixteen
-	value: 16
-	type: group
-	pattern:
-	variations:
-
-	key: seventeen
-	value: 17
-	type: group
-	pattern:
-	variations:
-
-	key: eighteen
-	value: 18
-	type: group
-	pattern:
-	variations:
-
-	key: nineteen
-	value: 19
-	type: group
-	pattern:
-	variations:
-
-	key: twenty
-	value: 20
-	type: group
-	pattern:
-	variations:
-
-	key: twenty one
-	value: 21
-	type: group
-	pattern:
-	variations:
-
-	key: twenty two
-	value: 22
-	type: group
-	pattern:
-	variations:
-
-	key: twenty three
-	value: 23
-	type: group
-	pattern:
-	variations:
-
-	key: twenty four
-	value: 24
-	type: group
-	pattern:
-	variations:
-
-	key: twenty five
-	value: 25
-	type: group
-	pattern:
-	variations:
-
-	key: twenty six
-	value: 26
-	type: group
-	pattern:
-	variations:
-
-	key: twenty seven
-	value: 27
-	type: group
-	pattern:
-	variations:
-
-	key: twenty eight
-	value: 28
-	type: group
-	pattern:
-	variations:
-
-	key: twenty nine
-	value: 29
-	type: group
-	pattern:
-	variations:
-
-	key: thirty
-	value: 30
-	type: group
-	pattern:
-	variations:
-
-	key: thirty one
-	value: 31
-	type: group
-	pattern:
-	variations:
-
-	key: last
-	value: -1
 	type: group
 	pattern:
 	variations:

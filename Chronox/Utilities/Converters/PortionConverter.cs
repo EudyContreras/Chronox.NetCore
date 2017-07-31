@@ -24,7 +24,7 @@ namespace Chronox.Converters
 
         private static readonly List<string> Decades = new List<string>() { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
 
-        private static readonly List<string> CardinalUnits = new List<string>() { "zero", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "nineth", "tenth", "eleventh", "twelveth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth" };
+        private static readonly List<string> CardinalUnits = new List<string>() { "zero", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "nineth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth" };
 
         private static readonly List<string> CardinalDecades = new List<string>() { "zero", "tenth", "twentieth", "thirtieth", "fortieth", "fiftieth", "sixtieth", "seventieth", "eightieth", "ninetieth" };
 
@@ -84,7 +84,7 @@ namespace Chronox.Converters
             { "nineth", 9.0M },
             { "tenth", 10.0M },
             { "eleventh", 11.0M },
-            { "twelveth", 12.0M },
+            { "twelfth", 12.0M },
             { "thirteenth", 13.0M },
             { "fourteenth", 14.0M },
             { "fifteenth", 15.0M },

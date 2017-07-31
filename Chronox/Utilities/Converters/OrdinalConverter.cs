@@ -19,7 +19,7 @@ namespace Chronox.Converters
 
         private static readonly List<string> Decades = new List<string>() { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
 
-        private static readonly List<string> CardinalUnits = new List<string>() { "zero", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "nineth", "tenth", "eleventh", "twelveth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth" };
+        private static readonly List<string> CardinalUnits = new List<string>() { "zero", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "nineth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth" };
 
         private static readonly List<string> CardinalDecades = new List<string>() { "zero", "tenth", "twentieth", "thirtieth", "fortieth", "fiftieth", "sixtieth", "seventieth", "eightieth", "ninetieth" };
 
@@ -79,7 +79,7 @@ namespace Chronox.Converters
             { "nineth", 9L },
             { "tenth", 10L },
             { "eleventh", 11L },
-            { "twelveth", 12L },
+            { "twelfth", 12L },
             { "thirteenth", 13L },
             { "fourteenth", 14L },
             { "fifteenth", 15L },
@@ -148,7 +148,7 @@ namespace Chronox.Converters
                 case 13:
                     return number + Suffixes[0];
                 default:
-                    return number + Suffixes[(int)number % 10];
+                    return number + Suffixes[(long)number % 10L];
             }
         }
 

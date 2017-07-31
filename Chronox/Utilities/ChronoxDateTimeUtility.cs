@@ -99,7 +99,9 @@ namespace Chronox.Utilities
             
             if (seconds > 59 || seconds < 0) seconds = dateTime.Second;
 
-           return new DateTime(
+            try
+            {
+                return new DateTime(
                 years != null ? years.Value : dateTime.Year,
                 months != null ? months.Value : dateTime.Month,
                 days != null ? days.Value : dateTime.Day,
@@ -108,6 +110,11 @@ namespace Chronox.Utilities
                 seconds != null ? seconds.Value : dateTime.Second,
                 dateTime.Millisecond,
                 kind != null ? kind.Value : dateTime.Kind);
+
+            }catch(ArgumentOutOfRangeException)
+            {
+                throw new Exception("The given date unfortunately is not valid!");
+            }
         }
 
         public static DateTime SetDate(this DateTime dateTime, DateTime other)

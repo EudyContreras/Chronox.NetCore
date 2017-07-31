@@ -34,14 +34,14 @@ namespace Chronox.Handlers
         private const string Pattern = "pattern";
         private const string Variations = "variations";
 
-        private string GetPath(string directory, string langName, string extension)
+        private static string GetPath(string directory, string langName, string extension)
         {
             var fileName = new StringBuilder(langName.FirstLetterToUpper(true)).Append(extension);
 
             return Path.Combine(directory, fileName.ToString());
         }
 
-        public void NormalizeFile(string directory, string langName)
+        public static void NormalizeFile(string directory, string langName)
         {
             var lines = ReadFile(GetPath(directory, langName, ".txt")).Select(s => s.TrimEnd());
 
@@ -86,9 +86,9 @@ namespace Chronox.Handlers
             File.WriteAllLines(GetPath(directory, langName, ".txt"), cleanLines);
         }
 
-        public void GenerateTemplateTxt(string directory, string langName)
+        public static void GenerateTemplateTxt()
         {
-            var lines = ReadFile(GetPath(directory, langName, ".txt")).Select(s => s.TrimEnd());
+            var lines = ReadFile(GetPath(Definitions.LangDataPath, Definitions.DefaultLanguage, ".txt")).Select(s => s.TrimEnd());
 
             var newLines = new List<string>();
 
@@ -115,43 +115,10 @@ namespace Chronox.Handlers
                 newLines.Add(clean);
             }
 
-            File.WriteAllLines(@"Languages\Files\Template.txt", newLines);
+            File.WriteAllLines(Definitions.LangDateTemplate, newLines);
         }
 
-        public void GenerateTemplateJson(string directory, string langName)
-        {
-            var lines = ReadFile(GetPath(directory, langName, ".json")).Select(s => s.TrimEnd());
-
-            var newLines = new List<string>();
-
-            foreach (var line in lines)
-            {
-                var part = line.Split(':');
-
-                var key = part[0];
-
-                var clean = line;
-
-                if (!EmptyLine(key))
-                {
-                    if (string.Compare(key.RemoveSubstrings("\"").Trim(), Pattern, true) == 0)
-                    {
-                        clean = string.Concat(key, ":", " \"\",");
-                    }
-                    else if (string.Compare(key.RemoveSubstrings("\"").Trim(), Variations, true) == 0)
-                    {
-                        clean = string.Concat(key, ":"," \"\"");
-                    }
-                }
-
-                newLines.Add(clean);
-            }
-
-            File.WriteAllLines(@"Languages\Files\Template.json", newLines);
-        }
-
-
-        private void RemoveComments(List<string> rawLines, List<string> lines)
+        private static void RemoveComments(List<string> rawLines, List<string> lines)
         {
             foreach (var line in rawLines)
             {
@@ -179,22 +146,22 @@ namespace Chronox.Handlers
             }
         }
 
-        private List<string> ReadFile(string filePath)
+        private static List<string> ReadFile(string filePath)
         {
-            return File.ReadLines(filePath).ToList().Where(l => !EmptyLine(l)).ToList();
+            return File.ReadLines(filePath).ToList();
         }
 
-        public Glossary CreateGlossary(string directory, string langName)
+        public static Glossary CreateGlossary(string directory, string langName)
         {
-            return CreateGlossary(ReadFile(GetPath(directory, langName, ".txt")));
+            return CreateGlossary(ReadFile(GetPath(directory, langName, ".txt")).Where(l => !EmptyLine(l)).ToList());
         }
 
-        public Glossary CreateGlossary(string path)
+        public static Glossary CreateGlossary(string path)
         {
-            return CreateGlossary(ReadFile(path));
+            return CreateGlossary(ReadFile(path).Where(l => !EmptyLine(l)).ToList());
         }
 
-        private Glossary CreateGlossary(List<string> rawLines)
+        private static Glossary CreateGlossary(List<string> rawLines)
         {
             var sections = new List<Section>();
 
@@ -322,7 +289,7 @@ namespace Chronox.Handlers
             return glossary;
         }
 
-        private List<string> CollectWrappedSymbols(string value)
+        private static List<string> CollectWrappedSymbols(string value)
         {
             var symbols = new List<string>();
 
@@ -337,7 +304,7 @@ namespace Chronox.Handlers
             return symbols;
         }
 
-        private string CreateValue(string[] parts)
+        private static string CreateValue(string[] parts)
         {
             if(parts.Length > 1)
             {
@@ -354,7 +321,7 @@ namespace Chronox.Handlers
             return null;
         }
 
-        private List<string> ExtractFormats(List<string> lines, string endFormat, int index)
+        private static List<string> ExtractFormats(List<string> lines, string endFormat, int index)
         {
             var formats = lines.Skip(index + 1).Select(s => s.ToLower()).ToList();
 
@@ -372,7 +339,7 @@ namespace Chronox.Handlers
             return dateTimeFormats;
         }
 
-        private void HandleSections(List<string> lines, List<Section> sections, string attribute, string value, int index)
+        private static void HandleSections(List<string> lines, List<Section> sections, string attribute, string value, int index)
         {
             foreach (var propertyName in Definitions.Property.Dynamic.Values)
             {
@@ -394,7 +361,7 @@ namespace Chronox.Handlers
             }
         }
 
-        private List<Property> HandleProperties(List<string> lines, int index)
+        private static List<Property> HandleProperties(List<string> lines, int index)
         {
             var properties = new List<Property>();
 
@@ -442,7 +409,7 @@ namespace Chronox.Handlers
             return properties;
         }
 
-        private bool EmptyLine(string line)
+        private static bool EmptyLine(string line)
         {
             return string.IsNullOrEmpty(line) || string.IsNullOrWhiteSpace(line);
         }

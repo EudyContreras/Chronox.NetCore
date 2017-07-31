@@ -146,6 +146,16 @@ namespace Chronox.Handlers
             return $"(?:({string.Join("|",values)}))?";
         }
 
+        public static string OptionalOrWrapp(params string[] values)
+        {
+            return $"(?:{string.Join("|", values)})?";
+        }
+
+        public static string OrWrapp(params string[] values)
+        {
+            return $"(?:{string.Join("|", values)})";
+        }
+
         public static string OptionalWrapp(string value)
         {
             return $"({value})?";

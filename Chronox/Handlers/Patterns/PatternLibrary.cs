@@ -25,11 +25,9 @@ namespace Chronox.Helpers.Patterns
 
            { Definitions.Patterns.NumberMax2Digits, new PatternRegex(Definitions.Patterns.NumberMax2Digits, "([0-9]{1,2})")},
 
-           { Definitions.Patterns.NumberMax4Digits, new PatternRegex(Definitions.Patterns.NumberMax4Digits, "([0-9]{2,4})")},
+           { Definitions.Patterns.NumberMax4Digits, new PatternRegex(Definitions.Patterns.NumberMax4Digits, "([0-9]{1,4})")},
 
            { Definitions.Patterns.NumberMax5Digits, new PatternRegex(Definitions.Patterns.NumberMax5Digits, "([0-9][0-9]{0,5})")},
-
-           { Definitions.Patterns.NumberRangedOrdinal, new PatternRegex(Definitions.Patterns.NumberRangedOrdinal, "^([3-3][1-9]|[4-9][0-9]|[1-9][0-9][0-9])(?:st|nd|rd|th)?$") },
 
            { Definitions.Patterns.WordStart, new PatternRegex(Definitions.Patterns.WordStart, "(?<=\\W|^)" )},
 

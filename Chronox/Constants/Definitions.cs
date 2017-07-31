@@ -15,6 +15,7 @@ namespace Chronox.Constants
     internal static class Definitions
     {
         public const string LangDataPath = @"Resources\Languages\DataSets";
+        public const string LangDateTemplate = @"Resources\Languages\Template.txt";
         public const string TimeZoneFilePath = @"Resources\DataSets\TimeZoneInfo.txt";
         public const string FilePathDataSets = @"Resources\DataSets";
 
@@ -74,9 +75,10 @@ namespace Chronox.Constants
             public const string MonthsOfYear = "monthsOfYear";
             public const string DateTimeUnits = "dateTimeUnits";
             public const string NumericValue = "numericValues";
-            public const string NumericWord = "numericWords";
             public const string NumericWordOrdinal = "numericWordsOrdinal";
             public const string NumericWordCardinal = "numericWordsCardinal";
+            public const string Ordinal = "chronoxNumberOrdinal";
+            public const string Number = "chronoxNumber";
             public const string TimeMeridiam = "timeMeridiam";
             public const string DateUnits = "dateUnit";
             public const string TimeUnits = "timeUnit";
@@ -118,7 +120,8 @@ namespace Chronox.Constants
                 {MonthsOfYear,MonthsOfYear},
                 {DateTimeUnits,DateTimeUnits },
                 {NumericValue,NumericValue},
-                {NumericWord,NumericWord},
+                {Number,Number},
+                {Ordinal,Ordinal},
                 {NumericWordOrdinal,NumericWordOrdinal},
                 {NumericWordCardinal,NumericWordCardinal},
                 {TimeMeridiam,TimeMeridiam},
@@ -242,9 +245,8 @@ namespace Chronox.Constants
                             {"N.V",    Property.NumericValue},
                             {"N.M.C",  Property.NumericMagnitudeCardinal},
                             {"N.M.O",  Property.NumericMagnitudeOrdinal},
-                            {"N.W",    Property.NumericWord},
-                            {"N.W.C",  Property.NumericWordCardinal},
-                            {"N.W.O",  Property.NumericWordOrdinal},
+                            {"N",  Property.Number},
+                            {"N.O",    Property.Ordinal},
                             {"T.O.D",  Property.TimeOfDay},
                             {"D.O.W",  Property.DaysOfWeek},
                             {"S.O.Y",  Property.SeasonOfYear},
@@ -320,9 +322,8 @@ namespace Chronox.Constants
                             {Property.NumericValue,             "N.V"},
                             {Property.NumericMagnitudeCardinal, "N.M.C"},
                             {Property.NumericMagnitudeOrdinal,  "N.M.O"},
-                            {Property.NumericWord,              "N.W"},
-                            {Property.NumericWordCardinal,      "N.W.C"},
-                            {Property.NumericWordOrdinal,       "N.W.O"},
+                            {Property.Number,                   "N"},
+                            {Property.Ordinal,                  "N.O"},
                             {Property.TimeOfDay,                "T.O.D"},
                             {Property.DaysOfWeek,               "D.O.W"},
                             {Property.SeasonOfYear,             "S.O.Y"},
@@ -610,42 +611,6 @@ namespace Chronox.Constants
                 {"trillionth", 1000000000000},
                 {"quadrillionth", 1000000000000000},
                 {"quintillionth", 1000000000000000000},
-            };
-
-            public static readonly IReadOnlyDictionary<string, int> NUMBERS_WORDS = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"one", 1},
-                {"two", 2},
-                {"three", 3},
-                {"four", 4},
-                {"five", 5},
-                {"six", 6},
-                {"seven", 7},
-                {"eight", 8},
-                {"nine", 9},
-                {"ten", 10},
-                {"eleven", 11},
-                {"twelve", 12},
-                {"thirteen", 13},
-                {"fourteen", 14},
-                {"fifteen", 15},
-                {"sixteen", 16},
-                {"seventeen", 17},
-                {"eighteen", 18},
-                {"nineteen", 19},
-                {"twenty", 20},
-                {"twenty one", 21},
-                {"twenty two", 22},
-                {"twenty three", 23},
-                {"twenty four", 24},
-                {"twenty five", 25},
-                {"twenty six", 26},
-                {"twenty seven", 27},
-                {"twenty eight", 28},
-                {"twenty nine", 29},
-                {"thirty", 30},
-                {"thirty one", 31},
-                {"last", int.MaxValue }
             };
 
             public static readonly IReadOnlyDictionary<string, int> NUMBERS_WORDS_CARDINAL = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
