@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,22 @@ namespace Chronox.Helpers
     {
         public static readonly RangeWrapper Default = DefaultRange();
 
+        public TimeOfDay TimeOfDay { get; private set; }
+
         public long Start { get; private set; }
 
         public long End { get; private set; }
 
-        public RangeWrapper(long start, long end)
+        public RangeWrapper(TimeOfDay timeOfDay, long start, long end)
         {
+            TimeOfDay = timeOfDay;
             Start = start;
             End = end;
         }
 
         private static RangeWrapper DefaultRange()
         {
-            return new RangeWrapper(-1, -1);
+            return new RangeWrapper(TimeOfDay.Default, -1, -1);
         }
 
         public bool Contains(long point) => Start <= point && End >= point;

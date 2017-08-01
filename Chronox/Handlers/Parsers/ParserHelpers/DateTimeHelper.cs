@@ -705,6 +705,8 @@ namespace Chronox.Parsers.General.ParserHelpers
                         dateTime = dateTime.AddYears(offset);
                     }
 
+                    result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
+
                     break;
                 case DateTimeUnit.Month:
 
@@ -718,6 +720,9 @@ namespace Chronox.Parsers.General.ParserHelpers
                     {
                         dateTime = dateTime.AddMonths(offset);
                     }
+
+                    result.Builder.ImplyValue(DateTimeUnit.Month, dateTime.Month);
+                    result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
 
                     break;
                 case DateTimeUnit.Week:
@@ -824,6 +829,8 @@ namespace Chronox.Parsers.General.ParserHelpers
 
         public void ProcessTimeOfDay(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, RangeWrapper timeOfDay)
         {
+            result.Builder.TimeOfDay = timeOfDay.TimeOfDay;
+
             if (result.Builder.IsValueCertain(DateTimeUnit.Hour))
             {
                 if (!result.Builder.IsValueCertain(DateTimeUnit.Meridiam))
@@ -929,6 +936,20 @@ namespace Chronox.Parsers.General.ParserHelpers
                     }
                     else
                     {
+                        if (information.NumericValues.Count > 0)
+                        {
+                            if (!information.HasTimeUnit)
+                            {
+                                ProcessDayOfMonth(result, foundGroups, ref dateTime, information, information.NumericValues.Dequeue());
+                            }
+                        }
+                        else if (information.NumericOrdinals.Count > 0)
+                        {
+                            if (!information.HasTimeUnit)
+                            {
+                                ProcessDayOfMonth(result, foundGroups, ref dateTime, information, information.NumericOrdinals.Dequeue());
+                            }
+                        }
                         dateTime = dateTime.SetMonth(monthOfYear);
 
                         if (dateTime.Month != information.CurrentDate.Month)
@@ -939,6 +960,21 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
                 else
                 {
+                    if (information.NumericValues.Count > 0)
+                    {
+                        if (!information.HasTimeUnit)
+                        {
+                            ProcessDayOfMonth(result, foundGroups, ref dateTime, information, information.NumericValues.Dequeue());
+                        }
+                    }
+                    else if (information.NumericOrdinals.Count > 0)
+                    {
+                        if (!information.HasTimeUnit)
+                        {
+                            ProcessDayOfMonth(result, foundGroups, ref dateTime, information, information.NumericOrdinals.Dequeue());
+                        }
+                    }
+
                     dateTime = dateTime.SetMonth(monthOfYear);
 
                     if (dateTime.Month != information.CurrentDate.Month)
@@ -949,7 +985,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             }
 
             result.Builder.AssignValue(DateTimeUnit.Month, dateTime.Month);
-            result.Builder.AssignValue(DateTimeUnit.Year, dateTime.Year);
+            result.Builder.ImplyValue(DateTimeUnit.Year, dateTime.Year);
             result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
 
             if (information.NumericValues.Count > 0)
@@ -1603,13 +1639,30 @@ namespace Chronox.Parsers.General.ParserHelpers
                 }
                 else
                 {
-                    if (dateTime.Hour >= 12)
+                    if(result.Builder.TimeOfDay != TimeOfDay.Default)
                     {
-                        ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.PM);
+                        switch (result.Builder.TimeOfDay)
+                        {
+                            case TimeOfDay.Morning:
+                                ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.AM);
+                                break;                          
+                            case TimeOfDay.Afternoon:
+                            case TimeOfDay.Evening:
+                            case TimeOfDay.Night:
+                                ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.PM);
+                                break;                       
+                        }
                     }
                     else
                     {
-                        ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.AM);
+                        if (dateTime.Hour >= 12)
+                        {
+                            ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.PM);
+                        }
+                        else
+                        {
+                            ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.AM);
+                        }
                     }
                 }
             }

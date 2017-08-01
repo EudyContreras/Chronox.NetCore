@@ -64,14 +64,19 @@ namespace Chronox.Debugers
             detectionTest.PerformTest("I will be there the 21st of september at 10:30pm, the 23rd of june 2030 at 5 in the afternoon and on the thirty-first of december in the evening");
             
             detectionTest.PerformTest("I will be there the 21st of september at 10:30pm EST, the 23rd of june 2030 at 5 in the afternoon ANAT and on the thirty-first of december in the evening");
-        */
-
+        
+            ////////////////////////////// SPANISH /////////////////////////////////////////////////////////
 
             detectionTest.PerformTest("te voy a visitar el lunes de la semana pasada");
 
             detectionTest.PerformTest("te voy a visitar el tercero dia de esta semana a las ocho pm de la anocheser");
 
             detectionTest.PerformTest("te voy a visitar la proxima semana en el mediodia");
+            */
+
+            //detectionTest.TestDateTimeParsing();
+            detectionTest.ProcessChronoxExpression();
+           
 
             Console.ReadKey();
         }

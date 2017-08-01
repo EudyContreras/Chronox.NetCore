@@ -10,7 +10,7 @@ commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
 
 ordinalSuffixes: st, nd, rd, th
 
-dateTimeIgnored: the, of, at, on, in, during
+dateTimeIgnored: the, of, at, on, in, during, early, late
 
 timeRangeIgnored: 
 
@@ -28,6 +28,9 @@ supportedDateTimeFormats:
 	G.E|D.T.U|N.O|M.O.Y|Y.U|Y|T.O.D|T.M
 	G.E|D.O.W|D.T|T.M
 	G.E|D.O.W|D.T|T.M|T.Z
+	N|M.O.Y|G.E|Y.U
+	G.E|D.O.W|T.E
+	D.O.W|N|M.O.Y
 	M.O.Y|N
 
 supportedTimeRangeFormats:

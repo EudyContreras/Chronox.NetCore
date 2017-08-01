@@ -204,6 +204,10 @@ namespace Chronox.Handlers
 
                 mergedGlossary.OrdinalSuffixes = new HashSet<string>(glossaries.SelectMany(g => g.OrdinalSuffixes), StringComparer.OrdinalIgnoreCase).ToList();
 
+                mergedGlossary.CommonPunctuation = new HashSet<string>(glossaries.SelectMany(g => g.CommonPunctuation), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.CommonDateSeparators = new HashSet<string>(glossaries.SelectMany(g => g.CommonDateSeparators), StringComparer.OrdinalIgnoreCase).ToList();
+                mergedGlossary.CommonTimeSeparators = new HashSet<string>(glossaries.SelectMany(g => g.CommonTimeSeparators), StringComparer.OrdinalIgnoreCase).ToList();
+
                 mergedGlossary.SupportedDateTimeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedDateTimeFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeRangeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeRangeFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeSpanFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSpanFormats), StringComparer.OrdinalIgnoreCase).ToList();

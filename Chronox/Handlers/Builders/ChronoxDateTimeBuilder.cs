@@ -156,6 +156,7 @@ namespace Chronox
             }
         }
 
+        public TimeOfDay TimeOfDay { get; set; } = TimeOfDay.Default;
 
         internal int GetValue(DateTimeUnit unit)
         {

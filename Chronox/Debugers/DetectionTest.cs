@@ -768,5 +768,68 @@ namespace Tests
 
             File.AppendAllLines(path, newLines);
         }
+
+        internal void ProcessChronoxExpression() => ProcessChronoxExpression(null);
+
+        internal void ProcessChronoxExpression(string expression)
+        {
+            var chronox = ChronoxParser.GetInstance(settings);
+
+            if (string.IsNullOrEmpty(expression))
+            {
+                Console.WriteLine("Issue a state to the system: ");
+
+                while (true)
+                {
+                    Console.WriteLine();
+
+                    string statement = Console.ReadLine();
+
+                    Console.Clear();
+                    Console.WriteLine("Issue a state to the system: ");
+                    Console.WriteLine();
+
+                    var results = chronox.ParseDateTime(statement);
+
+                    if(results != null && results?.Count > 0)
+                    {
+                        foreach(var result in results)
+                        {
+                            var date = result?.DateTime.ToDateTime();
+
+                            if (result != null)
+                            {
+                                if (result.TimeZone != null)
+                                {
+                                    Console.WriteLine($"{statement} | {date} | {result?.TimeZone}");
+                                }
+                                else if (result.TimeOffset != null)
+                                {
+                                    Console.WriteLine($"{statement} | {date} | {result?.TimeOffset}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{statement} | {date}");
+                                }
+                            }
+
+                            Console.WriteLine();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("The parser did not find any time or date expression that it could understand!");
+                    }
+                    if (statement.ToLower() == "quit")
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                PerformTest(expression);
+            }
+        }
     }
 }

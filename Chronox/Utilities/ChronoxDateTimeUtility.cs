@@ -79,13 +79,9 @@ namespace Chronox.Utilities
 
         public static DateTime SetDate(this DateTime dateTime, int? years = null, int? months = null, int? days = null, int? hours = null, int? minutes = null, int? seconds = null, DateTimeKind? kind = DateTimeKind.Local)
         {
-            if (years < 1) years = dateTime.Year;
-
-            if (months > 12 || months < 1)  months = dateTime.Month;
-            
-            if (days > 28 || days < 1 )
+            if (days > 28 || days < 1)
             {
-                var daysInMonth = DaysInMonth(years!=null ? years.Value : dateTime.Year, months!=null ? months.Value : dateTime.Month);
+                var daysInMonth = DaysInMonth(years != null ? years.Value : dateTime.Year, months != null ? months.Value : dateTime.Month);
 
                 if (days > daysInMonth)
                 {
@@ -96,8 +92,37 @@ namespace Chronox.Utilities
             if (hours > 24 || hours < 0) hours = dateTime.Hour;
 
             if (minutes > 59 || minutes < 0) minutes = dateTime.Minute;
-            
+
             if (seconds > 59 || seconds < 0) seconds = dateTime.Second;
+
+            if (years < 1) years = dateTime.Year;
+
+            if (months > 12 || months < 1)
+            {
+                months = dateTime.Month;
+            }
+            else
+            {
+                if(months != null)
+                {
+                    var daysInMonth = DaysInMonth(years != null ? years.Value : dateTime.Year, months.Value);
+
+                    if (days != null)
+                    {
+                        if (days >= daysInMonth)
+                        {
+                            days = daysInMonth;
+                        }
+                    }
+                    else
+                    {
+                        if (dateTime.Day >= daysInMonth)
+                        {
+                            dateTime = dateTime.SetDay(daysInMonth);
+                        }
+                    }
+                }
+            }
 
             try
             {
@@ -113,7 +138,7 @@ namespace Chronox.Utilities
 
             }catch(ArgumentOutOfRangeException)
             {
-                throw new Exception("The given date unfortunately is not valid!");
+                throw new Exception("The resulting date is unfortunately not valid and cannot be represented by the parser!");
             }
         }
 

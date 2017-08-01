@@ -28,7 +28,7 @@ namespace Chronox
 
         internal VocabularyHandler Language { get; private set; }
 
-        public List<Sequence> ChronoxSequence { get; set; } = new List<Sequence>();
+        public List<SequenceCollection> ChronoxSequenceCollections { get; set; } = new List<SequenceCollection>();
 
         public TimeRelationResolver TimeRelationResolver { get; set; } = TimeRelationResolver.Present;
 
@@ -66,13 +66,27 @@ namespace Chronox
 
         public ChronoxSettings() : this(new string[] { }) { }
 
-        public ChronoxSettings(params string[] languages) : this(null,languages) { }
-
-        public ChronoxSettings(List<Sequence> chronoxSequences, params string[] languages)
+        public ChronoxSettings(params string[] languages)
         {
             PrefferedLanguages = languages;
 
-            ChronoxSequence = chronoxSequences;
+            this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
+        }
+
+        public ChronoxSettings(SequenceCollection chronoxSequences, params string[] languages)
+        {
+            PrefferedLanguages = languages;
+
+            ChronoxSequenceCollections = new List<SequenceCollection>() { chronoxSequences };
+
+            this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
+        }
+
+        public ChronoxSettings(List<SequenceCollection> chronoxSequences, params string[] languages)
+        {
+            PrefferedLanguages = languages;
+
+            ChronoxSequenceCollections = chronoxSequences;
 
             this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
         }
