@@ -29,6 +29,8 @@ namespace Chronox.Helpers.Patterns
 
            { Definitions.Patterns.NumberMax5Digits, new PatternRegex(Definitions.Patterns.NumberMax5Digits, "([0-9][0-9]{0,5})")},
 
+           { Definitions.Patterns.DecimalNumber, new PatternRegex(Definitions.Patterns.DecimalNumber, "([+-]?[\\d]{1,7})([.,][\\d]{1,2})?") },
+
            { Definitions.Patterns.WordStart, new PatternRegex(Definitions.Patterns.WordStart, "(?<=\\W|^)" )},
 
            { Definitions.Patterns.WordEnd, new PatternRegex(Definitions.Patterns.WordEnd, "(?=\\W|$)" )},
@@ -41,7 +43,7 @@ namespace Chronox.Helpers.Patterns
 
         internal static readonly IDictionary<string, PatternRegex> CommonDatePatterns = new Dictionary<string, PatternRegex>(StringComparer.OrdinalIgnoreCase)
         {
-           { Definitions.Patterns.YearDiscrete, new PatternRegex(Definitions.Patterns.YearDiscrete, "([0-9]{4})") },
+           { Definitions.Patterns.YearDiscrete, new PatternRegex(Definitions.Patterns.YearDiscrete, "([0-9]{4}(s)?|'[0-9]{2}(s)?)") },
 
            { Definitions.Patterns.MonthDiscrete, new PatternRegex(Definitions.Patterns.MonthDiscrete, "([0-9]{1,2})")},
 

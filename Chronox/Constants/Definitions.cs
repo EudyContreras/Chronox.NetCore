@@ -94,8 +94,6 @@ namespace Chronox.Constants
             public const string DurationExpressions = "durationExpressions";
             public const string RepeaterIndicators = "repeaterIndicators";
             public const string DurationIndicators = "durationIndicators";
-            public const string NumericMagnitudeCardinal = "numericMagnitudeCardinal";
-            public const string NumericMagnitudeOrdinal = "numericMagnitudeOrdinal";
             public const string DayOfWeekType = "dayOfWeekType";
 
             public static readonly IReadOnlyDictionary<string, string> Dynamic = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -139,8 +137,6 @@ namespace Chronox.Constants
                 {DurationExpressions,DurationExpressions},
                 {RepeaterIndicators,RepeaterIndicators},
                 {DurationIndicators,DurationIndicators},
-                {NumericMagnitudeCardinal,NumericMagnitudeCardinal},
-                {NumericMagnitudeOrdinal,NumericMagnitudeOrdinal},
                 {DayOfWeekType,DayOfWeekType},
             };
         }
@@ -158,6 +154,7 @@ namespace Chronox.Constants
             public const string NumberMax2Digits = "numberMax2Digits";
             public const string NumberMax4Digits = "numberMax4Digits";
             public const string NumberMax5Digits = "numberMax5Digits";
+            public const string DecimalNumber = "decimalNumber";
             public const string NumberRangedOrdinal = "numberRangedOrdinal";
             public const string WordStart = "wordStart";
             public const string WordEnd = "wordEnd";
@@ -213,6 +210,7 @@ namespace Chronox.Constants
                 {TimeZoneOffset, TimeZoneOffset},
                 {TimeZoneAbbreviation, TimeZoneAbbreviation},
                 {TimeZoneCode, TimeZoneCode},
+                {DecimalNumber, DecimalNumber }
 
             };
         }
@@ -243,10 +241,9 @@ namespace Chronox.Constants
                             {"R.I",    Property.RangeIndicator},
                             {"R.S",    Property.RangeSeparator},
                             {"N.V",    Property.NumericValue},
-                            {"N.M.C",  Property.NumericMagnitudeCardinal},
-                            {"N.M.O",  Property.NumericMagnitudeOrdinal},
-                            {"N",  Property.Number},
+                            {"N",      Property.Number},
                             {"N.O",    Property.Ordinal},
+                            {"D.N",    Patterns.DecimalNumber },
                             {"T.O.D",  Property.TimeOfDay},
                             {"D.O.W",  Property.DaysOfWeek},
                             {"S.O.Y",  Property.SeasonOfYear},
@@ -320,10 +317,9 @@ namespace Chronox.Constants
                             {Property.RangeIndicator,           "R.I"},
                             {Property.RangeSeparator,           "R.S"},
                             {Property.NumericValue,             "N.V"},
-                            {Property.NumericMagnitudeCardinal, "N.M.C"},
-                            {Property.NumericMagnitudeOrdinal,  "N.M.O"},
                             {Property.Number,                   "N"},
                             {Property.Ordinal,                  "N.O"},
+                            {Patterns.DecimalNumber,            "D.N"},
                             {Property.TimeOfDay,                "T.O.D"},
                             {Property.DaysOfWeek,               "D.O.W"},
                             {Property.SeasonOfYear,             "S.O.Y"},
@@ -350,7 +346,7 @@ namespace Chronox.Constants
                             {Patterns.DateMiddleEndian,         "D.D.M"},
                             {Patterns.MinuteDiscrete,           "M.D"},
                             {Patterns.SecondDiscrete,           "S.D"},
-                            {Patterns.ExpressionSeparator,           "W.S"},
+                            {Patterns.ExpressionSeparator,      "W.S"},
                             {Property.DayOfWeekType,            "D.W.T"},
                             {Property.DateUnits ,               "D.U.B"},
                             {Property.TimeMeridiam,             "T.M" },
@@ -455,8 +451,9 @@ namespace Chronox.Constants
 
             public static readonly IReadOnlyDictionary<string, ArithmeticOperation> ARITHMETIC_OPERATION = new Dictionary<string, ArithmeticOperation>(StringComparer.OrdinalIgnoreCase)
             {
-                {"-",ArithmeticOperation.Substract},
-                {"+", ArithmeticOperation.Add }
+                {"minus",ArithmeticOperation.Substract},
+                {"plus", ArithmeticOperation.Add },
+                {"point", ArithmeticOperation.Decimal }
             };
 
             public static readonly IReadOnlyDictionary<string, DateTimeExpression> DATE_TIME_EXPRESSION = new Dictionary<string, DateTimeExpression>(StringComparer.OrdinalIgnoreCase)
@@ -591,28 +588,6 @@ namespace Chronox.Constants
                 {"9", 9}
             };
 
-            public static readonly IReadOnlyDictionary<string, long> NUMERIC_MAGNITUDES_CARDINAL = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"hundred",  100},
-                {"thousand", 1000},
-                {"million",  1000000},
-                {"billion",  1000000000},
-                {"trillion", 1000000000000},
-                {"quadrillion", 1000000000000000},
-                {"quintillion", 1000000000000000000},
-            };
-
-            public static readonly IReadOnlyDictionary<string, long> NUMERIC_MAGNITUDES_ORDINAL = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"hundredth", 100},
-                {"thousandth",1000},
-                {"millionth", 1000000},
-                {"billionth", 1000000000},
-                {"trillionth", 1000000000000},
-                {"quadrillionth", 1000000000000000},
-                {"quintillionth", 1000000000000000000},
-            };
-
             public static readonly IReadOnlyDictionary<string, int> NUMBERS_WORDS_CARDINAL = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
             {
                 {"one", 1},
@@ -652,6 +627,8 @@ namespace Chronox.Constants
                 {"seventy", 70},
                 {"eighty", 80},
                 {"ninety", 90},
+                {"hundred", 100},
+                {"thousand",1000},
 
             };
 
@@ -695,6 +672,8 @@ namespace Chronox.Constants
                 {"seventieth", 70},
                 {"eightieth", 80},
                 {"ninetieth", 90},
+                {"hundredth", 100},
+                {"thousandth",1000},
                 {"last", int.MaxValue }
             };
 

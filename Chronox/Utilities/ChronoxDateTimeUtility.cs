@@ -95,7 +95,7 @@ namespace Chronox.Utilities
 
             if (seconds > 59 || seconds < 0) seconds = dateTime.Second;
 
-            if (years < 1) years = dateTime.Year;
+            if (years < 1 || years >= DateTime.MaxValue.Year) years = dateTime.Year;
 
             if (months > 12 || months < 1)
             {

@@ -1,4 +1,4 @@
-﻿language: English
+language: English
 
 assumeSpace: true
 
@@ -8,9 +8,9 @@ commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
 
 commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
 
-ordinalSuffixes: 
+ordinalSuffixes: st, nd, rd, th
 
-dateTimeIgnored: 
+dateTimeIgnored: the, of, at, on, in, during, early, late
 
 timeRangeIgnored:
 
@@ -28,6 +28,9 @@ supportedDateTimeFormats:
 	G.E|D.T.U|N.O|M.O.Y|Y.U|Y|T.O.D|T.M
 	G.E|D.O.W|D.T|T.M
 	G.E|D.O.W|D.T|T.M|T.Z
+	N|M.O.Y|G.E|Y.U
+	G.E|D.O.W|T.E
+	D.O.W|N|M.O.Y
 	M.O.Y|N
 
 supportedTimeRangeFormats:
@@ -856,98 +859,6 @@ decadeValues: combined
 
 	<----------------->
 
-numericMagnitudeCardinal: combined
-
-	key: hundred
-	value: 100
-	type: group
-	pattern:
-	variations:
-
-	key: thousand
-	value: 1000
-	type: group
-	pattern:
-	variations:
-
-	key: million
-	value: 1000000
-	type: group
-	pattern:
-	variations:
-
-	key: billion
-	value: 1000000000
-	type: group
-	pattern:
-	variations:
-
-	key: trillion
-	value: 1000000000000
-	type: group
-	pattern:
-	variations:
-
-	key: quadrillion
-	value: 1000000000000000
-	type: group
-	pattern:
-	variations:
-
-	key: quintillion
-	value: 1000000000000000000
-	type: group
-	pattern:
-	variations:
-
-	<----------------->
-
-numericMagnitudeOrdinal: combined
-
-	key: hundredth
-	value: 100
-	type: group
-	pattern:
-	variations:
-
-	key: thousandth
-	value: 1000
-	type: group
-	pattern:
-	variations:
-
-	key: millionth
-	value: 1000000
-	type: group
-	pattern:
-	variations:
-
-	key: billionth
-	value: 1000000000
-	type: group
-	pattern:
-	variations:
-
-	key: trillionth
-	value: 1000000000000
-	type: group
-	pattern:
-	variations:
-
-	key: quadrillionth
-	value: 1000000000000000
-	type: group
-	pattern:
-	variations:
-
-	key: quintillionth
-	value: 1000000000000000000
-	type: group
-	pattern:
-	variations:
-
-	<----------------->
-
 numericWordsCardinal: combinedReversed
 
 	key: one
@@ -1168,6 +1079,18 @@ numericWordsCardinal: combinedReversed
 
 	key: ninety
 	value: 90
+	type: group
+	pattern:
+	variations:
+
+	key: hundred
+	value: 100
+	type: group
+	pattern:
+	variations:
+
+	key: thousand
+	value: 1000
 	type: group
 	pattern:
 	variations:
@@ -1400,6 +1323,18 @@ numericWordsOrdinal: combinedReversed
 
 	key: ninetieth
 	value: 90
+	type: group
+	pattern:
+	variations:
+
+	key: hundredth
+	value: 100
+	type: group
+	pattern:
+	variations:
+
+	key: thousandth
+	value: 1000
 	type: group
 	pattern:
 	variations:

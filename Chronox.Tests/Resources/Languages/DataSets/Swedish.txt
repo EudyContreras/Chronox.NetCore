@@ -1,4 +1,4 @@
-language: English
+﻿language: Swedish
 
 assumeSpace: true
 
@@ -8,9 +8,9 @@ commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
 
 commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
 
-ordinalSuffixes: st, nd, rd, th
+ordinalSuffixes: :a, :e, 
 
-dateTimeIgnored: the, of, at, on, in, during, early, late
+dateTimeIgnored: den, klockan, kl, kl., på
 
 timeRangeIgnored:
 
@@ -19,19 +19,6 @@ timeSpanIgnored:
 timeSetIgnored:
 
 supportedDateTimeFormats:
-
-	D.O.W
-	D.O.W|D.T|T.M
-	D.O.W|D.T|T.M|T.Z
-	D.O.W|D.T|T.M|T.O.D
-	D.O.W|D.T|T.M|T.O.D|T.Z
-	G.E|D.T.U|N.O|M.O.Y|Y.U|Y|T.O.D|T.M
-	G.E|D.O.W|D.T|T.M
-	G.E|D.O.W|D.T|T.M|T.Z
-	N|M.O.Y|G.E|Y.U
-	G.E|D.O.W|T.E
-	D.O.W|N|M.O.Y
-	M.O.Y|N
 
 supportedTimeRangeFormats:
 
@@ -44,20 +31,20 @@ casualExpressions: n/a
 	key: oclock
 	value: n/a
 	type: optional
-	pattern:
-	variations:
+	pattern: 
+	variations: prick
 
 	key: in
 	value: n/a
 	type: optional
 	pattern:
-	variations:
+	variations: i
 
 	key: during
 	value: n/a
 	type: optional
 	pattern:
-	variations:
+	variations: medan
 
 	<----------------->
 
@@ -67,19 +54,19 @@ interpretedExpressions: combined
 	value: n/a
 	type: interpreted
 	pattern:
-	variations:
+	variations: ikväll
 
 	key: last night
 	value: n/a
 	type: interpreted
 	pattern:
-	variations:
+	variations: igårkväll, igår kväll
 
 	key: now
 	value: n/a
 	type: interpreted
 	pattern:
-	variations:
+	variations: nu, just nu
 
 	<----------------->
 
@@ -89,35 +76,35 @@ logicalOperator: combinedOptional
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: och
 
 	key: or
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: eller
 
 	<----------------->
 
 arithmeticOperator: combinedOptional
 
-	key: -
+	key: minus
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: minus, mindre, -
 
-	key: and
+	key: point
 	value: n/a
 	type: optional
-	pattern:
-	variations:
+	pattern: 
+	variations: comma, punkt, .
 
-	key: +
+	key: plus
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: plus, mer, +
 
 	<----------------->
 
@@ -127,19 +114,19 @@ grabberExpressions: combinedOptional
 	value: 0
 	type: group
 	pattern:
-	variations:
+	variations: denna, detta, det här, den här, denne
 
 	key: next
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: nästa, kommande, följande
 
 	key: last
 	value: -1
 	type: group
 	pattern:
-	variations:
+	variations: förra, sista, förgående, tidigare
 
 	<----------------->
 
@@ -149,31 +136,31 @@ dayOffsets: combined
 	value: 0
 	type: group
 	pattern:
-	variations:
+	variations: idag
 
 	key: tomorrow
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: imorgon
 
 	key: yesterday
 	value: -1
 	type: group
 	pattern:
-	variations:
+	variations: igår
 
 	key: day after tomorrow
 	value: 2
 	type: group
 	pattern:
-	variations:
+	variations: övermorgon
 
 	key: day before yesterday
 	value: -2
 	type: group
 	pattern:
-	variations:
+	variations: föregår, förrgår
 
 	<----------------->
 
@@ -183,13 +170,13 @@ timeExpressions: combined
 	value: 12:00
 	type: group
 	pattern:
-	variations:
+	variations: middagstid, middagstiden, middag
 
 	key: midnight
 	value: 24:00
 	type: group
 	pattern:
-	variations:
+	variations: midnatt, midnatten
 
 	<----------------->
 
@@ -199,13 +186,13 @@ julianDay: n/a
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: soluppgång
 
 	key: sunset
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: solnedgång
 
 	<----------------->
 
@@ -215,13 +202,13 @@ timeFractions: combined
 	value: 0.50
 	type: group
 	pattern:
-	variations:
+	variations: half, halva, halv
 
 	key: quater
 	value: 0.25
 	type: group
 	pattern:
-	variations:
+	variations: kvart
 
 	<----------------->
 
@@ -231,31 +218,31 @@ timeConjointer: combinedOptional
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: till, i
 
 	key: past
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: efter, över
 
 	key: ago
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: sedan
 
 	key: from now
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: från och med nu
 
 	key: from
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: från
 
 	<----------------->
 
@@ -265,13 +252,13 @@ timeMeridiam: combinedOptional
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: am. a.m
 
 	key: pm
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: pm. p.m
 
 	<----------------->
 
@@ -281,13 +268,13 @@ proximity: combinedOptional
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: exact, 
 
 	key: approximate
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: omkring, typ
 
 	<----------------->
 
@@ -297,7 +284,7 @@ durationIndicators: n/a
 	value: n/a
 	type: groupOptional
 	pattern:
-	variations:
+	variations: för
 
 	<----------------->
 
@@ -307,19 +294,19 @@ durationExpressions: n/a
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: hela
 
 	key: half
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: halva, halv
 
 	key: quater
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: kvart
 
 	<----------------->
 
@@ -329,13 +316,13 @@ repeaterIndicators: combined
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: varje
 
 	key: every other
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: var annan
 
 	<----------------->
 
@@ -345,43 +332,43 @@ repeaterExpressions: combined
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: 
 
 	key: minutely
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: minutiöst, minutvis
 
 	key: hourly
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: timvis, 
 
 	key: daily
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: dagligen, daglig
 
 	key: weekly
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: veckovis
 
 	key: monthly
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: månadsvis, månatlig, månatligen
 
 	key: yearly
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: årlig, årligen
 
 	<----------------->
 
@@ -391,7 +378,7 @@ rangeIndicators: n/a
 	value: n/a
 	type: filler
 	pattern:
-	variations:
+	variations: från
 
 	<----------------->
 
@@ -401,78 +388,13 @@ rangeSeparators: n/a
 	value: n/a
 	type: filler
 	pattern:
-	variations:
+	variations: till
 
 	<----------------->
 
 holidays: combined
 
-	key: new year's day
-	value: january 1
-	type: group
-	pattern:
-	variations:
-
-	key: new year's eve
-	value: december 31
-	type: group
-	pattern:
-	variations:
-
-	key: christmass day
-	value: december 25
-	type: group
-	pattern:
-	variations:
-
-	key: independence day
-	value: july 4
-	type: group
-	pattern:
-	variations:
-
-	key: father's day
-	value: third sunday in June
-	type: group
-	pattern:
-	variations:
-
-	key: mother's day
-	value: second sunday in may
-	type: group
-	pattern:
-	variations:
-
-	key: labor lay
-	value: first monday in september
-	type: group
-	pattern:
-	variations:
-
-	key: valentines day
-	value: february 4th
-	type: group
-	pattern:
-	variations:
-
-	key: holloween
-	value: october 31
-	type: group
-	pattern:
-	variations:
-
-	key: april fools fay
-	value: april 1st
-	type: group
-	pattern:
-	variations:
-
-	key: thanksgiving day
-	value: Fourth Thursday in November
-	type: group
-	pattern:
-	variations:
-
+	
 	<----------------->
 
 timesOfDay: combined
@@ -481,25 +403,25 @@ timesOfDay: combined
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: morgon, morgonen, förmiddag, förmiddagen
 
 	key: afternoon
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: eftermiddagen, eftermiddag
 
 	key: evening
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: kväll, kvällen
 
 	key: night
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: natt, natten
 
 	<----------------->
 
@@ -509,43 +431,43 @@ daysOfWeek: combined
 	value: 0
 	type: group
 	pattern:
-	variations:
+	variations: måndag, måndagen
 
 	key: tuesday
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: tisdag, tisdagen
 
 	key: wednesday
 	value: 2
 	type: group
 	pattern:
-	variations:
+	variations: onsdag, onsdagen
 
 	key: thursday
 	value: 3
 	type: group
 	pattern:
-	variations:
+	variations: tordag, torsdage
 
 	key: friday
 	value: 4
 	type: group
 	pattern:
-	variations:
+	variations: fredag, fredagen
 
 	key: saturday
 	value: 5
 	type: group
 	pattern:
-	variations:
+	variations: lördag, lördagen
 
 	key: sunday
 	value: 6
 	type: group
 	pattern:
-	variations:
+	variations: sondag, sondagen
 
 	<----------------->
 
@@ -555,25 +477,25 @@ seasonsOfYear: combined
 	value: 0
 	type: group
 	pattern:
-	variations:
+	variations: vår
 
 	key: summer
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: sommar
 
 	key: autumn
 	value: 2
 	type: group
 	pattern:
-	variations:
+	variations: höst
 
 	key: winter
 	value: 3
 	type: group
 	pattern:
-	variations:
+	variations: vinter
 
 	<----------------->
 
@@ -583,73 +505,73 @@ monthsOfYear: combined
 	value: 0
 	type: group
 	pattern:
-	variations:
+	variations: jan, january
 
 	key: february
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: feb, february
 
 	key: march
 	value: 2
 	type: group
 	pattern:
-	variations:
+	variations: mar, mars
 
 	key: april
 	value: 3
 	type: group
 	pattern:
-	variations:
+	variations: april, apr
 
 	key: may
 	value: 4
 	type: group
 	pattern:
-	variations:
+	variations: maj
 
 	key: june
 	value: 5
 	type: group
 	pattern:
-	variations:
+	variations: jun, juni
 
 	key: july
 	value: 6
 	type: group
 	pattern:
-	variations:
+	variations: juli
 
 	key: august
 	value: 7
 	type: group
 	pattern:
-	variations:
+	variations: agusti, agu
 
 	key: september
 	value: 8
 	type: group
 	pattern:
-	variations:
+	variations: sep, sept, september
 
 	key: october
 	value: 9
 	type: group
 	pattern:
-	variations:
+	variations: oktober, okt
 
 	key: november
 	value: 10
 	type: group
 	pattern:
-	variations:
+	variations: november, nov
 
 	key: december
 	value: 11
 	type: group
 	pattern:
-	variations:
+	variations: december, dec
 
 	<----------------->
 
@@ -659,13 +581,13 @@ dayOfWeekType: combined
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: veckodag, veckodagen
 
 	key: weekend
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: helg, helgen
 
 	<----------------->
 
@@ -675,107 +597,108 @@ dateTimeUnits: combined
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: år, året, åren
 
 	key: month
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: månad, månaden, månader, månaderna
 
 	key: week
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: vecka, veckor, veckan, veckorna
 
 	key: day
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: dag, dagen, daggar, daggarna
 
 	key: hour
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: timma, timmar, timmarna
 
 	key: minute
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: minut, minuter, minuten, minuterna
 
 	key: second
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: sekund, sekunden, sekunder, sekunderna
 
 	<----------------->
 
 numericValues: combined
 
+
 	 key: 0
 	 value: 0
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 0
 
 	 key: 1
 	 value: 1
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 1
 
 	 key: 2
 	 value: 2
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 2
 
 	 key: 3
 	 value: 3
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 3
 
 	 key: 4
 	 value: 4
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 4
 
 	 key: 5
 	 value: 5
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 5
 
 	 key: 6
 	 value: 6
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 6
 
 	 key: 7
 	 value: 7
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 7
 
 	 key: 8
 	 value: 8
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 8
 
 	 key: 9
 	 value: 9
 	 type: n/a
 	 pattern:
-	 variations:
+	 variations: 9
 
 	 <----------------->
 
@@ -785,19 +708,19 @@ timePeriods: combined
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: årtionde
 
 	key: century
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: århundrade
 
 	key: millennium
 	value: n/a
 	type: group
 	pattern:
-	variations:
+	variations: årtusende
 
 	<----------------->
 
@@ -807,55 +730,55 @@ decadeValues: combined
 	value: 1910
 	type: group
 	pattern:
-	variations:
+	variations: tiotals, tiotalet
 
 	key: twenties
 	value: 1920
 	type: group
 	pattern:
-	variations:
+	variations: tjugotals, tjugotalet
 
 	key: thirties
 	value: 1930
 	type: group
 	pattern:
-	variations:
+	variations: trettiotals, trettiotalet
 
 	key: forties
 	value: 1940
 	type: group
 	pattern:
-	variations:
+	variations: fyrtiotalet, fyrtiotals
 
 	key: fifties
 	value: 1950
 	type: group
 	pattern:
-	variations:
+	variations: femtiotals, femtiotalet
 
 	key: sixties
 	value: 1960
 	type: group
 	pattern:
-	variations:
+	variations: sextiotals, sextiotalet
 
 	key: seventies
 	value: 1970
 	type: group
 	pattern:
-	variations:
+	variations: sjutiotals, sjutiotalet
 
 	key: eighties
 	value: 1980
 	type: group
 	pattern:
-	variations:
+	variations: åttiotals, åttiotalet
 
 	key: nineties
 	value: 1990
 	type: group
 	pattern:
-	variations:
+	variations: nittiotals, nittiotalet
 
 	<----------------->
 
@@ -865,163 +788,163 @@ numericWordsCardinal: combinedReversed
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: en, ett, ettan
 
 	key: two
 	value: 2
 	type: group
 	pattern:
-	variations:
+	variations: två, tvån
 
 	key: three
 	value: 3
 	type: group
 	pattern:
-	variations:
+	variations: tre, trean
 
 	key: four
 	value: 4
 	type: group
 	pattern:
-	variations:
+	variations: fyra, fyran
 
 	key: five
 	value: 5
 	type: group
 	pattern:
-	variations:
+	variations: fem, femman
 
 	key: six
 	value: 6
 	type: group
 	pattern:
-	variations:
+	variations: sex, sexan
 
 	key: seven
 	value: 7
 	type: group
 	pattern:
-	variations:
+	variations: sju, sjuan
 
 	key: eight
 	value: 8
 	type: group
 	pattern:
-	variations:
+	variations: åtta, åttan
 
 	key: nine
 	value: 9
 	type: group
 	pattern:
-	variations:
+	variations: nio, nian
 
 	key: ten
 	value: 10
 	type: group
 	pattern:
-	variations:
+	variations: tio, tian
 
 	key: eleven
 	value: 11
 	type: group
 	pattern:
-	variations:
+	variations: elva, elvan
 
 	key: twelve
 	value: 12
 	type: group
 	pattern:
-	variations:
+	variations: tålv
 
 	key: thirteen
 	value: 13
 	type: group
 	pattern:
-	variations:
+	variations: tretton
 
 	key: fourteen
 	value: 14
 	type: group
 	pattern:
-	variations:
+	variations: fjorton
 
 	key: fifteen
 	value: 15
 	type: group
 	pattern:
-	variations:
+	variations: femton
 
 	key: sixteen
 	value: 16
 	type: group
 	pattern:
-	variations:
+	variations: sexton
 
 	key: seventeen
 	value: 17
 	type: group
 	pattern:
-	variations:
+	variations: sjuton
 
 	key: eighteen
 	value: 18
 	type: group
 	pattern:
-	variations:
+	variations: arton
 
 	key: nineteen
 	value: 19
 	type: group
 	pattern:
-	variations:
+	variations: nitton
 
 	key: twenty
 	value: 20
 	type: group
 	pattern:
-	variations:
+	variations: tjugo
 
 	key: twenty one
 	value: 21
 	type: group
 	pattern:
-	variations:
+	variations: tjugoen, tjugoett
 
 	key: twenty two
 	value: 22
 	type: group
 	pattern:
-	variations:
+	variations: tjugotvå
 
 	key: twenty three
 	value: 23
 	type: group
 	pattern:
-	variations:
+	variations: tjugotre
 
 	key: twenty four
 	value: 24
 	type: group
 	pattern:
-	variations:
+	variations: tjugofyra
 
 	key: twenty five
 	value: 25
 	type: group
 	pattern:
-	variations:
+	variations: tjugofem
 
 	key: twenty six
 	value: 26
 	type: group
 	pattern:
-	variations:
+	variations: tjugosex
 
 	key: twenty seven
 	value: 27
 	type: group
 	pattern:
-	variations:
+	variations: tjugosju
 
 	key: twenty eight
 	value: 28
@@ -1033,67 +956,67 @@ numericWordsCardinal: combinedReversed
 	value: 29
 	type: group
 	pattern:
-	variations:
+	variations: tjugonio
 
 	key: thirty
 	value: 30
 	type: group
 	pattern:
-	variations:
+	variations: trettio
 
 	key: thirty one
 	value: 31
 	type: group
 	pattern:
-	variations:
+	variations: trettioen, trettioett
 
 	key: forty
 	value: 40
 	type: group
 	pattern:
-	variations:
+	variations: fyrtio
 
 	key: fifty
 	value: 50
 	type: group
 	pattern:
-	variations:
+	variations: femtio
 
 	key: sixty
 	value: 60
 	type: group
 	pattern:
-	variations:
+	variations: sextio
 
 	key: seventy
 	value: 70
 	type: group
 	pattern:
-	variations:
+	variations: sjutio
 
 	key: eighty
 	value: 80
 	type: group
 	pattern:
-	variations:
+	variations: åttio
 
 	key: ninety
 	value: 90
 	type: group
 	pattern:
-	variations:
+	variations: nittio
 
 	key: hundred
 	value: 100
 	type: group
 	pattern:
-	variations:
+	variations: hundrad
 
 	key: thousand
 	value: 1000
 	type: group
 	pattern:
-	variations:
+	variations: tusen
 
 	<----------------->
 
@@ -1103,246 +1026,246 @@ numericWordsOrdinal: combinedReversed
 	value: 0
 	type: group
 	pattern:
-	variations:
+	variations: början, start
 
 	key: first
 	value: 1
 	type: group
 	pattern:
-	variations:
+	variations: först, första
 
 	key: second
 	value: 2
 	type: group
 	pattern:
-	variations:
+	variations: andra, andran
 
 	key: third
 	value: 3
 	type: group
 	pattern:
-	variations:
+	variations: tredje
 
 	key: fourth
 	value: 4
 	type: group
 	pattern:
-	variations:
+	variations: fyärde
 
 	key: fifth
 	value: 5
 	type: group
 	pattern:
-	variations:
+	variations: femte
 
 	key: sixth
 	value: 6
 	type: group
 	pattern:
-	variations:
+	variations: sjätte
 
 	key: seventh
 	value: 7
 	type: group
 	pattern:
-	variations:
+	variations: sjunde
 
 	key: eighth
 	value: 8
 	type: group
 	pattern:
-	variations:
+	variations: åttonde
 
 	key: ninth
 	value: 9
 	type: group
 	pattern:
-	variations:
+	variations: nionde
 
 	key: tenth
 	value: 10
 	type: group
 	pattern:
-	variations:
+	variations: tionde
 
 	key: eleventh
 	value: 11
 	type: group
 	pattern:
-	variations:
+	variations: elfte
 
 	key: twelfth
 	value: 12
 	type: group
 	pattern:
-	variations:
+	variations: tolfte
 
 	key: thirteenth
 	value: 13
 	type: group
 	pattern:
-	variations:
+	variations: trettonde
 
 	key: fourteenth
 	value: 14
 	type: group
 	pattern:
-	variations:
+	variations: fjortonde
 
 	key: fifteenth
 	value: 15
 	type: group
 	pattern:
-	variations:
+	variations: femtonde
 
 	key: sixteenth
 	value: 16
 	type: group
 	pattern:
-	variations:
+	variations: sextonde
 
 	key: seventeenth
 	value: 17
 	type: group
 	pattern:
-	variations:
+	variations: sjutonde
 
 	key: eighteenth
 	value: 18
 	type: group
 	pattern:
-	variations:
+	variations: artonde
 
 	key: nineteenth
 	value: 19
 	type: group
 	pattern:
-	variations:
+	variations: nittonde
 
 	key: twentieth
 	value: 20
 	type: group
 	pattern:
-	variations:
+	variations: tjogonde
 
 	key: twenty first
 	value: 21
 	type: group
 	pattern:
-	variations:
+	variations: tjugoförsta
 
 	key: twenty second
 	value: 22
 	type: group
 	pattern:
-	variations:
+	variations: tjugoandra
 
 	key: twenty third
 	value: 23
 	type: group
 	pattern:
-	variations:
+	variations: tjugotredje
 
 	key: twenty fourth
 	value: 24
 	type: group
 	pattern:
-	variations:
+	variations: tjugofjarde
 
 	key: twenty fith
 	value: 25
 	type: group
 	pattern:
-	variations:
+	variations: tjugofemte
 
 	key: twenty sixth
 	value: 26
 	type: group
 	pattern:
-	variations:
+	variations: tjugosjätte
 
 	key: twenty seventh
 	value: 27
 	type: group
 	pattern:
-	variations:
+	variations: tjugosjunde
 
 	key: twenty eighth
 	value: 28
 	type: group
 	pattern:
-	variations:
+	variations: tjugoåttonde
 
 	key: twenty ninth
 	value: 29
 	type: group
 	pattern:
-	variations:
+	variations: tjugonionde
 
 	key: thirtieth
 	value: 30
 	type: group
 	pattern:
-	variations:
+	variations: trettionde
 
 	key: thirty first
 	value: 31
 	type: group
 	pattern:
-	variations:
+	variations: trettioförsta
 
 	key: fortieth
 	value: 40
 	type: group
 	pattern:
-	variations:
+	variations: fyrtionde
 
 	key: fiftieth
 	value: 50
 	type: group
 	pattern:
-	variations:
+	variations: femtionde
 
 	key: sixtieth
 	value: 60th
 	type: group
 	pattern:
-	variations:
+	variations: sextionde
 
 	key: seventieth
 	value: 70
 	type: group
 	pattern:
-	variations:
+	variations: sjuttionde
 
 	key: eightieth
 	value: 80
 	type: group
 	pattern:
-	variations:
+	variations: åttionde
 
 	key: ninetieth
 	value: 90
 	type: group
 	pattern:
-	variations:
+	variations: nittionde
 
 	key: hundredth
 	value: 100
 	type: group
 	pattern:
-	variations:
+	variations: hundrade, hundradel
 
 	key: thousandth
 	value: 1000
 	type: group
 	pattern:
-	variations:
+	variations: tusende, tusendel
 
 	key: last
 	value: -1
 	type: group
 	pattern:
-	variations:
+	variations: sista, sist, senast,
 
 	<----------------->

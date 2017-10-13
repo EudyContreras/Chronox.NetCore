@@ -89,5 +89,7 @@ namespace Chronox.Interfaces
         void ProcessRemaining(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information);
 
         void ProcessTimeMeridiam(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeMeridiam timeMeridiam);
+
+        void ProcessDecimalNumber(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, string value);
     }
 }

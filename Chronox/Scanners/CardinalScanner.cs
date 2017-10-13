@@ -21,6 +21,11 @@ namespace Chronox.Scanners
 
         public ScanWrapper Scan(ChronoxSettings option, string input)
         {
+
+            var masker = "|^|";
+
+            var masks = new List<string>();
+
             var scanResult = new ScanWrapper(this);
 
             var number = new StringBuilder();
@@ -37,10 +42,6 @@ namespace Chronox.Scanners
 
             containsWrapper.AddRange(expression.Contains(grabberExpression.Keys));
 
-            var masks = new List<string>();
-
-            var masker = "|^|";
-
             foreach (var wrapper in containsWrapper)
             {
                 var mask = (wrapper.StartIndex + masker + wrapper.EndIndex).ToString();
@@ -56,9 +57,7 @@ namespace Chronox.Scanners
 
             var dictionaryOrdinals = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericWordOrdinal);
 
-            var dictionaryDimensionsCardinal = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericMagnitudeCardinal);
-
-            var dictionaryDimensionsOrdinal = option.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericMagnitudeOrdinal);
+            var dictionaryArith = option.Language.VocabularyBank.GetDictionary(Definitions.Property.ArithmeticOperator);
 
             var ignored = option.Language.VocabularyBank.GetDictionary(Definitions.Property.LogicalOperator)
                 .Where(e => Definitions.Converters.LOGICAL_OPERATOR[e.Value] == LogicalOperator.And)
@@ -86,13 +85,13 @@ namespace Chronox.Scanners
                 {
                     foreach (var sect in sections)
                     {
-                        translation = FindDigits(number, translated, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, sect, true);
+                        translation = FindDigits(number, translated, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryArith, ref startIndex, ref foundDigit, sect, true);
                     }
 
                 }
                 else
                 {
-                    translation = FindDigits(number, translated, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryDimensionsCardinal, dictionaryDimensionsOrdinal, ref startIndex, ref foundDigit, part, false);
+                    translation = FindDigits(number, translated, expression, dictionaryCardinals, dictionaryOrdinals, dictionaryArith, ref startIndex, ref foundDigit, part, false);
                 }
 
                 if (!foundDigit)
@@ -193,11 +192,11 @@ namespace Chronox.Scanners
             }
         }
 
-        private static string FindDigits(StringBuilder number, StringBuilder translated, string expression, Dictionary<string, string> dictionaryCardinals, Dictionary<string, string> dictionaryOrdinals, Dictionary<string, string> dictionaryDimensionsCardinal, Dictionary<string, string> dictionaryDimensionsOrdinal, ref int startIndex, ref bool foundDigit, string sect, bool dashDivided)
+        private static string FindDigits(StringBuilder number, StringBuilder translated, string expression, Dictionary<string, string> dictionaryCardinals, Dictionary<string, string> dictionaryOrdinals, Dictionary<string, string> dictionaryArith, ref int startIndex, ref bool foundDigit, string sect, bool dashDivided)
         {
             var translation = string.Empty ;
 
-            if (dictionaryCardinals.TryGetValue(sect, out translation) || dictionaryDimensionsCardinal.TryGetValue(sect, out translation))
+            if (dictionaryCardinals.TryGetValue(sect, out translation))
             {
                 if (CardinalConverter.CombinedNames().Contains(translation))
                 {
@@ -223,7 +222,7 @@ namespace Chronox.Scanners
                     }
                 }
             }
-            else if (dictionaryOrdinals.TryGetValue(sect, out translation) || dictionaryDimensionsOrdinal.TryGetValue(sect, out translation))
+            else if (dictionaryOrdinals.TryGetValue(sect, out translation))
             {
                 if (OrdinalConverter.CombinedNamesOrdinal().Contains(translation) || OrdinalConverter.CombinedNames().Contains(translation))
                 {
@@ -247,7 +246,33 @@ namespace Chronox.Scanners
                     }
                 }
             }
+            else if (dictionaryArith.TryGetValue(sect, out translation))
+            {
+                if (string.Compare(translation, Definitions.General.Minus, true) == 0 ||
+                    string.Compare(translation, Definitions.General.Negative, true) == 0 ||
+                    string.Compare(translation, Definitions.General.Point, true) == 0)
+                {
 
+                    number.Append(sect);
+                    translated.Append(translation);
+
+                    if (dashDivided)
+                    {
+                        number.Append("-");
+                        translated.Append("-");
+                    }
+                    else
+                    {
+                        number.Append(" ");
+                        translated.Append(" ");
+                    }
+
+                    if (startIndex == -1)
+                    {
+                        startIndex = expression.IndexOf(sect);
+                    }
+                }
+            }
             return translation;
         }
     }

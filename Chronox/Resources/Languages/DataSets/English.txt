@@ -14,7 +14,7 @@ dateTimeIgnored: the, of, at, on, in, during, early, late
 
 timeRangeIgnored: 
 
-timeSpanIgnored: 
+timeSpanIgnored: a
 
 timeSetIgnored: 
 
@@ -27,11 +27,12 @@ supportedDateTimeFormats:
 	D.O.W|D.T|T.M|T.O.D|T.Z
 	G.E|D.T.U|N.O|M.O.Y|Y.U|Y|T.O.D|T.M
 	G.E|D.O.W|D.T|T.M
-	G.E|D.O.W|D.T|T.M|T.Z
 	N|M.O.Y|G.E|Y.U
 	G.E|D.O.W|T.E
 	D.O.W|N|M.O.Y
 	M.O.Y|N
+	D.O|N|T.U.B|T.C|T.E
+	N|T.U.B|T.C|T.E|D.O
 
 supportedTimeRangeFormats:
 
@@ -101,19 +102,19 @@ logicalOperator: combinedOptional
 
 arithmeticOperator: combinedOptional
 
-	key: -
+	key: minus
 	value: n/a
 	type: group
 	pattern: \-|minus|substract|negative|negate|less
 	variations:  -, minus, substract, negative, negate, less
 
-	key: and
+	key: point
 	value: n/a
 	type: optional
-	pattern: and|or
-	variations:  and, or
+	pattern: point|comma|,|.
+	variations:  point, comma, .
 
-	key: +
+	key: plus
 	value: n/a
 	type: group
 	pattern: \+|plus|more|add|aggregate
@@ -154,7 +155,7 @@ dayOffsets: combined
 	key: tomorrow
 	value: 1
 	type: group
-	pattern: tom(?:orrow)|tommorow
+	pattern: tom(?:orrow)
 	variations:  tomorrow, tom, tommorow
 
 	key: yesterday
@@ -687,7 +688,7 @@ dateTimeUnits: combined
 	value: n/a
 	type: group
 	pattern: week(s)?|wk|w
-	variations:  weeks, week, wk, w
+	variations:  weeks, week, wks, wk, w
 
 	key: day
 	value: n/a
@@ -856,98 +857,6 @@ decadeValues: combined
 	type: group
 	pattern: nineties
 	variations:  nineties
-
-	<----------------->
-
-numericMagnitudeCardinal: combined
-
-	key: hundred
-	value: 100
-	type: group
-	pattern: hundred
-	variations:  hundred
-
-	key: thousand
-	value: 1000
-	type: group
-	pattern: thousand
-	variations:  thousand
-
-	key: million
-	value: 1000000
-	type: group
-	pattern: million
-	variations:  million
-
-	key: billion
-	value: 1000000000
-	type: group
-	pattern: billion
-	variations:  billion
-
-	key: trillion
-	value: 1000000000000
-	type: group
-	pattern: trillion
-	variations:  trillion
-
-	key: quadrillion
-	value: 1000000000000000
-	type: group
-	pattern: quadrillion
-	variations:  quadrillion
-
-	key: quintillion
-	value: 1000000000000000000
-	type: group
-	pattern: quintillion
-	variations:  quintillion
-
-	<----------------->
-
-numericMagnitudeOrdinal: combined
-
-	key: hundredth
-	value: 100
-	type: group
-	pattern: hundredth(s)?
-	variations:  hundredth, hundredths
-
-	key: thousandth
-	value: 1000
-	type: group
-	pattern: thousandth(s)?
-	variations:  thousandth, thousandth
-
-	key: millionth
-	value: 1000000
-	type: group
-	pattern: millionth(s)?
-	variations:  millionth, millionths
-
-	key: billionth
-	value: 1000000000
-	type: group
-	pattern: billionth(s)?
-	variations:  billionth, billionths
-
-	key: trillionth
-	value: 1000000000000
-	type: group
-	pattern: trillionth(s)?
-	variations:  trillionth, trillionths
-
-	key: quadrillionth
-	value: 1000000000000000
-	type: group
-	pattern: quadrillionth(s)?
-	variations:  quadrillionth, quadrillionths
-
-	key: quintillionth
-	value: 1000000000000000000
-	type: group
-	pattern: quintillionth(s)?
-	variations:  quintillionth, quintillionths
 
 	<----------------->
 
@@ -1174,6 +1083,18 @@ numericWordsCardinal: combinedReversed
 	type: group
 	pattern: ninety
 	variations:  ninety
+
+	key: hundred
+	value: 100
+	type: group
+	pattern: hundred
+	variations:  hundred
+
+	key: thousand
+	value: 1000
+	type: group
+	pattern: thousand
+	variations:  thousand
 
 	<----------------->
 
@@ -1406,6 +1327,18 @@ numericWordsOrdinal: combinedReversed
 	type: group
 	pattern: ninetieth(s)?
 	variations:  ninetieth, ninetieths
+
+	key: hundredth
+	value: 100
+	type: group
+	pattern: hundredth(s)?
+	variations:  hundredth, hundredths
+
+	key: thousandth
+	value: 1000
+	type: group
+	pattern: thousandth(s)?
+	variations:  thousandth, thousandth
 
 	key: last
 	value: -1

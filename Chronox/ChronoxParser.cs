@@ -15,7 +15,6 @@ namespace Chronox
 {
     public class ChronoxParser : IChronox
     {
-
         private List<IChronoxScanner> Scanners = null;
 
         private MasterParser MasterParser = new MasterParser();
@@ -199,14 +198,15 @@ namespace Chronox
         {
             Settings.ParsingMode = ExtractionResultType.TimeRange;
 
-            return Parse(referenceDate, input)?.Results.Cast<ChronoxTimeRangeExtraction>().ToList();
+            return Instance.Parse(referenceDate, input)?.Results.Cast<ChronoxTimeRangeExtraction>().ToList();
         }
+
 
         IReadOnlyList<ChronoxTimeSpanExtraction> IChronox.ParseTimeSpan(string input)
         {
             Settings.ParsingMode = ExtractionResultType.TimeSpan;
 
-            return Parse(DateTime.MinValue, input)?.Results.Cast<ChronoxTimeSpanExtraction>().ToList();
+            return Instance.Parse(input)?.Results.Cast<ChronoxTimeSpanExtraction>().ToList();
         }
 
 
@@ -214,7 +214,7 @@ namespace Chronox
         {
             Settings.ParsingMode = ExtractionResultType.TimeSet;
 
-            return Parse(DateTime.MinValue, input)?.Results.Cast<ChronoxTimeSetExtraction>().ToList();
+            return Instance.Parse(DateTime.MinValue, input)?.Results.Cast<ChronoxTimeSetExtraction>().ToList();
         }
 
         private string PreProcessExpression(ChronoxSettings settings, string expression)

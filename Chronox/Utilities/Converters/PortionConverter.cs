@@ -28,7 +28,7 @@ namespace Chronox.Converters
 
         private static readonly List<string> CardinalDecades = new List<string>() { "zero", "tenth", "twentieth", "thirtieth", "fortieth", "fiftieth", "sixtieth", "seventieth", "eightieth", "ninetieth" };
 
-        private static readonly Dictionary<string, decimal> Simple = new Dictionary<string, decimal>
+        private static readonly Dictionary<string, decimal> Simple = new Dictionary<string, decimal>(StringComparer.OrdinalIgnoreCase)
         {
             { "zero", 0.0M },
             { "one", 1.0M },
@@ -60,7 +60,7 @@ namespace Chronox.Converters
             { "ninety", 90.0M }
         };
 
-        private static readonly Dictionary<string, decimal> Magnitude = new Dictionary<string, decimal>
+        private static readonly Dictionary<string, decimal> Magnitude = new Dictionary<string, decimal>(StringComparer.OrdinalIgnoreCase)
         {
             { Definitions.General.Thousand, 1000.0M },
             { Definitions.General.Million, 1000000.0M },
@@ -70,7 +70,7 @@ namespace Chronox.Converters
             { Definitions.General.Quintillion, 1000000000000000000M }
         };
 
-        private static readonly Dictionary<string, decimal> SimpleOrdinal = new Dictionary<string, decimal>
+        private static readonly Dictionary<string, decimal> SimpleOrdinal = new Dictionary<string, decimal>(StringComparer.OrdinalIgnoreCase)
         {
             { "zero", 0.0M },
             { "first", 1.0M },
@@ -102,7 +102,7 @@ namespace Chronox.Converters
             { "ninetieth", 90M }
         };
 
-        private static readonly Dictionary<string, decimal> MiscMultipliers = new Dictionary<string, decimal>
+        private static readonly Dictionary<string, decimal> MiscMultipliers = new Dictionary<string, decimal>(StringComparer.OrdinalIgnoreCase)
         {
             { "quater",0.25M },
             { "half", 0.5M },
@@ -110,7 +110,7 @@ namespace Chronox.Converters
             { "dozen", 12M }           
         };
 
-        private static readonly Dictionary<string, decimal> MagnitudeOrdinal = new Dictionary<string, decimal>
+        private static readonly Dictionary<string, decimal> MagnitudeOrdinal = new Dictionary<string, decimal>(StringComparer.OrdinalIgnoreCase)
         {
             { Definitions.General.Thousand + Suffixes[0], 1000.0M },
             { Definitions.General.Million + Suffixes[0], 1000000.0M },
@@ -154,7 +154,7 @@ namespace Chronox.Converters
         {
             foreach (var suffix in SuffixTypes)
             {
-                if (cardinalNumber.Contains(suffix))
+                if (cardinalNumber.Contains(suffix, StringComparison.OrdinalIgnoreCase))
                 {
                     var parsed = cardinalNumber.Replace(suffix, string.Empty, true);
 
@@ -211,7 +211,7 @@ namespace Chronox.Converters
                         fractionalPart *= (1.0M / current);
                     }
                 }
-                else if (part == Definitions.General.Hundred)
+                else if (string.Compare(part, Definitions.General.Hundred, true) == 0)
                 {
                     smallValue *= 100M;
 
@@ -220,13 +220,13 @@ namespace Chronox.Converters
                         fractionalPart *= 100M;
                     }
                 }
-                else if (part == string.Concat(Definitions.General.Hundred, Suffixes[0]))
+                else if (string.Compare(part,string.Concat(Definitions.General.Hundred, Suffixes[0]),true) == 0)
                 {
-                    smallValue *= (1 / 100M);
+                    smallValue *= (1.0M / 100M);
 
                     if (integerPart != decimal.MinValue)
                     {
-                        fractionalPart *= (1 / 100M);
+                        fractionalPart *= (1.0M / 100M);
                     }
 
                 }
@@ -253,11 +253,11 @@ namespace Chronox.Converters
                     }
                     else if (MagnitudeOrdinal.TryGetValue(part, out current))
                     {
-                        bigValue *= (1 / (smallValue * current));
+                        bigValue *= (1.0M / (smallValue * current));
 
                         if (integerPart != decimal.MinValue)
                         {
-                            fractionalPart *= (1 / (smallValue * current));
+                            fractionalPart *= (1.0M / (smallValue * current));
                         }
 
                         smallValue = 0M;
@@ -278,7 +278,7 @@ namespace Chronox.Converters
             {
                 integerPart = negativeNumber ? -integerPart : integerPart;
 
-                value = decimal.Parse(string.Concat(integerPart.ToString(), ".", fractionalPart.ToString()));
+                value = decimal.Parse(string.Concat(((int)integerPart).ToString(), ".", ((int)fractionalPart).ToString()));
             }
 
             if (negativeNumber && value < Magnitude[Definitions.General.Quintillion] * -1)

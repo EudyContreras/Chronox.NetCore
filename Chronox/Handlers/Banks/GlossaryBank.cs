@@ -74,10 +74,6 @@ namespace Chronox.Handlers.Banks
 
         private Dictionary<string, string> NumericValue = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-        private Dictionary<string, string> NumericMagnitudesCardinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-        private Dictionary<string, string> NumericMagnitudesOrdinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
         private Dictionary<string, string> NumericWordOrdinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         private Dictionary<string, string> NumericWordCardinal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -149,10 +145,6 @@ namespace Chronox.Handlers.Banks
             if (dictionary.Equals(Definitions.Property.DayUnit)) return DayUnits;
 
             if (dictionary.Equals(Definitions.Property.NumericValue)) return NumericValue;
-
-            if (dictionary.Equals(Definitions.Property.NumericMagnitudeCardinal)) return NumericMagnitudesCardinal;
-
-            if (dictionary.Equals(Definitions.Property.NumericMagnitudeOrdinal)) return NumericMagnitudesOrdinal;
 
             if (dictionary.Equals(Definitions.Property.NumericWordOrdinal)) return NumericWordOrdinal;
 

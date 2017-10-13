@@ -284,8 +284,6 @@ namespace Chronox.Handlers
             PopulateGlossary(Definitions.Property.WeekUnit);
             PopulateGlossary(Definitions.Property.DayUnit);
             PopulateGlossary(Definitions.Property.NumericValue);
-            PopulateGlossary(Definitions.Property.NumericMagnitudeCardinal);
-            PopulateGlossary(Definitions.Property.NumericMagnitudeOrdinal);
             PopulateGlossary(Definitions.Property.NumericWordOrdinal);
             PopulateGlossary(Definitions.Property.NumericWordCardinal);
             PopulateGlossary(Definitions.Property.TimeMeridiam);
@@ -440,8 +438,6 @@ namespace Chronox.Handlers
             CreatePattern(Definitions.Property.WeekUnit);
             CreatePattern(Definitions.Property.DayUnit);
             CreatePattern(Definitions.Property.NumericValue);
-            CreatePattern(Definitions.Property.NumericMagnitudeCardinal);
-            CreatePattern(Definitions.Property.NumericMagnitudeOrdinal);
             CreatePattern(Definitions.Property.NumericWordOrdinal);
             CreatePattern(Definitions.Property.NumericWordCardinal);
             CreatePattern(Definitions.Property.TimeMeridiam);

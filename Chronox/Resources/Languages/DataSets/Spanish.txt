@@ -92,19 +92,19 @@ logicalOperator: combinedOptional
 
 arithmeticOperator: combinedOptional
 
-	key: -
+	key: minus
 	value: n/a
 	type: group
 	pattern:
 	variations: -, menos, negativo
 
-	key: and
+	key: point
 	value: n/a
 	type: optional
 	pattern:
-	variations: y
+	variations: punto, coma, .
 
-	key: +
+	key: plus
 	value: n/a
 	type: group
 	pattern:
@@ -124,13 +124,13 @@ grabberExpressions: combinedOptional
 	value: 1
 	type: group
 	pattern:
-	variations: proxima, proximo, siguiente, que viene
+	variations: proxima, proximo, siguiente, que viene, que vendra
 
 	key: last
 	value: -1
 	type: group
 	pattern:
-	variations: que paso, que ha pasado, pasada, ultimo, ultima, anterior
+	variations: que paso, que ha pasado, pasada, pasado, ultimo, ultima, anterior
 
 	<----------------->
 
@@ -146,7 +146,7 @@ dayOffsets: combined
 	value: 1
 	type: group
 	pattern:
-	variations: mañana
+	variations: mañana, manana
 
 	key: yesterday
 	value: -1
@@ -158,13 +158,13 @@ dayOffsets: combined
 	value: 2
 	type: group
 	pattern:
-	variations: antes ayer
+	variations: pasado mañana, pasado manana
 
 	key: day before yesterday
 	value: -2
 	type: group
 	pattern:
-	variations: pasado mañana
+	variations: antes ayer
 
 	<----------------->
 
@@ -406,7 +406,7 @@ timesOfDay: combined
 	value: n/a
 	type: group
 	pattern:
-	variations: mañana
+	variations: mañana, manana
 
 	key: afternoon
 	value: n/a
@@ -784,98 +784,6 @@ decadeValues: combined
 
 	<----------------->
 
-numericMagnitudeCardinal: combined
-
-	key: hundred
-	value: 100
-	type: group
-	pattern:
-	variations: cien
-
-	key: thousand
-	value: 1000
-	type: group
-	pattern:
-	variations: mil
-
-	key: million
-	value: 1000000
-	type: group
-	pattern:
-	variations: million
-
-	key: billion
-	value: 1000000000
-	type: group
-	pattern:
-	variations: billion
-
-	key: trillion
-	value: 1000000000000
-	type: group
-	pattern:
-	variations: trillion
-
-	key: quadrillion
-	value: 1000000000000000
-	type: group
-	pattern:
-	variations: quadrillion
-
-	key: quintillion
-	value: 1000000000000000000
-	type: group
-	pattern:
-	variations: quintillion
-
-	<----------------->
-
-numericMagnitudeOrdinal: combined
-
-	key: hundredth
-	value: 100
-	type: group
-	pattern:
-	variations: centésimo
-
-	key: thousandth
-	value: 1000
-	type: group
-	pattern:
-	variations: milésimo
-
-	key: millionth
-	value: 1000000
-	type: group
-	pattern:
-	variations: millonésimo
-
-	key: billionth
-	value: 1000000000
-	type: group
-	pattern:
-	variations: billonésimo
-
-	key: trillionth
-	value: 1000000000000
-	type: group
-	pattern:
-	variations: trillionésimo
-
-	key: quadrillionth
-	value: 1000000000000000
-	type: group
-	pattern:
-	variations: quadrillionesimo
-
-	key: quintillionth
-	value: 1000000000000000000
-	type: group
-	pattern:
-	variations: quitillionesimo
-
-	<----------------->
-
 numericWordsCardinal: combinedReversed
 
 	key: one
@@ -1099,6 +1007,18 @@ numericWordsCardinal: combinedReversed
 	type: group
 	pattern:
 	variations: noventa
+
+	key: hundred
+	value: 100
+	type: group
+	pattern:
+	variations: cien
+
+	key: thousand
+	value: 1000
+	type: group
+	pattern:
+	variations: mil
 
 	<----------------->
 
@@ -1331,6 +1251,18 @@ numericWordsOrdinal: combinedReversed
 	type: group
 	pattern:
 	variations: nonagésimo, nonagesimo
+
+	key: hundredth
+	value: 100
+	type: group
+	pattern:
+	variations: centésimo
+
+	key: thousandth
+	value: 1000
+	type: group
+	pattern:
+	variations: milésimo
 
 	key: last
 	value: -1

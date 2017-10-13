@@ -33,6 +33,8 @@ namespace Chronox.Handlers
 
         internal PatternRegex TimeZonePattern { get; set; }
 
+        internal PatternRegex DecimalPattern { get; set; }
+
         internal PatternRegex TimePattern { get; set; }
 
         internal PatternRegex Separator { get; set; }
@@ -65,6 +67,8 @@ namespace Chronox.Handlers
             SecondsDiscretePattern = CreateSecondsPattern();
 
             TimeZonePattern = CreateTimeZonePattern();
+
+            DecimalPattern = CreateDecimalPattern();
 
             TimePattern = CreateTimePattern();
 
@@ -105,8 +109,6 @@ namespace Chronox.Handlers
 
             foreach (var sequence in sequences)
             {
-                var builder = new StringBuilder();
-
                 var regexSequence = new PatternSequence(sequence.SequenceType);
 
                 foreach(var property in sequence.DateProperties)
@@ -134,7 +136,9 @@ namespace Chronox.Handlers
                         }
                     }
 
-                    regexSequence.Patterns.Add(pattern);      
+                    regexSequence.Patterns.Add(pattern);
+
+                    regexSequence.PatternCount += 1;
 
                     if (NotSeparator(pattern.Label) && !UnqualifiedPattern(pattern))
                     {
@@ -146,34 +150,7 @@ namespace Chronox.Handlers
                         {
                             regexSequence.Patterns.Add(Separator);
                         }
-
-                        regexSequence.PatternCount += 1;
                     }
-
-                    builder.Append(pattern.Value);
-
-                    if (NotSeparator(pattern.Label) && !UnqualifiedPattern(pattern))
-                    {
-                        if (OptinalSpaceQualified(pattern))
-                        {
-                            builder.Append(OptionalSeparator.Value);
-                        }
-                        else
-                        {
-                            builder.Append(Separator.Value);
-                        }
-                    }
-                }
-
-                var result = builder.ToString();
-
-                if (result.EndsWith(Separator.Value))
-                {
-                    result = result.ReplaceLast(Separator.Value, string.Empty);
-                }
-                else if (result.EndsWith(OptionalSeparator.Value))
-                {
-                    result = result.ReplaceLast(OptionalSeparator.Value, string.Empty);
                 }
 
                 if (regexSequence.Patterns[regexSequence.Patterns.Count - 1].Label == Definitions.Patterns.ExpressionSeparator)
@@ -185,13 +162,11 @@ namespace Chronox.Handlers
                     regexSequence.Patterns.RemoveAt(regexSequence.Patterns.Count - 1);
                 }
 
-                regexSequence.CombinedPattern = result;
+                regexSequence.CombinedPattern = string.Join(string.Empty,regexSequence.Patterns.Select(p => p.Value));
                 regexSequence.AbbreviatedSequence = sequence.AbbreviatedSequence;
                 regexSequence.RegexMatcher = regexSequence.InitRegexMatcher(LanguageHandler);
 
                 regexSequences.Add(regexSequence);
-
-                builder.Clear();
             }
 
             return regexSequences;
@@ -254,6 +229,10 @@ namespace Chronox.Handlers
             else if (string.Compare(property, Definitions.Patterns.SecondDiscrete, true) == 0)
             {
                 pattern = SecondsDiscretePattern;
+            }
+            else if (string.Compare(property, Definitions.Patterns.DecimalNumber, true) == 0)
+            {
+                pattern = DecimalPattern;
             }
             else
             {
@@ -354,7 +333,7 @@ namespace Chronox.Handlers
 
             var pattern = PatternHandler.OptionalWrapp(LanguageHandler.PatternHandler.ComputePattern(oclockSuffixes));
 
-            var groups = PatternHandler.GroupWrapp(string.Concat(labeledHour,OptionalSeparator.Value, pattern, labeledMinute, labeledSecond, labeledMillis));
+            var groups = PatternHandler.GroupWrapp(string.Concat(OptionalSeparator.Value, labeledHour,OptionalSeparator.Value, pattern, labeledMinute, labeledSecond, labeledMillis));
 
             return new PatternRegex(Definitions.Patterns.Time, PatternHandler.LabelWrapp(Definitions.Patterns.Time, groups));
         }
@@ -445,6 +424,16 @@ namespace Chronox.Handlers
 
             return new PatternRegex(Definitions.Property.Ordinal, labeledOrdinal);
         }
+
+        private PatternRegex CreateDecimalPattern()
+        {
+            var decimalNumber = PatternLibrary.HelperPatterns[Definitions.Patterns.DecimalNumber];
+
+            var labeledDecimal = PatternHandler.LabelWrapp(decimalNumber.Label, PatternHandler.GroupWrapp(decimalNumber.Value));
+
+            return new PatternRegex(Definitions.Patterns.DecimalNumber, labeledDecimal);
+        }
+
 
         public void ExtractPatternSequences(Glossary glossary, List<string> userSequences, SequenceType type)
         {

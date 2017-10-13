@@ -10,6 +10,8 @@ namespace Enumerations
 
         Substract,
 
+        Decimal,
+
         Default = -1
     }
 }

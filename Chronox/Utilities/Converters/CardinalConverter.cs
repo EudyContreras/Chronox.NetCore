@@ -66,6 +66,8 @@ namespace Chronox.Converters
             { Definitions.General.Quintillion, 1000000000000000000L }
         };
 
+        private static bool PossibleYearStarter(long number) => number >= 14 && number <= 19;
+        
         public static HashSet<string> CombinedNames()
         {
             var combined = new HashSet<string>(Simple.Keys.ToArray())
@@ -244,7 +246,11 @@ namespace Chronox.Converters
 
             var integerPart = decimal.MinValue;
 
-            var fractionalPart = 0M; ;
+            var fractionalPart = 0M;
+
+            var possibleCasualYear = false;
+
+            var casualYear = String.Empty;
 
             if (string.Compare(parts[0], Definitions.General.Minus, true) == 0 || string.Compare(parts[0], Definitions.General.Negative, true) == 0)
             {
@@ -258,6 +264,25 @@ namespace Chronox.Converters
 
                 if (Simple.TryGetValue(part, out long current))
                 {
+
+                    if (last == decimal.MinValue || possibleCasualYear == true)
+                    {
+                        if (PossibleYearStarter(current) || possibleCasualYear)
+                        {
+                            if (possibleCasualYear && current >= 20)
+                            {
+                                casualYear += current.ToString()[0];
+                            }
+                            else
+                            {
+                                casualYear += current.ToString();
+                            }
+
+                            possibleCasualYear = true;
+
+                        }
+                    }
+
                     if (last > 0 && last <= 9)
                     {
                         integerPart = last;
@@ -274,6 +299,8 @@ namespace Chronox.Converters
                 }
                 else if (part == Definitions.General.Hundred)
                 {
+                    possibleCasualYear = false;
+
                     if (smallValue == 0)
                     {
                         smallValue = 1;
@@ -288,10 +315,14 @@ namespace Chronox.Converters
                 }
                 else if (part == Definitions.General.Point)
                 {
+                    possibleCasualYear = false;
+
                     integerPart = (bigValue + smallValue);
                 }
                 else
                 {
+                    possibleCasualYear = false;
+
                     if (Magnitude.TryGetValue(part, out current))
                     {
                         if (smallValue == 0)
@@ -320,11 +351,16 @@ namespace Chronox.Converters
 
             value = negativeNumber ? -(bigValue + smallValue) : (bigValue + smallValue);
 
-            if(integerPart != decimal.MinValue)
+            if (integerPart != decimal.MinValue)
             {
                 integerPart = negativeNumber ? -integerPart : integerPart;
 
-                value = decimal.Parse(string.Concat(integerPart.ToString(), ".", fractionalPart.ToString()));
+                value = decimal.Parse(string.Concat(((int)integerPart).ToString(), ".", ((int)fractionalPart).ToString()));
+            }
+
+            if (possibleCasualYear == true)
+            {
+                value = decimal.Parse(casualYear);
             }
 
             if (negativeNumber && value < Magnitude[Definitions.General.Quintillion] * -1)

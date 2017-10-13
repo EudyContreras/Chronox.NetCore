@@ -37,6 +37,11 @@ namespace Chronox.Parsers.General.ParserHelpers
             throw new NotImplementedException();
         }
 
+        public void ProcessDecimalNumber(ChronoxTimeSetExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ProcessCasualExpression(ChronoxTimeSetExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateCasualExpression casualExpression)
         {
             throw new NotImplementedException();

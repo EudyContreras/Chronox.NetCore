@@ -44,6 +44,11 @@ namespace Chronox.Parsers.General.ParserHelpers
             information.NumericValues.Enqueue(int.Parse(value));
         }
 
+        public void ProcessDecimalNumber(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, string value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ProcessNumericWord(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int numericValue)
         {
             information.NumericValues.Enqueue(numericValue);
@@ -279,11 +284,35 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 var timeExpression = foundGroups.Find(g => g.Name == Definitions.Property.TimeExpressions);
 
-                if (timeExpression != null)
+                var dayOffsetExpression = foundGroups.Find(g => g.Name == Definitions.Property.DayOffset);
+
+                if (dayOffsetExpression != null && !information.HasDayOffset &&  timeExpression == null)
+                {
+                    var dayOffset = TranslationHandler.DayOffset(information.Settings, dayOffsetExpression.Value.Trim());
+
+                    ProcessDayOffset(result, foundGroups, ref dateTime, information, dayOffset);
+
+                    foundGroups.Find(g => g.Name == Definitions.Property.DayOffset).GroupUsed = true;
+
+                    if (dateTime.HasDifferentDate(information.CurrentDate) && !information.HasInterpretedExpression && !information.HasTimeExpression)
+                    {
+                        ProcessTimeExpression(result, foundGroups, ref dateTime, information, new ChronoxTime(0, 0, 0));
+
+                        information.HasTimeExpression = false;
+                    }
+
+                    result.Builder.UnAssignValue(DateTimeUnit.Day);
+                    result.Builder.UnAssignValue(DateTimeUnit.Hour);
+                    result.Builder.UnAssignValue(DateTimeUnit.Minute);
+                    result.Builder.UnAssignValue(DateTimeUnit.Second);
+
+                }
+
+                if (timeExpression != null && !information.HasTimeExpression)
                 {
                     var time = TranslationHandler.TimeExpression(information.Settings, timeExpression.Value.Trim());
 
-                    ProcessTimeExpression(result, foundGroups, ref dateTime, information, time);
+                    ProcessTimeExpression(result, foundGroups, ref dateTime, information, time, dayOffsetExpression == null);
 
                     foundGroups.Find(g => g.Name == Definitions.Property.TimeExpressions).GroupUsed = true;
 
@@ -292,26 +321,6 @@ namespace Chronox.Parsers.General.ParserHelpers
                     result.Builder.UnAssignValue(DateTimeUnit.Second);
                 }
 
-                var dayOffsetExpression = foundGroups.Find(g => g.Name == Definitions.Property.DayOffset);
-
-                if (dayOffsetExpression != null)
-                {
-                    var dayOffset = TranslationHandler.DayOffset(information.Settings, dayOffsetExpression.Value.Trim());
-
-                    ProcessDayOffset(result, foundGroups, ref dateTime, information, dayOffset);
-                    
-                    foundGroups.Find(g => g.Name == Definitions.Property.DayOffset).GroupUsed = true;
-
-                    if (dateTime.HasDifferentDate(information.CurrentDate) && !information.HasInterpretedExpression && !information.HasTimeExpression)
-                    {
-                        ProcessTimeExpression(result, foundGroups, ref dateTime, information, new ChronoxTime(0, 0, 0));
-                    }
-
-                    result.Builder.UnAssignValue(DateTimeUnit.Hour);
-                    result.Builder.UnAssignValue(DateTimeUnit.Minute);
-                    result.Builder.UnAssignValue(DateTimeUnit.Second);
-
-                }
 
                 var dayOfWeekExpression = foundGroups.Find(g => g.Name == Definitions.Property.DaysOfWeek);
 
@@ -1560,6 +1569,11 @@ namespace Chronox.Parsers.General.ParserHelpers
 
         public void ProcessTimeExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, ChronoxTime time)
         {
+           ProcessTimeExpression(result, foundGroups, ref dateTime, information, time, true);
+        }
+
+        public void ProcessTimeExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, ChronoxTime time, bool addDay)
+        {
             var midnight = time.Hours == 0;
 
             if (!result.Builder.IsValueCertain(DateTimeUnit.Hour))
@@ -1573,13 +1587,13 @@ namespace Chronox.Parsers.General.ParserHelpers
                 result.Builder.ImplyValue(DateTimeUnit.Second, dateTime.Second);
 
                 information.HasTimeExpression = true;
-            }
 
-            if(!dateTime.HasDifferentDate(information.CurrentDate) && midnight)
-            {
-                dateTime = dateTime.AddDays(1);
+                if(!dateTime.HasDifferentDate(information.CurrentDate) && midnight && addDay)
+                {
+                    dateTime = dateTime.AddDays(1);
 
-                result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                    result.Builder.ImplyValue(DateTimeUnit.Day, dateTime.Day);
+                }
             }
         }
 

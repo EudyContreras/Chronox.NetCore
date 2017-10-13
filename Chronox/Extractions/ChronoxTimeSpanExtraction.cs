@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Enumerations;
+using Chronox.Wrappers;
 
 namespace Chronox
 {
@@ -19,28 +20,46 @@ namespace Chronox
 
         public int EndIndex { get; set; }
 
+        public ChronoxTimeSpan TimeSpan { get; set; }
+
         public ExtractionResultType ResultType => ExtractionResultType.TimeSpan;
 
         internal static ChronoxTimeSpanExtraction EmptyExtraction { get; set; } = null;
 
-        public int CompareTo(IChronoxExtraction other)
+        private ChronoxTimeSpanExtraction() { }
+
+        public ChronoxTimeSpanExtraction(ChronoxSettings settings, int index, string extraction, string text) : this()
         {
-            throw new NotImplementedException();
+            this.StartIndex = index;
+            this.EndIndex = index + extraction.Length;
+            this.Original = text;
+            this.Extraction = extraction;
+            this.TimeSpan = new ChronoxTimeSpan();
         }
 
-        public bool Equals(IChronoxExtraction other)
+        public int CompareTo(IChronoxExtraction other)
         {
-            throw new NotImplementedException();
+            return this.StartIndex - other.StartIndex;
         }
 
         public bool Equals(IChronoxExtraction x, IChronoxExtraction y)
         {
-            throw new NotImplementedException();
+            return x.StartIndex.Equals(y.StartIndex);
         }
 
         public int GetHashCode(IChronoxExtraction obj)
         {
-            throw new NotImplementedException();
+            return obj.StartIndex.GetHashCode();
+        }
+
+        public bool Equals(IChronoxExtraction other)
+        {
+            return StartIndex.Equals(other.StartIndex);
+        }
+
+        public override string ToString()
+        {
+            return Extraction;
         }
     }
 }

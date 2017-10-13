@@ -80,19 +80,6 @@ namespace Chronox.Helpers.Interpreters
             return int.MinValue;
         }
 
-        public static long NumericMagnitude(ChronoxSettings settings, string input)
-        {
-            var key = string.Empty;
-
-            var dictionary = settings.Language.VocabularyBank.GetDictionary(Definitions.Property.NumericMagnitudeCardinal);
-
-            if (dictionary.TryGetValue(input, out key))
-            {
-                return Definitions.Converters.NUMERIC_MAGNITUDES_CARDINAL[key];
-            }
-
-            return long.MinValue;
-        }
 
         public static int NumericValue(ChronoxSettings settings, string input)
         {

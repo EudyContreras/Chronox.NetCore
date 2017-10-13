@@ -129,20 +129,8 @@ namespace Chronox.Parsers.English
 
                 var result = chronoxResult.Result;
 
-                switch (perfectMatch.Sequence.SequenceType)
-                {
-                    case SequenceType.DateTime:
+                return HandleMatch(text, referenceDate, settings, sequences, results, type, information, passCount, perfectMatch, chronoxResult, ref result);
 
-                        return HandleDateTimeMatch(text, referenceDate, settings, sequences, results, type, information, passCount, perfectMatch, chronoxResult, ref result);
-                    case SequenceType.TimeRange:
-                        break;
-                    case SequenceType.TimeSpan:
-                        break;
-                    case SequenceType.TimeSet:
-                        break;
-                    case SequenceType.Default:
-                        break;
-                }
             }
             return AdjustResults(information.OriginalString, settings, information, results.ToList());
         }
@@ -161,11 +149,11 @@ namespace Chronox.Parsers.English
             return perfectMatch;
         }
 
-        private List<IChronoxExtraction> HandleDateTimeMatch(string text, DateTime referenceDate, ChronoxSettings settings, IEnumerable<PatternSequence> sequences, HashSet<IChronoxExtraction> results, ExtractionResultType type, ChronoxBuildInformation information, int passCount, MatchWrapper perfectMatch, ChronoxResult chronoxResult, ref IChronoxExtraction result)
+        private List<IChronoxExtraction> HandleMatch(string text, DateTime referenceDate, ChronoxSettings settings, IEnumerable<PatternSequence> sequences, HashSet<IChronoxExtraction> results, ExtractionResultType type, ChronoxBuildInformation information, int passCount, MatchWrapper perfectMatch, ChronoxResult chronoxResult, ref IChronoxExtraction result)
         {
             if (passCount > 1)
             {
-                if (!EmptySpace(text.Substring(0, perfectMatch.Match.Index)))
+                if (!EmptySpace(text.Substring(0, perfectMatch.Match.Index)) || SingleExtraction(result.Extraction) )
                 {
                     return Compute(text, information.Settings.ReferenceDate, settings, sequences, results, null, type, information, 1);
                 }
@@ -211,6 +199,7 @@ namespace Chronox.Parsers.English
             }
             return AdjustResults(information.OriginalString, settings, information, results.ToList());
         }
+
 
         private List<IChronoxExtraction> AdjustResults(string input, ChronoxSettings settings, ChronoxBuildInformation information, List<IChronoxExtraction> results)
         {
@@ -317,13 +306,25 @@ namespace Chronox.Parsers.English
             return string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text);
         }
 
-        private bool MissingTimeInformation(ChronoxDateTimeExtraction result)
+        private bool SingleExtraction(string text)
         {
-            var missing = !result.Builder.IsValueCertain(DateTimeUnit.Hour)
-                || result.Builder.TimeZone == null
-                || result.Builder.TimeOffset == null;
+            return !text.Contains(StringExtenssions.Spaces(0));
+        }
 
-            return missing;
+        private bool MissingTimeInformation(IChronoxExtraction result)
+        {
+            if(result.ResultType  == ExtractionResultType.DateTime)
+            {
+                var date = (ChronoxDateTimeExtraction)result;
+
+                var missing = !date.Builder.IsValueCertain(DateTimeUnit.Hour)
+                || date.Builder.TimeZone == null
+                || date.Builder.TimeOffset == null;
+
+                return missing;
+            }
+
+            return false;
         }
 
         //Find a way to minimize amount of checks and reduce loop count!
@@ -422,6 +423,7 @@ namespace Chronox.Parsers.English
                 switch (settings.ParsingMode)
                 {
                     case ExtractionResultType.TimeSpan:
+                        result = new ChronoxTimeSpanExtraction(settings, match.Index, match.Value, information.OriginalString);
                         break;
                     case ExtractionResultType.DateTime:
                         result = new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, information.OriginalString);
@@ -458,6 +460,7 @@ namespace Chronox.Parsers.English
                     break;
                 case SequenceType.TimeSpan:
                     helperC = helperC ?? new TimeSpanHelper();
+                    result = (sequenceControll && result == null) ? new ChronoxTimeSpanExtraction(settings, match.Index, match.Value, text) : result;
                     break;
                 case SequenceType.TimeSet:
                     helperD = helperD ?? new TimeSetHelper();
@@ -513,7 +516,7 @@ namespace Chronox.Parsers.English
         {
             result = PerformInstructions(groups, ref dateTime, result, information, settings, helperC);
 
-            return null;
+            return result;
         }
 
         private ChronoxTimeSetExtraction HandleTimeSetExtraction(Match match, ChronoxSettings settings, ChronoxBuildInformation information, ChronoxTimeSetExtraction result, List<GroupWrapper> groups, ref DateTime dateTime)
@@ -728,6 +731,10 @@ namespace Chronox.Parsers.English
 
                         helper.ProcessNumericWordOrdinal(result, foundGroups, ref dateTime, information, numericValue);
                     }
+                }
+                else if (group.Name == Definitions.Patterns.DecimalNumber)
+                {
+                    helper.ProcessDecimalNumber(result, foundGroups, ref dateTime, information, group.Value.Trim());
                 }
                 else if (group.Name == Definitions.Property.TimeExpressions)
                 {

@@ -422,7 +422,7 @@ namespace Chronox.Converters
             {
                 integerPart = negativeNumber ? -integerPart : integerPart;
 
-                value = decimal.Parse(string.Concat(integerPart.ToString(), ".", fractionalPart.ToString()));
+                value = decimal.Parse(string.Concat(((int)integerPart).ToString(), ".", ((int)fractionalPart).ToString()));
             }
 
             if (negativeNumber && value < Magnitude[Definitions.General.Quintillion] * -1)

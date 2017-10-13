@@ -33,6 +33,8 @@ namespace Chronox.Wrappers
 
         public Queue<int> NumericValues { get; private set; }
 
+        public Queue<decimal> DecimalValues { get; private set; }
+
         public Queue<int> NumericOrdinals { get; private set; }
 
         public Queue<int> FloatingYears { get; set; }
@@ -70,6 +72,8 @@ namespace Chronox.Wrappers
         public string OriginalString { get; set; }
 
         public string NormalizedString { get; set; }
+
+        public bool HasDayOffset { get; internal set; }
 
         public bool HasOrdinalNumber = false;
 
@@ -131,6 +135,7 @@ namespace Chronox.Wrappers
             this.FloatingDayOfWeek = new Queue<int>();
             this.GrabberOffsets = new Queue<int>();
             this.NumericOrdinals = new Queue<int>();
+            this.DecimalValues = new Queue<decimal>();
             this.FloatingGrabbers = new Queue<int>();
             this.FloatingTimeOfDay = new Queue<RangeWrapper>();
             this.FloatingTimeUnits = new Queue<DateTimeUnit>();
@@ -151,6 +156,7 @@ namespace Chronox.Wrappers
             HasTimeExpression = false;
             HasTimeFraction = false;
             HasTimeOfDay = false;
+            HasDayOffset = false;
             HasMonth = false;
             HasYear = false;
             HasTimeUnit = false;
@@ -169,6 +175,7 @@ namespace Chronox.Wrappers
             this.ProcessedTimeUnit.Clear();
             this.NumericWords.Clear();
             this.NumericValues.Clear();
+            this.DecimalValues.Clear();
             this.NumericOrdinals.Clear();
             this.FloatingConjointer.Clear();
             this.FloatingHours.Clear();

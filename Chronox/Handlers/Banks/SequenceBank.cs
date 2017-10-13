@@ -31,6 +31,10 @@ namespace Chronox.Constants.Banks
             new Sequence(SequenceType.DateTime, "at noon | at midnight",
                     Definitions.Property.TimeExpressions
                 ),
+            //new Sequence(SequenceType.DateTime, "5 pm| 10 A.M",
+            //        Definitions.Patterns.HourDiscrete,
+            //        Definitions.Property.TimeMeridiam
+            //    ),
             new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
                     Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam
@@ -68,6 +72,16 @@ namespace Chronox.Constants.Banks
                     Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam,
                     Definitions.Property.DayOffset
+                ),
+            new Sequence(SequenceType.DateTime, "Tomorrow at 5",
+                    Definitions.Property.DayOffset,
+                    Definitions.Patterns.HourDiscrete,
+                    Definitions.Property.TimeMeridiam
+                ),
+            new Sequence(SequenceType.DateTime, "Tomorrow at 5",
+                    Definitions.Property.DayOffset,
+                    Definitions.Patterns.Time,
+                    Definitions.Property.TimeMeridiam
                 ),
             new Sequence(SequenceType.DateTime, "10pm GMT-09:00 tomorrow",
                     Definitions.Patterns.Time,
@@ -434,6 +448,16 @@ namespace Chronox.Constants.Banks
                     Definitions.Property.YearUnit,
                     Definitions.Patterns.Year
                 ),
+            new Sequence(SequenceType.DateTime, "The third of december of nineteen ninety-five",
+                    Definitions.Property.Number,
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.Number
+                ),
+            new Sequence(SequenceType.DateTime, "The december eighth of ninety-five",
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.Number,
+                    Definitions.Property.Number
+                ),
             new Sequence(SequenceType.DateTime, "4 weeks | 3 hours",
                     Definitions.Patterns.NumberMax5Digits,
                     Definitions.Property.DateTimeUnits
@@ -652,83 +676,65 @@ namespace Chronox.Constants.Banks
         };
 
         public static readonly IEnumerable<Sequence> DurationSequences = new List<Sequence>()
-        {        
-            new Sequence(SequenceType.TimeSpan, "for aproximately five seconds | for exactly ten years",
-                    Definitions.Property.DurationIndicators,
-                    Definitions.Property.Proximity,
-                    Definitions.Patterns.NumberMax5Digits,
+        {
+
+            new Sequence(SequenceType.TimeSpan, "five hours",
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.TimeSpan, "for aproximately 5 seconds | for exactly 10 years",
-                    Definitions.Property.DurationIndicators,
-                    Definitions.Property.Proximity,
-                    Definitions.Patterns.NumberMax5Digits,
+            new Sequence(SequenceType.TimeSpan, "five hours and six minutes",
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.TimeSpan, "five seconds long | ten years long",
-                    Definitions.Patterns.NumberMax5Digits,
+            new Sequence(SequenceType.TimeSpan, "five hours and six minutes and six seconds | 10 years 6 days and 3 minutes",
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.DateTimeUnits
                 ),
-            new Sequence(SequenceType.TimeSpan, "5 seconds long | 5 years long",
-                    Definitions.Patterns.NumberMax5Digits,
+            new Sequence(SequenceType.TimeSpan, "five hours and six minutes and six seconds | 10 years 6 days and 3 minutes",
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DateTimeUnits,
+                    Definitions.Property.LogicalOperator,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.DateTimeUnits
                 ),
             new Sequence(SequenceType.TimeSpan, "five decades | five millenniums",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.TimePeriods
-                ),
-            new Sequence(SequenceType.TimeSpan, "5 decades | 5 millenniums",
-                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.TimePeriods
                 ),
             new Sequence(SequenceType.TimeSpan, "a half a minute | two quaters of two minutes",
-                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.DurationExpressions,
-                    Definitions.Patterns.NumberMax5Digits,
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DateTimeUnits
+                ),
+            new Sequence(SequenceType.TimeSpan, "a half a minute | two quaters of two minutes",
+                    Definitions.Property.DurationExpressions,
+                    Definitions.Property.DateTimeUnits
+                ),
+            new Sequence(SequenceType.TimeSpan, "a half a century | two quaters of a decade",
+                    Definitions.Patterns.DecimalNumber,
+                    Definitions.Property.DurationExpressions,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.TimePeriods
                 ),
-            new Sequence(SequenceType.TimeSpan, "a half minute | a quater minute",
-                    Definitions.Patterns.NumberMax5Digits,
+            new Sequence(SequenceType.TimeSpan, "a half a century | two quaters of a decade",
                     Definitions.Property.DurationExpressions,
                     Definitions.Property.TimePeriods
                 ),
             new Sequence(SequenceType.TimeSpan, "one fifth of a second | two thirds of a year",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.Ordinal,
-                    Definitions.Property.DurationExpressions,
+                    Definitions.Patterns.DecimalNumber,
                     Definitions.Property.TimePeriods
-                ),
-            new Sequence(SequenceType.TimeSpan, "45 minutes and 3 seconds",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits,
-                    Definitions.Property.LogicalOperator,
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
-                ),
-            new Sequence(SequenceType.TimeSpan, "forty five minutes and three seconds",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits,
-                    Definitions.Property.LogicalOperator,
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
-                ),
-            new Sequence(SequenceType.TimeSpan, "45 minutes and three seconds",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits,
-                    Definitions.Property.LogicalOperator,
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
-                ),
-            new Sequence(SequenceType.TimeSpan, "forty five minutes and 3 seconds",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits,
-                    Definitions.Property.LogicalOperator,
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
-                ),
-            new Sequence(SequenceType.TimeSpan, "a week | a month | two weeks",
-                    Definitions.Patterns.NumberMax5Digits,
-                    Definitions.Property.DateTimeUnits
                 ),
         };
 

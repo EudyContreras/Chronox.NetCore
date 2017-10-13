@@ -2,15 +2,15 @@
 using Chronox.Scanners;
 using Chronox.Utilities.Extenssions;
 using System;
+using System.Text;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using Chronox.Interfaces;
 
 namespace Tests
 {
-    class DetectionTest
+    class ParsingTestBench
     {
         ChronoxSettings settings;
 
@@ -24,38 +24,6 @@ namespace Tests
          * - expressions such as in 4 months if no day specified the dayofweek will be left the same
          * */
 
-
-        /*Ways to express Time Zones
-
-        /* 
-         * - 10:15 pm GMT+0000 (GMT)
-         * - 10:15 pm GMT+0900 (JST)
-         * - 10:15 pm +0500
-         * - 10:15 pm +05:00
-         * - 10:15 pm UTC-05:00
-         * - 10:15 pm EST
-         */
-
-        /*
-        Console.WriteLine("Count: " + Definitions.Converters.TIMEZONE_OFFSETS.Count);
-        Console.WriteLine("Local TimeZone ID: "+ TimeZoneInfo.Local.Id);
-        Console.WriteLine("Local TimeZone Name: " +TimeZoneInfo.Local.DisplayName);
-        Console.WriteLine("Local Date UTC Offset: "+TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
-        Console.WriteLine("Local Date: " + DateTime.Now);
-        Console.WriteLine("New York Time: " +ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["EDT"].Offset));
-        Console.WriteLine("Australia Time: " + ChronoxDateTimeUtility.AddOffset(DateTime.Now, Definitions.Converters.TIMEZONE_OFFSETS["AEST"].Offset));
-        */
-
-        private static string[] ProblematicNeedsFixing =
-        {
-
-             /*To add support:
-              * at sunset
-              * at sunrise              
-              * etc
-              * */
-
-        };
 
         private static DateTime Reference = new DateTime(year: 2017, month: 07, day: 20, hour: 14, minute: 30, second: 00);
 
@@ -663,7 +631,7 @@ namespace Tests
             { "fourteenth of june 2010 at eleven o'clock in the evening", DateTime.Parse("6/14/2010, 23:00:00") }
          };
 
-        public DetectionTest(ChronoxSettings settings)
+        public ParsingTestBench(ChronoxSettings settings)
         {
             this.settings = settings;
         }
@@ -706,7 +674,7 @@ namespace Tests
             }
         }
 
-        public void PerformTest(string expression)
+        public void TestDateTime(string expression)
         {
             var chronox = ChronoxParser.GetInstance(settings);
 
@@ -731,6 +699,22 @@ namespace Tests
 
                 Console.WriteLine();
             }           
+        }
+
+
+        public void TestTimeSpan(string expression)
+        {
+            var chronox = ChronoxParser.GetInstance(settings);
+
+            var result = chronox.ParseTimeSpan(expression);
+
+            var span = result?[0].TimeSpan.ToTimeSpan();
+
+            if (span != null)
+            {
+                Console.WriteLine($"{span}");
+            }
+
         }
 
         private void AreEqual(string expression, string expected, string actual, ref bool allPassed)
@@ -777,7 +761,7 @@ namespace Tests
 
             if (string.IsNullOrEmpty(expression))
             {
-                Console.WriteLine("Issue a state to the system: ");
+                Console.WriteLine("Issue a statement containing chonological data to the system: ");
 
                 while (true)
                 {
@@ -786,7 +770,7 @@ namespace Tests
                     string statement = Console.ReadLine();
 
                     Console.Clear();
-                    Console.WriteLine("Issue a state to the system: ");
+                    Console.WriteLine("Issue a statement containing chonological data to the system: ");
                     Console.WriteLine();
 
                     var results = chronox.ParseDateTime(statement);
@@ -828,7 +812,7 @@ namespace Tests
             }
             else
             {
-                PerformTest(expression);
+                TestDateTime(expression);
             }
         }
     }
