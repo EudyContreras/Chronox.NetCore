@@ -35,6 +35,11 @@ namespace Chronox.Constants.Banks
             //        Definitions.Patterns.HourDiscrete,
             //        Definitions.Property.TimeMeridiam
             //    ),
+            new Sequence(SequenceType.DateTime, "The second of december at 10pm",
+                    Definitions.Property.Number,
+                    Definitions.Property.MonthsOfYear,
+                    Definitions.Property.TimeOfDay
+                ),
             new Sequence(SequenceType.DateTime, "4pm | 4:00:00 | 4:00 a.m",
                     Definitions.Patterns.Time,
                     Definitions.Property.TimeMeridiam

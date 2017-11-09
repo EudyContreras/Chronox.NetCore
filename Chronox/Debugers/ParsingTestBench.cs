@@ -17,7 +17,7 @@ namespace Tests
         /*Things to note
          * - if no time specify any date which differs in month, day or year will be set at 12am
          * - if a month is specified without any specified day the day will be set to the first
-         * - if a proceding or preciding week is specified wihout any specified day the day will be set to monday both for previous or following weeks
+         * - if a proceding or preciding week is specified without any specified day the day will be set to monday both for previous or following weeks
          * - time expressions are constant: noon = 12:00pm morning = 6:00am etc
          * - expressions such as fourth week of x month will be parsed on intervals of week starting with day where monday falls
          * - expressions such as next month if no day specified the day will be set to the first
@@ -761,7 +761,7 @@ namespace Tests
 
             if (string.IsNullOrEmpty(expression))
             {
-                Console.WriteLine("Issue a statement containing chonological data to the system: ");
+                Console.WriteLine("Issue a statement containing chonological data: ");
 
                 while (true)
                 {
@@ -770,7 +770,7 @@ namespace Tests
                     string statement = Console.ReadLine();
 
                     Console.Clear();
-                    Console.WriteLine("Issue a statement containing chonological data to the system: ");
+                    Console.WriteLine("Issue a statement containing chonological data: ");
                     Console.WriteLine();
 
                     var results = chronox.ParseDateTime(statement);

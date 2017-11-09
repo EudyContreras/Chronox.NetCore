@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Chronox.Handlers;
 using System.Text;
 using Enumerations;
+using Chronox.Interfaces;
 
 namespace Chronox.Debugers
 {
@@ -13,10 +14,10 @@ namespace Chronox.Debugers
     {
         static void Main(string[] args)
         {
-            
+
             var detectionTest = new ParsingTestBench(new ChronoxSettings("English", "Spanish"));
 
-            detectionTest.TestDateTimeParsing();
+            //detectionTest.TestDateTimeParsing();
             //detectionTest.TestDateTimeParsing();
             //detectionTest.TestDateTimeParsing();
             //detectionTest.TestDateTimeParsing();
