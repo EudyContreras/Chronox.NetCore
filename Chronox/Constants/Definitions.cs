@@ -14,10 +14,15 @@ namespace Chronox.Constants
 {
     internal static class Definitions
     {
-        public const string LangDataPath = @"Resources\Languages\DataSets";
-        public const string LangDateTemplate = @"Resources\Languages\Template.txt";
-        public const string TimeZoneFilePath = @"Resources\DataSets\TimeZoneInfo.txt";
-        public const string FilePathDataSets = @"Resources\DataSets";
+        //public const string LangDataPath = @"Resources\Languages\DataSets";
+        //public const string LangDateTemplate = @"Resources\Languages\Template.txt";
+        //public const string TimeZoneFilePath = @"Resources\DataSets\TimeZoneInfo.txt";
+        //public const string FilePathDataSets = @"Resources\DataSets";
+
+        public const string LangDataPath = @"..\..\..\Resources\Languages\DataSets";
+        public const string LangDateTemplate = @"..\..\..\Resources\Languages\Template.txt";
+        public const string TimeZoneFilePath = @"..\..\..\Resources\DataSets\TimeZoneInfo.txt";
+        public const string FilePathDataSets = @"..\..\..\Resources\DataSets";
 
         public const string DefaultLanguage = "English";
 
