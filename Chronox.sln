@@ -7,8 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronox", "Chronox\Chronox.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB0CA03C-D854-47D7-94CE-8C192743F91C}"
 	ProjectSection(SolutionItems) = preProject
-		..\DateTimeParser\LICENCE.txt = ..\DateTimeParser\LICENCE.txt
-		Chronox\ReadMe.txt = Chronox\ReadMe.txt
+		README.md = README.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		NETCORE.png = NETCORE.png
+		SUPPORT.md = SUPPORT.md
 		NLP.png = NLP.png
 	EndProjectSection
 EndProject
