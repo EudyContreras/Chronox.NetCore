@@ -2,8 +2,6 @@
 using Enumerations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Chronox.Handlers.Models
 {
@@ -15,11 +13,11 @@ namespace Chronox.Handlers.Models
 
         public decimal FrequencyScore { get; set; }
 
-        public SequenceType SequenceType { get; private set; }
-
         public static Sequence Comapararer = new Sequence();
 
         public List<string> DateProperties { get;set; }
+
+        public SequenceType SequenceType { get; private set; }
 
         public Sequence() { }
 

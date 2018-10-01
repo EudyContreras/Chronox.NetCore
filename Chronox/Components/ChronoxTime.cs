@@ -45,6 +45,7 @@ namespace Chronox
             return this;
         }
 
+
         public ChronoxTime AddMinute(int minute)
         {
             this.Minutes += minute;

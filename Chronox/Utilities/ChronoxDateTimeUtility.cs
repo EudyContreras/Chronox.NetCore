@@ -136,7 +136,8 @@ namespace Chronox.Utilities
                 dateTime.Millisecond,
                 kind != null ? kind.Value : dateTime.Kind);
 
-            }catch(ArgumentOutOfRangeException)
+            }
+            catch(ArgumentOutOfRangeException)
             {
                 throw new Exception("The resulting date is unfortunately not valid and cannot be represented by the parser!");
             }

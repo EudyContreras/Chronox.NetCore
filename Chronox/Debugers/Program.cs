@@ -18,34 +18,7 @@ namespace Chronox.Debugers
             var detectionTest = new ParsingTestBench(new ChronoxSettings("English", "Spanish"));
 
             detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
-            detectionTest.TestDateTimeParsing();
+
 
             //detectionTest.TestDateTime("Book me a flight for friday at 10pm GMT-09:30 please");
             //detectionTest.TestDateTime("Book me a flight for tommorow at 10pm UTC+0500 please");
@@ -58,6 +31,8 @@ namespace Chronox.Debugers
             //detectionTest.TestDateTime("I will visit you the third day of this week eight pm in the evening");
 
             //detectionTest.TestDateTime("I will visit you the third day of this week eight pm in the evening");
+
+            //detectionTest.TestDateTime("I was gonna meet her at around 4 in the evening the day after tomorrow if possible");
 
             //detectionTest.TestDateTime("Book me a flight for next week on friday at 10:30 UTC +03:00, please do not forget");
 
@@ -74,7 +49,6 @@ namespace Chronox.Debugers
             //detectionTest.TestDateTime("te voy a visitar el tercero dia de esta semana a las ocho pm de la anocheser");
 
             //detectionTest.TestDateTime("te voy a visitar la proxima semana en el mediodia");
-
 
             //detectionTest.TestTimeSpan("I was there for aproximately ten minutes and two seconds tops");
 

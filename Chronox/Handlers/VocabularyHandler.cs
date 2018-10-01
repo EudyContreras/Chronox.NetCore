@@ -217,11 +217,11 @@ namespace Chronox.Handlers
 
                 foreach (var section in mergedGlossary.Sections)
                 {
-                    if (section.Label.CompareTo(Definitions.Property.Holidays) == 0)
+                    if (section.Label.Equals(Definitions.Property.Holidays,StringComparison.OrdinalIgnoreCase))
                     {
                         section.Properties = new HashSet<Property>(glossaries
                             .SelectMany(g => g.Sections)
-                            .Where(g => g.Label.CompareTo(section.Label) == 0)
+                            .Where(g => g.Label.Equals(section.Label, StringComparison.OrdinalIgnoreCase))
                             .SelectMany(g => g.Properties), Property.Comparer)
                             .ToList();
                     }
@@ -230,10 +230,10 @@ namespace Chronox.Handlers
                         foreach (var property in section.Properties)
                         {
                             var properties = glossaries
-                                   .SelectMany(g => g.Sections)
-                                   .Where(g => g.Label.CompareTo(section.Label) == 0)
+                                    .SelectMany(g => g.Sections)
+                                    .Where(g => g.Label.Equals(section.Label, StringComparison.OrdinalIgnoreCase))
                                    .SelectMany(g => g.Properties)
-                                   .Where(g => g.Key.CompareTo(property.Key) == 0);
+                                    .Where(g => g.Key.Equals(property.Key, StringComparison.OrdinalIgnoreCase));
 
                             property.Pattern = string.Join("|", properties.Select(p => p.Pattern));
 

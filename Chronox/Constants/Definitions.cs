@@ -1,29 +1,29 @@
 ﻿using Chronox.Components;
 using Chronox.Helpers;
-using Chronox.Utilities.Extenssions;
-using Chronox.Wrappers;
+using System.Runtime.InteropServices;
 using Enumerations;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chronox.Constants
 {
-    internal static class Definitions
+    static class Definitions
     {
-        //public const string LangDataPath = @"Resources\Languages\DataSets";
-        //public const string LangDateTemplate = @"Resources\Languages\Template.txt";
-        //public const string TimeZoneFilePath = @"Resources\DataSets\TimeZoneInfo.txt";
-        //public const string FilePathDataSets = @"Resources\DataSets";
 
-        public const string LangDataPath = @"..\..\..\Resources\Languages\DataSets";
-        public const string LangDateTemplate = @"..\..\..\Resources\Languages\Template.txt";
-        public const string TimeZoneFilePath = @"..\..\..\Resources\DataSets\TimeZoneInfo.txt";
-        public const string FilePathDataSets = @"..\..\..\Resources\DataSets";
+        public static readonly bool IsWindowsOS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
+        public static readonly string Slash = new String(IsWindowsOS ? @"\" : "/");
+
+        private static readonly string PathBackTrack = new String(IsWindowsOS ? $@"..{Slash}..{Slash}..{Slash}" : "");
+                                                 
+        public static readonly string LangDataPath = $@"{PathBackTrack}Resources{Slash}Languages{Slash}DataSets";
+        public static readonly string LangDateTemplate = $@"{PathBackTrack}Resources{Slash}Languages{Slash}Template.txt";
+        public static readonly string TimeZoneFilePath = $@"{PathBackTrack}Resources{Slash}DataSets{Slash}TimeZoneInfo.txt";
+        public static readonly string FilePathDataSets = $@"{PathBackTrack}Resources{Slash}DataSets";
+
+            
         public const string DefaultLanguage = "English";
 
         public static class General
@@ -639,7 +639,7 @@ namespace Chronox.Constants
 
             public static readonly IReadOnlyDictionary<string, int> NUMBERS_WORDS_ORDINAL = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
             {
-                {"start",0 },
+                {"start", 0},
                 {"first", 1},
                 {"second", 2},
                 {"third", 3},

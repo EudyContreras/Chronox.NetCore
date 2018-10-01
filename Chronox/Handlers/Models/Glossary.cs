@@ -1,13 +1,13 @@
 ﻿using Chronox.Handlers.Wrappers;
 using System;
+using Chronox.Constants;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Chronox.Handlers.Models
 {
     public class Glossary : IEquatable<Glossary> , IComparable<Glossary>, IEqualityComparer<Glossary>
     {
-        public string Language { get; internal set; } = "English";
+        public string Language { get; internal set; } = Definitions.DefaultLanguage;
 
         public bool AssumeSpace { get; internal set; } = true;
 

@@ -11,14 +11,13 @@ namespace Chronox.Wrappers
 
         public NumberType Type { get; private set; }
 
+        public NumberWrapper() { }
+
         public NumberWrapper(decimal value, NumberType type)
         {
             this.Value = value;
             this.Type = type;
         }
 
-        public NumberWrapper()
-        {
-        }
     }
 }

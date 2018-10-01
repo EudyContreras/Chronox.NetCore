@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using Enumerations;
 
-namespace Chronox.Wrappers
+namespace Chronox.Components
 {
     public class ChronoxTimeSet
     {
-      
+        public DateRepeaterIndicator indicator { get; set; }
+
+        public TimeRepeater Frequency { get; set; }
+
+        public DateTimeUnit TimeUnit { get; set; }
+
+        public ChronoxTime Time { get; set; }
+
     }
 }

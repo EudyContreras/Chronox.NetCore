@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Chronox.Wrappers;
 using Chronox.Utilities;
 using Chronox.Handlers;
@@ -12,8 +9,6 @@ using Enumerations;
 using Chronox.Helpers.Interpreters;
 using Chronox.Helpers;
 using Chronox.Utilities.Extenssions;
-
-using Chronox.Parsers.General.ParserHelpers;
 using Chronox.Interfaces;
 using Chronox.Parsers.English;
 using Chronox.Components;

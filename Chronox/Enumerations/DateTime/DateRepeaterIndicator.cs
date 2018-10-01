@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Enumerations
 {
     public enum DateRepeaterIndicator
@@ -9,6 +6,8 @@ namespace Enumerations
         Every,
 
         EveryOther,
+
+        EveryInterval,
 
         Default = -1
     }
