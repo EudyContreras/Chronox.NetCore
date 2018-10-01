@@ -40,25 +40,24 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 ```
 | Setting                    | Values                                   | Description                                     |
 | ----------------------------| ---------------------------------------- | ------------------------------------------------|
-| **SearchPassCount**       | NONE, ITERATIVE, DYNAMIC                 | Sets the deepening style to use.          	   
-| **MinInputTextLength**    | Ply vs Ply, Agent vs Agent, Ply vs Agent | Sets the game mode to use 	   		   | 
-| **PrefferedLanguages**      | 5000      milliseconds by rules          | Sets the maximun allowed search time            |
-| **PreferedYear**          | 0         milliseconds               	 | Sets the minimun allowed search time            |
-| **PreferedMonth**            | 0         milliseconds               	 | Sets the time interval between moves            |
-| **PreferedDay**              | 0         milliseconds             	 | Sets the delay before the first move is made    |
-| **PreferedHour**            | Any String                               | Sets the name of the player one                 |
-| **PreferedMinute**          | Any String                               | Sets the name of the player two                 |
-| **PreferedSecond**           | true or false                            | Sets whether animations should be used 	   |
-| **PreferedTimeZone**        | 0 - 2                                    | Sets the scale of of the window.		   |
-| **BOARD_GRID_SIZE**         | 4, 6, 8                                  | Sets the size of the board to be used           |
-| **TimeRelationResolver**    | 0 - 13                                   | Sets the theme to be used at startup            |
-| **AmbigousResultResolver**  | Any String                               | Sets the name of the player one                 |
-| **NoFoundResultResolver**   | Any String                               | Sets the name of the player two                 |
-| **ParsingMode**           | true or false                            | Sets whether animations should be used 	   |
-| **RelaxLevel**        | 0 - 2                                    | Sets the scale of of the window.		   |
-| **PrefferedEndian**         | 4, 6, 8                                  | Sets the size of the board to be used           |
-| **PrefferedDay**    | 0 - 13                                   | Sets the theme to be used at startup            |
-| **StartOfWeek**    | 0 - 13                                   | Sets the theme to be used at startup            |
+| **SearchPassCount**         | 1 - 10                                   | Number passes to perform on string.          	   
+| **MinInputTextLength**      | 3 - Int.MaxValue                         | The minimum amount of text to work with  | 
+| **PrefferedLanguages**      | English, Spanish, etc                    | Languages the programs will interpret          |
+| **PreferedYear**            | 0 - 10000                                | The year to set upon no year found        |
+| **PreferedMonth**           | 1 - 12                                   | The month to set upon no month found        |
+| **PreferedDay**             | 1 - 31                                   | The day to set upon no day found    |
+| **PreferedHour**            | 1 - 24                                   | The hour to set upon no hour found          |
+| **PreferedMinute**          | 1 - 60                                   | The minute to set upon no minute found         |
+| **PreferedSecond**          | 1 - 60                                   | The second to set upon no second found   |
+| **PreferedTimeZone**        | UTC, CET, etc                            | Sets the scale of of the window.		             |
+| **TimeRelationResolver**    | Future, Past, Present                    | Strict to specified relational time            |
+| **AmbigousResultResolver**  | Null, Any                                | Determines what to return upon ambiguity       |
+| **NoFoundResultResolver**   | Null, Implied, Current                   | What to return upn no result found        |
+| **ParsingMode**             | DateTime, TimeRange, TimeSet, TimeSpan   | The mode the parser should use: Guess otherwise |
+| **RelaxLevel**              | Formal, Casual, Any                      | Type of strings the parse should parse		   |
+| **PrefferedEndian**         | MiddleEndian, LittleEndian               | Endian type for parsing ambiguous date format   |
+| **PrefferedDay**            | Current, Start, End, Previous, Next      | Offset day if could not be determined     
+| **StartOfWeek**             | Monday, Tuesday, etc                     | The day in which a week starts            |
 
 
 ## How does Chronox works?
