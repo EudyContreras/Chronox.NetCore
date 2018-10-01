@@ -9,10 +9,31 @@ Chronox supports a large variety of relaxed date and time formats.
 Here is an extensive list of most of the common date and time expressions supported by **Chronox**:
 
 
-### How to use it?
+## How to use it?
+
+
+## How to add unsupported formats or sequences?
+
+
+## How to add support for a language?
+
+
+## How to define your options?
+
+
+## How to define and add additonal pre-processors?
+
+
+## Dealing with ambiguity:
+
+
+## Parser result:
+
 
 
 ### Future works
+
+
 
 
 There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands
@@ -74,27 +95,4 @@ All background images including the logo were not made by me and I do not claim 
 
 ### License
 
-This project is licensed under the MIT License - see the [Licence](https://github.com/EudyContreras/Chronox.NetCore/blob/master/LICENSE) file for details
-
-------------
-    The MIT License (MIT)
-    
-    Copyright (c) 2018 Eudy Contreras
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+This project is licensed under the MIT License - see the [Licence](https://github.com/EudyContreras/Chronox.NetCore/blob/master/LICENSE.md) file for details
