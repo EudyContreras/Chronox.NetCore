@@ -190,7 +190,7 @@ There are parts of this library that are yet to be finished and there are also s
 - [ ] **Make into nuget package**
 - [ ] **Add thread safety**
 - [ ] **Improve loading performance**
-- [ ] **Add better support to multi-extraction*
+- [ ] **Add better support to multi-extraction**
 - [ ] **Finish adding support to TimeSpan**
 - [ ] **Finish adding support to TimeSet**
 - [ ] **Finish adding support to TimeRange**
