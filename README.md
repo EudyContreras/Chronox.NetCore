@@ -40,7 +40,8 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 
 ```
 
-The settings is still in WIP. More options will be added and some may be removed.
+
+**ChronoxSettings** is a comprehensive set of options that the **ChronoxParser** should use in order to achieve the desired results in concordance to the application in play. 
 
 
 | Setting                    | Values                                   | Description                                     |
@@ -122,7 +123,7 @@ Where `input` = **"Meet me the day after tomorrow at eight in the evening at the
   
 The `result` yields :
 
-* `DateTime`: **{2018-10-4 20:0:0:0}**
+* `DateTime`: **{2018-10-4 20:0:0:0}** 
 * `RetultType`: **"The type of the extraction which could be a `DateTime`, `TimeSpan`, etc"**
 * `ProcessedString`:  **"Meet me the  at the mall near your house"**
 * `Original`: **"Meet me the day after tomorrow at eight in the evening at the mall near your house"**
@@ -131,6 +132,13 @@ The `result` yields :
 * `EndIndex`:  **53**
 
 ## How does Chronox works?
+
+**Chronox** uses a combination of techniques in order to work. At the top level it uses pre-processors which will look at the string and attempt to pre-process it in order to make parsing and pattern matching easier. Eg: A pre-processor or `IChronoxScanner` is used to convert any numeric value written in words to its numeric representation. Additional pre-processors may be used in order to satisfy the locale and or parsing needs of an application.
+
+Under the hood **Chronox** uses **REGEX** for matching specific patterns. Various entity extraction methods are used in order to effetively finding and parsing the desired data.  
+
+## Datasets and Instructions:
+
 
 
 ## How to add unsupported formats or sequences?
@@ -174,14 +182,14 @@ The `result` yields :
 
 * Chronox is not thread safe but plans to be in a near future.
 * If no reference date is specified, then the current date and time will be used.
-* If no time is specified on any date which differs in month, day or year in relation to the reference day, the time will be set at 12am.
+* If no time is specified on any date which differs in month, day or year in relation to the reference day, the time will be set to 12am.
 * If a month is specified without any specified day the day will be set to the first of said month.
 * If a proceding or preciding week is specified without any specified day, the day will be set to monday both for previous or following weeks
 * Time expressions are constant for now: noon = 12:00pm morning = 6:00am etc
 * Expressions such as fourth week of x month will be parsed on intervals of week starting with the day where monday falls
 * If no day is specified in expressions such as "next month" the day will be set to the first of said month.
 * If no day is specified in expressions such as "in 4 months", the dayofweek will be left the same,
-
+* The settings is still in WIP. More options will be added and some may be removed.
 
 ## Future works:
 
