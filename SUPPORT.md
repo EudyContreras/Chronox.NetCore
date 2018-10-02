@@ -1,4 +1,4 @@
-### DATETIME SUPPORTED BY CRHONOX
+### DateTime supported by Chronox
 
 Chronox supports a large variety of if not all conventional and strict date and time formats as well as a very large variety of less common and more relaxed and natural date and time expressions.
 
