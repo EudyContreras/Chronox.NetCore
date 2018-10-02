@@ -229,10 +229,9 @@ EudyContrerasRosario@gmail.com
 
 ## Disclaimer:
 
-* This program was made as a hoby and not for professional or commercial use in mind. This program may be subjected to architectural changes and it is not perfect. Use at own risk.
+* This program is in WIP and it was made as a hobby and it not originally intended for professional or commercial use. Although this program works as expected to some extent and can be used in professional and commercial projects I the original author will not be subjected to any liability. This program may be subjected to architectural changes and in its current state it is not perfect. Please exercise caution and use at own risk.
 
 * All background images including the logo were not made by me and I do not claim ownership of these images. I would like to thank the awesome artists and creators of the images for making them public. If there is any problem with the use of these images please contact me so we can solve it. Once again. props to the artists.
-
 
 
 
