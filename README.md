@@ -1,17 +1,17 @@
 # Chronox.NetCore
 
-#### NetCore Library for parsing relaxed and strict DateTime, TimeRange, TimeSpan and TimeSet expressions into discrete representations holding useful date and or time related data.
+#### NetCore Library for parsing relaxed and strict DateTime, TimeRange, TimeSpan and TimeSet expressions into discrete representations holding useful date and or time related data. 
 
 ![Chronox NetCore NLP Image](https://github.com/EudyContreras/Chronox.NetCore/blob/master/NLP.png)
 
 
-Chronox supports a large variety of relaxed date and time formats.
+Chronox supports a large variety of relaxed date and time formats.This program was made as a hoby and not for professional or commercial use in mind. This program may be subjected to architectural changes and it is not perfect. Use at own risk.
 Here is an extensive list of most of the common date and time expressions supported by **Chronox**:
 
 
 ## How to use it?
 
-* #### Instantiation ####
+#### Instantiation ####
 A `Chronox` instance can be created in the following way without specifying any settings. Please note that Chronox uses the singleton pattern. Most of the work done by `Chronox` happens upon instatiation which is when data sets are loaded, sequences are created and loaded and where dictionaries are indexed.
 
 ```c#
@@ -23,9 +23,9 @@ var Chronox = ChronoxParser.GetInstance(new ChronoxSettings("english"));
 ```
 
 
-* #### Settings ####
+#### Settings ####
 
-A ChronoxSettings can be instantiated with the name of languages you wish to support. 
+A `ChronoxSettings` can be instantiated with the name of languages you wish to support. 
 ```c#
 var settings = new ChronoxSettings("English", "Spanish")
 ```
@@ -52,12 +52,37 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 | **PreferedTimeZone**        | UTC, CET, etc                            | Sets the scale of of the window.		             |
 | **TimeRelationResolver**    | Future, Past, Present                    | Strict to specified relational time            |
 | **AmbigousResultResolver**  | Null, Any                                | Determines what to return upon ambiguity       |
-| **NoFoundResultResolver**   | Null, Implied, Current                   | What to return upn no result found        |
-| **ParsingMode**             | DateTime, TimeRange, TimeSet, TimeSpan   | The mode the parser should use: Guess otherwise |
+| **NoFoundResultResolver**   | Null, Implied, Current                   | What to return upon no result found        |
+| **InvalidInputResolver**    | Null, Empty, Exception                   | What to return upon no invalid input       |
+| **ParsingMode**             | DateTime, TimeRange, etc                 | The mode the parser should use: Guess otherwise |
 | **RelaxLevel**              | Formal, Casual, Any                      | Type of strings the parse should parse		   |
-| **PrefferedEndian**         | MiddleEndian, LittleEndian               | Endian type for parsing ambiguous date format   |
+| **PrefferedEndian**         | MiddleEndian, LittleEndian               | Endian to use upon ambiguous date format   |
 | **PrefferedDay**            | Current, Start, End, Previous, Next      | Offset day if could not be determined     
 | **StartOfWeek**             | Monday, Tuesday, etc                     | The day in which a week starts            |
+
+The settings is still in WIP. More options will be added and some may be removed.
+
+#### Parsing input ####
+In order to parse input `Chronox` can also be called statically like this:
+
+```c#
+var input  = "Meet me the day after tomorrow at eight in the evening at the mall near your house" 
+
+var result = null;
+
+result = ChronoxParser.Parse(input);
+
+ChronoxParser.TryParse(input, out result);
+```
+
+You can also specify what you attempt to extract from the input by specifying which parsing method to use: If not Parse is used the parser will attempt to determine the type.
+
+```c#
+result = ChronoxParser.ParseDateTime(settings, input);
+result = ChronoxParser.ParseTimeSpan(settings, input);
+result = ChronoxParser.ParseTimeRange(settings, input);
+result = ChronoxParser.ParseTimeSet(settings, input);
+```
 
 
 ## How does Chronox works?
