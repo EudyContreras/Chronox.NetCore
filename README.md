@@ -105,11 +105,22 @@ A `ChronoxResult` contains the result data extracted by the `ChronoxParser`. The
 
 #### Result interpration ####
 
+
+```c#
+
+var referenceDate = new DateTime(year: 2018, month: 10, day: 2, hour: 2, minute: 22, second: 14);
+
+var input  = "Meet me the day after tomorrow at eight in the evening at the mall near your house" 
+
+result = ChronoxParser.ParseDateTime(referenceDate, input);
+
+```
+
 Where `refereceDate` = **{10/2/18 2:22:14 AM}**
 
 Where `input` = **"Meet me the day after tomorrow at eight in the evening at the mall near your house"** 
   
-A `DateTime` parsing result yields :
+The `result` yields :
 
 * `DateTime`: **{2018-10-4 20:0:0:0}**
 * `RetultType`: **"The type of the extraction which could be a `DateTime`, `TimeSpan`, etc"**
