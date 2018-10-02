@@ -3,8 +3,8 @@ namespace Chronox.Resolutions.Resolvers
 {
     public enum AmbigousResultResolver
     {
-        ReturnNull,
+        Null,
 
-        ReturnResult
+        Any
     }
 }

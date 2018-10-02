@@ -24,7 +24,7 @@ namespace Chronox.Helpers
             End = end;
         }
 
-        private static RangeWrapper DefaultRange()
+        static RangeWrapper DefaultRange()
         {
             return new RangeWrapper(TimeOfDay.Default, -1, -1);
         }

@@ -10,6 +10,11 @@ namespace Chronox.Interfaces
 
         ChronoxSettings Settings { get; set; }
 
+        IEnumerable<IChronoxScanner> Scanners { get; }
+
+        void RemoveScanner(IChronoxScanner scanner);
+
+        void AddScanner(params IChronoxScanner[] scanners);
 
         ResultWrapper Parse(string input);
 

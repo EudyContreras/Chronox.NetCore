@@ -6,10 +6,10 @@ namespace Chronox.Resolutions.Resolvers
 {
     public enum NoFoundResultResolver
     {
-        ReturnNull,
+        Null,
 
-        ReturnCurrentDate,
+        Current,
 
-        ReturnImplyedResult
+        Implied
     }
 }

@@ -197,21 +197,21 @@ namespace Chronox.Converters
                     if (Units.Contains(end))
                     {
                         add = CardinalUnits[Units.IndexOf(end)];
-                        return words.Remove(words.LastIndexOf(end)) + add;
+                        return words.Remove(words.LastIndexOf(end,StringComparison.OrdinalIgnoreCase)) + add;
                     }
                     else
                     {
                         if (!string.IsNullOrEmpty(end))
                         {
                             add = CardinalDecades[Decades.IndexOf(end)];
-                            return words.Remove(words.LastIndexOf(end)) + add;
+                            return words.Remove(words.LastIndexOf(end, StringComparison.OrdinalIgnoreCase)) + add;
                         }
                     }
                 }
                 else
                 {
                     add = CardinalUnits[Units.IndexOf(parts[1])];
-                    return words.Remove(words.LastIndexOf(parts[1])) + add;
+                    return words.Remove(words.LastIndexOf(parts[1], StringComparison.OrdinalIgnoreCase)) + add;
                 }
             }
             return words;

@@ -7,6 +7,7 @@ using Chronox.Wrappers;
 using Enumerations;
 using System;
 using System.Collections.Generic;
+using Chronox.Exceptions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Chronox
 {
     public class ChronoxParser : IChronox
     {
-        private List<IChronoxScanner> Scanners = null;
+        private List<IChronoxScanner> scanners;
 
         private MasterParser MasterParser = new MasterParser();
 
@@ -24,7 +25,7 @@ namespace Chronox
         private ChronoxParser(ChronoxSettings settings)
         {
             Settings = settings ?? StandardSettings;
-            Scanners = StandardScanners().ToList();
+            scanners = StandardScanners().ToList();
         }
 
         private static IChronox Instance = null;
@@ -133,6 +134,19 @@ namespace Chronox
 
         ResultWrapper IChronox.Parse(DateTime referenceDate, string input)
         {
+
+            if(!InputCompliesWithSettings(settings, input)){
+                
+                switch(settings.InvalidInputResolver){
+                    case InvalidInputResolver.Empty:
+                        return ResultWrapper.EmptyResult(this);
+                    case InvalidInputResolver.Exception:
+                        throw new InvalidInputException(input);
+                    case InvalidInputResolver.Null:
+                        return null;
+                }
+            }
+
             var allResults = new List<IChronoxExtraction>();
 
             var scanResults = PerformExpressionScanAndReplace(input);
@@ -185,6 +199,11 @@ namespace Chronox
 
         IReadOnlyList<ChronoxDateTimeExtraction> IChronox.ParseDateTime(DateTime referenceDate, string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return null;
+            }
+
             Settings.ParsingMode = ExtractionResultType.DateTime;
 
             return Parse(referenceDate, input)?.Results.Cast<ChronoxDateTimeExtraction>().ToList();
@@ -196,6 +215,11 @@ namespace Chronox
 
         IReadOnlyList<ChronoxTimeRangeExtraction> IChronox.ParseTimeRange(DateTime referenceDate, string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return null;
+            }
+
             Settings.ParsingMode = ExtractionResultType.TimeRange;
 
             return Instance.Parse(referenceDate, input)?.Results.Cast<ChronoxTimeRangeExtraction>().ToList();
@@ -204,6 +228,11 @@ namespace Chronox
 
         IReadOnlyList<ChronoxTimeSpanExtraction> IChronox.ParseTimeSpan(string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return null;
+            }
+
             Settings.ParsingMode = ExtractionResultType.TimeSpan;
 
             return Instance.Parse(input)?.Results.Cast<ChronoxTimeSpanExtraction>().ToList();
@@ -212,6 +241,11 @@ namespace Chronox
 
         IReadOnlyList<ChronoxTimeSetExtraction> IChronox.ParseTimeSet(string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return null;
+            }
+
             Settings.ParsingMode = ExtractionResultType.TimeSet;
 
             return Instance.Parse(DateTime.MinValue, input)?.Results.Cast<ChronoxTimeSetExtraction>().ToList();
@@ -273,7 +307,11 @@ namespace Chronox
         }
 
 
-        public IEnumerable<IChronoxScanner> ChronoxScanners() => Scanners;
+        public IEnumerable<IChronoxScanner> Scanners {
+            get{
+                return scanners;
+            }
+        }
 
 
         private IReadOnlyList<IChronoxScanner> StandardScanners()
@@ -286,10 +324,10 @@ namespace Chronox
             };
         }
 
-        public void AddScanner(params IChronoxScanner[] scanner) => Scanners.AddRange(scanner);
+        public void AddScanner(params IChronoxScanner[] scanner) => scanners.AddRange(scanner);
 
 
-        public void RemoveScanner(IChronoxScanner scanner) => Scanners.Remove(scanner);
+        public void RemoveScanner(IChronoxScanner scanner) => scanners.Remove(scanner);
 
 
         private KeyValuePair<string, List<ScanWrapper>> PerformExpressionScanAndReplace(string input)
@@ -310,6 +348,20 @@ namespace Chronox
                 }
             }
             return new KeyValuePair<string, List<ScanWrapper>>(expression, results);
+        }
+
+        private bool InputCompliesWithSettings(ChronoxSettings settings, string input){
+
+            if (input.Length < settings.MinInputTextLength) return false;
+
+            if (string.IsNullOrEmpty(input)) return false;
+
+            return true;
+        }
+
+        private bool ResultCompliesWithSettings(ChronoxSettings settings, ResultWrapper result){
+
+            return true;
         }
     }
 }

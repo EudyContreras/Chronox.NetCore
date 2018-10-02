@@ -6,8 +6,10 @@ namespace Enumerations
 {
     public enum ExpressionRelaxLevel
     {
-        Strict,
+        Formal,
 
-        Casual
+        Casual,
+
+        Any
     }
 }

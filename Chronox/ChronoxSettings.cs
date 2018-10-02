@@ -32,9 +32,11 @@ namespace Chronox
 
         public TimeRelationResolver TimeRelationResolver { get; set; } = TimeRelationResolver.Present;
 
-        public AmbigousResultResolver AmbigousResultResolver { get; set; } = AmbigousResultResolver.ReturnNull;
+        public AmbigousResultResolver AmbigousResultResolver { get; set; } = AmbigousResultResolver.Null;
 
-        public NoFoundResultResolver NoFoundResultResolver { get; set; } = NoFoundResultResolver.ReturnNull;
+        public NoFoundResultResolver NoFoundResultResolver { get; set; } = NoFoundResultResolver.Null;
+
+        public InvalidInputResolver InvalidInputResolver { get; set; } = InvalidInputResolver.Null;
 
         public ExtractionResultType ParsingMode { get; set; } = ExtractionResultType.DateTime;
 
@@ -99,14 +101,7 @@ namespace Chronox
             }
             internal set
             {
-                if (searchPassCount >= 1)
-                {
-                    searchPassCount = value;
-                }
-                else
-                {
-                    throw new UnsupportedSearchPassException(value);
-                }
+                searchPassCount = value.LimitToRange(1, 10);
             }
         }
 
@@ -118,10 +113,7 @@ namespace Chronox
             }
             internal set
             {
-                if (minInputTextLength >= 3)
-                {
-                    minInputTextLength = value;
-                }
+                minInputTextLength = value.LimitToRange(3, int.MaxValue);
             }
         }
 
@@ -142,7 +134,7 @@ namespace Chronox
             get { return year; }
             set
             {
-                year = value;
+                year = value.LimitToRange(0,10000);
             }
         }
 
@@ -151,7 +143,7 @@ namespace Chronox
             get { return month; }
             set
             {
-                month = value;
+                month = value.LimitToRange(1, 12);;
             }
         }
 
@@ -160,7 +152,7 @@ namespace Chronox
             get { return day; }
             set
             {
-                day = value;
+                day = value.LimitToRange(1, 31);;
             }
         }
 
@@ -169,7 +161,7 @@ namespace Chronox
             get { return hour; }
             set
             {
-                hour = value;
+                hour = value.LimitToRange(1, 24);;
             }
         }
 
@@ -178,7 +170,7 @@ namespace Chronox
             get { return minute; }
             set
             {
-                minute = value;
+                minute = value.LimitToRange(1, 60);;
             }
         }
 
@@ -187,7 +179,7 @@ namespace Chronox
             get { return second; }
             set
             {
-                second = value;
+                second = value.LimitToRange(1, 60);;
             }
         }
 

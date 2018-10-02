@@ -213,6 +213,26 @@ namespace Chronox.Handlers
                 mergedGlossary.SupportedTimeSpanFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSpanFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeSetFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSetFormats), StringComparer.OrdinalIgnoreCase).ToList();
 
+                if(Settings.ChronoxSequenceCollections.Count != 0){
+                    foreach(SequenceCollection sequence in Settings.ChronoxSequenceCollections){
+                        switch(sequence.SequenceType){
+                            case SequenceType.DateTime:
+                                mergedGlossary.SupportedDateTimeFormats.AddRange(sequence.Sequences);
+                                break;
+                            case SequenceType.TimeSpan:
+                                mergedGlossary.SupportedTimeSpanFormats.AddRange(sequence.Sequences);
+                                break;
+                            case SequenceType.TimeRange:
+                                mergedGlossary.SupportedTimeRangeFormats.AddRange(sequence.Sequences);
+                                break;
+                            case SequenceType.TimeSet:
+                                mergedGlossary.SupportedTimeSetFormats.AddRange(sequence.Sequences);
+                                break;
+                        }
+                    }
+                }
+
+
                 mergedGlossary.Sections = glossaries[0].Sections;
 
                 foreach (var section in mergedGlossary.Sections)
