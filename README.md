@@ -139,13 +139,13 @@ The `result` yields :
 ## How to add support for a language?
 
 
-## How to define your options?
+## How to add a pre-processor?
 
 
 ## How to define and add additonal pre-processors?
 
 
-## Dealing with ambiguity:
+## Dealing with conflict or ambiguity:
 
 
 ## Known bugs:
