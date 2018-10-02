@@ -183,8 +183,7 @@ The `result` yields :
 * If no day is specified in expressions such as "in 4 months", the dayofweek will be left the same,
 
 
-## Future works
-
+## Future works:
 
 
 There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands
@@ -198,7 +197,7 @@ There are parts of this library that are yet to be finished and there are also s
 - [ ] **Finish adding support to TimeRange**
 - [ ] **A bunch of other things**
 
-## Contributing
+## Contribute:
 
 
 Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob/master/CONTRIBUTING) for details on the code base code of conduct, and the process for submitting pull requests to **OthelloFX**
@@ -207,7 +206,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 
-## Authors
+## Authors:
 
 
 * **Eudy Contreras** 
@@ -216,7 +215,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 
-## Contact Info
+## Contact:
 
 
 If any questions regarding this program fell free to reach me at.
@@ -228,7 +227,7 @@ EudyContrerasRosario@gmail.com
 
 
 
-## Disclaimer
+## Disclaimer:
 
 * This program was made as a hoby and not for professional or commercial use in mind. This program may be subjected to architectural changes and it is not perfect. Use at own risk.
 
@@ -237,7 +236,7 @@ EudyContrerasRosario@gmail.com
 
 
 
-## Built With
+## Tech used:
 
 
 ![Net.Core Logo](https://github.com/EudyContreras/Chronox.NetCore/blob/master/netcore.png)
@@ -247,6 +246,6 @@ EudyContrerasRosario@gmail.com
 
 
 
-## License
+## License:
 
 This project is licensed under the MIT License - see the [Licence](https://github.com/EudyContreras/Chronox.NetCore/blob/master/LICENSE.md) file for details
