@@ -5,7 +5,7 @@
 ![Chronox NetCore NLP Image](https://github.com/EudyContreras/Chronox.NetCore/blob/master/NLP.png)
 
 
-**Chronox** supports a large variety of relaxed date and time formats.This program was made as a hoby and not for professional or commercial use in mind. This program may be subjected to architectural changes and it is not perfect. Use at own risk. Here is an extensive list of most of the common date and time expressions supported by **Chronox**:
+**Chronox** supports a large variety of relaxed date and time formats. Here is an extensive list of most of the common date and time expressions supported by **Chronox**:
 
 
 ## How to use it?
@@ -148,10 +148,18 @@ The `result` yields :
 ## Dealing with ambiguity:
 
 
+## Known bugs:
+
+
+## Potential conflicts or bugs:
+
+
 ## Parser result:
 
 
 ## Component types:
+
+**Chronox** is meant to be able to handle date and time paring but it can also handle time ranges, recurring time sets, durations or time spans and timezone conversion.
 
 * **ChronoxDate** : *Comonent which holds date related data*
 * **ChronoxTime** : *Comonent which holds time related data*
@@ -175,13 +183,7 @@ The `result` yields :
 * If no day is specified in expressions such as "in 4 months", the dayofweek will be left the same,
 
 
-## Known bugs:
-
-
-## Potential conflicts or bugs:
-
-
-### Future works
+## Future works
 
 
 
@@ -196,7 +198,7 @@ There are parts of this library that are yet to be finished and there are also s
 - [ ] **Finish adding support to TimeRange**
 - [ ] **A bunch of other things**
 
-### Contributing
+## Contributing
 
 
 Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob/master/CONTRIBUTING) for details on the code base code of conduct, and the process for submitting pull requests to **OthelloFX**
@@ -205,7 +207,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 
-### Authors
+## Authors
 
 
 * **Eudy Contreras** 
@@ -214,7 +216,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 
-### Contact Info
+## Contact Info
 
 
 If any questions regarding this program fell free to reach me at.
@@ -226,14 +228,16 @@ EudyContrerasRosario@gmail.com
 
 
 
-### Disclaimer
+## Disclaimer
 
-All background images including the logo were not made by me and I do not claim ownership of these images. I would like to thank the awesome artists and creators of the images for making them public. If there is any problem with the use of these images please contact me so we can solve it. Once again. props to the artists.
+* This program was made as a hoby and not for professional or commercial use in mind. This program may be subjected to architectural changes and it is not perfect. Use at own risk.
+
+* All background images including the logo were not made by me and I do not claim ownership of these images. I would like to thank the awesome artists and creators of the images for making them public. If there is any problem with the use of these images please contact me so we can solve it. Once again. props to the artists.
 
 
 
 
-### Built With
+## Built With
 
 
 ![Net.Core Logo](https://github.com/EudyContreras/Chronox.NetCore/blob/master/netcore.png)
@@ -243,6 +247,6 @@ All background images including the logo were not made by me and I do not claim 
 
 
 
-### License
+## License
 
 This project is licensed under the MIT License - see the [Licence](https://github.com/EudyContreras/Chronox.NetCore/blob/master/LICENSE.md) file for details
