@@ -95,7 +95,7 @@ result = ChronoxParser.ParseTimeSet(settings, input);
 
 #### Result ####
 
-A `ChronoxResult` contains the result data extracted by the `ChronoxParser`. The result obtain from a parsing operation is of type `IChronoxExtraction`. A result may contain many different extractions. In the case of none exact parsing a `ResultWrapper` is returned which contains the data extracted if any. In the case of **exact parsing** a predetermined extraction type is returned. An `IChronoxExtraction` contains the following properties
+A **ChronoxResult** contains the result data extracted by the **ChronoxParser**. The result obtain from a parsing operation is of type **IChronoxExtraction**. A result may contain many different extractions. In the case of none exact parsing a **ResultWrapper** is returned which contains the data extracted if any. In the case of **exact parsing** a predetermined extraction type is returned. An **IChronoxExtraction** contains the following properties
 
 * `RetultType` The type of the extraction which could be a `DateTime`, `TimeSpan`, etc
 * `ProcessedString`  The string after it has been processed which is stripped of the extraction areas. 
@@ -215,13 +215,55 @@ For more information about Regular Expression **REGEX** please visit: [Regex Doc
 ## Dealing with conflict or ambiguity:
 
 
-## Known bugs:
+## Known and potential bugs:
 
 
-## Potential conflicts or bugs:
+## Component types:
+
+**Chronox** is meant to be able to handle date and time paring but it can also handle time ranges, recurring time sets, durations or time spans and timezone conversion.
+
+* **ChronoxDate** : *Comonent which holds date related data*
+* **ChronoxTime** : *Comonent which holds time related data*
+* **ChronoxDateTime** : *Comonent which holds date and time related data*
+* **ChronoxTimeRange** : *Comonent which holds time range related data*
+* **ChronoxTimeSet** : *Comonent which holds recurring time event related data*
+* **ChronoxTimeSpan** : *Comonent which holds durationg/span related data*
+* **ChronoxTimeZon** : *Comonent which holds timezone related data*
 
 
-## Timezones supported:
+## Things to note:
+
+* Chronox is not thread safe but plans to be in a near future.
+* If no reference date is specified, then the current date and time will be used.
+* If no time is specified on any date which differs in month, day or year in relation to the reference day, the time will be set to 12am.
+* If a month is specified without any specified day the day will be set to the first of said month.
+* If a proceding or preciding week is specified without any specified day, the day will be set to monday both for previous or following weeks
+* Time expressions are constant for now: noon = 12:00pm morning = 6:00am etc
+* Expressions such as fourth week of x month will be parsed on intervals of week starting with the day where monday falls
+* If no day is specified in expressions such as "next month" the day will be set to the first of said month.
+* If no day is specified in expressions such as "in 4 months", the dayofweek will be left the same,
+* The settings is still in WIP. More options will be added and some may be removed.
+
+## Future works:
+
+
+There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands
+
+- [ ] **Make into nuget package**
+- [ ] **Add thread safety**
+- [ ] **Improve loading performance**
+- [ ] **Allow post-compilation modifications to Chronox**
+- [ ] **Add better support to multi-extraction**
+- [ ] **Finish adding support to TimeSpan**
+- [ ] **Finish adding support to TimeSet**
+- [ ] **Finish adding support to TimeRange**
+- [ ] **A bunch of other things**
+
+
+## Supported timzones:
+
+**Chronox** supports most if not all Timezones. If a timezone is found it will be extracted. A **Timezone** object can be added or substracted from the result in order get an accurate timezone sensitve time
+
 
 | Timzone Code                    | Timezone Offset        | Description    |              UTC Offset                    |
 | --------------------------------| -----------------------|----------------| -------------------------------------------|
@@ -465,46 +507,6 @@ For more information about Regular Expression **REGEX** please visit: [Regex Doc
 |YEKT  |  300  |  Yekaterinburg Time  |  UTC+5|
 |Z  |  0  |  Zulu Time Zone  |  UTC+0|
 
-## Component types:
-
-**Chronox** is meant to be able to handle date and time paring but it can also handle time ranges, recurring time sets, durations or time spans and timezone conversion.
-
-* **ChronoxDate** : *Comonent which holds date related data*
-* **ChronoxTime** : *Comonent which holds time related data*
-* **ChronoxDateTime** : *Comonent which holds date and time related data*
-* **ChronoxTimeRange** : *Comonent which holds time range related data*
-* **ChronoxTimeSet** : *Comonent which holds recurring time event related data*
-* **ChronoxTimeSpan** : *Comonent which holds durationg/span related data*
-* **ChronoxTimeZon** : *Comonent which holds timezone related data*
-
-
-## Things to note:
-
-* Chronox is not thread safe but plans to be in a near future.
-* If no reference date is specified, then the current date and time will be used.
-* If no time is specified on any date which differs in month, day or year in relation to the reference day, the time will be set to 12am.
-* If a month is specified without any specified day the day will be set to the first of said month.
-* If a proceding or preciding week is specified without any specified day, the day will be set to monday both for previous or following weeks
-* Time expressions are constant for now: noon = 12:00pm morning = 6:00am etc
-* Expressions such as fourth week of x month will be parsed on intervals of week starting with the day where monday falls
-* If no day is specified in expressions such as "next month" the day will be set to the first of said month.
-* If no day is specified in expressions such as "in 4 months", the dayofweek will be left the same,
-* The settings is still in WIP. More options will be added and some may be removed.
-
-## Future works:
-
-
-There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands
-
-- [ ] **Make into nuget package**
-- [ ] **Add thread safety**
-- [ ] **Improve loading performance**
-- [ ] **Allow post-compilation modifications to Chronox**
-- [ ] **Add better support to multi-extraction**
-- [ ] **Finish adding support to TimeSpan**
-- [ ] **Finish adding support to TimeSet**
-- [ ] **Finish adding support to TimeRange**
-- [ ] **A bunch of other things**
 
 ## Contribute:
 
@@ -515,7 +517,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 
-## Authors:
+## Authors and Contributors:
 
 
 * **Eudy Contreras** 
@@ -527,8 +529,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 ## Contact:
 
 
-If any questions regarding this program fell free to reach me at.
-EudyContrerasRosario@gmail.com
+If any questions regarding this program fell free to reach me at my [Email](EudyContrerasRosario@gmail.com)
 
 
 
