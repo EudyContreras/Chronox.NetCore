@@ -41,12 +41,12 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 ```
 
 
-**ChronoxSettings** is a comprehensive set of options that the **ChronoxParser** should use in order to achieve the desired results in concordance to the application in play. 
+`ChronoxSettings` is a comprehensive set of options that the `ChronoxParser` should use in order to achieve the desired results in concordance to the application in play. 
 
 
 | Setting                    | Values                                   | Description                                     |
 | ----------------------------| ---------------------------------------- | ------------------------------------------------|
-| **SearchPassCount**         | 1 - 10                                   | Number passes to perform on string.          	   
+| **SearchPassCount**         | 1 - 10                                   | Number passes to perform on string.         |   
 | **MinInputTextLength**      | 3 - Int.MaxValue                         | The minimum amount of text to work with  | 
 | **PrefferedLanguages**      | English, Spanish, etc                    | Languages the programs will interpret          |
 | **PreferedYear**            | 0 - 10000                                | The year to set upon no year found        |
@@ -55,7 +55,7 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 | **PreferedHour**            | 1 - 24                                   | The hour to set upon no hour found          |
 | **PreferedMinute**          | 1 - 60                                   | The minute to set upon no minute found         |
 | **PreferedSecond**          | 1 - 60                                   | The second to set upon no second found   |
-| **PreferedTimeZone**        | UTC, CET, etc                            | Sets the scale of of the window.		             |
+| **PreferedTimeZone**        | UTC, CET, etc                            | Sets the scale of of the window.		   |
 | **TimeRelationResolver**    | Future, Past, Present                    | Strict to specified relational time            |
 | **AmbigousResultResolver**  | Null, Any                                | Determines what to return upon ambiguity       |
 | **NoFoundResultResolver**   | Null, Implied, Current                   | What to return upon no result found        |
@@ -95,7 +95,7 @@ result = ChronoxParser.ParseTimeSet(settings, input);
 
 #### Result ####
 
-A **ChronoxResult** contains the result data extracted by the **ChronoxParser**. The result obtain from a parsing operation is of type **IChronoxExtraction**. A result may contain many different extractions. In the case of none exact parsing a **ResultWrapper** is returned which contains the data extracted if any. In the case of **exact parsing** a predetermined extraction type is returned. An **IChronoxExtraction** contains the following properties
+A `ChronoxResult` contains the result data extracted by the parser. The result obtain from a parsing operation is of type `IChronoxExtraction`. A result may contain many different extractions. In the case of none exact parsing a `ResultWrapper` is returned which contains the data extracted if any. In the case of **exact parsing** a predetermined extraction type is returned. The extraction contains the following properties
 
 * `RetultType` The type of the extraction which could be a `DateTime`, `TimeSpan`, etc
 * `ProcessedString`  The string after it has been processed which is stripped of the extraction areas. 
@@ -117,11 +117,11 @@ result = ChronoxParser.ParseDateTime(referenceDate, input);
 
 ```
 
-**Where** `refereceDate` = **{10/2/18 2:22:14 AM}**
+Where `refereceDate` = **{10/2/18 2:22:14 AM}**
 
-**Where** `input` = **"Meet me the day after tomorrow at eight in the evening at the mall near your house"** 
+Where `input` = **"Meet me the day after tomorrow at eight in the evening at the mall near your house"** 
   
-**The** `result` = :
+The `output` = :
 
 * `DateTime`: **{2018-10-4 20:0:0:0}** 
 * `RetultType`: **"The type of the extraction which could be a `DateTime`, `TimeSpan`, etc"**
@@ -133,9 +133,9 @@ result = ChronoxParser.ParseDateTime(referenceDate, input);
 
 ## How does Chronox works?
 
-**Chronox** uses a combination of techniques in order to work. At the top level it uses pre-processors which will look at the string and attempt to pre-process it in order to make parsing and pattern matching easier. Eg: A pre-processor or `IChronoxScanner` is used to convert any numeric value written in words to its numeric representation. Additional pre-processors may be used in order to satisfy the locale and or parsing needs of an application.
+`Chronox` uses a combination of techniques in order to work. At the top level it uses pre-processors which will look at the string and attempt to pre-process it in order to make parsing and pattern matching easier. Eg: A pre-processor or `IChronoxScanner` is used to convert any numeric value written in words to its numeric representation. Additional pre-processors may be used in order to satisfy the locale and or parsing needs of an application.
 
-Under the hood **Chronox** uses **REGEX** for matching specific patterns along side translation methods. Various entity extraction methods are used in order to effetively find and parse the desired data. 
+Under the hood `Chronox` uses **REGEX** for matching specific patterns along side translation methods. Various entity extraction methods are used in order to effetively find and parse the desired data. 
 
 **Compiling performance:**
 
@@ -143,11 +143,11 @@ Chronox compilation time is relative to the amount of sequences supported as wel
 
 **Parsing performance:**
 
-Due to the fact that most of the work done by **Chronox** happens when it is built parsing times are pretty fast. The usual parsing time does not exceed 1 millisecond. There are some edge cases in which chronox may take up to 60 milliseconds in order to return a result. The lenght of the string and the amount of pre-processors/scanners used will also affect the parsing performance. **Chronox** in its current state can be further optimized and it will be optimized in a near future.
+Due to the fact that most of the work done by `Chronox` happens when it is built parsing times are pretty fast. The usual parsing time does not exceed 1 millisecond. There are some edge cases in which chronox may take up to 60 milliseconds in order to return a result. The lenght of the string and the amount of pre-processors/scanners used will also affect the parsing performance. `Chrono` in its current state can be further optimized and it will be optimized in a near future.
 
 ## Datasets and Instructions:
 
-In order to add support to a language **Chronox** uses datasets which contain instructions which the system uses in order to parse a given input. For a DataSet template please please refere to: [Template]. The dataset allowes the user to deal with some language specific rules and exceptions.
+In order to add support to a language `Chronox` uses datasets which contain instructions which the system uses in order to parse a given input. For a DataSet template please please refere to: [Template]. The dataset allowes the user to deal with some language specific rules and exceptions.
 
 In order to achieve the best result please read the guidelines and descriptions. The language files work directly with the parser in order to provide support for different laguages. If you wish add to support to a language simply specified the equivalent variations to be used by the parser when converting, along with the optional regex patterns for the variations.
 In addition you may also provide additional information in order to inrease parsing accuracy. 
@@ -208,6 +208,108 @@ For more information about Regular Expression **REGEX** please visit: [Regex Doc
 
 ## How to add unsupported formats or sequences?
 
+In order to add a date format or sequence which is not currently supported by `Chronox` all that needs to be done is to specify said format using a combination of section codes. For a full list of the available section codes please look at the table below:
+
+Must commonly known as well as some less common formats are already supported by `Chronox`. For a full list of supported format please look at the #FormatDocument. Feel free to play around with the formats in order to add support to your format.
+
+Formats can be submitted to `Chronox` in two ways. The first way is that a sequence collection can be added when creating a `ChronoxSettings`. 
+
+```c#
+
+var sequences = new string[]{"D.O.W|D.T|T.M|T.O.D", "D.O.W|D.T|T.M|T.O.D|T.Z", "G.E|D.O.W|D.T|T.M"};
+  
+var sequenceCollection = new SequenceCollection(SequenceType.DateTime,sequences);
+  
+var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
+
+```
+
+The other option is to specifiy directly on the dataset which formats you wish to support.
+
+```c#
+supportedDateTimeFormats:
+
+	D.O.W
+	D.O.W|D.T|T.M
+	D.O.W|D.T|T.M|T.Z
+	D.O.W|D.T|T.M|T.O.D
+	D.O.W|D.T|T.M|T.O.D|T.Z
+	G.E|D.T.U|N.O|M.O.Y|Y.U|Y|T.O.D|T.M
+	G.E|D.O.W|D.T|T.M
+	N|M.O.Y|G.E|Y.U
+	G.E|D.O.W|T.E
+	D.O.W|N|M.O.Y
+	M.O.Y|N
+	D.O|N|T.U.B|T.C|T.E
+	N|T.U.B|T.C|T.E|D.O
+
+supportedTimeRangeFormats:
+
+supportedTimespanFormats:
+
+supportedTimeSetFormats:
+
+```
+
+| Section code			|  Representation description		|    Example cases				|
+| ------------------------------| --------------------------------------| ----------------------------------------------|
+|	        C.E  			|        Casual Expressions		|
+|	        G.E   			|        Grabber Expressions		|This, next, last, etc|
+|	        D.O   			|        DayOffset			|Tomorrow, Today, Yesterday, etc|
+|	        T.E   			|        Time Expressions		|Noon, Midnight, etc|
+|	        T.F   			|        Time Fractions			|Quater, Half, etc|
+|	        T.C   			|        Time Conjointer		|Ago, to, from now, etc|
+|	        I.E   			|        Interpreted Expression 	|Tonight, now, last night, etc|
+|	        R.I   			|        Range Indicator		|From, etc|
+|	        R.S   			|        Range Separator		|To, -, etct|
+|	        N.V   			|        Numeric Value			|0,1,2,3, etc|
+|	        N    			|        Number				|Twenty one, twenty-one, etc|
+|	        N.O   			|        Ordinal			|21st, twenty first|
+|	        D.N   			|        Decimal Number			|Thrity two point five, etc|
+|	        T.O.D 			|        Time Of Day			|Monrning, afternoon, evening, night|
+|	        D.O.W 			|        Days Of Week			|Monday, Tuesday, etc|
+|	        S.O.Y 			|        Season Of Year			|Spring, autum, etc|
+|	        M.O.Y 			|        Months Of Year			|July, December, etc|
+|	        R.E.I 			|        Repeater Indicators		|Every, each, etc|
+|	        D.E.I 			|        Duration Indicators		|Whole, all, half, etc|
+|	        R.E   			|        Repeater Expressions		|Hourly, weekly, etc|
+|	        D.E   			|        Duration Expressions		|For, etc|
+|	        P.T   			|        Proximity			|Exactly, preciesly, approximately, etc|
+|	        D.T.U 			|        Date Time Units		|Minute, hour, year, week, etc|
+|	        T.P   			|        Time Periods			|Decade, century, milleniumn, etc|
+|	        D.V   			|        Decade Values			|Nineties, senventies, etc|
+|	        A.O   			|        Arithmetic Operator		|-, +|
+|	        L.O   			|        Logical Operator		|And, or|
+|	        D.D   			|        Date				|10/24,2018, 2018,10,24, etc|
+|	        D.T   			|        Time				|22:10:33, 12:10:44, etc|
+|	        D.Y   			|        Year				|2010, '98, etc|
+|	        Y     			|        Year Discrete			|2010, '98, etc|
+|	        M     			|        Month Discrete			|10, etc|
+|	        D,     			|        Day Discrete			|24, etc|
+|	        H.D,   			|        Hour Discrete			|12, etc|
+|	        M.D   			|        Minute Discrete		|44, etc|
+|	        S.D   			|        Second Discrete		|59, etc|
+|	        D.D.B 			|        Date Big Endian		|YYYY|MM|DD|
+|	        D.D.L 			|        Date Little Endian		|DD|MM|YYYY|
+|	        D.D.M 			|        Date Middle Endian		|MM|DD|YYYY|
+|	        W.S   			|        Expression Separator		| |
+|	        D.W.T 			|        Day Of Week Type		| |
+|	        T.M   			|        Time Meridiam			|AM, pm, etc|
+|	        D.U.B 			|        Date Units			|year, months, weeks, days, etc|
+|	        T.U.B 			|        Time Units			|Hour, minute, second, etc|
+|	        Y.U   			|        Year Unit			|year, years,|
+|	        M.U   			|        Month Unit			|Month, months,|
+|	        W.U   			|        Week Unit			|Week, weeks, W, etc|
+|	        D.U   			|        Day Unit			|Day, days, D, etc|
+|	        H.U   			|        Hour Unit			|Hour, h, etc|
+|	        M.I.U 			|        Minute Unit			|Minute, min, m, etc|
+|	        S.U   			|        Second Unit			|Second, s, etc|
+|	        T.Z"   			|        Time Zone			|UTC, EST, etc|
+|	        D.T.S 			|        Time Separator			|:|
+|	        D.D.S 			|        Date Separator			|/,-, etc|
+|	        N.M.2.D			|        Number Max 2 Digits		|1, 12, 44, etc|
+|	        N.M.4.D			|        Number Max 4 Digits		|23, 2323, 321, etc|
+|	        N.M.5.D			|        Number Max 5 Digits		|232, 12, 43454, etc|
 
 ## How to define and add additonal pre-processors?
 
@@ -530,8 +632,6 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 If any questions regarding this program fell free to reach me at my [Email](EudyContrerasRosario@gmail.com)
-
-
 
 
 
