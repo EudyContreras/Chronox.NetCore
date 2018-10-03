@@ -8,7 +8,48 @@
 **Chronox** supports a large variety of relaxed date and time formats. Here is an extensive list of most of the common date and time expressions supported by **Chronox**:
 
 
-## How to use it?
+## Table of content ##
+
+- **[How to use it?](#how-to-use-it?)**
+  - **[Instantiation](#instantiation)**
+  - **Settings**
+  - **Parsing input**
+  - **Result**
+  - **Result interpration**
+- **How does Chronox works?**
+  - **Compiling performance**
+  - **Parsing performance**
+- **Datasets and Instructions**
+  - **Keywords**
+  - **Language**
+  - **Section**
+  - **Property**
+  - **Section Type Glossary**
+  - **Propertyy Type Glossary**
+  - **Regex Cheat Sheet**
+-**How to add unsupported formats or sequences?**
+  - **Adding a sequence collection**
+  - **Specifiying format support**
+  - **Format code cheat cheat**
+- **How to define and add additonal pre-processors?**
+- **Dealing with conflict or ambiguity**
+- **Known and potential bugs**
+- **Component types:**
+- **Things to note**
+- **Future works**
+- **Timezones**
+- **Contribute**
+- **Authors, contributors, acknowledgments**
+  - **Authors**
+  - **Contributors**
+  - **Acknowledgments**
+- **Contact**
+- **Disclaimers**
+- **Technologies used**
+- **License**
+
+
+## How to use it? 
 
 #### Instantiation ####
 A `Chronox` instance can be created in the following way without specifying any settings. Please note that Chronox uses the singleton pattern. Most of the work done by `Chronox` happens upon instatiation which is when data sets are loaded, sequences are created and loaded and where dictionaries are indexed.
@@ -61,7 +102,7 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 | **NoFoundResultResolver**   | Null, Implied, Current                   | What to return upon no result found        |
 | **InvalidInputResolver**    | Null, Empty, Exception                   | What to return upon no invalid input       |
 | **ParsingMode**             | DateTime, TimeRange, etc                 | The mode the parser should use: Guess otherwise |
-| **RelaxLevel**              | Formal, Casual, Any                      | Type of strings the parse should parse		   |
+| **RelaxLevel**              | Formal, Casual, Any                      | Type of strings the parse should parse	   |
 | **PrefferedEndian**         | MiddleEndian, LittleEndian               | Endian to use upon ambiguous date format   |
 | **PrefferedDay**            | Current, Start, End, Previous, Next      | Offset day if could not be determined     
 | **StartOfWeek**             | Monday, Tuesday, etc                     | The day in which a week starts            |
@@ -192,7 +233,7 @@ In addition you may also provide additional information in order to inrease pars
 * **`N/A`**: Not specified or not available
 * **`Group`**: It will turn the property into a recognizable group which can be refered to for information "Ignored if the parent section is of type "Combined" or "CombinedReversed""
 * **`GroupOptional`**: It will turn the property into a recognizable group which can be refered to for information "Ignored if the parent section is of type "Combined" or "CombinedReversed""
-* **`Optional`**: Specifies that the property is optinal and may or may not be present in a date format
+* **`Optional`**: Specifies that the property is optional and may or may not be present in a date format
 * **`Filler`**: Placeholder property which binds groups together or simply fills a space: "No information directly extracted but it is part of a date pattern"
 * **`Interpreted`**: Expression which can be directly translated into a DateTime object Ex: "Tonight, Now, Last night"
 
@@ -212,6 +253,8 @@ In order to add a date format or sequence which is not currently supported by `C
 
 Must commonly known as well as some less common formats are already supported by `Chronox`. For a full list of supported format please look at the #FormatDocument. Feel free to play around with the formats in order to add support to your format.
 
+#### Adding a sequence collection: ####
+
 Formats can be submitted to `Chronox` in two ways. The first way is that a sequence collection can be added when creating a `ChronoxSettings`. 
 
 ```c#
@@ -224,9 +267,11 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 
 ```
 
+#### Specifiying format support: ####
+
 The other option is to specifiy directly on the dataset which formats you wish to support.
 
-```c#
+```js
 supportedDateTimeFormats:
 
 	D.O.W
@@ -250,6 +295,9 @@ supportedTimespanFormats:
 supportedTimeSetFormats:
 
 ```
+
+#### Format code cheat cheat ####
+
 
 | Section code			|  Representation description		|    Example cases				|
 | ------------------------------| --------------------------------------| ----------------------------------------------|
@@ -313,12 +361,26 @@ supportedTimeSetFormats:
 
 ## How to define and add additonal pre-processors?
 
+A pre-processor or `scanner` allows the user to specifiy an operation to perform on the input before the actual parsing is performed. Pre-processing the input may improve both the parsing performance and the parsing accuracy by removing noise from the input. `Chronox` uses a pre-processor in order to convert numbers written in words to actual numeric values before the parsing is performed. 
 
+In order to add a pre-processor you must simply implement `IChronoxScanner` interface and your logic to the Scan method. The method returns a `ScanWrapper` which contains information about the scan result. A scanner tag must also be specified. 
+
+```c#
+
+public interface IChronoxScanner
+{
+    string ScannerTag
+    ScanWrapper Scan(ChronoxSettings option, string expression);
+}
+
+```
 ## Dealing with conflict or ambiguity:
-
+	
+When parsing a date conflicts or ambiguity may occur. In said case `Chronox` will then let the user decide which result to choose. Conflicts can be avoided by not supporting formats that create amibiguity. Methods for dealing with conflic and ambiguity are still a work in progress and are subjected to change and improvements.
 
 ## Known and potential bugs:
 
+Coming soon...
 
 ## Component types:
 
@@ -619,13 +681,17 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 
 
 
-## Authors and Contributors:
+## Authors, contributors and acknowledgments:
 
 
+**Authors:**
 * **Eudy Contreras** 
 
+**Contributors:**
+* **Eudy Contreras** 
 
-
+**Acknowledgements:**
+[Wanasit](https://github.com/wanasit) whose project served as inspiration.
 
 
 ## Contact:
@@ -637,7 +703,7 @@ If any questions regarding this program fell free to reach me at my [Email](Eudy
 
 
 
-## Disclaimer:
+## Disclaimers:
 
 This program is in WIP and it was made as a hobby and it not originally intended for professional or commercial use. Although this program works as expected to some extent and can be used in professional and commercial projects I the original author will not be subjected to any liability. This program may be subjected to architectural changes and in its current state it is not perfect. Please exercise caution and use at own risk.
 
@@ -645,7 +711,7 @@ All background images including the logo were not made by me and I do not claim 
 
 
 
-## Tech used:
+## Technologies used:
 
 
 ![Net.Core Logo](https://github.com/EudyContreras/Chronox.NetCore/blob/master/netcore.png)
