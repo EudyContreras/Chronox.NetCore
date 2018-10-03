@@ -117,11 +117,11 @@ result = ChronoxParser.ParseDateTime(referenceDate, input);
 
 ```
 
-Where `refereceDate` = **{10/2/18 2:22:14 AM}**
+**Where** `refereceDate` = **{10/2/18 2:22:14 AM}**
 
-Where `input` = **"Meet me the day after tomorrow at eight in the evening at the mall near your house"** 
+**Where** `input` = **"Meet me the day after tomorrow at eight in the evening at the mall near your house"** 
   
-The `result` yields :
+**The** `result` = :
 
 * `DateTime`: **{2018-10-4 20:0:0:0}** 
 * `RetultType`: **"The type of the extraction which could be a `DateTime`, `TimeSpan`, etc"**
@@ -135,19 +135,78 @@ The `result` yields :
 
 **Chronox** uses a combination of techniques in order to work. At the top level it uses pre-processors which will look at the string and attempt to pre-process it in order to make parsing and pattern matching easier. Eg: A pre-processor or `IChronoxScanner` is used to convert any numeric value written in words to its numeric representation. Additional pre-processors may be used in order to satisfy the locale and or parsing needs of an application.
 
-Under the hood **Chronox** uses **REGEX** for matching specific patterns. Various entity extraction methods are used in order to effetively finding and parsing the desired data.  
+Under the hood **Chronox** uses **REGEX** for matching specific patterns along side translation methods. Various entity extraction methods are used in order to effetively find and parse the desired data. 
+
+**Compiling performance:**
+
+Chronox compilation time is relative to the amount of sequences supported as well the amount of datasets added to it. The amount of variations added to a dataset will affect the the compilation time too.
+
+**Parsing performance:**
+
+Due to the fact that most of the work done by **Chronox** happens when it is built parsing times are pretty fast. The usual parsing time does not exceed 1 millisecond. There are some edge cases in which chronox may take up to 60 milliseconds in order to return a result. The lenght of the string and the amount of pre-processors/scanners used will also affect the parsing performance. **Chronox** in its current state can be further optimized and it will be optimized in a near future.
 
 ## Datasets and Instructions:
 
-In order to add support to language **Chronox** uses datasets which contain instructions which the system uses in order to parse a given input
+In order to add support to a language **Chronox** uses datasets which contain instructions which the system uses in order to parse a given input. For a DataSet template please please refere to: [Template]. The dataset allowes the user to deal with some language specific rules and exceptions.
+
+In order to achieve the best result please read the guidelines and descriptions. The language files work directly with the parser in order to provide support for different laguages. If you wish add to support to a language simply specified the equivalent variations to be used by the parser when converting, along with the optional regex patterns for the variations.
+In addition you may also provide additional information in order to inrease parsing accuracy. 
+
+**Keywords:**
+
+* `Modifiable`: Tells if the the property should be or could be modified by the user.
+* `Unsupported`: Tells if the property is currently supported.
+
+**Language:**
+	
+* `language`: The name of the language being used: [Modifiable: Yes]
+* `ignored`: List of words or to ignore: [Modifiable: Yes]
+* `assumeSpace`: "Determines if the parser automatically add spaces between properties: [Modifiable: Yes]"
+* `sectionTypes`: List of types supported by sections: [Modifiable: No]
+* `propertyTypes`: List of types supported by properties: [Modifiable: No]
+* `supportedSectionAbreviations`: List of abreviations which could be used for creating date formats: [Modifiable: No]
+* `supportedDateFormats`: List of date formats to look for when parsing: [Modifiable: Yes]
+	
+**Section:**
+	
+* `label`: The name or label of the section: [Modifiable: No]
+* `type`: The type of the section "Must be a supported type": [Modifiable: At own risk!]
+	
+**Property:**
+	
+* `key`: The key name that identifies the property: [Modifiable: No]
+* `value`: The value associated with the key: [Unsupported]
+* `type`: The type of the property "Must be a supported type" : [Modifiable: At own risk!]
+* `pattern`: The pattern associated to the variations:[Modifiable: Yes]
+* `variations`: The user submitted synonyms or representations of the key which must also be included in the specified language: [Modifiable: Yes]
+
+**Section Type Glossary:** 
+
+* `N/A`: Not specified or not available.
+* `Combined`: Combines the properties as one single group. Typically used for properties belonging to the same category
+* `CombinedOptional`: Same as `Combined`. The properties will be optinal and not enforced.
+* `CombinedReversed`: Same as `Combined`. Reverses the combination order. Typically used to avoid overlap: Such as finding: "four" in "twenty four"
+
+**Property Type Glossary:** 
+
+* `Group`: It will turn the property into a recognizable group which can be refered to for information "Ignored if the parent section is of type "Combined" or "CombinedReversed""
+* `GroupOptional`: It will turn the property into a recognizable group which can be refered to for information "Ignored if the parent section is of type "Combined" or "CombinedReversed""
+* `Optional`: Specifies that the property is optinal and may or may not be present in a date format
+* `Filler`: Placeholder property which binds to groups together or simply fills a space: "No information directly extracted but it is part of a date pattern"
+* `Interpreted`: The property is an expression or phrase which can be directly translated into a DateTime object Ex: "Tonight, Now, Last night"
+* `N/A`: Not specified or not available
+
+**Regex Cheat Sheet**
+
+* `Properties`: monday, mon
+* `Regex`: mon(?:day) or monday|mon : these regex expecifies that the both Mon or Moday can be matched
+
+* `Properties`: one, first
+* `Regex`: one|first : this regex specifies that either one or first can be matched
+
+For more information about Regular Expression **REGEX** please visit: https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference
 
 ## How to add unsupported formats or sequences?
-
-
-## How to add support for a language?
-
-
-## How to add a pre-processor?
 
 
 ## How to define and add additonal pre-processors?
@@ -160,9 +219,6 @@ In order to add support to language **Chronox** uses datasets which contain inst
 
 
 ## Potential conflicts or bugs:
-
-
-## Parser result:
 
 
 ## Component types:
@@ -199,6 +255,7 @@ There are parts of this library that are yet to be finished and there are also s
 - [ ] **Make into nuget package**
 - [ ] **Add thread safety**
 - [ ] **Improve loading performance**
+- [ ] **Allow post-compilation modifications to Chronox**
 - [ ] **Add better support to multi-extraction**
 - [ ] **Finish adding support to TimeSpan**
 - [ ] **Finish adding support to TimeSet**
