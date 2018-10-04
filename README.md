@@ -5,8 +5,17 @@
 ![Chronox NetCore NLP Image](https://github.com/EudyContreras/Chronox.NetCore/blob/master/NLP.png)
 
 
-**Chronox** supports a large variety of relaxed date and time formats. Here is an extensive list of most of the common date and time expressions supported by **Chronox**:
+**Chronox** supports a large variety of relaxed date and time formats. For an extensive list of most of the common date and time expressions supported by **Chronox**: please visit the [Supported DateTime Formats](#https://github.com/EudyContreras/Chronox.NetCore/blob/master/SUPPORT.md) document. Other documents showing the supported TimeRange, TimeSpan, and TimeSet formats will soon be available. Please look below for a definition of each of the supported types.
 
+### Definitions: ###
+
+* **DateTime:** Any data representing a date and time. Ex: `The 25th of may of the year 2014 at 10pm`
+	
+* **TimeSpan:** Any data represeting a duration or span. Ex: `For 40 minutes and 21 seconds`
+
+* **TimeRange:** Any data represeting  a time range. Ex `From the third to the 8th of november next month`
+
+* **TimeSet:** Any data representing a time set or reccurring event. Ex `Every second day in the month of september`
 
 ## Table of content ##
 
