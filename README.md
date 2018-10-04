@@ -9,13 +9,13 @@
 
 ### Definitions: ###
 
-* **DateTime:** Any data representing a date and time. Ex: `The 25th of may of the year 2014 at 10pm`
+* **DateTime:** Any data representing a date and time. Ex: **`The 25th of may of the year 2014 at 10pm`**
 	
-* **TimeSpan:** Any data represeting a duration or span. Ex: `For 40 minutes and 21 seconds`
+* **TimeSpan:** Any data represeting a duration or span. Ex: **`For 40 minutes and 21 seconds`**
 
-* **TimeRange:** Any data represeting  a time range. Ex `From the third to the 8th of november next month`
+* **TimeRange:** Any data represeting  a time range. Ex **`From the third to the 8th of november next month`**
 
-* **TimeSet:** Any data representing a time set or reccurring event. Ex `Every second day in the month of september`
+* **TimeSet:** Any data representing a time set or reccurring event. Ex **`Every second day in the month of september`**
 
 ## Table of content ##
 
