@@ -1,11 +1,7 @@
 ## Format code cheat sheet: ##
-
-
-
+<br>
 Here is a list of the section codes along with their respective representation and case based examples.
-
-
-
+<br></br>
 
 | Section code			|  Representation description		|    Example cases				|
 | ------------------------------| --------------------------------------| ----------------------------------------------|
