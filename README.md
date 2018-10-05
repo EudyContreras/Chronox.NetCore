@@ -61,7 +61,10 @@
 ## How to use it? ##
 
 #### Instantiation ####
-A `Chronox` instance can be created in the following way without specifying any settings. Please note that Chronox uses the singleton pattern. Most of the work done by `Chronox` happens upon instatiation which is when data sets are loaded, sequences are created and loaded and where dictionaries are indexed.
+
+Please note that Chronox uses the singleton pattern. Most of the work done by `Chronox` happens upon instatiation which is when data sets are loaded, sequences are created and where dictionaries are indexed.
+
+A `Chronox` instance can be created in the following way without specifying any settings.
 
 ```c#
 var Chronox = ChronoxParser.GetInstance();
@@ -78,7 +81,7 @@ A `ChronoxSettings` can be instantiated with the name of languages you wish to s
 ```c#
 var settings = new ChronoxSettings("English", "Spanish")
 ```
-A `ChronoxSettings` can also be instatiated with a custom collectios of sequences you wish support. For more information about sequence codes and additional ways for supporting custom sequences please refer to the #dataSet section and to the sequence library.
+A `ChronoxSettings` can also be instatiated with a custom collectios of sequences that you wish support. For more information about sequence codes and additional ways for supporting custom sequences please refer to the [Datasets and Instructions](#datasets-and-instructions) section and to the [Format code cheat sheet](#format-code-cheat-sheet).
 
 ```c#
 
@@ -91,7 +94,7 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 ```
 
 
-`ChronoxSettings` is a comprehensive set of options that the `ChronoxParser` should use in order to achieve the desired results in concordance to the application in play. 
+`ChronoxSettings` is a comprehensive set of options that the `ChronoxParser` uses in order to achieve the desired results in concordance to the needs of the application at hand.  For a list of all the currently available options/preferences that `ChronoxSettings` features please refer to the table below.
 
 
 | Setting                    | Values                                   | Description                                     |
@@ -118,7 +121,8 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 
 
 #### Parsing input ####
-In order to parse input `Chronox` can also be called statically like this:
+
+In order to parse input `Chronox` can also be called statically in the following way:
 
 ```c#
 
@@ -132,7 +136,7 @@ ChronoxParser.TryParse(input, out result);
 
 ```
 
-You can also specify what you attempt to extract from the input by specifying which parsing method to use: If Parse is used the parser will attempt to determine the type. **Please** use the exact parsing for more accuracy and less overhead.
+You can also specify what you would like to attempt to extract from the input by specifying which parsing method to use: If `ChronoxParser.Parse` is used the parser will attempt to determine the type. **Please** use the exact parsing methods for more accuracy and less overhead. When using exact parsing all othe parsing types and formats are ignored.
 
 ```c#
 
@@ -145,17 +149,20 @@ result = ChronoxParser.ParseTimeSet(settings, input);
 
 #### Result ####
 
-A `ChronoxResult` contains the result data extracted by the parser. The result obtain from a parsing operation is of type `IChronoxExtraction`. A result may contain many different extractions. In the case of none exact parsing a `ResultWrapper` is returned which contains the data extracted if any. In the case of **exact parsing** a predetermined extraction type is returned. The extraction contains the following properties
+A `ChronoxResult` contains the result data extracted by the parser. The result obtain from a parsing operation is of type `IChronoxExtraction`. A result may contain many different extractions. In the case of none exact parsing when calling the `ChronoxParser.Parse` a `ResultWrapper` is returned which contains the data extracted if any. In the case of **exact parsing**, a predetermined extraction type is returned. The extraction contains the following properties:
 
-* `RetultType` The type of the extraction which could be a `DateTime`, `TimeSpan`, etc
+* `RetultType` The type of the extraction which could be a `DateTime`, `TimeSpan`, etc.
 * `ProcessedString`  The string after it has been processed which is stripped of the extraction areas. 
-* `Original` The original string which was passed to the parser 
-* `Extraction`  The actual extraction or representation of the parsed data
-* `StartIndex`  The start index at which the extraction happened
-* `EndIndex`  The end index at which the extraction happened
+* `Original` The original string which was passed to the parser. 
+* `Extraction`  The actual extraction or representation of the parsed data.
+* `StartIndex`  The start index at which the extraction happened.
+* `EndIndex`  The end index at which the extraction happened.
 
 #### Result interpratation ####
 
+The following code shows a scenario where a reference date is used. The parser will then attempt to parse the input and return a result relative to the passed reference date.
+
+Given the following case:
 
 ```c#
 
@@ -183,24 +190,23 @@ The `output` = :
 
 ## How does Chronox works? ##
 
-`Chronox` uses a combination of techniques in order to work. At the top level it uses pre-processors which will look at the string and attempt to pre-process it in order to make parsing and pattern matching easier. Eg: A pre-processor or `IChronoxScanner` is used to convert any numeric value written in words to its numeric representation. Additional pre-processors may be used in order to satisfy the locale and or parsing needs of an application.
+`Chronox` uses a combination of different techniques in order to extract desired time related entities. At the top level `Chronox` uses pre-processors which will scan the string and attempt to pre-process it in order to make parsing and pattern matching easier. Eg: A pre-processor or `IChronoxScanner` is used to convert any numeric value written in words to its numeric representation. Eg: "Two hundred and fifty-five becomes 255". Additional pre-processors may be used in order to satisfy the locale and or parsing needs of an application.
 
-Under the hood `Chronox` uses **REGEX** for matching specific patterns along side translation methods. Various entity extraction methods are used in order to effetively find and parse the desired data. 
+Under the hood `Chronox` uses **REGEX** for matching specific patterns along the side some translation and entithy extraction methods. Various entity extraction methods are used in order to effetively find and parse the desired data. Regex patterns are automatically generated using a generator. Theses regex patterns are then used in order to find the desired data.
 
 #### Compiling performance: ####
 
-Chronox compilation time is relative to the amount of sequences supported as well the amount of datasets added to it. The amount of variations added to a dataset will affect the the compilation time too.
+Chronox compilation time is relative to the amount of sequences/formats supported as well the amount of datasets added to it. The amount of variations added to a dataset will affect the the compilation time too.
 
 #### Parsing performance: ####
 
-Due to the fact that most of the work done by `Chronox` happens when it is built parsing times are pretty fast. The usual parsing time does not exceed 1 millisecond. There are some edge cases in which chronox may take up to 60 milliseconds in order to return a result. The lenght of the string and the amount of pre-processors/scanners used will also affect the parsing performance. `Chrono` in its current state can be further optimized and it will be optimized in a near future.
+Due to the fact that most of the work done by `Chronox` happens when it is built, parsing times are in most cases pretty fast. The usual parsing time does not exceed 1 millisecond. There are some edge cases in which chronox may take up to 60 milliseconds in order to return a result. The lenght of the string and the amount of pre-processors/scanners used will also affect the parsing performance. `Chrono` in its current state can be further optimized and it will be optimized in a near future.
 
 ## Datasets and Instructions:
 
-In order to add support to a language `Chronox` uses datasets which contain instructions which the system uses in order to parse a given input. For a DataSet template please please refere to: [Template]. The dataset allowes the user to deal with some language specific rules and exceptions.
+In order to add support to a language `Chronox` uses datasets which contain instructions which the system uses in order to parse a given input. For a DataSet template please please refere to: [Template](https://github.com/EudyContreras/Chronox.NetCore/blob/master/TEMPLATE.txt). The dataset allows the user to deal with some language specific rules and exceptions.
 
-In order to achieve the best result please read the guidelines and descriptions. The language files work directly with the parser in order to provide support for different laguages. If you wish add to support to a language simply specified the equivalent variations to be used by the parser when converting, along with the optional regex patterns for the variations.
-In addition you may also provide additional information in order to inrease parsing accuracy. 
+In order to achieve the best result please read the guidelines and descriptions. The language files work directly with the parser in order to provide support for different languages. If you wish add to support to a language simply specified the equivalent variations to be used by the parser when converting, along with the optional regex patterns for the variations. If no regex pattern is provided to the variations it will then be generated by `Chronox`. You may write the patterns yourself in order to decrese the work that needs to be done by `Chronox` upon construction. In addition you may also provide additional information in order to inrease parsing accuracy. 
 
 #### Keywords: ####
 
@@ -258,13 +264,13 @@ For more information about Regular Expression **REGEX** please visit: [Regex Doc
 
 ## How to add unsupported formats or sequences? ##
 
-In order to add a date format or sequence which is not currently supported by `Chronox` all that needs to be done is to specify said format using a combination of section codes. For a full list of the available section codes please look at the table below:
+In order to add a date format or sequence which is not currently supported by `Chronox` all that needs to be done is to specify said format using a combination of section codes. For a full list of the available section codes please look at the [Format code cheat sheet](#format-code-cheat-sheet):
 
-Must commonly known as well as some less common formats are already supported by `Chronox`. For a full list of supported format please look at the #FormatDocument. Feel free to play around with the formats in order to add support to your format.
+Most commonly used as well as some less commonly used formats are already supported by `Chronox`. For a full list of supported format please look at the [Sequneces](https://github.com/EudyContreras/Chronox.NetCore/blob/master/SEQUENCES.md) document. Feel free to add support to your custom format.
 
 #### Adding a sequence collection: ####
 
-Formats can be submitted to `Chronox` in two ways. The first way is that a sequence collection can be added when creating a `ChronoxSettings`. 
+Formats can be submitted to `Chronox` in two ways. The first way is through a sequence collection. A `SequenceCollection can be added when creating a `ChronoxSettings`. 
 
 ```c#
 
@@ -307,6 +313,7 @@ supportedTimeSetFormats:
 
 #### Format code cheat sheet: ####
 
+The table below shows the full list of supported section codes along with their representation and example cases. 
 
 | Section code			|  Representation description		|    Example cases				|
 | ------------------------------| --------------------------------------| ----------------------------------------------|
@@ -368,32 +375,70 @@ supportedTimeSetFormats:
 |	        N.M.4.D			|        Number Max 4 Digits		|23, 2323, 321, etc|
 |	        N.M.5.D			|        Number Max 5 Digits		|232, 12, 43454, etc|
 
+
 ## How to define and add additonal pre-processors?
 
-A pre-processor or `scanner` allows the user to specifiy an operation to perform on the input before the actual parsing is performed. Pre-processing the input may improve both the parsing performance and the parsing accuracy by removing noise from the input. `Chronox` uses a pre-processor in order to convert numbers written in words to actual numeric values before the parsing is performed. 
+A pre-processor or `scanner` allows the user to specifiy an operation to be performed on the input before the actual parsing is performed. Pre-processing the input may improve both the parsing performance and the parsing accuracy by removing noise from the input. As previously mentioned `Chronox` uses a pre-processor in order to convert numbers written in words to actual numeric values before the parsing is performed. 
 
-In order to add a pre-processor you must simply implement `IChronoxScanner` interface and your logic to the Scan method. The method returns a `ScanWrapper` which contains information about the scan result. A scanner tag must also be specified. 
+In order to add a pre-processor you must simply implement the `IChronoxScanner` interface and add your logic to the Scan method. The method returns a `ScanWrapper` which contains information about the scan result. A scanner tag must also be specified. 
+
+**The Interface:**
 
 ```c#
 
-public interface IChronoxScanner
-{
-    string ScannerTag
-    ScanWrapper Scan(ChronoxSettings option, string expression);
-}
+    public interface IChronoxScanner
+    {
+        string ScannerTag
+        ScanWrapper Scan(ChronoxSettings option, string expression);
+    }
 
 ```
+
+**The result**
+
+A scan result yields a `ScanWrapper` containing information about the scan. A scan will also contain a list of `ReplaceWrappers` which encapsulate information about what was replaced by the scanner and where did the replace happened. Please look at the templates below for a better idea of the results a scan operation will yield.
+
+```c#
+
+    public class ScanWrapper
+    {
+        public List<ReplaceWrapper> ResultWrappers { get; set; } = new List<ReplaceWrapper>();
+
+        public string ScannedExpression { get; set; } 
+
+        public string NormalizedExpression { get; set; }
+
+        public string ScannerTag { get; set; }
+    }
+    
+    
+    public class ReplaceWrapper
+    {
+        public IndexWrapper ReplacementPosition { get; set; }
+
+        public IndexWrapper OriginalPosition { get; set; }  
+
+        public string ReplacerTag { get; set; }
+
+        public string TextOriginal { get; set; }
+
+        public string TextReplacement { get; set; }
+    }
+
+```
+
+
 ## Dealing with conflict or ambiguity:
 	
-When parsing a date conflicts or ambiguity may occur. In said case `Chronox` will then let the user decide which result to choose. Conflicts can be avoided by not supporting formats that create amibiguity. Methods for dealing with conflic and ambiguity are still a work in progress and are subjected to change and improvements.
+When parsing a date conflicts or ambiguity may occur due to the fact that maybe formats are too similar. In said case `Chronox` will then let the user decide which result to choose. Conflicts can be avoided by not supporting formats that create amibiguity. Methods for dealing with conflic and ambiguity are still a work in progress and are subjected to change and improvements.
 
 ## Known and potential bugs:
 
-Coming soon...
+More testing needed! Coming soon...
 
 ## Component types:
 
-**Chronox** is meant to be able to handle date and time paring but it can also handle time ranges, recurring time sets, durations or time spans and timezone conversion.
+**Chronox** is meant to be able to handle date and time paring but it can also handle time ranges, recurring time sets, durations or time spans and timezone conversion. Here is a list of the components used by `Chronox`.
 
 * **ChronoxDate** : *Comonent which holds date related data*
 * **ChronoxTime** : *Comonent which holds time related data*
@@ -401,7 +446,7 @@ Coming soon...
 * **ChronoxTimeRange** : *Comonent which holds time range related data*
 * **ChronoxTimeSet** : *Comonent which holds recurring time event related data*
 * **ChronoxTimeSpan** : *Comonent which holds durationg/span related data*
-* **ChronoxTimeZon** : *Comonent which holds timezone related data*
+* **ChronoxTimeZone** : *Comonent which holds timezone related data*
 
 
 ## Things to note:
@@ -420,7 +465,7 @@ Coming soon...
 ## Future works:
 
 
-There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands
+There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands.
 
 - [ ] **Make into nuget package**
 - [ ] **Add thread safety**
@@ -435,15 +480,13 @@ There are parts of this library that are yet to be finished and there are also s
 
 ## Supported timezones: ##
 
-**Chronox** supports most if not all Timezones. If a timezone is found it will be extracted. A **Timezone** object can be added or substracted from the result in order get an accurate timezone sensitve time. For a list of the supported TimeZones please look follow this loink [TimeZones](https://github.com/EudyContreras/Chronox.NetCore/blob/master/TIMEZONES.md)
+**Chronox** supports most if not all TimeZones. If a timeZone is found it will be extracted. A **Timezone** object can be added or substracted from the result in order get an accurate timeZone sensitve time. For a list of the supported TimeZones please look at [TimeZones](https://github.com/EudyContreras/Chronox.NetCore/blob/master/TIMEZONES.md)
 
 
 ## Contribute:
 
 
-Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob/master/CONTRIBUTING) for details on the code base code of conduct, and the process for submitting pull requests to **OthelloFX**
-
-
+Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob/master/CONTRIBUTING) for details on the code base code of conduct, and the process for submitting pull requests to **Chronox**
 
 
 
@@ -463,7 +506,7 @@ Please read [Contributing](https://github.com/EudyContreras/Chronox.NetCore/blob
 ## Contact: ##
 
 
-If any questions regarding this program fell free to reach me at my [Email](EudyContrerasRosario@gmail.com)
+If you have any questions regarding this program feel free to reach me at my [Email](EudyContrerasRosario@gmail.com)
 
 
 
@@ -471,7 +514,7 @@ If any questions regarding this program fell free to reach me at my [Email](Eudy
 
 ## Disclaimers:
 
-This program is in WIP and it was made as a hobby and it not originally intended for professional or commercial use. Although this program works as expected to some extent and can be used in professional and commercial projects I the original author will not be subjected to any liability. This program may be subjected to architectural changes and in its current state it is not perfect. Please exercise caution and use at own risk.
+This program is a work in progress and it was made as a hobby and it not originally intended for professional or commercial use. Although this program works as expected to some extent and can be used in professional and commercial projects, I the original author will not be subjected to any liability cause by errors produced by this program. This program may be subjected to architectural changes and in its current state it is not perfect. Please exercise caution and use at own risk.
 
 All background images including the logo were not made by me and I do not claim ownership of these images. I would like to thank the awesome artists and creators of the images for making them public. If there is any problem with the use of these images please contact me so we can solve it. Once again. props to the artists.
 
