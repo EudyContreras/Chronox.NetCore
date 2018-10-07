@@ -353,9 +353,9 @@ The table below shows the full list of supported section codes along with their 
 |	        H.D,   			|        Hour Discrete			|12, etc|
 |	        M.D   			|        Minute Discrete		|44, etc|
 |	        S.D   			|        Second Discrete		|59, etc|
-|	        D.D.B 			|        Date Big Endian		|YYYY|MM|DD|
-|	        D.D.L 			|        Date Little Endian		|DD|MM|YYYY|
-|	        D.D.M 			|        Date Middle Endian		|MM|DD|YYYY|
+|	        D.D.B 			|        Date Big Endian		|YYYY-MM-DD|
+|	        D.D.L 			|        Date Little Endian		|DD-MM-YYYY|
+|	        D.D.M 			|        Date Middle Endian		|MM-DD-YYY|
 |	        W.S   			|        Expression Separator		|and, etc|
 |	        D.W.T 			|        Day Of Week Type		| |
 |	        T.M   			|        Time Meridiam			|AM, pm, etc|
