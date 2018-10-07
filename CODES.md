@@ -5,7 +5,7 @@ Here is a list of the section codes along with their respective representation a
 
 | Section code			|  Representation description		|    Example cases				|
 | ------------------------------| --------------------------------------| ----------------------------------------------|
-|	        C.E  			|        Casual Expressions		|
+|	        C.E  			|        Casual Expressions		|Now, Tonight, etc
 |	        G.E   			|        Grabber Expressions		|This, next, last, etc|
 |	        D.O   			|        DayOffset			|Tomorrow, Today, Yesterday, etc|
 |	        T.E   			|        Time Expressions		|Noon, Midnight, etc|
@@ -44,7 +44,7 @@ Here is a list of the section codes along with their respective representation a
 |	        D.D.B 			|        Date Big Endian		|YYYY|MM|DD|
 |	        D.D.L 			|        Date Little Endian		|DD|MM|YYYY|
 |	        D.D.M 			|        Date Middle Endian		|MM|DD|YYYY|
-|	        W.S   			|        Expression Separator		| |
+|	        W.S   			|        Expression Separator		|and, etc|
 |	        D.W.T 			|        Day Of Week Type		| |
 |	        T.M   			|        Time Meridiam			|AM, pm, etc|
 |	        D.U.B 			|        Date Units			|year, months, weeks, days, etc|
