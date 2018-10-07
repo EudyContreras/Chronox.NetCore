@@ -286,7 +286,7 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 
 The other option is to specifiy directly on the dataset which formats you wish to support.
 
-```js
+```c#
 supportedDateTimeFormats:
 
 	D.O.W
@@ -315,9 +315,9 @@ supportedTimeSetFormats:
 
 The table below shows the full list of supported section codes along with their representation and example cases. 
 
-| Section code			|  Representation description		|    Example cases				|
-| ------------------------------| --------------------------------------| ----------------------------------------------|
-|	        C.E  			|        Casual Expressions		|
+| Section code				|  Representation description		|    Example cases			   |
+| --------------------------------------| --------------------------------------| -----------------------------------------|
+|	        C.E  			|        Casual Expressions		|now, tonight, etc|
 |	        G.E   			|        Grabber Expressions		|This, next, last, etc|
 |	        D.O   			|        DayOffset			|Tomorrow, Today, Yesterday, etc|
 |	        T.E   			|        Time Expressions		|Noon, Midnight, etc|
@@ -356,7 +356,7 @@ The table below shows the full list of supported section codes along with their 
 |	        D.D.B 			|        Date Big Endian		|YYYY|MM|DD|
 |	        D.D.L 			|        Date Little Endian		|DD|MM|YYYY|
 |	        D.D.M 			|        Date Middle Endian		|MM|DD|YYYY|
-|	        W.S   			|        Expression Separator		| |
+|	        W.S   			|        Expression Separator		|and, etc|
 |	        D.W.T 			|        Day Of Week Type		| |
 |	        T.M   			|        Time Meridiam			|AM, pm, etc|
 |	        D.U.B 			|        Date Units			|year, months, weeks, days, etc|
