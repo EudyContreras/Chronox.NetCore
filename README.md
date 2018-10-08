@@ -286,7 +286,7 @@ var settings = new ChronoxSettings(sequenceCollection,"English", "Spanish")
 
 The other option is to specifiy directly on the dataset which formats you wish to support.
 
-```c#
+```
 supportedDateTimeFormats:
 
 	D.O.W
@@ -467,15 +467,15 @@ More testing needed! Coming soon...
 
 There are parts of this library that are yet to be finished and there are also some things which I plan to add to the library. These things will be shown here along with popular demands.
 
-- [ ] **Make into nuget package**
-- [ ] **Add thread safety**
-- [ ] **Improve loading performance**
-- [ ] **Allow post-compilation modifications to Chronox**
-- [ ] **Add better support to multi-extraction**
-- [ ] **Finish adding support to TimeSpan**
-- [ ] **Finish adding support to TimeSet**
-- [ ] **Finish adding support to TimeRange**
-- [ ] **A bunch of other things**
+- [ ] Make into nuget package
+- [ ] Add thread safety
+- [ ] Improve loading performance
+- [ ] Allow post-compilation modifications to Chronox
+- [ ] Add better support to multi-extraction
+- [ ] Finish adding support to TimeSpan
+- [ ] Finish adding support to TimeSet
+- [ ] Finish adding support to TimeRange
+- [ ] A bunch of other things
 
 
 ## Supported timezones: ##
