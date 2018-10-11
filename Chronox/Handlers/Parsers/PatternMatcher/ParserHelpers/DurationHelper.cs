@@ -11,7 +11,7 @@ using Chronox.Utilities;
 
 namespace Chronox.Parsers.General.ParserHelpers
 {
-    public class TimeSpanHelper : IChronoxParseHelper<ChronoxTimeSpanExtraction>
+    public class TimeSpanHelper : IChronoxParser<ChronoxTimeSpanExtraction>
     {
         public void DetermineTimeMeridiam(List<GroupWrapper> foundGroups, GroupWrapper meridiam, ChronoxBuildInformation information, ref DateTime dateTime)
         {

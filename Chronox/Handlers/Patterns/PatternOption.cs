@@ -7,7 +7,7 @@ namespace Chronox.Handlers.Patterns
    
     public class PatternOption
     {
-        public static PatternOption Standard = PatternOption.GetStandard();
+        public static PatternOption Standard = GetStandard();
 
         private static PatternOption GetStandard()
         {

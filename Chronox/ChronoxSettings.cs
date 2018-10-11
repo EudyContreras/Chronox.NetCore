@@ -26,6 +26,8 @@ namespace Chronox
 
         public DateTime ReferenceDate = DateTime.Now;
 
+        public TimeRange TimeRange { get; private set; } = new TimeRange();
+
         internal VocabularyHandler Language { get; private set; }
 
         public List<SequenceCollection> ChronoxSequenceCollections { get; set; } = new List<SequenceCollection>();
@@ -48,7 +50,7 @@ namespace Chronox
 
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
 
-        private string[] Languages { get; set; } = { "English" };
+        public Language[] Languages { get; private set; } = { new Language("English", ChronoxLangSettings.Default) };
 
         private int year = int.MinValue;
 
@@ -66,16 +68,16 @@ namespace Chronox
 
         internal int GetWeekStartOffset() => (int)StartOfWeek;
 
-        public ChronoxSettings() : this(new string[] { }) { }
+        public ChronoxSettings() : this(Definitions.DefaultLanguage) { }
 
-        public ChronoxSettings(params string[] languages)
+        public ChronoxSettings(params Language[] languages)
         {
             PrefferedLanguages = languages;
 
             this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
         }
 
-        public ChronoxSettings(SequenceCollection chronoxSequences, params string[] languages)
+        public ChronoxSettings(SequenceCollection chronoxSequences, params Language[] languages)
         {
             PrefferedLanguages = languages;
 
@@ -84,7 +86,7 @@ namespace Chronox
             this.Language = VocabularyHandler.GetInstance(this, Definitions.LangDataPath, PrefferedLanguages);
         }
 
-        public ChronoxSettings(List<SequenceCollection> chronoxSequences, params string[] languages)
+        public ChronoxSettings(List<SequenceCollection> chronoxSequences, params Language[] languages)
         {
             PrefferedLanguages = languages;
 
@@ -117,7 +119,7 @@ namespace Chronox
             }
         }
 
-        public string[] PrefferedLanguages
+        public Language[] PrefferedLanguages
         {
             get { return Languages; }
             set
@@ -192,20 +194,20 @@ namespace Chronox
             }
         }
 
-        public void SetLangDataSetFilePath(string fullPath)
-        {
-            Language.DestroyInstance();
+        //public void SetLangDataSetFilePath(string fullPath)
+        //{
+        //    Language.DestroyInstance();
 
-            fullPath = fullPath.RemoveSubstrings(".txt", ".json");
+        //    fullPath = fullPath.RemoveSubstrings(".txt", ".json");
 
-            var parts = fullPath.Split('\\');
+        //    var parts = fullPath.Split('\\');
 
-            var language = parts[parts.Length - 1];
+        //    var language = parts[parts.Length - 1];
 
-            var path = fullPath.Replace(language, string.Empty).Trim();
+        //    var path = fullPath.Replace(language, string.Empty).Trim();
 
-            Language = VocabularyHandler.GetInstance(this, path, language);
-        }
+        //    Language = VocabularyHandler.GetInstance(this, path, language);
+        //}
 
 
         //TODO: Implement equals effectively by invoking different properties

@@ -24,11 +24,7 @@ namespace Chronox
 
         public int CompareTo(ChronoxDate other)
         {
-            var compoundOne = Year + Month + Day;
-
-            var compoundTwo = other.Year + other.Month + other.Day;
-
-            return compoundOne - compoundTwo;
+            return Year != other.Year ? Year - other.Year : Month != other.Month ? Month - other.Month : Day != other.Day ? Day - other.Day : 0;
         }
     }
 }

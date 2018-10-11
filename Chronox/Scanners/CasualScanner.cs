@@ -15,6 +15,7 @@ namespace Chronox.Scanners
         {
             return GetType().Name;
         }
+
         public ScanWrapper Scan(ChronoxSettings option, string expression)
         {
            return new ScanWrapper(this);

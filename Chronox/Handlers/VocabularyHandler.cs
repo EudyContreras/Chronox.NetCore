@@ -19,11 +19,14 @@ using System.Text;
 
 namespace Chronox.Handlers
 {
+
+    /* TODO: Attempt dviding vocabulary banks so that instead of having a huge bank with a bunch of languaes
+     * there will be a bunch of bocabulary banks pertaining each language. This would allow for the use
+     * of an algorithm for finding what languages to prioritize upon parsing.
+     */
     public class VocabularyHandler
     {
         private static VocabularyHandler instance;
-
-        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.LangDataPath, Definitions.DefaultLanguage);
 
         public Glossary Vocabulary { get; private set; }
 
@@ -53,9 +56,9 @@ namespace Chronox.Handlers
 
         private ChronoxSettings Settings { get; set; }
 
-        private VocabularyHandler(ChronoxSettings settings, string directory, params string[] languages)
+        private VocabularyHandler(ChronoxSettings settings, string directory, params Language[] languages)
         {
-            this.Settings = settings;
+            Settings = settings;
 
             VocabularyBank = new GlossaryBank();
 
@@ -67,19 +70,14 @@ namespace Chronox.Handlers
 
             SequenceLibrary = new SequenceBank();
 
-            DateTimeRegexSequences = new List<PatternSequence>();
-
             Holidays = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             Vocabulary = Load(directory, languages);
 
             SequenceLibrary.SequencesDateTimeCombinations.AddRange(SequenceBank.DateTimeSequences.ToArray());
-
-            SequenceLibrary.SequencesRepeaterCombinations.AddRange(SequenceBank.RepeaterSequences.ToArray());
-
             SequenceLibrary.SequencesDurationCombinations.AddRange(SequenceBank.DurationSequences.ToArray());
-
             SequenceLibrary.SequencesRangeCombinations.AddRange(SequenceBank.TimeRangeSequences.ToArray());
+            SequenceLibrary.SequencesRepeaterCombinations.AddRange(SequenceBank.RepeaterSequences.ToArray());
 
             SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.DateTimeSequences.ToArray());
             SequenceLibrary.SequencesAllCombinations.AddRange(SequenceBank.DurationSequences.ToArray());
@@ -106,7 +104,10 @@ namespace Chronox.Handlers
 
         }
 
-        public static VocabularyHandler GetInstance(ChronoxSettings settings, string directory, params string[] language)
+        public static VocabularyHandler DefaultLanguage(ChronoxSettings settings) => GetInstance(settings, Definitions.LangDataPath, Definitions.DefaultLanguage);
+
+
+        public static VocabularyHandler GetInstance(ChronoxSettings settings, string directory, params Language[] language)
         {
             if (instance == null)
             {
@@ -117,13 +118,13 @@ namespace Chronox.Handlers
 
         public void DestroyInstance() => instance = null;
 
-        private Glossary Load(string directory, string[] languages)
+        private Glossary Load(string directory, Language[] languages)
         {
             var glossaries = new HashSet<Glossary>();
 
             foreach(var language in languages)
             {
-                var fileName = new StringBuilder(language.FirstLetterToUpper(true));
+                var fileName = new StringBuilder(language.LanguageName.FirstLetterToUpper(true));
 
                 var path = Path.Combine(directory, fileName.Append(".txt").ToString());
 
@@ -143,7 +144,7 @@ namespace Chronox.Handlers
 
                 if(glossaries.Count <= 0)
                 {
-                    fileName = new StringBuilder(Definitions.DefaultLanguage).Append(".txt");
+                    fileName = new StringBuilder(Definitions.DefaultLanguage.LanguageName).Append(".txt");
 
                     path = Path.Combine(Definitions.LangDataPath, fileName.ToString());
 
@@ -177,7 +178,7 @@ namespace Chronox.Handlers
 
         public Glossary MergeGlossaries(params Glossary[] glossaries)
         {
-            foreach(var glossary in glossaries)
+            foreach (var glossary in glossaries)
             {
                 foreach (var section in glossary.Sections)
                 {
@@ -191,11 +192,15 @@ namespace Chronox.Handlers
                 }
             }
 
-            if(glossaries.Length > 1)
+            if(glossaries.Length == 1){
+                
+                return glossaries[0];
+            }
+            else
             {
                 var mergedGlossary = new Glossary();
 
-                mergedGlossary.Language = string.Join("|", glossaries.Select(g => g.Language));
+                mergedGlossary.Language.LanguageName = string.Join("|", glossaries.Select(g => g.Language));
 
                 mergedGlossary.DateTimeIgnored = new HashSet<string>(glossaries.SelectMany(g => g.DateTimeIgnored),StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.TimeRangeIgnored = new HashSet<string>(glossaries.SelectMany(g => g.TimeRangeIgnored), StringComparer.OrdinalIgnoreCase).ToList();
@@ -204,14 +209,14 @@ namespace Chronox.Handlers
 
                 mergedGlossary.OrdinalSuffixes = new HashSet<string>(glossaries.SelectMany(g => g.OrdinalSuffixes), StringComparer.OrdinalIgnoreCase).ToList();
 
-                mergedGlossary.CommonPunctuation = new HashSet<string>(glossaries.SelectMany(g => g.CommonPunctuation), StringComparer.OrdinalIgnoreCase).ToList();
-                mergedGlossary.CommonDateSeparators = new HashSet<string>(glossaries.SelectMany(g => g.CommonDateSeparators), StringComparer.OrdinalIgnoreCase).ToList();
-                mergedGlossary.CommonTimeSeparators = new HashSet<string>(glossaries.SelectMany(g => g.CommonTimeSeparators), StringComparer.OrdinalIgnoreCase).ToList();
-
                 mergedGlossary.SupportedDateTimeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedDateTimeFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeRangeFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeRangeFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeSpanFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSpanFormats), StringComparer.OrdinalIgnoreCase).ToList();
                 mergedGlossary.SupportedTimeSetFormats = new HashSet<string>(glossaries.SelectMany(g => g.SupportedTimeSetFormats), StringComparer.OrdinalIgnoreCase).ToList();
+
+                mergedGlossary.CommonPunctuation = new HashSet<Tuple<char,char>>(glossaries.SelectMany(g => g.CommonPunctuation)).ToList();
+                mergedGlossary.CommonDateSeparators = new HashSet<char>(glossaries.SelectMany(g => g.CommonDateSeparators)).ToList();
+                mergedGlossary.CommonTimeSeparators = new HashSet<char>(glossaries.SelectMany(g => g.CommonTimeSeparators)).ToList();
 
                 if(Settings.ChronoxSequenceCollections.Count != 0){
                     foreach(SequenceCollection sequence in Settings.ChronoxSequenceCollections){
@@ -252,22 +257,19 @@ namespace Chronox.Handlers
                             var properties = glossaries
                                     .SelectMany(g => g.Sections)
                                     .Where(g => g.Label.Equals(section.Label, StringComparison.OrdinalIgnoreCase))
-                                   .SelectMany(g => g.Properties)
+                                    .SelectMany(g => g.Properties)
                                     .Where(g => g.Key.Equals(property.Key, StringComparison.OrdinalIgnoreCase));
 
-                            property.Pattern = string.Join("|", properties.Select(p => p.Pattern));
+                            property.Pattern = string.Join("|", properties.Select(p => p.Pattern).ToList());
 
-                            property.Variations = properties.SelectMany(g => g.Variations).ToList();
+                            property.Variations = new HashSet<string>(properties.SelectMany(g => g.Variations), StringComparer.OrdinalIgnoreCase).ToList();
                         }
                     }
                 }
 
                 return mergedGlossary;
             }
-            else
-            {
-                return glossaries[0];
-            }
+          
         }
 
         private void CreateVocabulary()
@@ -479,7 +481,7 @@ namespace Chronox.Handlers
 
         private void ExtractSequences()
         {
-            //WriteSequenceCodes(SequenceBank.DateTimeSequences.ToList(), "Sequences.txt");
+            WriteSequenceCodes(SequenceBank.DateTimeSequences.ToList(), "Sequences.txt");
 
             SequenceHandler.ExtractStandAlonePatterns();
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Chronox.Handlers.Models;
 
 namespace Chronox.Constants
 {
@@ -23,8 +24,8 @@ namespace Chronox.Constants
         public static readonly string TimeZoneFilePath = $@"{PathBackTrack}Resources{Slash}DataSets{Slash}TimeZoneInfo.txt";
         public static readonly string FilePathDataSets = $@"{PathBackTrack}Resources{Slash}DataSets";
 
-            
-        public const string DefaultLanguage = "English";
+
+        public static readonly Language DefaultLanguage = new Language("English", ChronoxLangSettings.Default);
 
         public static class General
         {
@@ -380,12 +381,12 @@ namespace Chronox.Constants
                 }
             }
 
-            public static readonly IReadOnlyDictionary<string, RangeWrapper> TIME_OF_DAY = new Dictionary<string, RangeWrapper>(StringComparer.OrdinalIgnoreCase)
+            public static readonly IReadOnlyDictionary<string, TimeOfDay> TIME_OF_DAY = new Dictionary<string, TimeOfDay>(StringComparer.OrdinalIgnoreCase)
             {
-                {"morning", RangeConstants.MORNING_RANGE},
-                {"afternoon", RangeConstants.AFTERNOON_RANGE},
-                {"evening", RangeConstants.EVENING_RANGE},
-                {"night", RangeConstants.NIGHT_RANGE},
+                {"morning", TimeOfDay.Morning},
+                {"afternoon", TimeOfDay.Afternoon},
+                {"evening", TimeOfDay.Evening},
+                {"night", TimeOfDay.Night},
             };
 
             public static readonly IReadOnlyDictionary<string, int> DAY_OFFSET = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)

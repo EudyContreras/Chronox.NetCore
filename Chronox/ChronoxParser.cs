@@ -11,6 +11,7 @@ using Chronox.Exceptions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chronox.Handlers.Models;
 
 namespace Chronox
 {
@@ -51,7 +52,7 @@ namespace Chronox
             }
         }
 
-        private ChronoxSettings settings = new ChronoxSettings("English");
+        private ChronoxSettings settings = new ChronoxSettings(new Language("English",ChronoxLangSettings.Default));
 
         public ChronoxSettings Settings
         {
@@ -253,8 +254,6 @@ namespace Chronox
 
         private string PreProcessExpression(ChronoxSettings settings, string expression)
         {
-            expression = expression.PadPunctuationExact(0, 1, ',');
-
             switch (settings.ParsingMode)
             {
                 case ExtractionResultType.General:
@@ -289,9 +288,9 @@ namespace Chronox
                     break;
             }
 
-            expression = expression.Replace("  ", " ", false);
+            expression = expression.Contains("  ") ? expression.Replace("  ", " ", false) : expression;
 
-            expression = expression.Pad(0, 1);
+            expression = expression[expression.Length-1] != ' ' ? expression.Pad(0, 1) : expression;;
 
             return expression;
         }
@@ -318,6 +317,7 @@ namespace Chronox
         {
             return new List<IChronoxScanner>
             {
+                new PunctuationScanner(),
                 new HolidayScanner(),
                 new NumberScanner(),
                 new CardinalScanner()

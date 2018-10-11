@@ -13,9 +13,9 @@ namespace Chronox.Helpers
 
         public TimeOfDay TimeOfDay { get; private set; }
 
-        public long Start { get; private set; }
+        public long Start { get; set; }
 
-        public long End { get; private set; }
+        public long End { get; set; }
 
         public RangeWrapper(TimeOfDay timeOfDay, long start, long end)
         {

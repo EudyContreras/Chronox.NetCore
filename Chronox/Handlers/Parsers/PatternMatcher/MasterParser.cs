@@ -16,13 +16,15 @@ namespace Chronox.Parsers.English
 {
     public class MasterParser
     {
-        private IChronoxParseHelper<ChronoxDateTimeExtraction> helperA = null;
+        private IChronoxParser<ChronoxDateTimeExtraction> helperA = null;
 
-        private IChronoxParseHelper<ChronoxTimeRangeExtraction> helperB = null;
+        private IChronoxParser<ChronoxTimeRangeExtraction> helperB = null;
 
-        private IChronoxParseHelper<ChronoxTimeSpanExtraction> helperC = null;
+        private IChronoxParser<ChronoxTimeSpanExtraction> helperC = null;
 
-        private IChronoxParseHelper<ChronoxTimeSetExtraction> helperD = null;
+        private IChronoxParser<ChronoxTimeSetExtraction> helperD = null;
+
+
 
         public List<IChronoxExtraction> ComputeResult(string text, DateTime referenceDate, ChronoxSettings settings, ChronoxBuildInformation information)
         {
@@ -324,31 +326,40 @@ namespace Chronox.Parsers.English
             return false;
         }
 
+        private string timeZone;
+
         //Find a way to minimize amount of checks and reduce loop count!
 
         private List<MatchWrapper> FindAllMatches(ChronoxSettings settings, IEnumerable<PatternSequence> sequences, ChronoxBuildInformation information, string[] parts)
         {
             var matchesFound = new List<MatchWrapper>();
 
+            if(timeZone == null){
+                timeZone = Definitions.Converters.ABBREVIATIONS[Definitions.Patterns.TimeZone];
+            }
+         
             foreach (var sequence in sequences)
             {
-                if (sequence.PatternCount > parts.Length + 1) continue;
+              
+                if (sequence.PatternCount > parts.Length) 
+                    continue;
 
                 var match = sequence.RegexMatcher.Match(information.ProcessedString);
 
+
                 if (match.Success && !string.IsNullOrEmpty(match.Value))
                 {
-                    if(sequence.AbbreviatedSequence == "T.Z")
+                    if(sequence.AbbreviatedSequence == timeZone)
                     {
                         if(match.Value.All(s => char.IsUpper(s)))
                         {
                             matchesFound.Add(new MatchWrapper(sequence, match));
                         }
                     }
-                    
+
                     else
                     {
-                        matchesFound.Add(new MatchWrapper(sequence, match));
+                        matchesFound.Add(new MatchWrapper(sequence, match));             
                     }
                 }
             }
@@ -449,7 +460,7 @@ namespace Chronox.Parsers.English
             switch (sequence.SequenceType)
             {
                 case SequenceType.DateTime:
-                    helperA = helperA ?? new DateTimeHelper(this);
+                    helperA = helperA ?? new DateTimeHelper(this, settings);
                     result = (sequenceControll && result == null) ? new ChronoxDateTimeExtraction(settings, dateTime, match.Index, match.Value, text) : result;
                     break;
                 case SequenceType.TimeRange:
@@ -554,7 +565,7 @@ namespace Chronox.Parsers.English
             return filterd.OrderBy(g => g.Index).ThenByDescending(g => g.Value.Length).ToList();
         }
 
-        private TResult PerformInstructions<TResult>(List<GroupWrapper> foundGroups, ref DateTime dateTime, TResult result, ChronoxBuildInformation information, ChronoxSettings settings, IChronoxParseHelper<TResult> helper)
+        private TResult PerformInstructions<TResult>(List<GroupWrapper> foundGroups, ref DateTime dateTime, TResult result, ChronoxBuildInformation information, ChronoxSettings settings, IChronoxParser<TResult> helper)
         {
             var date = dateTime;
 
@@ -699,7 +710,6 @@ namespace Chronox.Parsers.English
                 }
                 else if (group.Name == Definitions.Property.Number)
                 {
-                    //var numericWord = ConversionHandler.NumericWord(settings, group.Value.Trim());
                     var value = group.Value.RemoveSubstrings(settings.Language.Vocabulary.OrdinalSuffixes);
 
                     if(int.TryParse(value.Trim(), out int number))

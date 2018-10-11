@@ -255,7 +255,7 @@ namespace Chronox.Utilities.Extenssions
 
             while(true)
             {
-                var i = mutable.IndexOf(sequence);
+                var i = mutable.IndexOf(sequence, StringComparison.OrdinalIgnoreCase);
 
                 if (string.IsNullOrEmpty(mutable))
                 {
@@ -641,9 +641,9 @@ namespace Chronox.Utilities.Extenssions
 
         public static string ReplaceLast(this string source, string fromString, string toString)
         {
-            var firsIndexOf = source.IndexOf(fromString);
+            var firsIndexOf = source.IndexOf(fromString,StringComparison.OrdinalIgnoreCase);
 
-            var lastIndexOf = source.LastIndexOf(fromString);
+            var lastIndexOf = source.LastIndexOf(fromString,StringComparison.OrdinalIgnoreCase);
 
             if (lastIndexOf < 0 || firsIndexOf == lastIndexOf)
                 return source;
@@ -661,9 +661,9 @@ namespace Chronox.Utilities.Extenssions
 
         public static string ReplaceFirst(this string source, string fromString, string toString)
         {
-            var firsIndexOf = source.IndexOf(fromString);
+            var firsIndexOf = source.IndexOf(fromString,StringComparison.OrdinalIgnoreCase);
 
-            var lastIndexOf = source.LastIndexOf(fromString);
+            var lastIndexOf = source.LastIndexOf(fromString, StringComparison.OrdinalIgnoreCase);
 
             if (firsIndexOf < 0 || firsIndexOf == lastIndexOf)
                 return source;
@@ -752,7 +752,7 @@ namespace Chronox.Utilities.Extenssions
             {
                 if (cleanSource.Contains(word))
                 {
-                    var start = cleanSource.IndexOf(word) - 1;
+                    var start = cleanSource.IndexOf(word,ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal) - 1;
                     var end = start + word.Length + 1;
 
                     if(start == -1 || end == cleanSource.Length)

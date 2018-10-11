@@ -15,13 +15,15 @@ using Chronox.Components;
 
 namespace Chronox.Parsers.General.ParserHelpers
 {
-    public class DateTimeHelper : IChronoxParseHelper<ChronoxDateTimeExtraction>
+    public class DateTimeHelper : IChronoxParser<ChronoxDateTimeExtraction>
     {
         private MasterParser parser;
+        private ChronoxSettings settings;
 
-        public DateTimeHelper(MasterParser parser)
+        public DateTimeHelper(MasterParser parser, ChronoxSettings settings)
         {
             this.parser = parser;
+            this.settings = settings;
         }
 
         public void ProcessMax5DigitNumber(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, string value)
@@ -66,8 +68,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             switch (interpretedExpression)
             {
                 case DateTimeExpression.Tonight:
-
-                    dateTime = dateTime.SetHour((int)RangeConstants.NIGHT_RANGE.Start);
+                    dateTime = dateTime.SetHour((int)settings.TimeRange.NIGHT_RANGE.Start);
                     dateTime = dateTime.SetMinutes(0);
                     dateTime = dateTime.SetSeconds(0);
 
@@ -75,7 +76,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                 case DateTimeExpression.LastNight:
 
                     dateTime = dateTime.AddDays(-1);
-                    dateTime = dateTime.SetHour((int)RangeConstants.NIGHT_RANGE.Start);
+                    dateTime = dateTime.SetHour((int)settings.TimeRange.NIGHT_RANGE.Start);
                     dateTime = dateTime.SetMinutes(0);
                     dateTime = dateTime.SetSeconds(0);
 
@@ -747,7 +748,7 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                     if (offset == 0 && information.NumericOrdinals.Count <= 0 && !information.HasOrdinalNumber) //Maybe a better way to check if context is morning
                     {
-                        ProcessTimeOfDay(result, foundGroups, ref dateTime, information, RangeConstants.MORNING_RANGE);
+                        ProcessTimeOfDay(result, foundGroups, ref dateTime, information, settings.TimeRange.MORNING_RANGE);
                     }
                     else
                     {
@@ -839,7 +840,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 if (!result.Builder.IsValueCertain(DateTimeUnit.Meridiam))
                 {
-                    if (RangeConstants.PM_RANGE.Contains(timeOfDay))
+                    if (settings.TimeRange.PM_RANGE.Contains(timeOfDay))
                     {
                         ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.PM);
                     }
@@ -1637,7 +1638,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                 {
                     var timeOfDay = TranslationHandler.TimeOfDay(information.Settings, timeOfDayGroup.Value.Trim());
 
-                    if (RangeConstants.PM_RANGE.Contains(timeOfDay))
+                    if (settings.TimeRange.PM_RANGE.Contains(timeOfDay))
                     {
                         ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.PM);
                     }
@@ -1723,11 +1724,23 @@ namespace Chronox.Parsers.General.ParserHelpers
 
                 dateTime = dateTime.SetHour(hours);
 
+                if(!information.HasMinutes){
+                    dateTime = dateTime.SetMinutes(0);
+                }
+
+                if(!information.HasSeconds){
+                    dateTime = dateTime.SetSeconds(0);
+                }
+
                 DetermineTimeMeridiam(foundGroups,result, meridiam, information, ref dateTime);
 
                 result.Builder.AssignValue(DateTimeUnit.Hour, dateTime.Hour);
 
+                information.HasHours = true;
+
                 information.FloatingHours.Enqueue(hours);
+            }else{
+                //TODO: What to do?
             }
         }
 
@@ -1868,7 +1881,7 @@ namespace Chronox.Parsers.General.ParserHelpers
             {
                 if(zoneOffset.Length > 0)
                 {
-                    if(zoneOffset.Value.StartsWith("-") || zoneOffset.Value.StartsWith("+"))
+                    if(zoneOffset.Value.StartsWith("-",StringComparison.OrdinalIgnoreCase) || zoneOffset.Value.StartsWith("+", StringComparison.OrdinalIgnoreCase))
                     {
                         var arithmeticOperator = TranslationHandler.ArithmeticOperation(information.Settings, zoneOffset.Value[0].ToString());
 
@@ -2066,7 +2079,7 @@ namespace Chronox.Parsers.General.ParserHelpers
                         {
                             var timeOfDay = TranslationHandler.TimeOfDay(information.Settings, timeOfDayExpression.Value.Trim());
 
-                            if (RangeConstants.PM_RANGE.Contains(timeOfDay))
+                            if (settings.TimeRange.PM_RANGE.Contains(timeOfDay))
                             {
                                 ProcessTimeMeridiam(result, foundGroups, ref dateTime, information, TimeMeridiam.PM);
                             }
@@ -2371,41 +2384,6 @@ namespace Chronox.Parsers.General.ParserHelpers
             }
         }
 
-        public void ProcessCasualExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateCasualExpression casualExpression)
-        {
-            //Unsure if it will be supported
-        }
-
-        public void ProcessSeason(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int seasonOfYear)
-        {
-        
-        }
-
-        public void ProcessRepeaterIndicator(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateRepeaterIndicator repeaterIndicator)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ProcessRepeaterExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeRepeater repeaterExpression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ProcessDurationIndicator(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeDurationIndicator durationIndicator)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ProcessDurationExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeDurationExpression durationExpression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ProcessProximityType(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, CertaintyType proximityType)
-        {
-            throw new NotImplementedException();
-        }
-
         public void ProcessTimeMeridiam(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeMeridiam timeMeridiam)
         {
             var certain = foundGroups.Any(g => g.Name == Definitions.Property.TimeMeridiam);
@@ -2443,6 +2421,42 @@ namespace Chronox.Parsers.General.ParserHelpers
             }
 
             result.Builder.ReAssignValue(DateTimeUnit.Hour, dateTime.Hour);
+        }
+
+
+        public void ProcessCasualExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateCasualExpression casualExpression)
+        {
+            //Unsure if it will be supported
+        }
+
+        public void ProcessSeason(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, int seasonOfYear)
+        {
+
+        }
+
+        public void ProcessRepeaterIndicator(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateRepeaterIndicator repeaterIndicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProcessRepeaterExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeRepeater repeaterExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProcessDurationIndicator(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeDurationIndicator durationIndicator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProcessDurationExpression(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, TimeDurationExpression durationExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ProcessProximityType(ChronoxDateTimeExtraction result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, CertaintyType proximityType)
+        {
+            throw new NotImplementedException();
         }
 
         public void BreakExecution(List<GroupWrapper> foundGroups, ChronoxDateTimeExtraction result, bool returnNull)

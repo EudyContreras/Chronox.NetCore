@@ -4,7 +4,7 @@ using Enumerations;
 
 namespace Chronox.Helpers.Interpreters
 {
-    public class TranslationHandler
+    public static class TranslationHandler
     {
         public static int DayOfWeek(ChronoxSettings settings, string dayOfWeek)
         {
@@ -127,7 +127,7 @@ namespace Chronox.Helpers.Interpreters
 
             if (dictionary.TryGetValue(input, out key))
             {
-                return Definitions.Converters.TIME_OF_DAY[key];
+                return settings.TimeRange.GetRange(Definitions.Converters.TIME_OF_DAY[key]);
             }
 
             return null;

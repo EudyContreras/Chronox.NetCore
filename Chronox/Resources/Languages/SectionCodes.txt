@@ -16,8 +16,7 @@ propertyTypes:
 
 supporteSectionCodes:
 
-   [Code]	    [StrictRepresentation]		    [ExampleVariations]
-	
+  [Code]	    [StrictRepresentation]		    [ExampleVariations]
 	C.E 		//: casualExpressions			
 	H.D			//: hourDiscrete				//: 4|10|22
 	G.E 		//: grabberExpressions			//: this|next|last

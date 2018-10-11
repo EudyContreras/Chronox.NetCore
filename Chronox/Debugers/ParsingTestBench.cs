@@ -14,6 +14,8 @@ namespace Tests
     {
         ChronoxSettings settings;
 
+        IChronox chronox;
+
         /*Things to note
          * - if no time specify any date which differs in month, day or year will be set at 12am
          * - if a month is specified without any specified day the day will be set to the first
@@ -136,13 +138,13 @@ namespace Tests
 
             { "half past 2", DateTime.Parse("7/20/2017, 2:30:00") },
 
-            { "Jan 21, '97", DateTime.Parse("1/21/1997, 00:00:00") },
+            { "Jan 21 '97", DateTime.Parse("1/21/1997, 00:00:00") },
 
-            { "Sept 5th, '06", DateTime.Parse("9/5/2006, 00:00:00") }, // Limited support
+            { "Sept 5th '06", DateTime.Parse("9/5/2006, 00:00:00") }, // Limited support
 
             { "quater to 2", DateTime.Parse("7/20/2017, 1:45:00") },
 
-            { "Sun, Nov 21", DateTime.Parse("11/21/2017, 00:00:00") }, //Should i check if 21st is a Sunday?
+            { "Sun Nov 21", DateTime.Parse("11/21/2017, 00:00:00") }, //Should i check if 21st is a Sunday?
 
             { "this second", DateTime.Parse("7/20/2017, 14:30:00") },
 
@@ -232,7 +234,7 @@ namespace Tests
 
             { "6 in the morning", DateTime.Parse("7/20/2017, 6:00:00") },
 
-            { "Fri, 21 Nov 1997", DateTime.Parse("11/21/1997, 00:00:00") },//Should I check if the 21st is a friday??
+            { "Fri 21 Nov 1997", DateTime.Parse("11/21/1997, 00:00:00") },//Should I check if the 21st is a friday??
 
             { "monday the third", DateTime.Parse("7/3/2017, 00:00:00") }, //Should I check if the third is a monday??
 
@@ -256,11 +258,11 @@ namespace Tests
 
             { "6 tuesday morning", DateTime.Parse("7/18/2017, 6:00:00") },
 
-            { "december 31, 2017", DateTime.Parse("12/31/2017, 00:00:00") },
+            { "december 31 2017", DateTime.Parse("12/31/2017, 00:00:00") },
 
             { "evening yesterday", DateTime.Parse("7/19/2017, 18:00:00") },
 
-            { "february 14, 2004", DateTime.Parse("2/14/2004, 00:00:00") },
+            { "february 14 2004", DateTime.Parse("2/14/2004, 00:00:00") },
 
             { "fifth of may 2017", DateTime.Parse("5/5/2017, 00:00:00") },
 
@@ -322,7 +324,7 @@ namespace Tests
 
             { "afternoon yesterday", DateTime.Parse("7/19/2017, 13:00:00") },
 
-            { "february 14th, 2004", DateTime.Parse("2/14/2004, 00:00:00") },
+            { "february 14th 2004", DateTime.Parse("2/14/2004, 00:00:00") },
 
             { "four weeks from now", DateTime.Parse("8/17/2017, 00:00:00") },
 
@@ -346,7 +348,7 @@ namespace Tests
 
             { "sat 7 in the evening", DateTime.Parse("7/22/2017, 19:00:00") },
 
-            { "Sun, Nov 2nd of 1990", DateTime.Parse("11/2/1990, 00:00:00") },
+            { "Sun Nov 2nd of 1990", DateTime.Parse("11/2/1990, 00:00:00") },
 
             { "sunday november 26th", DateTime.Parse("11/26/2017, 00:00:00") }, //Should i check that the 26 is a sunday
 
@@ -584,13 +586,13 @@ namespace Tests
 
             { "Friday the 21st of November 1997", DateTime.Parse("11/21/1997, 00:00:00") },
 
-            { "Sun, Nov 2nd of 1990 at 10:30 pm", DateTime.Parse("11/2/1990, 22:30:00") },
+            { "Sun Nov 2nd of 1990 at 10:30 pm", DateTime.Parse("11/2/1990, 22:30:00") },
 
             { "The 22nd of march in the year 2010", DateTime.Parse("3/22/2010, 00:00:00") },
 
             { "independence day during the night", DateTime.Parse("7/4/2017, 21:00:00") },
 
-            { "July, 15 of 2014 10:30:20.1000 PM", DateTime.Parse("7/15/2014, 22:30:20") },
+            { "July 15 of 2014 10:30:20.1000 PM", DateTime.Parse("7/15/2014, 22:30:20") },
 
             { "next saturday 7:00 in the evening", DateTime.Parse("7/29/2017, 19:00:00") },
 
@@ -634,38 +636,54 @@ namespace Tests
         public ParsingTestBench(ChronoxSettings settings)
         {
             this.settings = settings;
+            this.chronox = ChronoxParser.GetInstance(settings);
+
+            Console.WriteLine("Chronox instance built!");
+            Console.WriteLine();
         }
 
         public void TestDateTimeParsing()
         {
-            var chronox = ChronoxParser.GetInstance(settings);
+            TestDateTimeParsing(TestData.Keys.ToArray());
+        }
 
-           // ChronoxParser.ParseDateTime(""):
-
-
+        public void TestDateTimeParsing(params string[] expressions)
+        {
+  
             var allPassed = true;
 
-            foreach (var expression in TestData.Keys)
+            var failCounter = 0;
+
+            var random = new Random();
+
+            foreach (var expression in expressions)
             {
-                var text = $"I will come and visit you on {expression}";
+                var text = $"I will come and visit you on {expression}, please be ready!";
 
                 var result = chronox.ParseDateTime(Reference, text);
 
                 var date = result?[0].DateTime.ToDateTime();
 
-                AreEqual(expression, TestData[expression].ToString(), date.ToString(), ref allPassed);
+                var match = AreEqual(expression, TestData[expression].ToString(), date.ToString(), ref allPassed);
+
+                if(!match){
+
+                    failCounter++;
+                }
             }
 
             if (allPassed)
             {
-                Console.WriteLine("All passed!");
+                Console.WriteLine($"All {expressions.Length} passed!");
+            }else{
+                Console.WriteLine();
+                Console.WriteLine($"A total of {failCounter} expressions have failed the test!");
             }
         }
 
         public void TryDectect()
         {
-            var chronox = ChronoxParser.GetInstance(settings);
-
+  
             foreach (var expression in TestData.Keys)
             {
                 var result = chronox.ParseDateTime(Reference, expression);
@@ -679,9 +697,12 @@ namespace Tests
 
         public void TestDateTime(string expression)
         {
-            var chronox = ChronoxParser.GetInstance(settings);
+            TestDateTime(Reference, expression);
+        }
 
-            var result = chronox.ParseDateTime(expression);
+        public void TestDateTime(DateTime reference, string expression)
+        {
+            var result = chronox.ParseDateTime(reference, expression);
 
             var date = result?[0].DateTime.ToDateTime();
 
@@ -689,15 +710,15 @@ namespace Tests
             {
                 if(result[0].TimeZone != null)
                 {
-                    Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeZone}");
+                    Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeZone}  | Extraction =  { result[0].Extraction}");
                 }
                 else if(result[0].TimeOffset != null)
                 {
-                    Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeOffset}");
+                    Console.WriteLine($"{expression} | {date} | {result?[0]?.TimeOffset} | Extraction =  { result[0].Extraction}");
                 }
                 else
                 {
-                    Console.WriteLine($"{expression} | {date}");
+                    Console.WriteLine($"{expression} | {date} | Extraction =  { result[0].Extraction}");
                 }
 
                 Console.WriteLine();
@@ -707,8 +728,6 @@ namespace Tests
 
         public void TestTimeSpan(string expression)
         {
-            var chronox = ChronoxParser.GetInstance(settings);
-
             var result = chronox.ParseTimeSpan(expression);
 
             var span = result?[0].TimeSpan.ToTimeSpan();
@@ -720,17 +739,22 @@ namespace Tests
 
         }
 
-        private void AreEqual(string expression, string expected, string actual, ref bool allPassed)
+        private bool AreEqual(string expression, string expected, string actual, ref bool allPassed)
         {
             if (string.Compare(expected, actual) != 0)
             {
-                Console.WriteLine(string.Concat("Expression: ",expression, "  FAILED!"));
+
+                Console.WriteLine(string.Concat("Expression: ", expression, "  FAILED!"));
                 Console.WriteLine(string.Concat("Expected: ", expected));
                 Console.WriteLine(string.Concat("Result: ", actual));
                 Console.WriteLine();
 
                 allPassed = false;
+
+                return false;
             }
+
+            return true;
         }
 
         public static void Generate(string[] expressions, DateTime[] ExpectedResults, string path)
@@ -760,7 +784,7 @@ namespace Tests
 
         internal void ProcessChronoxExpression(string expression)
         {
-            var chronox = ChronoxParser.GetInstance(settings);
+  
 
             if (string.IsNullOrEmpty(expression))
             {

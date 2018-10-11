@@ -2,11 +2,11 @@
 
 assumeSpace: true
 
-commonPunctuation: [,], [.], [?], [!]			//* Soon to be supported! *//
+commonPunctuation: [,|,], [.|,], [?|,], [!|,]			
 
-commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
+commonDateSeparators: [/], [-], [ ], [.]		
 
-commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
+commonTimeSeparators: [:], [：], [.], [ ]		
 
 ordinalSuffixes: st, nd, rd, th
 
@@ -19,8 +19,8 @@ timeSpanIgnored: a
 timeSetIgnored: 
 
 supportedDateTimeFormats:
-
-	D.O.W
+   
+   	D.O.W
 	D.O.W|D.T|T.M
 	D.O.W|D.T|T.M|T.Z
 	D.O.W|D.T|T.M|T.O.D
@@ -33,7 +33,7 @@ supportedDateTimeFormats:
 	M.O.Y|N
 	D.O|N|T.U.B|T.C|T.E
 	N|T.U.B|T.C|T.E|D.O
-
+	
 supportedTimeRangeFormats:
 
 supportedTimespanFormats:
@@ -155,8 +155,8 @@ dayOffsets: combined
 	key: tomorrow
 	value: 1
 	type: group
-	pattern: tom(?:orrow)
-	variations:  tomorrow, tom, tommorow
+	pattern: tom(?:(orrow|morrow|morow))
+	variations:  tomorrow, tom, tommorrow, tommorow
 
 	key: yesterday
 	value: -1
@@ -199,14 +199,14 @@ julianDay: n/a
 	key: sunrise
 	value: n/a
 	type: group
-	pattern: sunrise
-	variations:  sunrise
+	pattern: sunrise|dusk
+	variations:  sunrise, dusk
 
 	key: sunset
 	value: n/a
 	type: group
-	pattern: sunset
-	variations:  sunset
+	pattern: sunset|dawn
+	variations:  sunset, dawn
 
 	<----------------->
 
@@ -409,25 +409,25 @@ rangeSeparators: n/a
 holidays: combined
 
 	key: new year's day
-	value: january 1
+	value: ####-1-1
 	type: group
 	pattern: New\s*wYear's(?:\s*Day)?
 	variations:  New Year's Day, New Year's
 
 	key: new year's eve
-	value: december 31
+	value: ####-12-31
 	type: group
 	pattern: New\s*wYear's(?:\s*Eve)?
 	variations:  New Year's Eve
 
 	key: christmass day
-	value: december 25
+	value: ####-12-25
 	type: group
 	pattern:
 	variations:  Christmass day, Christmass
 
 	key: independence day
-	value: july 4
+	value: ####-7-4
 	type: group
 	pattern: Independence\s*Day
 	variations:  Independence Day
@@ -451,19 +451,19 @@ holidays: combined
 	variations:  Labor Day
 
 	key: valentines day
-	value: february 4th
+	value: ####-2-14
 	type: group
 	pattern: Valentines(?:\s*Day)
 	variations:  Valentines Day, Valentines
 
 	key: holloween
-	value: october 31
+	value: ####-10-31
 	type: group
 	pattern: Holloween
 	variations:  Holloween
 
 	key: april fools fay
-	value: april 1st
+	value: ####-4-1
 	type: group
 	pattern: April\s*Fools(?:\s*Day)
 	variations:  April Fools Day, April Fools
@@ -553,25 +553,25 @@ daysOfWeek: combined
 seasonsOfYear: combined
 
 	key: spring
-	value: 0
+	value: 4/15        //*Start of spring*//
 	type: group
 	pattern: spring(s)?
 	variations:  spring
 
 	key: summer
-	value: 1
+	value: 6/15        //*Start of summer*//
 	type: group
 	pattern: summer(s)?
 	variations:  summer
 
 	key: autumn
-	value: 2
+	value: 9/15        //*Start of autumn*//
 	type: group
 	pattern: autumn(s)?|fall(s)?
 	variations:  autumn, fall
 
 	key: winter
-	value: 3
+	value: 11/15        //*Start of winter*//
 	type: group
 	pattern: winter(s)?
 	variations:  winter

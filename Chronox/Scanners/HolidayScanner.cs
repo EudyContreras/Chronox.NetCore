@@ -34,7 +34,13 @@ namespace Chronox.Scanners
 
                 foreach (var wrapper in result.ResultWrappers)
                 {
-                    var value = option.Language.Holidays[holidays[wrapper.TextOriginal]];
+                    var holiday = option.Language.Holidays[holidays[wrapper.TextOriginal]];
+
+                    var value = holiday;
+
+                    if(holiday.Contains("####")){;
+                        value = holiday.Replace("####", option.ReferenceDate.Year.ToString());
+                    }
 
                     wrapper.TextReplacement = value;
 

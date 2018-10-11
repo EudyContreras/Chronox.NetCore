@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Chronox.Handlers
 {
-    public class LangDataHandler
+    public static class LangDataHandler
     {
         private const string Language = "language";
         private const string AssumeSpace = "assumespace";
@@ -88,7 +88,7 @@ namespace Chronox.Handlers
 
         public static void GenerateTemplateTxt()
         {
-            var lines = ReadFile(GetPath(Definitions.LangDataPath, Definitions.DefaultLanguage, ".txt")).Select(s => s.TrimEnd());
+            var lines = ReadFile(GetPath(Definitions.LangDataPath, Definitions.DefaultLanguage.LanguageName, ".txt")).Select(s => s.TrimEnd());
 
             var newLines = new List<string>();
 
@@ -133,7 +133,7 @@ namespace Chronox.Handlers
 
                     if (parts.Length > 1)
                     {
-                        if (!line.StartsWith("//*"))
+                        if (!line.StartsWith("//*",StringComparison.OrdinalIgnoreCase))
                         {
                             lines.Add(parts[0]);
                         }
@@ -189,7 +189,7 @@ namespace Chronox.Handlers
 
                             if (value != null)
                             {
-                                glossary.Language = value;
+                                glossary.Language = new Language(value,ChronoxLangSettings.Default);
                             }
                             break;                        
                         case AssumeSpace:
@@ -203,7 +203,7 @@ namespace Chronox.Handlers
 
                             if (value != null)
                             {
-                                glossary.CommonPunctuation = CollectWrappedSymbols(value);
+                                glossary.CommonPunctuation = CollectPunctuation(value);
                             }
                             break;
                         case CommonDateSeparators:
@@ -289,19 +289,42 @@ namespace Chronox.Handlers
             return glossary;
         }
 
-        private static List<string> CollectWrappedSymbols(string value)
+        private static List<char> CollectWrappedSymbols(string value)
         {
-            var symbols = new List<string>();
+            var symbols = new List<char>();
+
 
             for(int i = 0; i<value.Length; i++)
             {
                 if(value[i] == '[')
                 {
-                    symbols.Add(value[i + 1].ToString());
+                    symbols.Add(value[i + 1]);
+
                 }
             }
 
             return symbols;
+        }
+
+        private static List<Tuple<char,char>> CollectPunctuation(string value)
+        {
+            var tuples = new List<Tuple<char,char>>();
+       
+            for (int i = 0; i < value.Length; i++)
+            {
+                
+               
+                if (value[i] == '[')
+                {
+                    var tuple = new Tuple<char, char>(value[i + 1],value[i + 3]);
+
+                    tuples.Add(tuple);
+
+                }
+ 
+            }
+
+            return tuples;
         }
 
         private static string CreateValue(string[] parts)

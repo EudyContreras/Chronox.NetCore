@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Chronox.Interfaces
 {
-    public interface IChronoxParseHelper<TResult>
+    public interface IChronoxParser<TResult>
     {
         void ProcessRepeaterIndicator(TResult result, List<GroupWrapper> foundGroups, ref DateTime dateTime, ChronoxBuildInformation information, DateRepeaterIndicator repeaterIndicator);
 

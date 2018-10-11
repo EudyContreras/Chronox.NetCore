@@ -218,7 +218,7 @@ namespace Chronox.Scanners
 
                     if (startIndex == -1)
                     {
-                        startIndex = expression.IndexOf(sect);
+                        startIndex = expression.IndexOf(sect, StringComparison.OrdinalIgnoreCase);
                     }
                 }
             }
@@ -242,7 +242,7 @@ namespace Chronox.Scanners
 
                     if (startIndex == -1)
                     {
-                        startIndex = expression.IndexOf(sect);
+                        startIndex = expression.IndexOf(sect, StringComparison.OrdinalIgnoreCase);
                     }
                 }
             }
@@ -269,7 +269,7 @@ namespace Chronox.Scanners
 
                     if (startIndex == -1)
                     {
-                        startIndex = expression.IndexOf(sect);
+                        startIndex = expression.IndexOf(sect, StringComparison.OrdinalIgnoreCase);
                     }
                 }
             }

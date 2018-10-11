@@ -13,11 +13,17 @@ namespace Chronox.Wrappers
 
         public Match Match { get; set; }
 
-        public MatchWrapper(PatternSequence sequence, Match match)
+        public int PartCount { get; private set; }
+
+        public MatchWrapper(PatternSequence sequence, Match match, int count)
         {
-            this.Sequence = sequence;
-            this.Match = match;
+            Sequence = sequence;
+            Match = match;
+            PartCount = count;
         }
+
+        public MatchWrapper(PatternSequence sequence, Match match) : this(sequence,match, match.Value.Trim().Split(' ').Length){}
+
 
         public override string ToString()
         {

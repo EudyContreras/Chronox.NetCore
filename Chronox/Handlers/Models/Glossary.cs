@@ -7,15 +7,15 @@ namespace Chronox.Handlers.Models
 {
     public class Glossary : IEquatable<Glossary> , IComparable<Glossary>, IEqualityComparer<Glossary>
     {
-        public string Language { get; internal set; } = Definitions.DefaultLanguage;
+        public Language Language { get; internal set; } = Definitions.DefaultLanguage;
 
         public bool AssumeSpace { get; internal set; } = true;
 
-        public List<string> CommonPunctuation { get; internal set; }
+        public List<Tuple<char, char>> CommonPunctuation { get; internal set; }
 
-        public List<string> CommonDateSeparators { get; internal set; }
+        public List<char> CommonDateSeparators { get; internal set; }
 
-        public List<string> CommonTimeSeparators { get; internal set; }
+        public List<char> CommonTimeSeparators { get; internal set; }
 
         public List<string> DateTimeIgnored { get; internal set; }
 
@@ -39,12 +39,12 @@ namespace Chronox.Handlers.Models
 
         public int CompareTo(Glossary other)
         {
-            return string.Compare(Language, other.Language, true);
+            return string.Compare(Language.LanguageName, other.Language.LanguageName, true);
         }
 
         public bool Equals(Glossary other)
         {
-            return Language.Equals(other.Language, StringComparison.OrdinalIgnoreCase);
+            return Equals(other.Language, StringComparison.OrdinalIgnoreCase);
         }
 
         public bool Equals(Glossary x, Glossary y)
@@ -59,7 +59,7 @@ namespace Chronox.Handlers.Models
 
         public override string ToString()
         {
-            return Language;
+            return Language.LanguageName;
         }
     }
 }

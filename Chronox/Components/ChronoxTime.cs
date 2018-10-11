@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chronox
 {
-    public class ChronoxTime
+    public class ChronoxTime : IComparable<ChronoxTime>
     {
         public int Hours { get; set; }
 
@@ -86,7 +86,12 @@ namespace Chronox
             return this;
         }
 
+
         public override string ToString() => $"{Hours}:{Minutes}:{Seconds}:{MilliSecond}";
-        
+
+        public int CompareTo(ChronoxTime other)
+        {
+            return Hours != other.Hours ? Hours - other.Hours : Minutes != other.Minutes ? Minutes - Minutes : Seconds != other.Seconds ? Seconds - other.Seconds : MilliSecond != other.MilliSecond ? MilliSecond - other.MilliSecond : 0;
+        }
     }
 }

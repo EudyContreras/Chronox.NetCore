@@ -25,21 +25,20 @@ namespace Chronox.Wrappers
             Name = group.Name;
         }
 
-        public GroupWrapper(Capture group)
+        public GroupWrapper(Capture capture)
         {
             Group = null;
-            Value = group.Value;
-            Index = group.Index;
-            //Name = group.Name;
+            Value = capture.Value;
+            Index = capture.Index;
         }
 
         public override string ToString() => Value;
 
         public int CompareTo(GroupWrapper other)
         {
-            var a = Value.CompareTo(other.Value);
+            var a = string.Compare(Value, other.Value, StringComparison.OrdinalIgnoreCase);
 
-            var b = Name.CompareTo(other.Name);
+            var b = string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
 
             return a / b;
         }

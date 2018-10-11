@@ -18,5 +18,22 @@ namespace Chronox.Components
         {
             return $"{StandardName}  {Offset}";
         }
+
+        public ChronoxTimeZone SubstractOffset(ChronoxTimeZone timeZone){
+            
+            Offset = Offset.Subtract(timeZone.Offset);
+
+            return this;
+        }
+
+        public ChronoxTimeZone AddOffset(ChronoxTimeZone timeZone)
+        {
+
+            Offset = Offset.Add(timeZone.Offset);
+
+            return this;
+        }
+
+ 
     }
 }
