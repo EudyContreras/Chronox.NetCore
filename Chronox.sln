@@ -9,10 +9,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		CONTRIBUTING.md = CONTRIBUTING.md
-		LICENSE = LICENSE
+		LICENSE.txt = LICENSE.txt
 		NETCORE.png = NETCORE.png
 		SUPPORT.md = SUPPORT.md
 		NLP.png = NLP.png
+        SEQUENCES.md = SEQUENCES.md
+        SETTINGS.md = SETTINGS.md
+        TIMEZONES.md = TIMEZONES.md
+        CODES.md = CODES.md
+        TEMPLATE.txt = TEMPLATE.txt
+
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronox.Tests", "Chronox.Tests\Chronox.Tests.csproj", "{84737D8A-4FD6-4460-BF89-8D2CA88E3C09}"

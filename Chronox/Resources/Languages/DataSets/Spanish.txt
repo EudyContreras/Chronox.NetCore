@@ -2,11 +2,11 @@
 
 assumeSpace: true
 
-commonPunctuation: [,], [.], [?], [!]			//* Soon to be supported! *//
+commonPunctuation: [,|,], [.|,], [?|,], [!|,]           			
 
-commonDateSeparators: [/], [-], [ ], [.]		//* Soon to be supported! *//
+commonDateSeparators: [/], [-], [ ], [.]		
 
-commonTimeSeparators: [:], [：], [.], [ ]		//* Soon to be supported! *//
+commonTimeSeparators: [:], [：], [.], [ ]		
 
 ordinalSuffixes: 
 
