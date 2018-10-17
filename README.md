@@ -461,11 +461,7 @@ When parsing a date conflicts or ambiguity may occur due to the fact that maybe 
 * If no day is specified in expressions such as "next month" the day will be set to the first of said month.
 * If no day is specified in expressions such as "in 4 months", the dayofweek will be left the same,
 * The settings is still in WIP. More options will be added and some may be removed.
-<<<<<<< Updated upstream
 * Chronox has some limitations and in its current state it may failed to accurately extract data if common sentence forming conventions are not used such as proper punctuation. A fix for this is being prioritized
-=======
-* Currently `Chronox` relies on grammar rules such as punctuation (commas, periods) after date expression. Currently working on fixing this.
->>>>>>> Stashed changes
 
 ## Future works:
 
